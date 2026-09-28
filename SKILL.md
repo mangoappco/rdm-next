@@ -83,7 +83,7 @@ que `--icon-only`.
 
 | # | Decision | Valor | Por que |
 |---|---|---|---|
-| 1 | Tipografia | **Roboto** 400+500 via Google Fonts | Es lo que M3 especifica. Se evaluaron Product Sans (licencia restringida, no esta en el Theme Builder) y Google Sans (la usa material.io, pero no es la spec). Cambiar despues son 15 lineas |
+| 1 | Tipografia | **Google Sans** variable 400..700 via Google Fonts | Se evaluaron Roboto (spec M3, estaba en v0.1-v0.7), Product Sans (licencia restringida, no esta en el Theme Builder) y Google Sans (la usa material.io). Override de 2 tokens en `additions.css`, no 15: `--md-ref-typeface-plain` y `-brand`. Pesos 400/500 segun M3 (475 es lo que shippea Google, se descarta). Sin `opsz` (rango 17..18 sin efecto visible) ni `GRAD` (default neutro) ni cursivas (la escala no las usa) |
 | 2 | Tema | **Solo `prefers-color-scheme`**, sin JS ni `data-theme` | El toggle JS de la libreria anterior tenia `VAR_KEYS` hardcodeado y dejaba 6 tokens (`surface-container-*`) sin re-tematizar. Sin JS ese bug no puede existir. Costo: se pierde el toggle manual |
 | 3 | Capas | **ref -> sys -> comp**, las tres | `ref` paletas crudas, `sys` roles con tema, `comp` tokens por componente. Un componente nunca lee `ref` |
 | 4 | Vendor separado | `vendor/material-tokens/` intacto en `css/` | Cada token propio es demostrablemente de Google. Lo nuestro vive en `additions.css` y `project.css`, aislado |
@@ -178,8 +178,9 @@ powershell -ExecutionPolicy Bypass -File tools/verify-tokens.ps1
 | DSP consumido | `var()` a `-value`, `-unit` o `axis-value` (ruido de Figma) |
 | Imports | Todos los `@import` relativos resuelven a archivo existente; se saltan los `https://` |
 | Texto pelado | Ningun `<p>` ni `<h1-h6>` sin clase en los `.html` |
+| Fuente conectada | `--md-ref-typeface-plain/-brand` (valor efectivo) cargada via `<link>` en los HTML |
 
-Corre en cada commit de la capa de tokens. Estado actual: 8/8 en verde.
+Corre en cada commit de la capa de tokens. Estado actual: 9/9 en verde.
 
 **Leccion v0.5:** el import de `primitives/typography.css` se escribio como
 `../primitives/` (sube un nivel de mas) y la hoja nunca llego al navegador:
@@ -215,15 +216,20 @@ cualquier `@import` relativo roto, probado con archivo temporal.
 - **v0.6** - Showroom usa su propia primitiva: los 3 `h1` a
   `display-small` y los 13 `h2` a `title-large` en las 3 paginas. 0
   headings pelados en el proyecto (verificado por conteo).
-- **v0.7** - Default del `body` a body-medium (estilo base de UI en M3) y
-  28 parrafos con clase explicita por categoria (nav `label-large` x2,
+- **v0.7** - Default del `body` a body-medium (estilo base de UI en M3) y  28 parrafos con clase explicita por categoria (nav `label-large` x2,
   copy `body-large` x3, swatch `title-medium` x8, spec `body-small` x15).
   Check 8: ningun `<p>` ni `<h1-h6>` pelado en los HTML, probado contra
   archivo temporal. Convencion tipografica documentada.
+- **v0.8** - Tipografia a Google Sans (variable 400..700 via `<link>`).
+  Override de 2 tokens en `additions.css` (`--md-ref-typeface-plain` y
+  `-brand`); los 15 roles siguen la cadena solos. Sin `opsz`/`GRAD`/
+  cursivas (no aportan). Pesos 400/500 segun M3, no 475. Check 9: la
+  familia del token debe estar cargada en los HTML, probado en ambos
+  sentidos (stash del override -> ROTA Roboto x2).
 
 ## 10. Decisiones pendientes
 
-- [ ] Peso mediano con Google Sans si se cambia de fuente: 500 (spec M3) o 475 (lo que shippea Google). Solo aplica si se abandona Roboto.
+- [x] Peso mediano con Google Sans: **500** segun spec M3 (resuelto en v0.8; 475 es lo que shippea Google, descartado).
 - [ ] `surface-variant` en depreciacion: mantener el token del vendor o alias a `highest`. No tocar hasta que un componente lo necesite.
 - [ ] Easing y duraciones de motion por componente: los tokens existen (45 en `motion.css`), falta mapearlos al construir cada componente. `160ms` no es token M3.
 - [ ] Zona header/avatar de card y taxonomia de actions: documentadas en la libreria anterior, aplicar al construir Card.

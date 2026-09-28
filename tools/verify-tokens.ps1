@@ -133,6 +133,35 @@ foreach ($f in (Get-ChildItem "$root\*.html" -ErrorAction SilentlyContinue)) {
 }
 if ($bare -eq 0) { Write-Output "  ninguno" } else { $fail++ }
 
+# 9. Fuente conectada: la familia de --md-ref-typeface-plain/-brand
+# (valor efectivo tras overrides propios) debe estar cargada via <link>
+# en los HTML. Evita repetir el desacople link-vs-token.
+Write-Output ""
+Write-Output "=== Fuente conectada (token ref vs <link>) ==="
+$mj = 0
+$ownCss = ""
+foreach ($f in $ownFiles) { $ownCss += (Read-Css $f.FullName) + "`n" }
+$vendorTypo = Read-Css "$root\vendor\material-tokens\css\typography.css"
+$loaded = @()
+foreach ($h in (Get-ChildItem "$root\*.html" -ErrorAction SilentlyContinue)) {
+  $ht = Read-Css $h.FullName
+  foreach ($m in ([regex]::Matches($ht, 'family=([^:&]+)'))) {
+    $loaded += ($m.Groups[1].Value -replace '\+', ' ')
+  }
+}
+$loaded = $loaded | Sort-Object -Unique
+foreach ($role in @("plain","brand")) {
+  $mOwn = [regex]::Match($ownCss, '--md-ref-typeface-' + $role + '\s*:\s*"([^"]+)"')
+  if ($mOwn.Success) { $fam = $mOwn.Groups[1].Value }
+  else {
+    $mVen = [regex]::Match($vendorTypo, '--md-ref-typeface-' + $role + '\s*:\s*([^;]+)')
+    $fam = $mVen.Groups[1].Value.Trim()
+  }
+  if ($loaded -contains $fam) { Write-Output ("  OK   typeface-" + $role + ": " + $fam + " (cargada)") }
+  else { Write-Output ("  ROTA typeface-" + $role + ": " + $fam + " (no esta en ningun <link>)"); $mj++ }
+}
+if ($mj -eq 0) { Write-Output "  --> conectadas" } else { $fail++ }
+
 Write-Output ""
 if ($fail -eq 0) { Write-Output "OK: capa de tokens integra" } else { Write-Output ("FALLA: " + $fail + " chequeo(s)") }
 exit $fail

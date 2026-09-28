@@ -17,9 +17,19 @@
   define surface como var(--md-ref-palette-neutral99) y neutral99 es
   #FFFBFE, asi que este archivo es consistente con el vendor. #FEF7FF
   pertenece a un baseline mas nuevo con otro seed.
+
+  Tipografia (v0.8): el vendor declara --md-ref-typeface-plain y -brand
+  como Roboto. Se sobreescriben a Google Sans (variable, via <link> en
+  los HTML). Este archivo se importa despues de typography.css, asi que
+  el override gana por cascada. Los 15 roles siguen la cadena solos:
+  15 consumidores, 2 origenes. Pesos sin tocar: 400/500 segun M3.
 */
 
 :root {
+  /* --- Typeface (override del vendor: Roboto -> Google Sans) --- */
+  --md-ref-typeface-plain: "Google Sans";
+  --md-ref-typeface-brand: "Google Sans";
+
   /* --- Base / canvas --- */
   /* surface (neutral99) y surface-variant ya vienen del vendor. Solo dim: */
   --md-sys-color-surface-dim: #DED8E1; /* neutral87 */
