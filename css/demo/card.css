@@ -24,3 +24,13 @@
 .demo-card-icon {
   color: var(--md-sys-color-primary);
 }
+
+/* Full-bleed dentro de card: rompe el padding 16 del container para ir
+   de borde a borde (spec: full-width para regiones expandibles). El
+   inline-size vuelve a auto: con el 100% del divider base los margenes
+   negativos corren la caja sin estirarla. Solo staging del showroom;
+   el patron real llega con el paso 4 (media). */
+.demo-card-divider-full {
+  margin-inline: calc(var(--rdm-space-200) * -1);
+  inline-size: auto;
+}

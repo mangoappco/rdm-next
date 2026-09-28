@@ -29,6 +29,15 @@
 .demo-shape--extra-large {
   border-radius: var(--md-sys-shape-corner-extra-large-default-size);
 }
+.demo-shape--large-increased {
+  border-radius: var(--md-sys-shape-corner-large-increased-default-size);
+}
+.demo-shape--extra-large-increased {
+  border-radius: var(--md-sys-shape-corner-extra-large-increased-default-size);
+}
+.demo-shape--extra-extra-large {
+  border-radius: var(--md-sys-shape-corner-extra-extra-large-default-size);
+}
 .demo-shape--full {
   border-radius: var(--md-sys-shape-corner-full-default-size);
 }

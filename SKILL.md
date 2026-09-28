@@ -93,6 +93,10 @@ que `--icon-only`.
 | 8 | Clase base | `.rdm-button` + `.rdm-button--filled`, siempre las dos | La libreria anterior usaba modificadores sin base y selectores `button { }` globales: M3 nunca aplica estilos a etiquetas nativas y sin base habia que duplicar geometria por variante (bug de sincronizacion card/form). La base lleva geometria, shape y state layer; la variante solo color y elevacion. Tipografia por composicion con `rdm-typography--*` en el HTML (v0.22), no redeclarada |
 | 9 | M3 core, no Expressive | **Target M3 core** (vendor pre-2023 + material-web v0.192) | M3 Expressive (May 2025: 5 tamanos, square, shape morph, toggle, springs, padding 16dp) no esta disponible para Web en botones. No somos ancient, somos baseline-matched: 24dp padding, round, small, duration+easing |
 | 10 | Spacing | `--rdm-space-*` con nomenclatura M3 (`space100` = 8dp) | El sistema es spec pero los tokens son Compose-only (Web Unavailable); misma nomenclatura para migracion 1:1 si llegan |
+| 11 | Medidas de card | **Solo el container tiene medidas**: 12dp shape, 16dp left/right padding, 8dp max entre cards, start-aligned. **La media no tiene medida y es libre por diseno** | La tabla de `cards/specs` publica exactamente esas 4 filas y ninguna mas. La spec dice "Card size is determined by the elements it contains": M3 no prescribe aspect ratio ni thumbnail fijo, el componente es slot-based. No se inventan 16:9 ni 80x80 (auditados: sin fuente). `mango-next` elige la proporcion de sus imagenes sin violar M3 |
+| 12 | Inset divider | **16dp**, igual al padding del container | La spec define full-width e inset pero no da el numero del inset. Se infiere del padding (16dp), que si esta publicado, para que la linea alinee con el texto. Decision de proyecto, no dato de tabla |
+| 13 | Elevacion del container | **Solo el container expresa elevacion**; ningun slot interno lleva sombra | Texto oficial: "Card elevation is expressed by the container". Dos elementos con sombra dentro se leerian como dos superficies |
+| 14 | Bloques de contenido | **Los slots se agrupan en bloques** con enfasis variable; **el padding es del contenido, no del container** | 3 fuentes: imagen edge-to-edge (flush al borde), content blocks ("grouped into blocks"), media contenida entre texto y actions. Prepara el refactor opcion A del paso 4 |
 
 ## 6. Capa de tokens
 
@@ -207,8 +211,11 @@ powershell -ExecutionPolicy Bypass -File tools/verify-tokens.ps1
 | Base sin estados | Ninguna `.rdm-card` no-interactive lleva `.rdm-state-layer`; `cursor: pointer` solo en `--interactive` |
 | Un solo tab stop | Ninguna card no-interactive lleva `tabindex` ni `role` |
 | Anillo de foco | La primitiva declara el focus indicator (`secondary` 3px, offset 2px) en `:focus-visible` |
+| Shape post-2023 | Los 3 niveles ausentes en el vendor existen en `css/` propio con valor exacto (20/32/48) |
+| Medidas de card | La tabla Specs de `card.html` lista los 4 valores que publica `cards/specs` (12dp, 16dp, 8dp max, start-aligned) |
+| Inset alineado | El inset del divider usa el mismo token que el padding del container (decision 12) |
 
-Corre en cada commit de la capa de tokens. Estado actual: 35/35 en verde.
+Corre en cada commit de la capa de tokens. Estado actual: 38/38 en verde.
 
 **Leccion v0.5:** el import de `primitives/typography.css` se escribio como
 `../primitives/` (sube un nivel de mas) y la hoja nunca llego al navegador:
@@ -404,6 +411,9 @@ cualquier `@import` relativo roto, probado con archivo temporal.
 - **v0.36** - Card paso 2 (texto) + a11y: seccion Text con caso completo (headline+subhead+supporting) y minimo (sin subhead). Fix spacing entre cards 16→8 (`space-100`); actions se queda en 16. Texto interactive corregido (rol link: Enter si, Space no). Check 33: base sin estados (sin layer, cursor pointer solo en interactive). Check 34: un solo tab stop (no tabindex/role en no-interactive). Focus indicator pasa a v0.38.
 - **v0.37** - State 0.10: focus/pressed pasan de 0.12 a 0.10 (pagina de fundamentos state-layers + tabla de Card; el 0.12 era M2 arrastrado por el vendor). Toca los 4 componentes con layer via token, sin reglas por componente. Check 14 corregido a 0.08/0.10/0.16. Hallazgo para v0.38: layer 40dp vs target 48dp (el `inset: 0` de la primitiva no distingue).
 - **v0.38** - Focus indicator transversal: anillo secondary 3px offset 2px en `:focus-visible` dentro de la primitiva (los 4 componentes lo heredan; el outline sigue el radio de cada uno). Sin hit-slop de 48dp (decision de proyecto: anillo al borde visible + 2px). Outlined interactive: borde a on-surface en focus (unico estado donde el outline se mueve) + demo outlined en Interactive para verificarlo. Check 35: anillo presente, probado quitando la regla.
+- **v0.39** - Auditoria de baseline: vendor shape con 7 de 10 niveles (faltan large-increased 20, extra-large-increased 32, extra-extra-large 48; ningun valor mal, solo huecos). Agregados en additions.css con el patron del vendor; shape.html con los 10 + advertencia no-large/full-en-densas en Rules de card. Resultado: state contaminada (M2, corregida v0.37), shape incompleta (corregida), elevation/motion/color OK. Sombras M3 pendientes (distancias OK, recetas M2). Check 36: shape post-2023 con valor exacto, probado quitando un token.
+- **v0.40** - Decisiones 11 y 12: medidas solo del container (12/16/8dp/start) y media libre por diseno; inset divider = padding 16dp por inferencia. La tabla de `cards/specs` renderiza con 4 filas; un analisis externo que afirmaba que M3 elimino las specs de card no se sostiene contra la fuente primaria, y sus numeros de media (16:9, 80x80, edge-to-edge) no tienen cita. Anatomy marca el paso 4 como libre por diseno en vez de bloqueado. Check 37: los 4 valores en la tabla Specs.
+- **v0.41** - Card paso 3 (dividers): seccion Dividers con full-width (rompe el padding via clase demo, solo staging hasta el paso 4) e inset (divider base: el padding alinea solo). Decisiones 13 (elevacion solo del container) y 14 (bloques con enfasis; padding del contenido, 3 fuentes). Regla en Rules. Check 38: inset alineado al padding, probado cambiando el padding.
 - **v0.26** - Divider: `css/comp/divider.css` (full/inset/middle-inset/vertical, 1px outline-variant) y `divider.html`. Inset 16 solo izquierda (la tabla dice 16/0, middle 16/16). Chrome migrado: 45 `<hr>` entre secciones (+1 escrito a mano), border-top fuera de showroom.css. Check 23: sin border-top en demo, probado contra borde agregado.
 - **v0.25** - Chrome compartido: `css/demo/showroom.css` (ritmo vertical
   space-400 + divisores outline-variant 1px, sin background-color) linkeado

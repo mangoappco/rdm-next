@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="es">
 <head>
   <meta charset="UTF-8">
@@ -64,7 +64,7 @@
     <div class="demo-card-spacing">
       <div class="rdm-card rdm-card--elevated">
         <p class="rdm-typography--title-large">Viaje al sur</p>
-        <p class="rdm-typography--title-small">12 fotos · Patagonia</p>
+        <p class="rdm-typography--title-small">12 fotos Â· Patagonia</p>
         <p class="rdm-typography--body-medium">Tres dias de ruta, dos lagos y un condor que salio movido.</p>
       </div>
       <div class="rdm-card rdm-card--filled">
@@ -76,6 +76,36 @@
 
   </section>
   <!-- FIN: card text -->
+
+  <hr class="rdm-divider">
+
+  <!-- INICIO: card dividers -->
+  <section>
+    <h2 class="rdm-typography--title-large">Dividers</h2>
+    <p class="rdm-typography--body-large">Paso 3: full-width para regiones
+       expandibles, inset para separar contenido relacionado. El inset
+       es el padding del container (16dp, decision 12): el divider base
+       ya alinea con el texto sin modificador.</p>
+
+    <!-- INICIO: card dividers demo -->
+    <div class="demo-card-spacing">
+      <div class="rdm-card rdm-card--elevated">
+        <p class="rdm-typography--title-large">Viaje al sur</p>
+        <p class="rdm-typography--body-medium">Tres dias de ruta y dos lagos.</p>
+        <hr class="rdm-divider demo-card-divider-full">
+        <p class="rdm-typography--body-medium">Region expandible: el divider va de borde a borde.</p>
+      </div>
+      <div class="rdm-card rdm-card--filled">
+        <p class="rdm-typography--title-large">Notas de campo</p>
+        <p class="rdm-typography--body-medium">Texto relacionado arriba.</p>
+        <hr class="rdm-divider">
+        <p class="rdm-typography--body-medium">Inset por el padding: separa sin modificador.</p>
+      </div>
+    </div>
+    <!-- FIN: card dividers demo -->
+
+  </section>
+  <!-- FIN: card dividers -->
 
   <hr class="rdm-divider">
 
@@ -91,15 +121,15 @@
     <div class="demo-card-spacing">
       <a href="card.html" class="rdm-card rdm-card--elevated rdm-card--interactive rdm-state-layer">
         <p class="rdm-typography--title-large">Album: Viaje al sur</p>
-        <p class="rdm-typography--body-medium">12 fotos · actualizado ayer. Toda la card es el link.</p>
+        <p class="rdm-typography--body-medium">12 fotos Â· actualizado ayer. Toda la card es el link.</p>
       </a>
       <a href="card.html" aria-disabled="true" class="rdm-card rdm-card--elevated rdm-card--interactive rdm-card--disabled rdm-state-layer">
         <p class="rdm-typography--title-large">Album: Viaje al norte</p>
-        <p class="rdm-typography--body-medium">8 fotos · archivada. Disabled: sin layer ni interaccion.</p>
+        <p class="rdm-typography--body-medium">8 fotos Â· archivada. Disabled: sin layer ni interaccion.</p>
       </a>
       <a href="card.html" class="rdm-card rdm-card--outlined rdm-card--interactive rdm-state-layer">
         <p class="rdm-typography--title-large">Album: Viaje al este</p>
-        <p class="rdm-typography--body-medium">5 fotos · borrador. Outlined interactive: el borde pasa a on-surface en focus.</p>
+        <p class="rdm-typography--body-medium">5 fotos Â· borrador. Outlined interactive: el borde pasa a on-surface en focus.</p>
       </a>
     </div>
     <!-- FIN: card interactive demo -->
@@ -172,7 +202,7 @@
         <tr><td>Shape</td><td>vacio en el generador</td><td>vacio en el generador</td><td>vacio en el generador</td></tr>
         <tr><td>Shadow</td><td>#000000</td><td>#000000</td><td>#000000</td></tr>
         <tr><td>Tint</td><td>#6750A4</td><td>#6750A4</td><td>#6750A4</td></tr>
-        <tr><td>Outline</td><td>—</td><td>—</td><td>1dp #CAC4D0</td></tr>
+        <tr><td>Outline</td><td>â€”</td><td>â€”</td><td>1dp #CAC4D0</td></tr>
         <tr><td>Icon</td><td>#6750A4 24dp</td><td>#6750A4 24dp</td><td>#6750A4 24dp</td></tr>
       </tbody>
     </table>
@@ -185,7 +215,7 @@
       </thead>
       <tbody>
         <tr><td>Hover</td><td>#1D1B20 0.08</td><td>outlined outline #CAC4D0</td></tr>
-        <tr><td>Focus</td><td>#1D1B20 0.10</td><td>indicator #625B71 3dp offset 2dp · outlined outline #1D1B20</td></tr>
+        <tr><td>Focus</td><td>#1D1B20 0.10</td><td>indicator #625B71 3dp offset 2dp Â· outlined outline #1D1B20</td></tr>
         <tr><td>Pressed</td><td>#1D1B20 0.10</td><td>outlined outline #CAC4D0</td></tr>
         <tr><td>Dragged</td><td>#1D1B20 0.16</td><td>outlined outline #CAC4D0</td></tr>
         <tr><td>Disabled</td><td>container 0.38</td><td>outlined outline #79747E 0.12</td></tr>
@@ -218,6 +248,8 @@
     </table>
     <!-- FIN: card specs table -->
 
+    <p class="rdm-typography--body-medium">Son las 4 filas que publica `cards/specs`, ni una mas: M3 prescribe medidas solo del container. La media no tiene medida porque el componente es slot-based ("Card size is determined by the elements it contains").</p>
+
   </section>
   <!-- FIN: card specs -->
 
@@ -226,7 +258,7 @@
   <!-- INICIO: card rules -->
   <section>
     <h2 class="rdm-typography--title-large">Rules</h2>
-    <p class="rdm-typography--body-medium">un subject por card · el container es lo unico obligatorio, el resto opcional · el tamano lo da el contenido · no forzar contenido en cards (espaciado o divisores si es mas simple) · jamas accion sobre superficie accionable · actions y media se construyen en sus pasos (ver Anatomy)</p>
+    <p class="rdm-typography--body-medium">un subject por card Â· el container es lo unico obligatorio, el resto opcional Â· el tamano lo da el contenido Â· no forzar contenido en cards (espaciado o divisores si es mas simple) Â· jamas accion sobre superficie accionable Â· actions y media se construyen en sus pasos (ver Anatomy) Â· cuidado con large/full en cards densas (spec): medium 12 alcanza · dividers full para expandir, inset 16 para separar</p>
   </section>
   <!-- FIN: card rules -->
 
@@ -235,7 +267,7 @@
   <!-- INICIO: card anatomy -->
   <section>
     <h2 class="rdm-typography--title-large">Anatomy</h2>
-    <p class="rdm-typography--body-medium">Reconstruccion por anatomia, un paso por vez: 1 container · 2 texto (headline, subhead, supporting) · 3 dividers · 4 media (thumbnail, image, video) · 5 texto sobre imagen · 6 actions · 7 overflow menu (bloqueado: depende de Menus) · 8 interactive. Container, tokens, contraste, specs, rules y disabled ya estan; texto y dividers no piden nada nuevo; media y actions esperan medidas de la spec.</p>
+    <p class="rdm-typography--body-medium">Reconstruccion por anatomia, un paso por vez: 1 container Â· 2 texto (headline, subhead, supporting) Â· 3 dividers (inset = padding 16dp) Â· 4 media libre por diseno (sin aspect ratio ni thumbnail fijo) Â· 5 texto sobre imagen Â· 6 actions Â· 7 overflow menu (bloqueado: depende de Menus) Â· 8 interactive. Container, tokens, contraste, specs, rules y disabled ya estan; texto y dividers listos; media libre de medidas y actions esperan componentes.</p>
   </section>
   <!-- FIN: card anatomy -->
 
@@ -246,3 +278,4 @@
 
 </body>
 </html>
+

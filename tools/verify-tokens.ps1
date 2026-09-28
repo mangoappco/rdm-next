@@ -665,6 +665,59 @@ if (Test-Path $sl) {
 } else { Write-Output "  SIN-ARCHIVO state-layer.css"; $rin++ }
 if ($rin -eq 0) { Write-Output "  anillo presente" } else { $fail++ }
 
+# 36. Shape post-2023: los 3 niveles que el vendor no trae existen en
+# css/ propio con su valor exacto (large-increased 20, extra-large-
+# increased 32, extra-extra-large 48). Sin esto shape.html muestra 7
+# de los 10 niveles de la spec.
+Write-Output ""
+Write-Output "=== Shape post-2023 ==="
+$shp = 0
+$ownCss = ""
+foreach ($f in $ownFiles) { $ownCss += (Read-Css $f.FullName) + "`n" }
+$ownCss = [regex]::Replace($ownCss, '/\*.*?\*/', '', 'Singleline')
+foreach ($pair in @("--md-sys-shape-corner-large-increased-default-size:20px", "--md-sys-shape-corner-extra-large-increased-default-size:32px", "--md-sys-shape-corner-extra-extra-large-default-size:48px")) {
+  $kv = $pair -split ':'
+  $m = [regex]::Match($ownCss, [regex]::Escape($kv[0]) + '\s*:\s*([^;{}]+);')
+  if (-not $m.Success) { Write-Output ("  FALTA " + $kv[0]); $shp++ }
+  elseif ($m.Groups[1].Value.Trim() -ne $kv[1]) { Write-Output ("  MAL-VALOR " + $kv[0] + " = " + $m.Groups[1].Value.Trim()); $shp++ }
+}
+if ($shp -eq 0) { Write-Output "  10 niveles" } else { $fail++ }
+
+# 37. Medidas de card: la tabla Specs de card.html lista los 4 valores
+# que publica cards/specs (12dp, 16dp, 8dp max, start-aligned). Si M3
+# los cambia, este guard lo detecta al actualizar la tabla.
+Write-Output ""
+Write-Output "=== Medidas de card ==="
+$med = 0
+$ch = "$root\card.html"
+if (Test-Path $ch) {
+  $t = Read-Css $ch
+  foreach ($v in @("12dp", "16dp", "8dp maximo", "start-aligned")) {
+    if ($t -notmatch [regex]::Escape($v)) { Write-Output ("  FALTA " + $v); $med++ }
+  }
+} else { Write-Output "  SIN-SHOWROOM card.html"; $med++ }
+if ($med -eq 0) { Write-Output "  4 valores" } else { $fail++ }
+
+# 38. Inset alineado: el inset del divider (middle-inset, ambos lados)
+# usa el mismo token que el padding del container (decision 12). Si el
+# padding se mueve, el inset lo sigue o falla.
+Write-Output ""
+Write-Output "=== Inset alineado ==="
+$ins = 0
+function Strip-Comments($t) { return ([regex]::Replace($t.TrimStart([char]0xFEFF), '/\*.*?\*/', '', 'Singleline')) }
+$cb = [regex]::Match((Strip-Comments (Read-Css "$root\css\comp\card.css")), '(?m)^\.rdm-card\s*\{([^{}]*)\}')
+$ib = [regex]::Match((Strip-Comments (Read-Css "$root\css\comp\divider.css")), '(?m)^\.rdm-divider--middle-inset\s*\{([^{}]*)\}')
+if (-not $cb.Success) { Write-Output "  SIN-BASE card.css"; $ins++ }
+elseif (-not $ib.Success) { Write-Output "  SIN-INSET divider.css"; $ins++ }
+else {
+  $p = [regex]::Match($cb.Groups[1].Value, 'padding\s*:\s*var\((--[\w-]+)\)')
+  $q = [regex]::Match($ib.Groups[1].Value, 'margin-inline\s*:\s*var\((--[\w-]+)\)')
+  if (-not $p.Success) { Write-Output "  SIN-PADDING card.css"; $ins++ }
+  elseif (-not $q.Success) { Write-Output "  SIN-MARGEN divider.css"; $ins++ }
+  elseif ($p.Groups[1].Value -ne $q.Groups[1].Value) { Write-Output ("  DESALINEADO card=" + $p.Groups[1].Value + " inset=" + $q.Groups[1].Value); $ins++ }
+}
+if ($ins -eq 0) { Write-Output "  mismo token" } else { $fail++ }
+
 Write-Output ""
 if ($fail -eq 0) { Write-Output "OK: capa de tokens integra" } else { Write-Output ("FALLA: " + $fail + " chequeo(s)") }
 exit $fail

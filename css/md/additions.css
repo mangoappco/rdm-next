@@ -1,4 +1,4 @@
-/*
+﻿/*
   RDM Next - Adiciones a la capa sys de M3
   Autor: Danny Estrada + asistente
 
@@ -26,10 +26,14 @@
   el override gana por cascada. Los 15 roles siguen la cadena solos:
   15 consumidores, 2 origenes. Pesos sin tocar: 400/500 segun M3.
 
-  Shape (v0.9): al vendor le falta --md-sys-shape-corner-full-default-size.
-  Solo declara -family: 3px, que es basura DSP. M3 lo define en 9999dp,
-  asi que se agrega aqui. Misma clase de hueco que surface-container:
-  token que la spec exige y el export de Figma no emitio.
+  Shape (v0.9, ampliado v0.39): al vendor le falta
+  --md-sys-shape-corner-full-default-size. Solo declara -family: 3px,
+  que es basura DSP. M3 lo define en 9999dp, asi que se agrega aqui.
+  Misma clase de hueco que surface-container: token que la spec exige
+  y el export de Figma no emitio. En v0.39 se agregan los 3 niveles
+  post-2023 (large-increased 20, extra-large-increased 32,
+  extra-extra-large 48): la spec tiene 10, el vendor 7. Shape es la
+  segunda familia incompleta del vendor (con color y state).
 
   State (v0.15, corregido v0.37): el vendor trae las 4 opacidades con
   ruido binario de Figma (0.07999999821186066...) y ademas arrastra el
@@ -80,6 +84,13 @@
 
   /* --- Shape: full (ausente en el vendor, valor de la spec M3) --- */
   --md-sys-shape-corner-full-default-size: 9999px;
+
+  /* --- Shape post-2023 (v0.39): la spec actual tiene 10 niveles, el
+     vendor trae 7. large-increased 20, extra-large-increased 32 y
+     extra-extra-large 48 con el patron de nombre del vendor. --- */
+  --md-sys-shape-corner-large-increased-default-size: 20px;
+  --md-sys-shape-corner-extra-large-increased-default-size: 32px;
+  --md-sys-shape-corner-extra-extra-large-default-size: 48px;
 
   /* --- State: opacidades limpias (override del ruido Figma del vendor) --- */
   --md-sys-state-hover-state-layer-opacity: 0.08;
@@ -148,3 +159,4 @@
     --md-sys-color-outline-variant: var(--md-ref-palette-neutral-variant30); /* #49454F */
   }
 }
+
