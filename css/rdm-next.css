@@ -1,0 +1,7 @@
+/*
+  RDM Next - Entry del proyecto
+  Los imports de comp/* se agregan aqui a medida que se construye cada
+  componente. Orden: tokens (md) -> componentes (comp) -> proyecto (rdm).
+*/
+@import url(md/tokens.css);
+@import url(rdm/project.css);

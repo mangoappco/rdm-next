@@ -1,0 +1,51 @@
+/*
+  RDM Next - Adiciones a la capa sys de M3
+  Autor: Danny Estrada + asistente
+
+  El repo vendor (material-tokens, baseline anterior a marzo 2023) no trae
+  la familia surface-container: en esa epoca M3 usaba overlays de opacidad
+  sobre surface en vez de superficies por tono. Estos 9 roles son el sistema
+  tonal actual de M3 (5 contenedores + base y modificadores).
+
+  Valores: verificados contra la libreria anterior (5/5 contenedores light
+  y dark identicos) y contra la paleta del vendor. Donde el tono existe en
+  --md-ref-palette-* se referencia (capa sys lee ref); donde no existe
+  (la paleta del vendor solo tiene 13 tonos neutral) va el hexadecimal
+  literal del baseline M3 con el tono anotado.
+
+  Nota de baseline: surface es #FFFBFE (= neutral99), no #FEF7FF. El vendor
+  define surface como var(--md-ref-palette-neutral99) y neutral99 es
+  #FFFBFE, asi que este archivo es consistente con el vendor. #FEF7FF
+  pertenece a un baseline mas nuevo con otro seed.
+*/
+
+:root {
+  /* --- Base / canvas --- */
+  /* surface (neutral99) y surface-variant ya vienen del vendor. Solo dim: */
+  --md-sys-color-surface-dim: #DED8E1; /* neutral87 */
+
+  /* --- Los 5 surface containers oficiales --- */
+  --md-sys-color-surface-container-lowest: var(--md-ref-palette-neutral100); /* #FFFFFF */
+  --md-sys-color-surface-container-low: #F7F2FA;
+  --md-sys-color-surface-container: #F3EDF7;
+  --md-sys-color-surface-container-high: #ECE6F0;
+  --md-sys-color-surface-container-highest: #E6E0E9;
+
+  /* --- Superficie brillante --- */
+  --md-sys-color-surface-bright: var(--md-ref-palette-neutral100); /* #FFFFFF */
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --md-sys-color-surface-dim: #141218; /* neutral6 */
+
+    --md-sys-color-surface-container-lowest: #0F0D13;
+    --md-sys-color-surface-container-low: #1D1B20;
+    --md-sys-color-surface-container: #211F26;
+    --md-sys-color-surface-container-high: #2B2930;
+    --md-sys-color-surface-container-highest: #36343B;
+
+    /* Estandar M3 (no esta en la paleta del vendor, que no tiene neutral25) */
+    --md-sys-color-surface-bright: #3B383E;
+  }
+}

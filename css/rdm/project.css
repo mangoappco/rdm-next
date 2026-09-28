@@ -1,0 +1,14 @@
+/*
+  RDM Next - Extensiones propias del proyecto (namespace --rdm-*)
+  Todo lo que NO es spec M3 vive aqui, nunca mezclado con --md-sys-*.
+
+  z-index: M3 no define tokens de apilamiento, asi que van en namespace
+  propio. 4 niveles semanticos que reemplazan los numeros magicos
+  (0, 1, 10, 200, 999, 1100) de la libreria anterior.
+*/
+:root {
+  --rdm-z-base: 0;
+  --rdm-z-dropdown: 10;
+  --rdm-z-sticky: 100;
+  --rdm-z-modal: 1000;
+}

@@ -1,0 +1,20 @@
+/*
+  RDM Next - Entry de la capa de tokens M3
+  Orden = dependencias: ref no importa nada, sys lee ref.
+  Los @import son relativos a este archivo (css/md/).
+
+  colors.css del vendor se omite a proposito: no define tokens, son clases
+  de demostracion (.primary, .surface...) que colisionarian con el markup
+  del showroom. Verificado: 0 custom properties en ese archivo.
+*/
+@import url(../../vendor/material-tokens/css/palette.css);
+@import url(../../vendor/material-tokens/css/typography.css);
+@import url(../../vendor/material-tokens/css/shape.css);
+@import url(../../vendor/material-tokens/css/motion.css);
+@import url(../../vendor/material-tokens/css/state.css);
+@import url(../../vendor/material-tokens/css/elevation.css);
+@import url(../../vendor/material-tokens/css/theme/light.css) screen and (prefers-color-scheme: light);
+@import url(../../vendor/material-tokens/css/theme/dark.css) screen and (prefers-color-scheme: dark);
+
+/* Adiciones propias a sys (familia surface-container, posterior a 2023) */
+@import url(additions.css);
