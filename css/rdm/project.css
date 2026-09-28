@@ -5,10 +5,26 @@
   z-index: M3 no define tokens de apilamiento, asi que van en namespace
   propio. 4 niveles semanticos que reemplazan los numeros magicos
   (0, 1, 10, 200, 999, 1100) de la libreria anterior.
+
+  Sombras (v0.10): M3 define la elevacion como DISTANCIA dp
+  (--md-sys-elevation-levelN = 1px, 3px, 6px, 8px, 12px), no como receta
+  de box-shadow. En web, box-shadow: 1px dibuja un borde duro, no una
+  elevacion. Estas 6 recetas son extension del proyecto: sombras
+  compuestas key + ambient del set tardio de MD2 (0.3 / 0.15), el mismo
+  que usaba rdm/tokens.css. Un componente elige sombra
+  (var(--rdm-shadow-level3)) o tonal
+  (var(--md-sys-color-surface-container-low)); nunca se mezclan.
 */
 :root {
   --rdm-z-base: 0;
   --rdm-z-dropdown: 10;
   --rdm-z-sticky: 100;
   --rdm-z-modal: 1000;
+
+  --rdm-shadow-level0: none;
+  --rdm-shadow-level1: 0px 1px 2px 0px rgba(0, 0, 0, 0.3), 0px 1px 3px 1px rgba(0, 0, 0, 0.15);
+  --rdm-shadow-level2: 0px 1px 2px 0px rgba(0, 0, 0, 0.3), 0px 2px 6px 2px rgba(0, 0, 0, 0.15);
+  --rdm-shadow-level3: 0px 1px 3px 0px rgba(0, 0, 0, 0.3), 0px 4px 8px 3px rgba(0, 0, 0, 0.15);
+  --rdm-shadow-level4: 0px 2px 4px 0px rgba(0, 0, 0, 0.3), 0px 6px 10px 4px rgba(0, 0, 0, 0.15);
+  --rdm-shadow-level5: 0px 4px 8px 3px rgba(0, 0, 0, 0.15), 0px 8px 12px 6px rgba(0, 0, 0, 0.15);
 }

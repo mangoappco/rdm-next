@@ -175,6 +175,40 @@ foreach ($f in $ownFiles) {
 }
 if ($fam -eq 0) { Write-Output "  ninguno" } else { $fail++ }
 
+# 11. Niveles sys intactos: --md-sys-elevation-levelN son distancias dp del
+# vendor (1px, 3px, 6px, 8px, 12px), no recetas de sombra. Ningun archivo
+# propio debe declararlos; las sombras van en --rdm-shadow-*.
+Write-Output ""
+Write-Output "=== Niveles sys redeclarados ==="
+$lvl = 0
+foreach ($f in $ownFiles) {
+  $t = Read-Css $f.FullName
+  $hits = [regex]::Matches($t, '(?<!var\()--md-sys-elevation-level\d\s*:') | ForEach-Object { $_.Groups[0].Value.Trim() } | Sort-Object -Unique
+  foreach ($h in $hits) { Write-Output ("  NIVEL " + $f.Name + ": " + $h); $lvl++ }
+}
+if ($lvl -eq 0) { Write-Output "  ninguno" } else { $fail++ }
+
+# 12. Swatches identicos: 3+ <div> consecutivos con la misma clase no
+# demuestran nada (fue el bug de Levels: 6 cajas iguales). Si un valor no
+# se dibuja, va en tabla. Umbral 3: 2 identicos pueden ser estados
+# legitimos, 3 ya es patron sospechoso.
+Write-Output ""
+Write-Output "=== Swatches identicos (3+ div consecutivos, misma clase) ==="
+$dup = 0
+foreach ($f in (Get-ChildItem "$root\*.html" -ErrorAction SilentlyContinue)) {
+  $t = Read-Css $f.FullName
+  $classes = @([regex]::Matches($t, '<div class="([^"]+)">') | ForEach-Object { $_.Groups[1].Value })
+  $run = 1
+  for ($i = 1; $i -le $classes.Count; $i++) {
+    if ($i -lt $classes.Count -and $classes[$i] -eq $classes[$i-1]) { $run++ }
+    else {
+      if ($run -ge 3) { Write-Output ("  IDENTICOS " + $f.Name + ": " + $run + "x <div class=""" + $classes[$i-1] + """>"); $dup++ }
+      $run = 1
+    }
+  }
+}
+if ($dup -eq 0) { Write-Output "  ninguno" } else { $fail++ }
+
 Write-Output ""
 if ($fail -eq 0) { Write-Output "OK: capa de tokens integra" } else { Write-Output ("FALLA: " + $fail + " chequeo(s)") }
 exit $fail

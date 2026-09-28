@@ -1,0 +1,39 @@
+/*
+  RDM Next - Estilos SOLO del showroom de elevation.html
+  No forman parte de la libreria. Ningun componente los importa.
+  La base usa superficie tonal para que la sombra se lea; el radio viene
+  del token de shape. Las sombras son --rdm-shadow-* (extension propia),
+  nunca --md-sys-elevation-* (distancias dp, no dibujan sombra en web).
+*/
+.demo-elevation {
+  background-color: var(--md-sys-color-surface-container-low);
+  color: var(--md-sys-color-on-surface);
+  border-radius: var(--md-sys-shape-corner-medium-default-size);
+  padding: 1em;
+  margin-bottom: 1em;
+}
+
+.demo-elevation--shadow0 {
+  box-shadow: var(--rdm-shadow-level0);
+}
+.demo-elevation--shadow1 {
+  box-shadow: var(--rdm-shadow-level1);
+}
+.demo-elevation--shadow2 {
+  box-shadow: var(--rdm-shadow-level2);
+}
+.demo-elevation--shadow3 {
+  box-shadow: var(--rdm-shadow-level3);
+}
+.demo-elevation--shadow4 {
+  box-shadow: var(--rdm-shadow-level4);
+}
+.demo-elevation--shadow5 {
+  box-shadow: var(--rdm-shadow-level5);
+}
+
+/* Dentro de la tabla fusionada el swatch es solo un parche visual:
+   sin margen inferior para no inflar la celda. */
+td > .demo-elevation {
+  margin-bottom: 0;
+}

@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Elevation - RDM Next</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Google+Sans:wght@400..700&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="css/rdm-next.css">
+  <link rel="stylesheet" href="css/demo/elevation.css">
+</head>
+<body>
+
+<!-- INICIO: elevation header -->
+<header>
+  <p class="rdm-typography--label-large"><a href="index.html">RDM Next</a></p>
+  <h1 class="rdm-typography--display-small">Elevation</h1>
+  <p class="rdm-typography--body-large">M3 define la elevacion como distancia
+     en dp, no como sombra. En web esa distancia no dibuja nada: por eso la
+     libreria separa el nivel (token M3) de la receta de sombra (extension
+     propia). La via recomendada es la tonal.</p>
+</header>
+<!-- FIN: elevation header -->
+
+<main>
+
+  <!-- INICIO: elevation levels -->
+  <section>
+    <h2 class="rdm-typography--title-large">Levels y sombras</h2>
+    <p class="rdm-typography--body-large">Cada nivel M3 es un numero (distancia
+       en dp) que en web no dibuja nada; la columna Render muestra la receta
+       <code>--rdm-shadow-levelN</code> que lo dibuja. Niveles 0-3: estados en
+       reposo. Niveles 4-5: solo hover y dragged.</p>
+
+    <!-- INICIO: elevation table -->
+    <table>
+      <thead>
+        <tr><th>Level</th><th>Token sys</th><th>dp</th><th>Render</th><th>Swatch</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>0</td><td><code>--md-sys-elevation-level0</code></td><td>0px</td><td><code>--rdm-shadow-level0</code></td><td><div class="demo-elevation demo-elevation--shadow0"></div></td></tr>
+        <tr><td>1</td><td><code>--md-sys-elevation-level1</code></td><td>1px</td><td><code>--rdm-shadow-level1</code></td><td><div class="demo-elevation demo-elevation--shadow1"></div></td></tr>
+        <tr><td>2</td><td><code>--md-sys-elevation-level2</code></td><td>3px</td><td><code>--rdm-shadow-level2</code></td><td><div class="demo-elevation demo-elevation--shadow2"></div></td></tr>
+        <tr><td>3</td><td><code>--md-sys-elevation-level3</code></td><td>6px</td><td><code>--rdm-shadow-level3</code></td><td><div class="demo-elevation demo-elevation--shadow3"></div></td></tr>
+        <tr><td>4</td><td><code>--md-sys-elevation-level4</code></td><td>8px</td><td><code>--rdm-shadow-level4</code></td><td><div class="demo-elevation demo-elevation--shadow4"></div></td></tr>
+        <tr><td>5</td><td><code>--md-sys-elevation-level5</code></td><td>12px</td><td><code>--rdm-shadow-level5</code></td><td><div class="demo-elevation demo-elevation--shadow5"></div></td></tr>
+      </tbody>
+    </table>
+    <!-- FIN: elevation table -->
+
+    <p class="rdm-typography--body-small">Las recetas son extension del proyecto
+       (sombras compuestas key + ambient del set 0.3 / 0.15).
+       <strong>No son M3</strong>: van en namespace propio a proposito.</p>
+
+  </section>
+  <!-- FIN: elevation levels -->
+
+  <!-- INICIO: elevation tonal -->
+  <section>
+    <h2 class="rdm-typography--title-large">Tonal</h2>
+    <p class="rdm-typography--body-large">La via recomendada por M3: la
+       jerarquia se expresa con tono de superficie, no con sombra. Los 9
+       roles estan demostrados en <a href="surface.html">Surface</a>.
+       Referencia verificada para cards:</p>
+    <p class="rdm-typography--body-medium">Elevated: surface-container-low · Filled: surface-container-highest · Outlined: surface</p>
+  </section>
+  <!-- FIN: elevation tonal -->
+
+</main>
+
+</body>
+</html>

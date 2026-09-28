@@ -180,8 +180,10 @@ powershell -ExecutionPolicy Bypass -File tools/verify-tokens.ps1
 | Texto pelado | Ningun `<p>` ni `<h1-h6>` sin clase en los `.html` |
 | Fuente conectada | `--md-ref-typeface-plain/-brand` (valor efectivo) cargada via `<link>` en los HTML |
 | Shape sin ruido | Ningun `-family` consumido en `var()` (todos valen 1px o 3px, basura DSP) |
+| Niveles sys intactos | Ningun `--md-sys-elevation-levelN:` declarado en CSS propio (son dp del vendor; sombras en `--rdm-shadow-*`) |
+| Swatches identicos | Ningun run de 3+ `<div>` consecutivos con la misma clase (si no varia, es tabla) |
 
-Corre en cada commit de la capa de tokens. Estado actual: 10/10 en verde.
+Corre en cada commit de la capa de tokens. Estado actual: 12/12 en verde.
 
 **Leccion v0.5:** el import de `primitives/typography.css` se escribio como
 `../primitives/` (sube un nivel de mas) y la hoja nunca llego al navegador:
@@ -233,6 +235,26 @@ cualquier `@import` relativo roto, probado con archivo temporal.
   vendor trae 10 clases sin prefijo (`.shape-medium`, `.large-top`...)
   que entran con el import; no usarlas, son demo de Google. Check 10:
   ningun `-family` consumido, probado contra archivo temporal.
+- **v0.10** - Elevation: `elevation.html` con 3 secciones (Levels con los 6
+  dp del vendor, Tonal como tabla de referencia, Shadow con las 6 recetas
+  `--rdm-shadow-*` de `project.css`) y `css/demo/elevation.css`. Hallazgo:
+  el vendor esta bien, M3 define elevacion como distancia dp y en web
+  `box-shadow: 1px` dibuja un borde duro; la libreria anterior tokenizo
+  recetas MD2 bajo nombres M3. Check 11: ningun nivel sys redeclarado,
+  probado contra archivo temporal (el primer regex exigia inicio de linea
+  y no detectaba mid-line; se endurecio con lookbehind).
+- **v0.11** - Levels de swatches a tabla: los 6 swatches usaban la misma
+  clase sin modificador (cero sombra, 6 cajas iguales). Criterio: si un
+  valor no se dibuja, es tabla, no swatch. Check 12: ningun run de 3+
+  `<div>` consecutivos con la misma clase, probado en ambos sentidos
+  (umbral 3: 2 identicos pueden ser estados legitimos).
+- **v0.12** - Tabla fusionada: la tabla de Levels y la seccion Shadow eran
+  dos mitades de la misma cosa separadas. Ahora una sola tabla de 5
+  columnas (Level | Token sys | dp | Render | Swatch) donde cada nivel viaja
+  acompanado de lo que lo dibuja; seccion Shadow eliminada y swatches como
+  parche visual dentro de la celda (`td > .demo-elevation` sin margen).
+  `surface-tint-color` (token M3 real, sin consumir) queda en pendientes:
+  tintar superficies no es elevacion y se vera cuando un componente lo pida.
 
 ## 10. Decisiones pendientes
 
@@ -240,3 +262,4 @@ cualquier `@import` relativo roto, probado con archivo temporal.
 - [ ] `surface-variant` en depreciacion: mantener el token del vendor o alias a `highest`. No tocar hasta que un componente lo necesite.
 - [ ] Easing y duraciones de motion por componente: los tokens existen (45 en `motion.css`), falta mapearlos al construir cada componente. `160ms` no es token M3.
 - [ ] Zona header/avatar de card y taxonomia de actions: documentadas en la libreria anterior, aplicar al construir Card.
+- [ ] `--md-sys-elevation-surface-tint-color`: token M3 real del vendor (tinta primaria sobre superficies elevadas), hoy sin consumir. No es sombra ni nivel; evaluar cuando un componente necesite tinte de elevacion.
