@@ -35,47 +35,16 @@
   <!-- INICIO: card variants -->
   <section>
     <h2 class="rdm-typography--title-large">Variants</h2>
-    <p class="rdm-typography--body-large">Enfasis real: outlined primero,
-       elevated despues, filled ultimo. Dos botones por card (headline,
-       subhead y supporting text en jerarquia). Sin icon button en la
-       fila: el glifo deriva la linea base 8px; el modelo de 2 botones
-       de texto alinea a 0. Sin tonal ni elevated dentro (ver Contrast).</p>
+    <p class="rdm-typography--body-large">Paso 1: el container solo, vacio.
+       Es lo unico obligatorio de una card; su tamano lo da el contenido
+       (aca: solo el padding). Las 3 variantes difieren unicamente en
+       color, borde y sombra.</p>
 
     <!-- INICIO: card variants demo -->
     <div class="demo-card-spacing">
-      <div class="rdm-card rdm-card--elevated">
-        <p class="rdm-typography--title-large">Elevated</p>
-        <p class="rdm-typography--title-small">surface-container-low · shadow 1</p>
-        <p class="rdm-typography--body-medium">Separa del fondo sin borde.</p>
-        <!-- INICIO: card elevated actions -->
-        <div class="demo-card-actions">
-          <button type="button" class="rdm-button rdm-button--filled rdm-state-layer rdm-typography--label-large">Add to cart</button>
-          <button type="button" class="rdm-button rdm-button--outlined rdm-state-layer rdm-typography--label-large">Learn more</button>
-        </div>
-        <!-- FIN: card elevated actions -->
-      </div>
-      <div class="rdm-card rdm-card--filled">
-        <p class="rdm-typography--title-large">Filled</p>
-        <p class="rdm-typography--title-small">surface-container-highest · sin sombra</p>
-        <p class="rdm-typography--body-medium">La mas sutil de las tres.</p>
-        <!-- INICIO: card filled actions -->
-        <div class="demo-card-actions">
-          <button type="button" class="rdm-button rdm-button--filled rdm-state-layer rdm-typography--label-large">Add to cart</button>
-          <button type="button" class="rdm-button rdm-button--outlined rdm-state-layer rdm-typography--label-large">Learn more</button>
-        </div>
-        <!-- FIN: card filled actions -->
-      </div>
-      <div class="rdm-card rdm-card--outlined">
-        <p class="rdm-typography--title-large">Outlined</p>
-        <p class="rdm-typography--title-small">surface · borde outline-variant</p>
-        <p class="rdm-typography--body-medium">El borde da el mayor enfasis.</p>
-        <!-- INICIO: card outlined actions -->
-        <div class="demo-card-actions">
-          <button type="button" class="rdm-button rdm-button--filled rdm-state-layer rdm-typography--label-large">Add to cart</button>
-          <button type="button" class="rdm-button rdm-button--outlined rdm-state-layer rdm-typography--label-large">Learn more</button>
-        </div>
-        <!-- FIN: card outlined actions -->
-      </div>
+      <div class="rdm-card rdm-card--elevated" aria-label="Elevated container"></div>
+      <div class="rdm-card rdm-card--filled" aria-label="Filled container"></div>
+      <div class="rdm-card rdm-card--outlined" aria-label="Outlined container"></div>
     </div>
     <!-- FIN: card variants demo -->
 
@@ -112,25 +81,13 @@
   <!-- INICIO: card disabled -->
   <section>
     <h2 class="rdm-typography--title-large">Disabled</h2>
-    <p class="rdm-typography--body-large">Container 0.38 por spec (todo el
-       card se atenua); en outlined el borde pasa a outline 12%. Los
-       botones internos van disabled tambien. La interactive disabled
-       lleva aria-disabled (ver Interactive).</p>
+    <p class="rdm-typography--body-large">Container 0.38 por spec; en
+       outlined el borde pasa a outline 12%. La interactive disabled
+       lleva aria-disabled (ver Interactive). Sin contenido: los actions
+       se reconstruyen en su paso.</p>
 
     <!-- INICIO: card disabled demo -->
-    <div class="demo-card-spacing">
-      <div class="rdm-card rdm-card--filled rdm-card--disabled">
-        <p class="rdm-typography--title-large">Filled disabled</p>
-        <p class="rdm-typography--title-small">container 0.38</p>
-        <p class="rdm-typography--body-medium">Sin layer ni interaccion.</p>
-        <!-- INICIO: card disabled actions -->
-        <div class="demo-card-actions">
-          <button type="button" disabled class="rdm-button rdm-button--filled rdm-state-layer rdm-typography--label-large">Add to cart</button>
-          <button type="button" disabled class="rdm-button rdm-button--outlined rdm-state-layer rdm-typography--label-large">Learn more</button>
-        </div>
-        <!-- FIN: card disabled actions -->
-      </div>
-    </div>
+    <div class="rdm-card rdm-card--filled rdm-card--disabled" aria-label="Filled disabled container"></div>
     <!-- FIN: card disabled demo -->
 
   </section>
@@ -238,7 +195,7 @@
   <!-- INICIO: card rules -->
   <section>
     <h2 class="rdm-typography--title-large">Rules</h2>
-    <p class="rdm-typography--body-medium">un subject por card · el container es lo unico obligatorio, el resto opcional · el tamano lo da el contenido · no forzar contenido en cards (espaciado o divisores si es mas simple) · jamas accion sobre superficie accionable · dentro solo botones con 3:1 contra la card: filled, text, outlined, icon standard (tonal y elevated prohibidos)</p>
+    <p class="rdm-typography--body-medium">un subject por card · el container es lo unico obligatorio, el resto opcional · el tamano lo da el contenido · no forzar contenido en cards (espaciado o divisores si es mas simple) · jamas accion sobre superficie accionable · actions y media se construyen en sus pasos (ver Anatomy)</p>
   </section>
   <!-- FIN: card rules -->
 
@@ -247,18 +204,7 @@
   <!-- INICIO: card anatomy -->
   <section>
     <h2 class="rdm-typography--title-large">Anatomy</h2>
-    <p class="rdm-typography--body-medium">container (unico obligatorio): geometria 12dp y padding 16 · headline + subhead + supporting text: jerarquia por composicion tipografica · icon: primary 24dp · actions: 2 botones de texto con 3:1 contra la card, en fila flex con gap 16 · media, thumbnail y video: contenido con scrim si lleva texto encima · dividers: full-width para expandir, inset para separar · overflow menu: pendiente, depende de Menus (no construido)</p>
-
-    <!-- INICIO: card icon demo -->
-    <div class="demo-card-spacing">
-      <div class="rdm-card rdm-card--filled">
-        <span class="rdm-icon demo-card-icon" aria-hidden="true">star</span>
-        <p class="rdm-typography--title-large">Headline con icono</p>
-        <p class="rdm-typography--body-medium">El icono de card va en primary a 24dp; .rdm-icon ya mide 24px y el probe demo-card-icon pone el color del specimen.</p>
-      </div>
-    </div>
-    <!-- FIN: card icon demo -->
-
+    <p class="rdm-typography--body-medium">Reconstruccion por anatomia, un paso por vez: 1 container · 2 texto (headline, subhead, supporting) · 3 dividers · 4 media (thumbnail, image, video) · 5 texto sobre imagen · 6 actions · 7 overflow menu (bloqueado: depende de Menus) · 8 interactive. Container, tokens, contraste, specs, rules y disabled ya estan; texto y dividers no piden nada nuevo; media y actions esperan medidas de la spec.</p>
   </section>
   <!-- FIN: card anatomy -->
 
