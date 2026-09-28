@@ -326,7 +326,7 @@
   <!-- INICIO: card rules -->
   <section>
     <h2 class="rdm-typography--title-large">Rules</h2>
-    <p class="rdm-typography--body-medium">un subject por card · el container es lo unico obligatorio, el resto opcional · el tamano lo da el contenido · no forzar contenido en cards (espaciado o divisores si es mas simple) · jamas accion sobre superficie accionable · actions y media se construyen en sus pasos (ver Anatomy) · cuidado con large/full en cards densas (spec): medium 12 alcanza · dividers full para expandir, inset 16 para separar · media edge-to-edge o contenida, sin sombra, alto libre · actions: botones a la derecha con gap 8 (decision 15)</p>
+    <p class="rdm-typography--body-medium">un subject por card · el container es lo unico obligatorio, el resto opcional · el tamano lo da el contenido · no forzar contenido en cards (espaciado o divisores si es mas simple) · jamas accion sobre superficie accionable · actions y media se construyen en sus pasos (ver Anatomy) · cuidado con large/full en cards densas (spec): medium 12 alcanza · dividers full para expandir, inset 16 para separar · media edge-to-edge o contenida, sin sombra, alto libre · actions: botones a la derecha con gap 8 (decision 15) · mismo action area en las 3 (tonal y elevated fuera por contraste)</p>
   </section>
   <!-- FIN: card rules -->
 
@@ -336,9 +336,11 @@
   <section>
     <h2 class="rdm-typography--title-large">Anatomy</h2>
     <p class="rdm-typography--body-large">Referencia visual con la anatomia
-       completa: media, texto y actions con componentes reales. Zonas:
-       media (decisiones 11 y 13) · texto (composicion tipografica) ·
-       actions (botones, decision 15).</p>
+       completa en las 3 variantes: misma composicion, solo cambia el
+       modificador. El action area es identico porque los 3 botones
+       pasan 4.5:1 en las 3 superficies (ver Contrast); tonal y elevated
+       quedan fuera. Zonas: media (decisiones 11 y 13) · texto
+       (composicion tipografica) · actions (botones, decision 15).</p>
 
     <!-- INICIO: card anatomy demo -->
     <div class="demo-card-spacing">
@@ -348,13 +350,43 @@
           <p class="rdm-typography--title-large">Viaje al sur</p>
           <p class="rdm-typography--title-small">12 fotos · Patagonia</p>
           <p class="rdm-typography--body-medium">Tres dias de ruta y dos lagos. El <a href="card.html">album completo</a> tiene el resto.</p>
-          <!-- INICIO: card anatomy actions -->
+          <!-- INICIO: card anatomy actions elevated -->
           <div class="demo-card-actions">
             <button type="button" aria-label="Save" class="rdm-icon-button rdm-state-layer"><span class="rdm-icon" aria-hidden="true">favorite</span></button>
             <button type="button" class="rdm-button rdm-button--outlined rdm-state-layer rdm-typography--label-large">Learn more</button>
             <button type="button" class="rdm-button rdm-button--filled rdm-state-layer rdm-typography--label-large">Add to cart</button>
           </div>
-          <!-- FIN: card anatomy actions -->
+          <!-- FIN: card anatomy actions elevated -->
+        </div>
+      </div>
+      <div class="rdm-card rdm-card--filled">
+        <div class="demo-card-media" role="img" aria-label="Foto de ruta en la Patagonia"><span class="rdm-icon" aria-hidden="true">image</span></div>
+        <div class="rdm-card-content">
+          <p class="rdm-typography--title-large">Viaje al sur</p>
+          <p class="rdm-typography--title-small">12 fotos · Patagonia</p>
+          <p class="rdm-typography--body-medium">Tres dias de ruta y dos lagos. El <a href="card.html">album completo</a> tiene el resto.</p>
+          <!-- INICIO: card anatomy actions filled -->
+          <div class="demo-card-actions">
+            <button type="button" aria-label="Save" class="rdm-icon-button rdm-state-layer"><span class="rdm-icon" aria-hidden="true">favorite</span></button>
+            <button type="button" class="rdm-button rdm-button--outlined rdm-state-layer rdm-typography--label-large">Learn more</button>
+            <button type="button" class="rdm-button rdm-button--filled rdm-state-layer rdm-typography--label-large">Add to cart</button>
+          </div>
+          <!-- FIN: card anatomy actions filled -->
+        </div>
+      </div>
+      <div class="rdm-card rdm-card--outlined">
+        <div class="demo-card-media" role="img" aria-label="Foto de ruta en la Patagonia"><span class="rdm-icon" aria-hidden="true">image</span></div>
+        <div class="rdm-card-content">
+          <p class="rdm-typography--title-large">Viaje al sur</p>
+          <p class="rdm-typography--title-small">12 fotos · Patagonia</p>
+          <p class="rdm-typography--body-medium">Tres dias de ruta y dos lagos. El <a href="card.html">album completo</a> tiene el resto.</p>
+          <!-- INICIO: card anatomy actions outlined -->
+          <div class="demo-card-actions">
+            <button type="button" aria-label="Save" class="rdm-icon-button rdm-state-layer"><span class="rdm-icon" aria-hidden="true">favorite</span></button>
+            <button type="button" class="rdm-button rdm-button--outlined rdm-state-layer rdm-typography--label-large">Learn more</button>
+            <button type="button" class="rdm-button rdm-button--filled rdm-state-layer rdm-typography--label-large">Add to cart</button>
+          </div>
+          <!-- FIN: card anatomy actions outlined -->
         </div>
       </div>
     </div>
