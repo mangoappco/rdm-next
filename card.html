@@ -35,16 +35,31 @@
   <!-- INICIO: card variants -->
   <section>
     <h2 class="rdm-typography--title-large">Variants</h2>
-    <p class="rdm-typography--body-large">Paso 1: el container solo, vacio.
-       Es lo unico obligatorio de una card; su tamano lo da el contenido
-       (aca: solo el padding). Las 3 variantes difieren unicamente en
-       color, borde y sombra.</p>
+    <p class="rdm-typography--body-large">Paso 1: el container. Mismo
+       contenido en las 3, difieren unicamente en color, borde y sombra.
+       Sin contenido el container colapsa a 0 (el tamano lo da el
+       contenido): por eso cada variante lleva su texto.</p>
 
     <!-- INICIO: card variants demo -->
     <div class="demo-card-spacing">
-      <div class="rdm-card rdm-card--elevated" aria-label="Elevated container"></div>
-      <div class="rdm-card rdm-card--filled" aria-label="Filled container"></div>
-      <div class="rdm-card rdm-card--outlined" aria-label="Outlined container"></div>
+      <div class="rdm-card rdm-card--elevated">
+        <div class="rdm-card-content">
+          <p class="rdm-typography--title-large">Elevated</p>
+          <p class="rdm-typography--body-medium">surface-container-low con sombra 1.</p>
+        </div>
+      </div>
+      <div class="rdm-card rdm-card--filled">
+        <div class="rdm-card-content">
+          <p class="rdm-typography--title-large">Filled</p>
+          <p class="rdm-typography--body-medium">surface-container-highest, sin sombra.</p>
+        </div>
+      </div>
+      <div class="rdm-card rdm-card--outlined">
+        <div class="rdm-card-content">
+          <p class="rdm-typography--title-large">Outlined</p>
+          <p class="rdm-typography--body-medium">surface con borde outline-variant.</p>
+        </div>
+      </div>
     </div>
     <!-- FIN: card variants demo -->
 
@@ -63,13 +78,17 @@
     <!-- INICIO: card text demo -->
     <div class="demo-card-spacing">
       <div class="rdm-card rdm-card--elevated">
-        <p class="rdm-typography--title-large">Viaje al sur</p>
-        <p class="rdm-typography--title-small">12 fotos Â· Patagonia</p>
-        <p class="rdm-typography--body-medium">Tres dias de ruta, dos lagos y un condor que salio movido.</p>
+        <div class="rdm-card-content">
+          <p class="rdm-typography--title-large">Viaje al sur</p>
+          <p class="rdm-typography--title-small">12 fotos · Patagonia</p>
+          <p class="rdm-typography--body-medium">Tres dias de ruta, dos lagos y un condor que salio movido.</p>
+        </div>
       </div>
       <div class="rdm-card rdm-card--filled">
-        <p class="rdm-typography--title-large">Notas de campo</p>
-        <p class="rdm-typography--body-medium">Sin subhead: headline y supporting alcanzan cuando el sujeto no necesita byline.</p>
+        <div class="rdm-card-content">
+          <p class="rdm-typography--title-large">Notas de campo</p>
+          <p class="rdm-typography--body-medium">Sin subhead: headline y supporting alcanzan cuando el sujeto no necesita byline.</p>
+        </div>
       </div>
     </div>
     <!-- FIN: card text demo -->
@@ -90,22 +109,58 @@
     <!-- INICIO: card dividers demo -->
     <div class="demo-card-spacing">
       <div class="rdm-card rdm-card--elevated">
-        <p class="rdm-typography--title-large">Viaje al sur</p>
-        <p class="rdm-typography--body-medium">Tres dias de ruta y dos lagos.</p>
-        <hr class="rdm-divider demo-card-divider-full">
-        <p class="rdm-typography--body-medium">Region expandible: el divider va de borde a borde.</p>
+        <div class="rdm-card-content">
+          <p class="rdm-typography--title-large">Viaje al sur</p>
+          <p class="rdm-typography--body-medium">Tres dias de ruta y dos lagos.</p>
+          <hr class="rdm-divider demo-card-divider-full">
+          <p class="rdm-typography--body-medium">Region expandible: el divider va de borde a borde.</p>
+        </div>
       </div>
       <div class="rdm-card rdm-card--filled">
-        <p class="rdm-typography--title-large">Notas de campo</p>
-        <p class="rdm-typography--body-medium">Texto relacionado arriba.</p>
-        <hr class="rdm-divider">
-        <p class="rdm-typography--body-medium">Inset por el padding: separa sin modificador.</p>
+        <div class="rdm-card-content">
+          <p class="rdm-typography--title-large">Notas de campo</p>
+          <p class="rdm-typography--body-medium">Texto relacionado arriba.</p>
+          <hr class="rdm-divider">
+          <p class="rdm-typography--body-medium">Inset por el padding: separa sin modificador.</p>
+        </div>
       </div>
     </div>
     <!-- FIN: card dividers demo -->
 
   </section>
   <!-- FIN: card dividers -->
+
+  <hr class="rdm-divider">
+
+  <!-- INICIO: card media -->
+  <section>
+    <h2 class="rdm-typography--title-large">Media</h2>
+    <p class="rdm-typography--body-large">Paso 4: dos posiciones, ambas sin
+       sombra (decision 13). Edge-to-edge arriba, fuera del wrapper;
+       contenida adentro, con el padding. Altura libre por decision 11
+       (10rem arbitrario del specimen, no token).</p>
+
+    <!-- INICIO: card media demo -->
+    <div class="demo-card-spacing">
+      <div class="rdm-card rdm-card--elevated">
+        <div class="demo-card-media" role="img" aria-label="Foto de ruta en la Patagonia"><span class="rdm-icon" aria-hidden="true">image</span></div>
+        <div class="rdm-card-content">
+          <p class="rdm-typography--title-large">Viaje al sur</p>
+          <p class="rdm-typography--body-medium">La media sangra al borde; el texto conserva 16dp.</p>
+        </div>
+      </div>
+      <div class="rdm-card rdm-card--outlined">
+        <div class="rdm-card-content">
+          <p class="rdm-typography--title-large">Notas de campo</p>
+          <div class="demo-card-media demo-card-media--contained" role="img" aria-label="Mapa del recorrido"><span class="rdm-icon" aria-hidden="true">map</span></div>
+          <p class="rdm-typography--body-medium">Contenida: vive adentro del padding como cualquier bloque.</p>
+        </div>
+      </div>
+    </div>
+    <!-- FIN: card media demo -->
+
+  </section>
+  <!-- FIN: card media -->
 
   <hr class="rdm-divider">
 
@@ -120,16 +175,22 @@
     <!-- INICIO: card interactive demo -->
     <div class="demo-card-spacing">
       <a href="card.html" class="rdm-card rdm-card--elevated rdm-card--interactive rdm-state-layer">
-        <p class="rdm-typography--title-large">Album: Viaje al sur</p>
-        <p class="rdm-typography--body-medium">12 fotos Â· actualizado ayer. Toda la card es el link.</p>
+        <div class="rdm-card-content">
+          <p class="rdm-typography--title-large">Album: Viaje al sur</p>
+          <p class="rdm-typography--body-medium">12 fotos · actualizado ayer. Toda la card es el link.</p>
+        </div>
       </a>
       <a href="card.html" aria-disabled="true" class="rdm-card rdm-card--elevated rdm-card--interactive rdm-card--disabled rdm-state-layer">
-        <p class="rdm-typography--title-large">Album: Viaje al norte</p>
-        <p class="rdm-typography--body-medium">8 fotos Â· archivada. Disabled: sin layer ni interaccion.</p>
+        <div class="rdm-card-content">
+          <p class="rdm-typography--title-large">Album: Viaje al norte</p>
+          <p class="rdm-typography--body-medium">8 fotos · archivada. Disabled: sin layer ni interaccion.</p>
+        </div>
       </a>
       <a href="card.html" class="rdm-card rdm-card--outlined rdm-card--interactive rdm-state-layer">
-        <p class="rdm-typography--title-large">Album: Viaje al este</p>
-        <p class="rdm-typography--body-medium">5 fotos Â· borrador. Outlined interactive: el borde pasa a on-surface en focus.</p>
+        <div class="rdm-card-content">
+          <p class="rdm-typography--title-large">Album: Viaje al este</p>
+          <p class="rdm-typography--body-medium">5 fotos · borrador. Outlined interactive: el borde pasa a on-surface en focus.</p>
+        </div>
       </a>
     </div>
     <!-- FIN: card interactive demo -->
@@ -148,7 +209,12 @@
        se reconstruyen en su paso.</p>
 
     <!-- INICIO: card disabled demo -->
-    <div class="rdm-card rdm-card--filled rdm-card--disabled" aria-label="Filled disabled container"></div>
+    <div class="rdm-card rdm-card--filled rdm-card--disabled">
+      <div class="rdm-card-content">
+        <p class="rdm-typography--title-large">Filled disabled</p>
+        <p class="rdm-typography--body-medium">Container 0.38, sin layer.</p>
+      </div>
+    </div>
     <!-- FIN: card disabled demo -->
 
   </section>
@@ -215,7 +281,7 @@
       </thead>
       <tbody>
         <tr><td>Hover</td><td>#1D1B20 0.08</td><td>outlined outline #CAC4D0</td></tr>
-        <tr><td>Focus</td><td>#1D1B20 0.10</td><td>indicator #625B71 3dp offset 2dp Â· outlined outline #1D1B20</td></tr>
+        <tr><td>Focus</td><td>#1D1B20 0.10</td><td>indicator #625B71 3dp offset 2dp · outlined outline #1D1B20</td></tr>
         <tr><td>Pressed</td><td>#1D1B20 0.10</td><td>outlined outline #CAC4D0</td></tr>
         <tr><td>Dragged</td><td>#1D1B20 0.16</td><td>outlined outline #CAC4D0</td></tr>
         <tr><td>Disabled</td><td>container 0.38</td><td>outlined outline #79747E 0.12</td></tr>
@@ -258,7 +324,7 @@
   <!-- INICIO: card rules -->
   <section>
     <h2 class="rdm-typography--title-large">Rules</h2>
-    <p class="rdm-typography--body-medium">un subject por card Â· el container es lo unico obligatorio, el resto opcional Â· el tamano lo da el contenido Â· no forzar contenido en cards (espaciado o divisores si es mas simple) Â· jamas accion sobre superficie accionable Â· actions y media se construyen en sus pasos (ver Anatomy) Â· cuidado con large/full en cards densas (spec): medium 12 alcanza · dividers full para expandir, inset 16 para separar</p>
+    <p class="rdm-typography--body-medium">un subject por card · el container es lo unico obligatorio, el resto opcional · el tamano lo da el contenido · no forzar contenido en cards (espaciado o divisores si es mas simple) · jamas accion sobre superficie accionable · actions y media se construyen en sus pasos (ver Anatomy) · cuidado con large/full en cards densas (spec): medium 12 alcanza · dividers full para expandir, inset 16 para separar · media edge-to-edge o contenida, sin sombra, alto libre</p>
   </section>
   <!-- FIN: card rules -->
 
@@ -267,7 +333,7 @@
   <!-- INICIO: card anatomy -->
   <section>
     <h2 class="rdm-typography--title-large">Anatomy</h2>
-    <p class="rdm-typography--body-medium">Reconstruccion por anatomia, un paso por vez: 1 container Â· 2 texto (headline, subhead, supporting) Â· 3 dividers (inset = padding 16dp) Â· 4 media libre por diseno (sin aspect ratio ni thumbnail fijo) Â· 5 texto sobre imagen Â· 6 actions Â· 7 overflow menu (bloqueado: depende de Menus) Â· 8 interactive. Container, tokens, contraste, specs, rules y disabled ya estan; texto y dividers listos; media libre de medidas y actions esperan componentes.</p>
+    <p class="rdm-typography--body-medium">Reconstruccion por anatomia, un paso por vez: 1 container · 2 texto (headline, subhead, supporting) · 3 dividers (inset = padding 16dp) · 4 media libre por diseno (sin aspect ratio ni thumbnail fijo) · 5 texto sobre imagen · 6 actions · 7 overflow menu (bloqueado: depende de Menus) · 8 interactive. Container, tokens, contraste, specs, rules y disabled ya estan; texto, dividers y media listos; actions espera componentes.</p>
   </section>
   <!-- FIN: card anatomy -->
 

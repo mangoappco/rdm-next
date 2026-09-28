@@ -34,3 +34,26 @@
   margin-inline: calc(var(--rdm-space-200) * -1);
   inline-size: auto;
 }
+
+/* Media de card (paso 4): specimen con altura libre por decision 11
+   (10rem arbitrario, no token). Sin sombra (decision 13): la elevacion
+   la expresa el container. Radio superior heredado del container para
+   la variante edge-to-edge; completo para la contenida. */
+.demo-card-media {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  block-size: 10rem;
+  background-color: var(--md-sys-color-primary-container);
+  color: var(--md-sys-color-on-primary-container);
+  border-start-start-radius: var(--md-sys-shape-corner-medium-default-size);
+  border-end-start-radius: var(--md-sys-shape-corner-medium-default-size);
+}
+
+.demo-card-media .rdm-icon {
+  font-size: 2.5rem;
+}
+
+.demo-card-media--contained {
+  border-radius: var(--md-sys-shape-corner-medium-default-size);
+}

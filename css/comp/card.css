@@ -14,6 +14,12 @@
      del hover cortado). En <div> es no-op. */
   display: block;
   border-radius: var(--md-sys-shape-corner-medium-default-size);
+}
+
+/* Contenido (opcion A): lleva el padding 16. La media queda fuera del
+   wrapper para sangrar al borde; el container no lleva padding propio
+   ("size is determined by the elements it contains"). */
+.rdm-card-content {
   padding: var(--rdm-space-200);
 }
 
@@ -79,5 +85,7 @@ a.rdm-card {
 .rdm-card--outlined.rdm-card--interactive:focus-visible {
   border-color: var(--md-sys-color-on-surface);
 }
+
+
 
 

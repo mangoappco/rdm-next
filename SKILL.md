@@ -47,6 +47,13 @@ como **referencia** y no se toca.
 que solo existen para mostrar tokens. Cada pagina enlaza su demo CSS
 directo en el `<head>`, no via `rdm-next.css`.
 
+**Elementos vs modificadores:** `familia-elemento` con guion simple
+(`.rdm-card-content`) es parte del componente y vive en `css/comp/`;
+`familia--modificador` con doble guion es variante de estado o rol. El
+check 26 acepta ambas formas como familia. Regla de codificacion: todo
+`·` se escribe limpio en UTF-8; si el pipeline lo moja como `Â·`
+(bytes C3 82 C2 B7), se repara a nivel byte preservando el BOM.
+
 **Primitivas:** viven en `css/primitives/` (typography, icon, ...). Son
 clases base que leen tokens sys y que los componentes consumen. Se importan
 en `rdm-next.css` entre tokens y componentes. Excepcion deliberada:
@@ -187,7 +194,7 @@ powershell -ExecutionPolicy Bypass -File tools/verify-tokens.ps1
 | Fuente conectada | `--md-ref-typeface-plain/-brand` (valor efectivo) cargada via `<link>` en los HTML |
 | Shape sin ruido | Ningun `-family` consumido en `var()` (todos valen 1px o 3px, basura DSP) |
 | Niveles sys intactos | Ningun `--md-sys-elevation-levelN:` declarado en CSS propio (son dp del vendor; sombras en `--rdm-shadow-*`) |
-| Swatches identicos | Ningun run de 3+ `<div>` consecutivos con la misma clase (si no varia, es tabla; `demo-*` excluidos: son layout, no specimen) |
+| Swatches identicos | Ningun run de 3+ `<div>` hermanos con misma clase Y mismo contenido (wrappers con distinto texto no forman racha) |
 | Container en paginas | Todo `.html` de raiz usa `.rdm-container` (ningun showroom de lado a lado) |
 | State sin ruido | Toda opacidad `--md-sys-state-*-state-layer-opacity` propia vale 0.08, 0.10 o 0.16 exactos (sin ruido Figma ni 0.12 de M2) |
 | Motion con tokens | Ningun `transition`/`animation-duration` con duracion literal en CSS propio (todo pasa por token; el bloque reduced-motion se excluye) |
@@ -213,9 +220,10 @@ powershell -ExecutionPolicy Bypass -File tools/verify-tokens.ps1
 | Anillo de foco | La primitiva declara el focus indicator (`secondary` 3px, offset 2px) en `:focus-visible` |
 | Shape post-2023 | Los 3 niveles ausentes en el vendor existen en `css/` propio con valor exacto (20/32/48) |
 | Medidas de card | La tabla Specs de `card.html` lista los 4 valores que publica `cards/specs` (12dp, 16dp, 8dp max, start-aligned) |
-| Inset alineado | El inset del divider usa el mismo token que el padding del container (decision 12) |
+| Inset alineado | El inset del divider usa el mismo token que el padding del contenido de card (decision 12) |
+| Container sin padding | La base `.rdm-card` no declara padding (vive en `.rdm-card-content`, opcion A) |
 
-Corre en cada commit de la capa de tokens. Estado actual: 38/38 en verde.
+Corre en cada commit de la capa de tokens. Estado actual: 39/39 en verde.
 
 **Leccion v0.5:** el import de `primitives/typography.css` se escribio como
 `../primitives/` (sube un nivel de mas) y la hoja nunca llego al navegador:
@@ -414,6 +422,7 @@ cualquier `@import` relativo roto, probado con archivo temporal.
 - **v0.39** - Auditoria de baseline: vendor shape con 7 de 10 niveles (faltan large-increased 20, extra-large-increased 32, extra-extra-large 48; ningun valor mal, solo huecos). Agregados en additions.css con el patron del vendor; shape.html con los 10 + advertencia no-large/full-en-densas en Rules de card. Resultado: state contaminada (M2, corregida v0.37), shape incompleta (corregida), elevation/motion/color OK. Sombras M3 pendientes (distancias OK, recetas M2). Check 36: shape post-2023 con valor exacto, probado quitando un token.
 - **v0.40** - Decisiones 11 y 12: medidas solo del container (12/16/8dp/start) y media libre por diseno; inset divider = padding 16dp por inferencia. La tabla de `cards/specs` renderiza con 4 filas; un analisis externo que afirmaba que M3 elimino las specs de card no se sostiene contra la fuente primaria, y sus numeros de media (16:9, 80x80, edge-to-edge) no tienen cita. Anatomy marca el paso 4 como libre por diseno en vez de bloqueado. Check 37: los 4 valores en la tabla Specs.
 - **v0.41** - Card paso 3 (dividers): seccion Dividers con full-width (rompe el padding via clase demo, solo staging hasta el paso 4) e inset (divider base: el padding alinea solo). Decisiones 13 (elevacion solo del container) y 14 (bloques con enfasis; padding del contenido, 3 fuentes). Regla en Rules. Check 38: inset alineado al padding, probado cambiando el padding.
+- **v0.42** - Card paso 4 (media) + refactor opcion A: padding movido de `.rdm-card` a `.rdm-card-content`; la media queda fuera del wrapper y sangra al borde. Specimens edge-to-edge y contenida (altura 10rem libre, sin sombra, radio heredado). Variants y Disabled migran a contenido minimo (el container vacio colapsa a 0: prueba empirica de la decision 11). Convencion elemento/modificador en SKILL + check 26 extendido. Check 39: container sin padding. Hallazgo: `·` mojibakeado como `Â·` en card.html (18 casos, reparado a byte con BOM intacto); `edit` escribe limpio.
 - **v0.26** - Divider: `css/comp/divider.css` (full/inset/middle-inset/vertical, 1px outline-variant) y `divider.html`. Inset 16 solo izquierda (la tabla dice 16/0, middle 16/16). Chrome migrado: 45 `<hr>` entre secciones (+1 escrito a mano), border-top fuera de showroom.css. Check 23: sin border-top en demo, probado contra borde agregado.
 - **v0.25** - Chrome compartido: `css/demo/showroom.css` (ritmo vertical
   space-400 + divisores outline-variant 1px, sin background-color) linkeado

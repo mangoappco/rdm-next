@@ -190,23 +190,54 @@ foreach ($f in $ownFiles) {
 }
 if ($lvl -eq 0) { Write-Output "  ninguno" } else { $fail++ }
 
-# 12. Swatches identicos: 3+ <div> consecutivos con la misma clase no
-# demuestran nada (fue el bug de Levels: 6 cajas iguales). Si un valor no
-# se dibuja, va en tabla. Umbral 3: 2 identicos pueden ser estados
-# legitimos, 3 ya es patron sospechoso. Las clases demo-* se excluyen:
-# son wrappers de layout de showroom, nunca el specimen demostrado.
+# 12. Swatches identicos: 3+ <div> HERMANOS con la misma clase Y el mismo
+# contenido no demuestran nada (fue el bug de Levels: 6 cajas iguales).
+# Se comparan clase + contenido normalizado entre hijos del mismo padre:
+# wrappers estructurales con distinto texto (como .rdm-card-content) no
+# forman racha. Umbral 3. Autocerrados <div/> no se apilan.
 Write-Output ""
-Write-Output "=== Swatches identicos (3+ div consecutivos, misma clase) ==="
+Write-Output "=== Swatches identicos (3+ div hermanos identicos) ==="
 $dup = 0
 foreach ($f in (Get-ChildItem "$root\*.html" -ErrorAction SilentlyContinue)) {
   $t = Read-Css $f.FullName
-  $classes = @([regex]::Matches($t, '<div class="([^"]+)">') | ForEach-Object { $_.Groups[1].Value } | Where-Object { $_ -notmatch '^demo-' })
-  $run = 1
-  for ($i = 1; $i -le $classes.Count; $i++) {
-    if ($i -lt $classes.Count -and $classes[$i] -eq $classes[$i-1]) { $run++ }
-    else {
-      if ($run -ge 3) { Write-Output ("  IDENTICOS " + $f.Name + ": " + $run + "x <div class=""" + $classes[$i-1] + """>"); $dup++ }
-      $run = 1
+  $toks = @([regex]::Matches($t, '(?i)</?div\b[^>]*>') | ForEach-Object { @{ tag=$_.Groups[0].Value; idx=$_.Index; len=$_.Groups[0].Value.Length; open=($_.Groups[0].Value -notmatch '^</'); self=($_.Groups[0].Value -match '/>$') } })
+  $stack = New-Object System.Collections.Generic.List[object]
+  $elems = @()
+  $nextId = 0
+  foreach ($tk in $toks) {
+    if ($tk.open -and -not $tk.self) {
+      $cm = [regex]::Match($tk.tag, 'class="([^"]*)"')
+      $cls = if ($cm.Success) { $cm.Groups[1].Value } else { '' }
+      $par = if ($stack.Count -gt 0) { $stack[$stack.Count-1].id } else { -1 }
+      $stack.Add(@{ id=$nextId; class=$cls; openEnd=($tk.idx + $tk.len); parent=$par })
+      $nextId++
+    } elseif (-not $tk.open) {
+      if ($stack.Count -eq 0) { continue }
+      $node = $stack[$stack.Count-1]
+      $stack.RemoveAt($stack.Count-1)
+      $elems += @{ class=$node.class; inner=$t.Substring($node.openEnd, $tk.idx - $node.openEnd); parent=$node.parent }
+    }
+  }
+  $byParent = @{}
+  foreach ($e in $elems) {
+    if (-not $byParent.ContainsKey($e.parent)) { $byParent[$e.parent] = @() }
+    $byParent[$e.parent] += $e
+  }
+  foreach ($par in $byParent.Keys) {
+    $kids = $byParent[$par]
+    $run = 1
+    for ($i = 1; $i -le $kids.Count; $i++) {
+      $same = $false
+      if ($i -lt $kids.Count) {
+        $a = ([regex]::Replace($kids[$i].inner, '\s+', ' ')).Trim()
+        $b = ([regex]::Replace($kids[$i-1].inner, '\s+', ' ')).Trim()
+        $same = ($kids[$i].class -ceq $kids[$i-1].class) -and ($a -ceq $b)
+      }
+      if ($same) { $run++ }
+      else {
+        if ($run -ge 3) { Write-Output ("  IDENTICOS " + $f.Name + ": " + $run + "x <div class=""" + $kids[$i-1].class + """>"); $dup++ }
+        $run = 1
+      }
     }
   }
 }
@@ -403,7 +434,9 @@ foreach ($h in (Get-ChildItem "$root\*.html" -ErrorAction SilentlyContinue)) {
 if ($div -eq 0) { Write-Output "  todas" } else { $fail++ }
 
 # 26. Un componente por archivo: la primera clase .rdm-* de cada regla
-# pertenece a la familia del archivo (sin el --modificador). Referencias
+# pertenece a la familia del archivo. Elementos con guion simple
+# (.rdm-card-content) cuentan como familia; modificadores con doble
+# guion (.rdm-card--x) se recortan antes de comparar. Referencias
 # cruzadas (.rdm-fab .rdm-icon) no cuentan: solo la primera.
 Write-Output ""
 Write-Output "=== Un componente por archivo ==="
@@ -418,7 +451,7 @@ foreach ($f in (Get-ChildItem "$root\css\comp" -Filter *.css -ErrorAction Silent
       $c = [regex]::Match($s, '\.rdm-([\w-]+)')
       if ($c.Success) {
         $cls = $c.Groups[1].Value -replace '--.*$', ''
-        if ($cls -ne $fam) { Write-Output ("  MEZCLA " + $f.Name + ": ." + $c.Groups[1].Value); $mix++ }
+        if ($cls -ne $fam -and $cls -notlike ($fam + '-*')) { Write-Output ("  MEZCLA " + $f.Name + ": ." + $c.Groups[1].Value); $mix++ }
       }
     }
   }
@@ -699,13 +732,14 @@ if (Test-Path $ch) {
 if ($med -eq 0) { Write-Output "  4 valores" } else { $fail++ }
 
 # 38. Inset alineado: el inset del divider (middle-inset, ambos lados)
-# usa el mismo token que el padding del container (decision 12). Si el
-# padding se mueve, el inset lo sigue o falla.
+# usa el mismo token que el padding del contenido de card (decision 12;
+# el padding vive en content desde la opcion A). Si el padding se mueve,
+# el inset lo sigue o falla.
 Write-Output ""
 Write-Output "=== Inset alineado ==="
 $ins = 0
 function Strip-Comments($t) { return ([regex]::Replace($t.TrimStart([char]0xFEFF), '/\*.*?\*/', '', 'Singleline')) }
-$cb = [regex]::Match((Strip-Comments (Read-Css "$root\css\comp\card.css")), '(?m)^\.rdm-card\s*\{([^{}]*)\}')
+$cb = [regex]::Match((Strip-Comments (Read-Css "$root\css\comp\card.css")), '(?m)^\.rdm-card-content\s*\{([^{}]*)\}')
 $ib = [regex]::Match((Strip-Comments (Read-Css "$root\css\comp\divider.css")), '(?m)^\.rdm-divider--middle-inset\s*\{([^{}]*)\}')
 if (-not $cb.Success) { Write-Output "  SIN-BASE card.css"; $ins++ }
 elseif (-not $ib.Success) { Write-Output "  SIN-INSET divider.css"; $ins++ }
@@ -717,6 +751,17 @@ else {
   elseif ($p.Groups[1].Value -ne $q.Groups[1].Value) { Write-Output ("  DESALINEADO card=" + $p.Groups[1].Value + " inset=" + $q.Groups[1].Value); $ins++ }
 }
 if ($ins -eq 0) { Write-Output "  mismo token" } else { $fail++ }
+
+# 39. Container sin padding: la base .rdm-card no declara padding (vive
+# en .rdm-card-content, opcion A). Con padding en el container la media
+# no puede sangrar al borde y el fallo es silencioso.
+Write-Output ""
+Write-Output "=== Container sin padding ==="
+$pad = 0
+$cb2 = [regex]::Match((Strip-Comments (Read-Css "$root\css\comp\card.css")), '(?m)^\.rdm-card\s*\{([^{}]*)\}')
+if (-not $cb2.Success) { Write-Output "  SIN-BASE card.css"; $pad++ }
+elseif ($cb2.Groups[1].Value -match '(?i)\bpadding\s*:') { Write-Output "  CON-PADDING card.css"; $pad++ }
+if ($pad -eq 0) { Write-Output "  sin padding" } else { $fail++ }
 
 Write-Output ""
 if ($fail -eq 0) { Write-Output "OK: capa de tokens integra" } else { Write-Output ("FALLA: " + $fail + " chequeo(s)") }
