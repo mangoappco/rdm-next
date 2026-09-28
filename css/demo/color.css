@@ -1,0 +1,102 @@
+/*
+  RDM Next - Estilos SOLO del showroom de color.html
+  No forman parte de la libreria. Ningun componente los importa.
+  Cada swatch demuestra un par: fondo con el rol padre y texto con su
+  rol on. Asi es imposible mostrar un rol fuera de su pareja.
+*/
+.demo-color {
+  padding: 1em;
+  border-radius: var(--md-sys-shape-corner-medium-default-size);
+  margin-bottom: 1em;
+}
+
+.demo-color--primary {
+  background-color: var(--md-sys-color-primary);
+  color: var(--md-sys-color-on-primary);
+}
+.demo-color--primary-container {
+  background-color: var(--md-sys-color-primary-container);
+  color: var(--md-sys-color-on-primary-container);
+}
+.demo-color--secondary {
+  background-color: var(--md-sys-color-secondary);
+  color: var(--md-sys-color-on-secondary);
+}
+.demo-color--secondary-container {
+  background-color: var(--md-sys-color-secondary-container);
+  color: var(--md-sys-color-on-secondary-container);
+}
+.demo-color--tertiary {
+  background-color: var(--md-sys-color-tertiary);
+  color: var(--md-sys-color-on-tertiary);
+}
+.demo-color--tertiary-container {
+  background-color: var(--md-sys-color-tertiary-container);
+  color: var(--md-sys-color-on-tertiary-container);
+}
+.demo-color--error {
+  background-color: var(--md-sys-color-error);
+  color: var(--md-sys-color-on-error);
+}
+.demo-color--error-container {
+  background-color: var(--md-sys-color-error-container);
+  color: var(--md-sys-color-on-error-container);
+}
+.demo-color--surface {
+  background-color: var(--md-sys-color-surface);
+  color: var(--md-sys-color-on-surface);
+}
+.demo-color--on-surface {
+  background-color: var(--md-sys-color-on-surface);
+  color: var(--md-sys-color-surface);
+}
+.demo-color--on-surface-variant {
+  background-color: var(--md-sys-color-on-surface-variant);
+  color: var(--md-sys-color-surface);
+}
+.demo-color--surface-dim {
+  background-color: var(--md-sys-color-surface-dim);
+  color: var(--md-sys-color-on-surface);
+}
+.demo-color--surface-bright {
+  background-color: var(--md-sys-color-surface-bright);
+  color: var(--md-sys-color-on-surface);
+}
+.demo-color--surface-container-lowest {
+  background-color: var(--md-sys-color-surface-container-lowest);
+  color: var(--md-sys-color-on-surface);
+}
+.demo-color--surface-container-low {
+  background-color: var(--md-sys-color-surface-container-low);
+  color: var(--md-sys-color-on-surface);
+}
+.demo-color--surface-container {
+  background-color: var(--md-sys-color-surface-container);
+  color: var(--md-sys-color-on-surface);
+}
+.demo-color--surface-container-high {
+  background-color: var(--md-sys-color-surface-container-high);
+  color: var(--md-sys-color-on-surface);
+}
+.demo-color--surface-container-highest {
+  background-color: var(--md-sys-color-surface-container-highest);
+  color: var(--md-sys-color-on-surface);
+}
+.demo-color--outline {
+  background-color: var(--md-sys-color-surface);
+  color: var(--md-sys-color-on-surface);
+  border: 1px solid var(--md-sys-color-outline);
+}
+.demo-color--outline-variant {
+  background-color: var(--md-sys-color-surface);
+  color: var(--md-sys-color-on-surface);
+  border: 1px solid var(--md-sys-color-outline-variant);
+}
+.demo-color--inverse-surface {
+  background-color: var(--md-sys-color-inverse-surface);
+  color: var(--md-sys-color-inverse-on-surface);
+}
+.demo-color--inverse-primary {
+  background-color: var(--md-sys-color-inverse-surface);
+  color: var(--md-sys-color-inverse-primary);
+}

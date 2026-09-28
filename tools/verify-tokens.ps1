@@ -279,6 +279,25 @@ if (Test-Path $compDir) {
 }
 if ($spl -eq 0) { Write-Output "  ninguno" } else { $fail++ }
 
+# 18. Roles con tema: todo --md-sys-color-* propio se declara en light y
+# en dark (2+ ocurrencias). Un rol solo en light es un bug de tema.
+Write-Output ""
+Write-Output "=== Roles con tema ==="
+$the = 0
+$colorDefs = @{}
+foreach ($f in $ownFiles) {
+  $t = Read-Css $f.FullName
+  foreach ($m in ([regex]::Matches($t, '(?m)^\s*(--md-sys-color-[\w-]+)\s*:'))) {
+    $name = $m.Groups[1].Value
+    if (-not $colorDefs.ContainsKey($name)) { $colorDefs[$name] = 0 }
+    $colorDefs[$name]++
+  }
+}
+foreach ($name in ($colorDefs.Keys | Sort-Object)) {
+  if ($colorDefs[$name] -lt 2) { Write-Output ("  SIN DARK " + $name); $the++ }
+}
+if ($the -eq 0) { Write-Output "  todos con dark" } else { $fail++ }
+
 Write-Output ""
 if ($fail -eq 0) { Write-Output "OK: capa de tokens integra" } else { Write-Output ("FALLA: " + $fail + " chequeo(s)") }
 exit $fail

@@ -98,7 +98,7 @@ que `--icon-only`.
 
 ```
 css/md/tokens.css    entry: vendor (sin colors.css) + additions.css
-css/md/additions.css los 7 roles que el vendor no trae (post-2023)
+css/md/additions.css los 8 roles que el vendor no trae (post-2023)
 css/primitives/      clases base que leen tokens (typography, icon, ...)
 css/rdm/project.css  --rdm-* (z-index; M3 no define apilamiento)
 css/rdm-next.css     entry del proyecto
@@ -189,8 +189,9 @@ powershell -ExecutionPolicy Bypass -File tools/verify-tokens.ps1
 | Motion con tokens | Ningun `transition`/`animation-duration` con duracion literal en CSS propio (todo pasa por token; el bloque reduced-motion se excluye) |
 | Iconos con primitiva | Ningun HTML usa la clase generica de Google (`.material-symbols-*`); todo icono pasa por `.rdm-icon` |
 | Spacing con tokens | Ningun `padding`/`margin`/`gap` con valor literal en `css/comp/` (todo pasa por `--rdm-space-*`; cero y auto permitidos) |
+| Roles con tema | Todo `--md-sys-color-*` propio declarado 2+ veces (light y dark) |
 
-Corre en cada commit de la capa de tokens. Estado actual: 17/17 en verde.
+Corre en cada commit de la capa de tokens. Estado actual: 18/18 en verde.
 
 **Leccion v0.5:** el import de `primitives/typography.css` se escribio como
 `../primitives/` (sube un nivel de mas) y la hoja nunca llego al navegador:
@@ -329,6 +330,17 @@ cualquier `@import` relativo roto, probado con archivo temporal.
   Decision #10 en §5 (misma nomenclatura para migracion 1:1). Check 17:
   ningun padding/margin/gap literal en `css/comp/`, probado contra
   componente temporal.
+- **v0.20** - Color: `surface.html` reescrito como `color.html` (absorbe
+  los 9 roles, suma pares de acento, outline, inverse y tabla fixed).
+  Censo verificado contra la spec: 26/26 estandar completos; dim/bright
+  ya estaban; inverse/shadow/background en vendor; fixed (12) sin tokens
+  por seed-dependientes, solo tabla. Retractacion: el bug de surface-dim
+  dark NO existia (neutral10 es #1c1b1f, dim #141218 es mas oscuro,
+  verificado en la paleta). Check 18: todo color propio con light+dark,
+  probado contra rol solo-light. Hallazgo del check 2 al correr:
+  outline-variant NO existia (vendor solo trae outline); agregado a
+  additions.css en ambos temas (neutral-variant80/30, verificado v1.18).
+  Octavo rol post-2023.
 
 ## 10. Decisiones pendientes
 

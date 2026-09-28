@@ -62,6 +62,11 @@
   que en tablet, asi que un token CSS de valor fijo no los puede expresar.
   Estructura en SKILL pendientes (2 esquemas x 2 tipos x 3 velocidades).
   No simulado con easing.
+
+  Outline-variant (v0.20): el vendor solo trae outline. El variant es
+  post-2023 como los containers. Valores verificados contra la libreria
+  anterior (v1.18, ambos temas): light neutral-variant80, dark
+  neutral-variant30.
 */
 
 :root {
@@ -118,6 +123,9 @@
 
   /* --- Superficie brillante --- */
   --md-sys-color-surface-bright: var(--md-ref-palette-neutral100); /* #FFFFFF */
+
+  /* --- Outline variant (ausente en el vendor, verificado v1.18) --- */
+  --md-sys-color-outline-variant: var(--md-ref-palette-neutral-variant80); /* #CAC4D0 */
 }
 
 @media (prefers-color-scheme: dark) {
@@ -132,5 +140,7 @@
 
     /* Estandar M3 (no esta en la paleta del vendor, que no tiene neutral25) */
     --md-sys-color-surface-bright: #3B383E;
+
+    --md-sys-color-outline-variant: var(--md-ref-palette-neutral-variant30); /* #49454F */
   }
 }

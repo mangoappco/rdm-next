@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Color - RDM Next</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Google+Sans:wght@400..700&display=swap" rel="stylesheet">
+  <!-- Material Symbols recortado: peso 400, sin ejes variables sin uso -->
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@24,400,0,0" rel="stylesheet">
+
+  <link rel="stylesheet" href="css/rdm-next.css">
+  <link rel="stylesheet" href="css/demo/color.css">
+</head>
+<body>
+
+<!-- INICIO: color container -->
+<div class="rdm-container">
+
+<!-- INICIO: color header -->
+<header>
+  <p class="rdm-typography--label-large"><a href="index.html">RDM Next</a></p>
+  <h1 class="rdm-typography--display-small">Color</h1>
+  <p class="rdm-typography--body-large">26 roles estandar en 6 grupos.
+     Son los numeros del paint-by-number: cada swatch muestra un par
+     (fondo + su on) porque fuera de su pareja un rol rompe contraste.</p>
+</header>
+<!-- FIN: color header -->
+
+<main>
+
+  <!-- INICIO: color concepts -->
+  <section>
+    <h2 class="rdm-typography--title-large">Concepts</h2>
+
+    <!-- INICIO: color concepts table -->
+    <table>
+      <thead>
+        <tr><th>Termino</th><th>Significado</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Surface</td><td>Fondos y areas grandes de bajo enfasis</td></tr>
+        <tr><td>Primary / Secondary / Tertiary</td><td>Acentos por importancia: maximo, medio, especial</td></tr>
+        <tr><td>Container</td><td>Relleno de elementos (botones). Nunca para texto ni iconos</td></tr>
+        <tr><td>On-</td><td>Texto e iconos sobre su padre (on-primary va sobre primary)</td></tr>
+        <tr><td>Variant</td><td>Alternativa de menor enfasis (outline-variant es outline atenuado)</td></tr>
+      </tbody>
+    </table>
+    <!-- FIN: color concepts table -->
+
+  </section>
+  <!-- FIN: color concepts -->
+
+  <!-- INICIO: color accent -->
+  <section>
+    <h2 class="rdm-typography--title-large">Accent pairs</h2>
+    <p class="rdm-typography--body-large">Primary para lo mas importante
+       (FAB, acciones), secondary para lo medio (chips, dismiss),
+       tertiary para enfasis especial (badges), error para urgencia.
+       Error es estatico: no cambia con dynamic color.</p>
+
+    <!-- INICIO: color primary -->
+    <div class="demo-color demo-color--primary">
+      <p class="rdm-typography--title-medium">Primary / on-primary</p>
+      <p class="rdm-typography--body-small"><code>--md-sys-color-primary · --md-sys-color-on-primary</code></p>
+    </div>
+    <!-- FIN: color primary -->
+
+    <!-- INICIO: color primary-container -->
+    <div class="demo-color demo-color--primary-container">
+      <p class="rdm-typography--title-medium">Primary container / on-primary-container</p>
+      <p class="rdm-typography--body-small"><code>--md-sys-color-primary-container · --md-sys-color-on-primary-container</code></p>
+    </div>
+    <!-- FIN: color primary-container -->
+
+    <!-- INICIO: color secondary -->
+    <div class="demo-color demo-color--secondary">
+      <p class="rdm-typography--title-medium">Secondary / on-secondary</p>
+      <p class="rdm-typography--body-small"><code>--md-sys-color-secondary · --md-sys-color-on-secondary</code></p>
+    </div>
+    <!-- FIN: color secondary -->
+
+    <!-- INICIO: color secondary-container -->
+    <div class="demo-color demo-color--secondary-container">
+      <p class="rdm-typography--title-medium">Secondary container / on-secondary-container</p>
+      <p class="rdm-typography--body-small"><code>--md-sys-color-secondary-container · --md-sys-color-on-secondary-container</code></p>
+    </div>
+    <!-- FIN: color secondary-container -->
+
+    <!-- INICIO: color tertiary -->
+    <div class="demo-color demo-color--tertiary">
+      <p class="rdm-typography--title-medium">Tertiary / on-tertiary</p>
+      <p class="rdm-typography--body-small"><code>--md-sys-color-tertiary · --md-sys-color-on-tertiary</code></p>
+    </div>
+    <!-- FIN: color tertiary -->
+
+    <!-- INICIO: color tertiary-container -->
+    <div class="demo-color demo-color--tertiary-container">
+      <p class="rdm-typography--title-medium">Tertiary container / on-tertiary-container</p>
+      <p class="rdm-typography--body-small"><code>--md-sys-color-tertiary-container · --md-sys-color-on-tertiary-container</code></p>
+    </div>
+    <!-- FIN: color tertiary-container -->
+
+    <!-- INICIO: color error -->
+    <div class="demo-color demo-color--error">
+      <p class="rdm-typography--title-medium">Error / on-error</p>
+      <p class="rdm-typography--body-small"><code>--md-sys-color-error · --md-sys-color-on-error</code></p>
+    </div>
+    <!-- FIN: color error -->
+
+    <!-- INICIO: color error-container -->
+    <div class="demo-color demo-color--error-container">
+      <p class="rdm-typography--title-medium">Error container / on-error-container</p>
+      <p class="rdm-typography--body-small"><code>--md-sys-color-error-container · --md-sys-color-on-error-container</code></p>
+    </div>
+    <!-- FIN: color error-container -->
+
+  </section>
+  <!-- FIN: color accent -->
+
+  <!-- INICIO: color surface -->
+  <section>
+    <h2 class="rdm-typography--title-large">Surface</h2>
+    <p class="rdm-typography--body-large">Fondos neutros y contenedores
+       (cards, sheets, dialogs). El texto usa on-surface u
+       on-surface-variant sobre cualquier superficie.</p>
+
+    <!-- INICIO: color surface base -->
+    <div class="demo-color demo-color--surface">
+      <p class="rdm-typography--title-medium">Surface / on-surface</p>
+      <p class="rdm-typography--body-small"><code>--md-sys-color-surface · --md-sys-color-on-surface</code></p>
+    </div>
+    <!-- FIN: color surface base -->
+
+    <!-- INICIO: color on-surface -->
+    <div class="demo-color demo-color--on-surface">
+      <p class="rdm-typography--title-medium">On-surface (invertido)</p>
+      <p class="rdm-typography--body-small"><code>--md-sys-color-on-surface sobre --md-sys-color-surface</code></p>
+    </div>
+    <!-- FIN: color on-surface -->
+
+    <!-- INICIO: color on-surface-variant -->
+    <div class="demo-color demo-color--on-surface-variant">
+      <p class="rdm-typography--title-medium">On-surface-variant (invertido)</p>
+      <p class="rdm-typography--body-small"><code>texto de menor enfasis sobre cualquier superficie</code></p>
+    </div>
+    <!-- FIN: color on-surface-variant -->
+
+    <!-- INICIO: color surface-dim -->
+    <div class="demo-color demo-color--surface-dim">
+      <p class="rdm-typography--title-medium">Surface dim</p>
+      <p class="rdm-typography--body-small"><code>--md-sys-color-surface-dim · la mas oscura en ambos temas</code></p>
+    </div>
+    <!-- FIN: color surface-dim -->
+
+    <!-- INICIO: color surface-bright -->
+    <div class="demo-color demo-color--surface-bright">
+      <p class="rdm-typography--title-medium">Surface bright</p>
+      <p class="rdm-typography--body-small"><code>--md-sys-color-surface-bright · la mas clara en ambos temas</code></p>
+    </div>
+    <!-- FIN: color surface-bright -->
+
+    <!-- INICIO: color surface-container-lowest -->
+    <div class="demo-color demo-color--surface-container-lowest">
+      <p class="rdm-typography--title-medium">Surface container lowest</p>
+      <p class="rdm-typography--body-small"><code>--md-sys-color-surface-container-lowest</code></p>
+    </div>
+    <!-- FIN: color surface-container-lowest -->
+
+    <!-- INICIO: color surface-container-low -->
+    <div class="demo-color demo-color--surface-container-low">
+      <p class="rdm-typography--title-medium">Surface container low</p>
+      <p class="rdm-typography--body-small"><code>--md-sys-color-surface-container-low</code></p>
+    </div>
+    <!-- FIN: color surface-container-low -->
+
+    <!-- INICIO: color surface-container -->
+    <div class="demo-color demo-color--surface-container">
+      <p class="rdm-typography--title-medium">Surface container</p>
+      <p class="rdm-typography--body-small"><code>--md-sys-color-surface-container · default de contenedores</code></p>
+    </div>
+    <!-- FIN: color surface-container -->
+
+    <!-- INICIO: color surface-container-high -->
+    <div class="demo-color demo-color--surface-container-high">
+      <p class="rdm-typography--title-medium">Surface container high</p>
+      <p class="rdm-typography--body-small"><code>--md-sys-color-surface-container-high</code></p>
+    </div>
+    <!-- FIN: color surface-container-high -->
+
+    <!-- INICIO: color surface-container-highest -->
+    <div class="demo-color demo-color--surface-container-highest">
+      <p class="rdm-typography--title-medium">Surface container highest</p>
+      <p class="rdm-typography--body-small"><code>--md-sys-color-surface-container-highest</code></p>
+    </div>
+    <!-- FIN: color surface-container-highest -->
+
+  </section>
+  <!-- FIN: color surface -->
+
+  <!-- INICIO: color outline -->
+  <section>
+    <h2 class="rdm-typography--title-large">Outline</h2>
+    <p class="rdm-typography--body-large">Outline para bordes importantes
+       (text field), variant para decorativos (dividers). Nunca outline
+       en cards ni variant para jerarquia: el borde de un target pide
+       3:1 contra surface.</p>
+
+    <!-- INICIO: color outline -->
+    <div class="demo-color demo-color--outline">
+      <p class="rdm-typography--title-medium">Outline</p>
+      <p class="rdm-typography--body-small"><code>--md-sys-color-outline · bordes importantes</code></p>
+    </div>
+    <!-- FIN: color outline -->
+
+    <!-- INICIO: color outline-variant -->
+    <div class="demo-color demo-color--outline-variant">
+      <p class="rdm-typography--title-medium">Outline variant</p>
+      <p class="rdm-typography--body-small"><code>--md-sys-color-outline-variant · dividers y decoracion</code></p>
+    </div>
+    <!-- FIN: color outline-variant -->
+
+  </section>
+  <!-- FIN: color outline -->
+
+  <!-- INICIO: color addon -->
+  <section>
+    <h2 class="rdm-typography--title-large">Add-on</h2>
+    <p class="rdm-typography--body-large">La spec avisa: la mayoria de los
+       productos no los necesita. Inverse existe en el vendor; fixed es
+       seed-dependiente y no tiene tokens, asi que va en tabla.</p>
+
+    <!-- INICIO: color inverse-surface -->
+    <div class="demo-color demo-color--inverse-surface">
+      <p class="rdm-typography--title-medium">Inverse surface / inverse-on-surface</p>
+      <p class="rdm-typography--body-small"><code>--md-sys-color-inverse-surface · --md-sys-color-inverse-on-surface · snackbar</code></p>
+    </div>
+    <!-- FIN: color inverse-surface -->
+
+    <!-- INICIO: color inverse-primary -->
+    <div class="demo-color demo-color--inverse-primary">
+      <p class="rdm-typography--title-medium">Inverse surface / inverse-primary</p>
+      <p class="rdm-typography--body-small"><code>--md-sys-color-inverse-primary · boton de texto sobre snackbar</code></p>
+    </div>
+    <!-- FIN: color inverse-primary -->
+
+    <!-- INICIO: color fixed table -->
+    <table>
+      <thead>
+        <tr><th>Rol</th><th>Comportamiento</th></tr>
+      </thead>
+      <tbody>
+        <tr><td><code>primary-fixed / secondary-fixed / tertiary-fixed</code></td><td>mismo tono en light y dark (el container cambia)</td></tr>
+        <tr><td><code>*-fixed-dim</code></td><td>tono mas fuerte con el mismo comportamiento fijo</td></tr>
+        <tr><td><code>on-*-fixed / on-*-fixed-variant</code></td><td>texto e iconos sobre su fixed</td></tr>
+      </tbody>
+    </table>
+    <!-- FIN: color fixed table -->
+
+  </section>
+  <!-- FIN: color addon -->
+
+  <!-- INICIO: color rules -->
+  <section>
+    <h2 class="rdm-typography--title-large">Rules</h2>
+    <p class="rdm-typography--body-large">Los pares garantizan 3:1 minimo;
+       texto e iconos dentro de un target piden 4.5:1. Container nunca
+       para texto. Otros roles sirven si container y texto dan 3:1
+       (habilita el destructivo con error). El vendor trae ademas
+       background y on-background de M2: no son spec actual.</p>
+  </section>
+  <!-- FIN: color rules -->
+
+</main>
+
+<!-- FIN: color container -->
+</div>
+
+</body>
+</html>
