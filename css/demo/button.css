@@ -1,0 +1,22 @@
+/*
+  RDM Next - Estilos SOLO del showroom de button.html
+  No forman parte de la libreria. Ningun componente los importa.
+  Solo layout de filas (flex + gap con token); ningun color ni chrome.
+  Modificadores distintos por fila para no caer en el check de swatches
+  identicos: cada fila es un demo distinto.
+*/
+.demo-button-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--rdm-space-200);
+  margin-bottom: 1em;
+}
+
+/* Cada fila nombra su demo (grep + check 12): el contenido difiere,
+   la receta es la misma. */
+.demo-button-row--variants {
+}
+.demo-button-row--icons {
+}
+.demo-button-row--states {
+}

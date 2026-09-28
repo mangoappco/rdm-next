@@ -1,0 +1,100 @@
+/*
+  RDM Next - Button (v0.22): primer componente, consume las 7 fundaciones.
+  Base + 5 variantes con el mapeo de color de la spec (no el de Material
+  Web): elevated en surface-container-low + primary; outlined con borde
+  outline-variant. Outlined label = primary (codigo de Material Web y
+  coherencia con text; la tabla de la spec es ambigua en ese punto).
+
+  Composicion, no duplicacion: la tipografia viene de
+  rdm-typography--label-large y el state layer de .rdm-state-layer, ambos
+  en el HTML. Esta hoja solo trae geometria, color, borde y elevacion.
+  Geometria en em (decision 7); espaciado con tokens (check 17).
+
+  Disabled por spec via color-mix: container 12% + label 38% de
+  on-surface (la libreria anterior usaba 38% plano). Solo las contenidas
+  llevan wash; outlined/text quedan transparentes. Sin sombra y sin layer.
+  Focus sin anillo propio: outline del navegador + layer de la primitiva.
+
+  En M3 la elevacion es estatica: solo elevated la tiene y no cambia con
+  hover ni pressed. El feedback lo da el state layer.
+*/
+.rdm-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--rdm-space-100);
+  height: 2.5em;
+  padding-inline: var(--rdm-space-300);
+  border: none;
+  border-radius: var(--md-sys-shape-corner-full-default-size);
+  background-color: transparent;
+  cursor: pointer;
+  user-select: none;
+  transition: background-color var(--md-sys-motion-duration-short3) var(--md-sys-motion-easing-standard), color var(--md-sys-motion-duration-short3) var(--md-sys-motion-easing-standard), border-color var(--md-sys-motion-duration-short3) var(--md-sys-motion-easing-standard), box-shadow var(--md-sys-motion-duration-short3) var(--md-sys-motion-easing-standard);
+}
+
+/* Icono leading 20px por spec (el 18dp anterior era herencia M2).
+   20px no tiene token sys: va en em como resto de la geometria. */
+.rdm-button .rdm-icon {
+  font-size: 1.25em;
+}
+
+/* Padding asimetrico con icono: 16px del lado leading, 24px trailing. */
+.rdm-button--with-icon {
+  padding-inline-start: var(--rdm-space-200);
+}
+
+/* Elevated: surface-container-low + primary + sombra nivel 1. */
+.rdm-button--elevated {
+  background-color: var(--md-sys-color-surface-container-low);
+  color: var(--md-sys-color-primary);
+  --layer: var(--md-sys-color-on-surface);
+  box-shadow: var(--rdm-shadow-level1);
+}
+
+/* Filled: primary + on-primary. */
+.rdm-button--filled {
+  background-color: var(--md-sys-color-primary);
+  color: var(--md-sys-color-on-primary);
+  --layer: var(--md-sys-color-on-primary);
+}
+
+/* Tonal: secondary-container + on-secondary-container. */
+.rdm-button--tonal {
+  background-color: var(--md-sys-color-secondary-container);
+  color: var(--md-sys-color-on-secondary-container);
+  --layer: var(--md-sys-color-on-secondary-container);
+}
+
+/* Outlined: transparente + primary + borde outline-variant. */
+.rdm-button--outlined {
+  color: var(--md-sys-color-primary);
+  --layer: var(--md-sys-color-primary);
+  border: solid 0.0625em var(--md-sys-color-outline-variant);
+}
+
+/* Text: transparente + primary, sin borde. */
+.rdm-button--text {
+  color: var(--md-sys-color-primary);
+  --layer: var(--md-sys-color-primary);
+}
+
+/* Disabled: wash 12% solo en contenidas, label 38% en todas,
+   borde 12% en outlined, sin sombra. pointer-events evita el hover. */
+.rdm-button--elevated:disabled,
+.rdm-button--filled:disabled,
+.rdm-button--tonal:disabled {
+  background-color: color-mix(in srgb, var(--md-sys-color-on-surface) 12%, transparent);
+}
+
+.rdm-button:disabled {
+  color: color-mix(in srgb, var(--md-sys-color-on-surface) 38%, transparent);
+  border-color: color-mix(in srgb, var(--md-sys-color-on-surface) 12%, transparent);
+  box-shadow: none;
+  pointer-events: none;
+  cursor: not-allowed;
+}
+
+.rdm-button:disabled::after {
+  opacity: 0;
+}

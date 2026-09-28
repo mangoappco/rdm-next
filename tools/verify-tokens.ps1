@@ -47,11 +47,13 @@ foreach ($f in $ownFiles) {
 }
 if ($broken -eq 0) { Write-Output "  ninguna" } else { $fail++ }
 
-# 3. Duplicados en archivos propios
+# 3. Duplicados en archivos propios: solo tokens namespaced (--md-*, --rdm-*).
+# El API sin prefijo (--layer) se declara en cada componente por diseno.
 Write-Output ""
 Write-Output "=== Duplicados (mismo token en 2+ archivos propios) ==="
 $dups = 0
 foreach ($k in $defined.Keys) {
+  if ($k -notmatch '^--(md|rdm)-') { continue }
   $files = ($defined[$k] | Sort-Object -Unique)
   if ($files.Count -gt 1) {
     Write-Output ("  DUPLICADO " + $k + " en: " + ($files -join ", "))
@@ -297,6 +299,25 @@ foreach ($name in ($colorDefs.Keys | Sort-Object)) {
   if ($colorDefs[$name] -lt 2) { Write-Output ("  SIN DARK " + $name); $the++ }
 }
 if ($the -eq 0) { Write-Output "  todos con dark" } else { $fail++ }
+
+# 19. Chrome fuera de demo: ningun css/demo/ pinta header/section/main.
+# La estructura de pagina la daran los componentes (Card); en demo solo
+# viven probes y layout de filas sin fondo.
+Write-Output ""
+Write-Output "=== Chrome en demo ==="
+$chr = 0
+foreach ($f in (Get-ChildItem "$root\css\demo" -Filter *.css)) {
+  $t = (Read-Css $f.FullName).TrimStart([char]0xFEFF)
+  $t = [regex]::Replace($t, '/\*.*?\*/', '', 'Singleline')
+  foreach ($m in ([regex]::Matches($t, '([^{}]+)\{([^{}]*)\}'))) {
+    $sel = $m.Groups[1].Value
+    $body = $m.Groups[2].Value
+    if ($sel -match '(^|[\s,>+~])(header|section|main)(?![\w-])' -and $body -match 'background-color\s*:') {
+      Write-Output ("  CHROME " + $f.Name + ": " + $sel.Trim()); $chr++
+    }
+  }
+}
+if ($chr -eq 0) { Write-Output "  ninguno" } else { $fail++ }
 
 Write-Output ""
 if ($fail -eq 0) { Write-Output "OK: capa de tokens integra" } else { Write-Output ("FALLA: " + $fail + " chequeo(s)") }
