@@ -319,6 +319,17 @@ foreach ($f in (Get-ChildItem "$root\css\demo" -Filter *.css)) {
 }
 if ($chr -eq 0) { Write-Output "  ninguno" } else { $fail++ }
 
+# 20. Showroom por componente: cada css/comp/*.css tiene su <nombre>.html
+# en la raiz. Sin pagina, el componente no existe para el proyecto.
+Write-Output ""
+Write-Output "=== Showroom por componente ==="
+$mis = 0
+foreach ($f in (Get-ChildItem "$root\css\comp" -Filter *.css -ErrorAction SilentlyContinue)) {
+  $html = Join-Path $root ([System.IO.Path]::GetFileNameWithoutExtension($f.Name) + ".html")
+  if (-not (Test-Path $html)) { Write-Output ("  SIN SHOWROOM " + $f.Name); $mis++ }
+}
+if ($mis -eq 0) { Write-Output "  todos" } else { $fail++ }
+
 Write-Output ""
 if ($fail -eq 0) { Write-Output "OK: capa de tokens integra" } else { Write-Output ("FALLA: " + $fail + " chequeo(s)") }
 exit $fail

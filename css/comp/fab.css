@@ -1,0 +1,70 @@
+/*
+  RDM Next - FAB (v0.23): primary-container + on-primary-container, que es
+  el default de la spec (surface quedo como baseline no recomendado; los
+  tokens v0_192 son de esa generacion). Medium 56 + large 96 + extended;
+  small es baseline y no se construye.
+
+  Elevacion 3 con hover en 4 (token explicito de Material Web): el unico
+  componente que levanta. Focus/pressed vuelven a 3, sin reglas. Los
+  state layers van por sys (12%) via la primitiva: la spec dice 10%
+  para focus/pressed, pendiente de verificar contra la tabla de tokens.
+
+  Extended: alto 56, radio large, icono 24 + label, padding 16/20 y gap
+  12 por implementacion de Material Web (sin tokens comp para eso).
+  Disabled heredado de button (12%/38%), pendiente de valores propios.
+*/
+.rdm-fab {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 3.5em;
+  height: 3.5em;
+  padding: 0;
+  border: none;
+  border-radius: var(--md-sys-shape-corner-large-default-size);
+  background-color: var(--md-sys-color-primary-container);
+  color: var(--md-sys-color-on-primary-container);
+  --layer: var(--md-sys-color-on-primary-container);
+  box-shadow: var(--rdm-shadow-level3);
+  cursor: pointer;
+  user-select: none;
+  white-space: nowrap;
+  transition: background-color var(--md-sys-motion-duration-short3) var(--md-sys-motion-easing-standard), color var(--md-sys-motion-duration-short3) var(--md-sys-motion-easing-standard), box-shadow var(--md-sys-motion-duration-short3) var(--md-sys-motion-easing-standard);
+}
+
+.rdm-fab:hover {
+  box-shadow: var(--rdm-shadow-level4);
+}
+
+.rdm-fab .rdm-icon {
+  font-size: 1.5em;
+}
+
+.rdm-fab--large {
+  width: 6em;
+  height: 6em;
+  border-radius: var(--md-sys-shape-corner-extra-large-default-size);
+}
+
+.rdm-fab--large .rdm-icon {
+  font-size: 2.25em;
+}
+
+.rdm-fab--extended {
+  width: auto;
+  gap: var(--rdm-space-150);
+  padding-inline-start: var(--rdm-space-200);
+  padding-inline-end: var(--rdm-space-250);
+}
+
+.rdm-fab:disabled {
+  background-color: color-mix(in srgb, var(--md-sys-color-on-surface) 12%, transparent);
+  color: color-mix(in srgb, var(--md-sys-color-on-surface) 38%, transparent);
+  box-shadow: none;
+  pointer-events: none;
+  cursor: not-allowed;
+}
+
+.rdm-fab:disabled::after {
+  opacity: 0;
+}

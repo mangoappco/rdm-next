@@ -51,8 +51,10 @@
   --rdm-space-75: 6px;
   --rdm-space-100: 8px;
   --rdm-space-125: 10px;
+  --rdm-space-150: 12px; /* regla del multiplicador (extended FAB gap) */
   --rdm-space-200: 16px;
   --rdm-space-225: 18px;
+  --rdm-space-250: 20px; /* regla del multiplicador (extended FAB padding) */
   --rdm-space-300: 24px;
   --rdm-space-400: 32px;
 }

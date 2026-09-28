@@ -191,8 +191,9 @@ powershell -ExecutionPolicy Bypass -File tools/verify-tokens.ps1
 | Spacing con tokens | Ningun `padding`/`margin`/`gap` con valor literal en `css/comp/` (todo pasa por `--rdm-space-*`; cero y auto permitidos) |
 | Roles con tema | Todo `--md-sys-color-*` propio declarado 2+ veces (light y dark) |
 | Chrome fuera de demo | Ningun `css/demo/` pinta `header`/`section`/`main` (la estructura la daran los componentes) |
+| Showroom por componente | Cada `css/comp/*.css` tiene su `<nombre>.html` en la raiz |
 
-Corre en cada commit de la capa de tokens. Estado actual: 19/19 en verde.
+Corre en cada commit de la capa de tokens. Estado actual: 20/20 en verde.
 
 **Leccion v0.5:** el import de `primitives/typography.css` se escribio como
 `../primitives/` (sube un nivel de mas) y la hoja nunca llego al navegador:
@@ -359,7 +360,16 @@ cualquier `@import` relativo roto, probado con archivo temporal.
   del BOM: Set-Content escribe EF BB BF y en .NET no matchea \s). Hallazgo del
   check 3 al correr: --layer en button.css y demo/state-layer.css NO es
   duplicado (es API de componente, muchos hogares); check 3 refinado a
-  solo namespaced.
+  solo namespaced. Guia de decision en button.html (enfasis 3 niveles,
+  placement, semantica outlined/elevated) e indice con los 10 tipos.
+- **v0.23** - FAB: `css/comp/fab.css` (medium 56 + large 96 + extended) y
+  `fab.html`. Default primary-container por spec (surface es baseline no
+  recomendado; correccion a la lectura de tokens v0_192). Elevacion 3 con
+  hover en 4: unico componente que levanta. Extended con padding 16/20 y
+  gap 12 de la implementacion (sin tokens comp). Small es baseline, no se
+  construye. Focus/pressed 12% por sys (spec dice 10%, pendiente).
+  space-150 y space-250 por regla del multiplicador. Check 20: showroom
+  por componente, probado contra css sin html.
 
 ## 10. Decisiones pendientes
 
@@ -370,3 +380,4 @@ cualquier `@import` relativo roto, probado con archivo temporal.
 - [ ] `--md-sys-elevation-surface-tint-color`: token M3 real del vendor (tinta primaria sobre superficies elevadas), hoy sin consumir. No es sombra ni nivel; evaluar cuando un componente necesite tinte de elevacion.
 - [ ] Springs de M3 Expressive: 2 esquemas (expressive, standard) x 2 tipos (spatial con rebote: posicion, rotacion, tamano, radio; effects sin rebote: color, opacidad) x 3 velocidades (default, fast, slow). Criterio por tamano: componentes chicos (switches, buttons) = fast, bottom sheet = default, fullscreen = slow. Todo componente corre con fast spatial + fast effects. Sin tokens en ninguna exportacion CSS; la pagina Specs explica la conversion desde Compose.
 - [x] Button (resuelto en v0.22 con mapeo de la spec; label outlined = primary por codigo de Material Web).
+- [ ] Botones restantes (6 de 10 tipos): icon button, toggle icon button, split button, standard/connected groups, FAB menu. Toggle button es Expressive (fuera de scope). FAB hecho en v0.23.

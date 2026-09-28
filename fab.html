@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>FAB - RDM Next</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Google+Sans:wght@400..700&display=swap" rel="stylesheet">
+  <!-- Material Symbols recortado: peso 400, sin ejes variables sin uso -->
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@24,400,0,0" rel="stylesheet">
+
+  <link rel="stylesheet" href="css/rdm-next.css">
+  <link rel="stylesheet" href="css/demo/fab.css">
+</head>
+<body>
+
+<!-- INICIO: fab container -->
+<div class="rdm-container">
+
+<!-- INICIO: fab header -->
+<header>
+  <p class="rdm-typography--label-large"><a href="index.html">RDM Next</a></p>
+  <h1 class="rdm-typography--display-small">FAB</h1>
+  <p class="rdm-typography--body-large">Primary-container por default de la
+     spec (surface es baseline no recomendado). El unico componente que
+     levanta: sombra 3, hover 4.</p>
+</header>
+<!-- FIN: fab header -->
+
+<main>
+
+  <!-- INICIO: fab sizes -->
+  <section>
+    <h2 class="rdm-typography--title-large">Sizes</h2>
+    <p class="rdm-typography--body-large">Medium 56 con radio large e icono
+       24; large 96 con radio extra-large e icono 36. Small es baseline
+       y no se construye.</p>
+
+    <!-- INICIO: fab sizes demo -->
+    <div class="demo-fab-row demo-fab-row--sizes">
+      <button type="button" aria-label="Create" class="rdm-fab rdm-state-layer"><span class="rdm-icon" aria-hidden="true">add</span></button>
+      <button type="button" aria-label="Create large" class="rdm-fab rdm-fab--large rdm-state-layer"><span class="rdm-icon" aria-hidden="true">add</span></button>
+    </div>
+    <!-- FIN: fab sizes demo -->
+
+  </section>
+  <!-- FIN: fab sizes -->
+
+  <!-- INICIO: fab extended -->
+  <section>
+    <h2 class="rdm-typography--title-large">Extended</h2>
+    <p class="rdm-typography--body-large">Alto 56, radio large, icono 24 mas
+       etiqueta, padding 16/20 y gap 12 por implementacion de Material
+       Web. Mejor en pantallas grandes.</p>
+
+    <!-- INICIO: fab extended demo -->
+    <div class="demo-fab-row demo-fab-row--extended">
+      <button type="button" class="rdm-fab rdm-fab--extended rdm-state-layer rdm-typography--label-large"><span class="rdm-icon" aria-hidden="true">edit</span>Create</button>
+    </div>
+    <!-- FIN: fab extended demo -->
+
+  </section>
+  <!-- FIN: fab extended -->
+
+  <!-- INICIO: fab states -->
+  <section>
+    <h2 class="rdm-typography--title-large">States</h2>
+    <p class="rdm-typography--body-large">Pasa el mouse: la sombra sube a 4
+       y la capa al 8%. Focus y pressed vuelven a 3 con layer 12% por
+       sys (la spec dice 10%, pendiente). Disabled heredado de button.</p>
+
+    <!-- INICIO: fab states demo -->
+    <div class="demo-fab-row demo-fab-row--states">
+      <button type="button" disabled aria-label="Create disabled" class="rdm-fab rdm-state-layer"><span class="rdm-icon" aria-hidden="true">add</span></button>
+    </div>
+    <!-- FIN: fab states demo -->
+
+  </section>
+  <!-- FIN: fab states -->
+
+  <!-- INICIO: fab anatomy -->
+  <section>
+    <h2 class="rdm-typography--title-large">Anatomy</h2>
+    <p class="rdm-typography--body-medium">rdm-fab: geometria 56, radio large, primary-container, sombra 3 (hover 4) · rdm-fab--large: 96, radio extra-large, icono 36 · rdm-fab--extended: ancho auto, padding 16/20, gap 12 · rdm-state-layer: estados · icono solo con aria-label en el boton</p>
+  </section>
+  <!-- FIN: fab anatomy -->
+
+</main>
+
+<!-- FIN: fab container -->
+</div>
+
+</body>
+</html>
