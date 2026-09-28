@@ -6,8 +6,7 @@
 
   Elevacion 3 con hover en 4 (token explicito de Material Web): el unico
   componente que levanta. Focus/pressed vuelven a 3, sin reglas. Los
-  state layers van por sys (12%) via la primitiva: la spec dice 10%
-  para focus/pressed, pendiente de verificar contra la tabla de tokens.
+  state layers van por sys (10% en focus/pressed) via la primitiva.
 
   Extended: alto 56, radio large, icono 24 + label, padding 16/20 y gap
   12 por implementacion de Material Web (sin tokens comp para eso).

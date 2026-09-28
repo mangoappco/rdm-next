@@ -224,8 +224,8 @@ foreach ($h in (Get-ChildItem "$root\*.html" -ErrorAction SilentlyContinue)) {
 if ($noc -eq 0) { Write-Output "  todas" } else { $fail++ }
 
 # 14. Opacidades de state limpias: el vendor las trae con ruido binario de
-# Figma (0.07999999821186066...). Toda redeclaracion propia debe usar el
-# valor exacto de la spec: 0.08, 0.12 o 0.16.
+# Figma (0.07999999821186066...) y con el 0.12 de M2. Toda redeclaracion
+# propia debe usar el valor exacto de la spec: 0.08, 0.10 o 0.16.
 Write-Output ""
 Write-Output "=== Opacidades de state ==="
 $noi = 0
@@ -233,7 +233,7 @@ foreach ($f in $ownFiles) {
   $t = Read-Css $f.FullName
   foreach ($m in ([regex]::Matches($t, '--md-sys-state-(hover|focus|pressed|dragged)-state-layer-opacity\s*:\s*([^;]+);'))) {
     $v = $m.Groups[2].Value.Trim()
-    if ($v -notmatch '^0\.(08|12|16)$') { Write-Output ("  RUIDO " + $f.Name + ": " + $m.Groups[1].Value + " = " + $v); $noi++ }
+    if ($v -notmatch '^0\.(08|10|16)$') { Write-Output ("  RUIDO " + $f.Name + ": " + $m.Groups[1].Value + " = " + $v); $noi++ }
   }
 }
 if ($noi -eq 0) { Write-Output "  limpias" } else { $fail++ }

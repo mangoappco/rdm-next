@@ -31,13 +31,12 @@
   asi que se agrega aqui. Misma clase de hueco que surface-container:
   token que la spec exige y el export de Figma no emitio.
 
-  State (v0.15): el vendor trae las 4 opacidades con ruido binario de
-  Figma (0.07999999821186066...). Se sobreescriben con los valores
-  exactos de la spec en ese momento: hover 0.08, focus 0.12, pressed
-  0.12, dragged 0.16. Iguales en light y dark, asi que van solo en
-  :root. Nota (v0.34): la tabla de tokens de Card lista focus/pressed
-  en 0.10; se mantiene 0.12 hasta verificar contra la tabla de Buttons.
-  Una sola fuente no mueve un token fundacional.
+  State (v0.15, corregido v0.37): el vendor trae las 4 opacidades con
+  ruido binario de Figma (0.07999999821186066...) y ademas arrastra el
+  0.12 de M2 en focus/pressed. Se sobreescriben con los valores de la
+  pagina de fundamentos (state-layers): hover 0.08, focus 0.10, pressed
+  0.10, dragged 0.16. Iguales en light y dark, asi que van solo en
+  :root.
 
   Motion (v0.16): el vendor explota cada curva en 4 puntos de control sueltos
   (28 tokens, 16 con ruido Figma) y nunca emite la curva compuesta, asi que
@@ -84,8 +83,8 @@
 
   /* --- State: opacidades limpias (override del ruido Figma del vendor) --- */
   --md-sys-state-hover-state-layer-opacity: 0.08;
-  --md-sys-state-focus-state-layer-opacity: 0.12;
-  --md-sys-state-pressed-state-layer-opacity: 0.12;
+  --md-sys-state-focus-state-layer-opacity: 0.10;
+  --md-sys-state-pressed-state-layer-opacity: 0.10;
   --md-sys-state-dragged-state-layer-opacity: 0.16;
 
   /* --- Motion: curvas compuestas (el vendor solo trae puntos sueltos) --- */
