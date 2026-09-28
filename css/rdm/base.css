@@ -1,0 +1,13 @@
+/*
+  RDM Next - Regla base de pagina
+  Rompe el ciclo superficie/typography: el body necesita UN token de cada
+  familia (color + fuente), no las primitivas completas. Con esto, las 6
+  paginas de showroom de Foundations funcionan.
+*/
+body {
+  background-color: var(--md-sys-color-surface);
+  color: var(--md-sys-color-on-surface);
+  font-family: var(--md-sys-typescale-body-large-font);
+  font-size: var(--md-sys-typescale-body-large-size);
+  margin: 0;
+}

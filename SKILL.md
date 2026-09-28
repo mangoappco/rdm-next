@@ -42,6 +42,11 @@ como **referencia** y no se toca.
 `css/comp/<nombre>.css`. Nombres en **ingles** en el codigo
 (`button.html`, `.rdm-button--filled`); **espanol** en la documentacion.
 
+**Estilos de showroom:** van en `css/demo/<pagina>.css`, nunca en `css/comp/`.
+`css/demo/` no forma parte de la libreria: son clases con prefijo `demo-`
+que solo existen para mostrar tokens. Cada pagina enlaza su demo CSS
+directo en el `<head>`, no via `rdm-next.css`.
+
 **Plantilla minima del showroom:**
 
 ```html
@@ -170,6 +175,11 @@ Corre en cada commit de la capa de tokens. Estado actual: 5/5 en verde.
   criterio de exito, 6 principios invariables, metodologia de 7 pasos,
   convenciones (ingles en codigo, espanol en docs, paginas en raiz,
   plantilla del showroom), y decision 8 (clase base obligatoria).
+- **v0.3** - Fase 1a: `css/rdm/base.css` (body con surface/on-surface y
+  fuente desde el token, rompe el ciclo superficie/typography) +
+  `surface.html` con los 9 roles tonales y `css/demo/surface.css`
+  (convencion `css/demo/` documentada). Radio de swatches desde
+  `--md-sys-shape-corner-medium-default-size`. Indice enlaza a Surface.
 
 ## 10. Decisiones pendientes
 
