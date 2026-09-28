@@ -76,16 +76,29 @@ foreach ($r in $roles) {
 }
 if ($missing -eq 0) { Write-Output "  --> 7/7 completos" } else { Write-Output ("  --> FALTAN: " + $missing); $fail++ }
 
-# 5. Capas invertidas: comp/ o rdm/ leyendo --md-ref-* (prohibido por M3)
+# 5. Capas invertidas: comp/, rdm/, primitives/ o demo/ leyendo --md-ref-*
+# (prohibido por M3). md/ esta excluido a proposito: sys SI lee ref.
 Write-Output ""
-Write-Output "=== Fugas de capa (comp/rdm leyendo --md-ref-*) ==="
+Write-Output "=== Fugas de capa (leyendo --md-ref-*) ==="
 $leaks = 0
-foreach ($f in (Get-ChildItem "$root\css\comp","$root\css\rdm" -Filter *.css -ErrorAction SilentlyContinue)) {
+foreach ($f in (Get-ChildItem "$root\css\comp","$root\css\rdm","$root\css\primitives","$root\css\demo" -Filter *.css -ErrorAction SilentlyContinue)) {
   $t = Read-Css $f.FullName
   $n = ([regex]::Matches($t, '--md-ref-[\w-]+')).Count
   if ($n -gt 0) { Write-Output ("  FUGA " + $f.Name + ": " + $n + " lectura(s) de ref"); $leaks++ }
 }
 if ($leaks -eq 0) { Write-Output "  ninguna" } else { $fail++ }
+
+# 6. Tokens DSP consumidos: -value / -unit / axis-value son ruido de Figma,
+# no valores CSS. Ningun archivo propio debe leerlos en un var().
+Write-Output ""
+Write-Output "=== Tokens DSP consumidos (-value, -unit, axis-value) ==="
+$dsp = 0
+foreach ($f in $ownFiles) {
+  $t = Read-Css $f.FullName
+  $hits = [regex]::Matches($t, 'var\(--md-sys-[a-z-]+-(?:value|unit|axis-value)[a-z-]*\)') | ForEach-Object { $_.Groups[0].Value } | Sort-Object -Unique
+  foreach ($h in $hits) { Write-Output ("  DSP " + $f.Name + ": " + $h); $dsp++ }
+}
+if ($dsp -eq 0) { Write-Output "  ninguno" } else { $fail++ }
 
 Write-Output ""
 if ($fail -eq 0) { Write-Output "OK: capa de tokens integra" } else { Write-Output ("FALLA: " + $fail + " chequeo(s)") }

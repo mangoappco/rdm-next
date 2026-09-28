@@ -47,6 +47,13 @@ como **referencia** y no se toca.
 que solo existen para mostrar tokens. Cada pagina enlaza su demo CSS
 directo en el `<head>`, no via `rdm-next.css`.
 
+**Primitivas:** viven en `css/primitives/` (typography, icon, ...). Son
+clases base que leen tokens sys y que los componentes consumen. Se importan
+en `rdm-next.css` entre tokens y componentes. Excepcion deliberada:
+`base.css` lee los tokens de body-large directo en vez de exigir la clase
+`.rdm-typography--body-large` en cada `<body>` — si una pagina olvidara la
+clase, el texto caeria al default del navegador.
+
 **Plantilla minima del showroom:**
 
 ```html
@@ -83,6 +90,7 @@ que `--icon-only`.
 ```
 css/md/tokens.css    entry: vendor (sin colors.css) + additions.css
 css/md/additions.css los 7 roles que el vendor no trae (post-2023)
+css/primitives/      clases base que leen tokens (typography, icon, ...)
 css/rdm/project.css  --rdm-* (z-index; M3 no define apilamiento)
 css/rdm-next.css     entry del proyecto
 css/comp/            vacio; se llena por componente
@@ -159,10 +167,11 @@ powershell -ExecutionPolicy Bypass -File tools/verify-tokens.ps1
 | Referencias rotas | `var()` sin definir ni en `css/` ni en vendor/ |
 | Duplicados | Mismo token en 2+ archivos propios |
 | sys incompleto | Un rol de superficie sin light o sin dark |
-| Fugas de capa | `comp/` o `rdm/` leyendo `--md-ref-*` (prohibido) |
+| Fugas de capa | `comp/`, `rdm/`, `primitives/` o `demo/` leyendo `--md-ref-*` (prohibido) |
+| DSP consumido | `var()` a `-value`, `-unit` o `axis-value` (ruido de Figma) |
 | Imports | Todos los `@import` resuelven a archivo existente |
 
-Corre en cada commit de la capa de tokens. Estado actual: 5/5 en verde.
+Corre en cada commit de la capa de tokens. Estado actual: 6/6 en verde.
 
 ## 9. Historial de versiones
 
@@ -180,6 +189,11 @@ Corre en cada commit de la capa de tokens. Estado actual: 5/5 en verde.
   `surface.html` con los 9 roles tonales y `css/demo/surface.css`
   (convencion `css/demo/` documentada). Radio de swatches desde
   `--md-sys-shape-corner-medium-default-size`. Indice enlaza a Surface.
+- **v0.4** - Primitiva Typography: `css/primitives/typography.css` con los
+  15 roles (5 props cada uno, 75 lineas de tokens reales) + `typography.html`
+  con valores visibles por rol. Se descartan `-value`/`-unit` (ruido DSP),
+  `axis-value` y los 4 `unset`, mas el enum crudo `label-medium-text-transform: 1`
+  de Figma. Check 6 en el script: ningun token DSP se consume.
 
 ## 10. Decisiones pendientes
 
