@@ -193,7 +193,7 @@ powershell -ExecutionPolicy Bypass -File tools/verify-tokens.ps1
 | Chrome fuera de demo | Ningun `css/demo/` pinta `header`/`section`/`main` (la estructura la daran los componentes) |
 | Showroom por componente | Cada `css/comp/*.css` tiene su `<nombre>.html` en la raiz |
 | Grupo invisible | `button-group.css` sin `background-color`, `color`, `border` ni `box-shadow` (container sin visuales) |
-| Chrome compartido | Todo `.html` de raiz linkea `css/demo/showroom.css` (ritmo + divisores) |
+| Chrome compartido | Todo `.html` de raiz linkea `css/demo/showroom.css` y tiene ≥1 `<section>` |
 
 Corre en cada commit de la capa de tokens. Estado actual: 22/22 en verde.
 
@@ -381,6 +381,9 @@ cualquier `@import` relativo roto, probado con archivo temporal.
   en las 13 paginas. Card descartado como chrome (no es un subject).
   Check 19 relajado a lo que ya hacia (solo fondo); check 22 nuevo: toda
   pagina linkea showroom.css, probado contra pagina sin link.
+  Fix post-v0.25: index tenia el link pero 0 secciones (el check solo
+  miraba el link); selector a .rdm-container section, 5 grupos en
+  section conservando nav, check 22 con ≥1 seccion.
 - **v0.24** - Button group container: `css/comp/button-group.css` (solo
   `display: inline-flex` + gap 2dp) y `button-group.html` (demo Walk/Bike/
   Drive, tabla de medidas, aviso Expressive). Standard no existe en core;
@@ -398,3 +401,4 @@ cualquier `@import` relativo roto, probado con archivo temporal.
 - [ ] Springs de M3 Expressive: 2 esquemas (expressive, standard) x 2 tipos (spatial con rebote: posicion, rotacion, tamano, radio; effects sin rebote: color, opacidad) x 3 velocidades (default, fast, slow). Criterio por tamano: componentes chicos (switches, buttons) = fast, bottom sheet = default, fullscreen = slow. Todo componente corre con fast spatial + fast effects. Sin tokens en ninguna exportacion CSS; la pagina Specs explica la conversion desde Compose.
 - [x] Button (resuelto en v0.22 con mapeo de la spec; label outlined = primary por codigo de Material Web).
 - [ ] Botones restantes (6 de 10 tipos): icon button, toggle icon button, split button, standard/connected groups, FAB menu. Toggle button es Expressive (fuera de scope). FAB hecho en v0.23.
+- [ ] Divider como componente: M3 lo define (/components/divider); el chrome usa border-top ad-hoc. Migrar showroom.css a .rdm-divider real cuando se construya.

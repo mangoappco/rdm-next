@@ -348,14 +348,15 @@ if (Test-Path $bg) {
 }
 if ($vis -eq 0) { Write-Output "  invisible" } else { $fail++ }
 
-# 22. Chrome compartido: toda pagina .html de raiz linkea showroom.css.
-# Sin el link, una pagina futura reabre el hueco de secciones planas.
+# 22. Chrome compartido: toda pagina .html de raiz linkea showroom.css
+# Y tiene al menos un <section> (el link sin secciones no aplica nada).
 Write-Output ""
 Write-Output "=== Chrome compartido ==="
 $sho = 0
 foreach ($h in (Get-ChildItem "$root\*.html" -ErrorAction SilentlyContinue)) {
   $t = Read-Css $h.FullName
   if ($t -notmatch 'css/demo/showroom\.css') { Write-Output ("  SIN CHROME " + $h.Name); $sho++ }
+  elseif (([regex]::Matches($t, '<section[ >]')).Count -eq 0) { Write-Output ("  SIN SECCION " + $h.Name); $sho++ }
 }
 if ($sho -eq 0) { Write-Output "  todas" } else { $fail++ }
 

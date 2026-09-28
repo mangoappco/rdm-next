@@ -8,11 +8,11 @@
   "decorative elements, such as dividers"). Sin background-color: las
   superficies falsas estan prohibidas por el check 19.
 */
-main > section {
+.rdm-container section {
   margin-bottom: var(--rdm-space-400);
 }
 
-main > section + section {
+.rdm-container section + section {
   border-top: 1px solid var(--md-sys-color-outline-variant);
   padding-top: var(--rdm-space-400);
 }
