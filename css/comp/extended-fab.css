@@ -6,7 +6,7 @@
 */
 .rdm-extended-fab {
   width: auto;
-  gap: var(--rdm-space-150);
-  padding-inline-start: var(--rdm-space-200);
-  padding-inline-end: var(--rdm-space-250);
+  gap: var(--rdm-measurement-150);
+  padding-inline-start: var(--rdm-measurement-200);
+  padding-inline-end: var(--rdm-measurement-250);
 }

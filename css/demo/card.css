@@ -6,7 +6,7 @@
 */
 .demo-card-spacing > * + * {
   /* 8dp max entre cards por spec (tabla de medidas). */
-  margin-top: var(--rdm-space-100);
+  margin-top: var(--rdm-measurement-100);
 }
 
 /* Fila de acciones: flex, botones a la derecha y gap de token (decision
@@ -17,7 +17,7 @@
   display: flex;
   align-items: center;
   justify-content: flex-end;
-  gap: var(--rdm-space-100);
+  gap: var(--rdm-measurement-100);
 }
 
 /* Probe del color de icono de card: la spec lo pide en primary a 24dp.

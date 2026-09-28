@@ -13,23 +13,23 @@
   block-size: 1px;
   inline-size: 100%;
   border: 0;
-  margin-block: var(--rdm-space-100);
+  margin-block: var(--rdm-measurement-100);
   margin-inline: 0;
   padding: 0;
   background-color: var(--md-sys-color-outline-variant);
 }
 
 .rdm-divider--inset {
-  margin-inline-start: var(--rdm-space-200);
+  margin-inline-start: var(--rdm-measurement-200);
 }
 
 .rdm-divider--middle-inset {
-  margin-inline: var(--rdm-space-200);
+  margin-inline: var(--rdm-measurement-200);
 }
 
 .rdm-divider--vertical {
   block-size: 100%;
   inline-size: 1px;
   margin-block: 0;
-  margin-inline: var(--rdm-space-100);
+  margin-inline: var(--rdm-measurement-100);
 }

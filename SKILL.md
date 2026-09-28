@@ -99,12 +99,12 @@ que `--icon-only`.
 | 7 | Unidades | `rem` en geometria de componentes | La libreria anterior usaba `em`, pero `<button>` no hereda el font-size del body (13.33px del UA): sus botones median 33px, no 40px. `rem` es raiz-fija e inmune a la etiqueta (14px) y al UA. `em` solo donde lo relativo al texto es lo querido |
 | 8 | Clase base | `.rdm-button` + `.rdm-button--filled`, siempre las dos | La libreria anterior usaba modificadores sin base y selectores `button { }` globales: M3 nunca aplica estilos a etiquetas nativas y sin base habia que duplicar geometria por variante (bug de sincronizacion card/form). La base lleva geometria, shape y state layer; la variante solo color y elevacion. Tipografia por composicion con `rdm-typography--*` en el HTML (v0.22), no redeclarada |
 | 9 | M3 core, no Expressive | **Target M3 core** (vendor pre-2023 + material-web v0.192) | M3 Expressive (May 2025: 5 tamanos, square, shape morph, toggle, springs, padding 16dp) no esta disponible para Web en botones. No somos ancient, somos baseline-matched: 24dp padding, round, small, duration+easing |
-| 10 | Spacing | `--rdm-space-*` con nomenclatura M3 (`space100` = 8dp) | El sistema es spec pero los tokens son Compose-only (Web Unavailable); misma nomenclatura para migracion 1:1 si llegan |
+| 10 | Spacing | `--rdm-measurement-*` (oficial `md.sys.measurement.space100`) | El sistema es spec pero los tokens son Compose-only (Web Unavailable); misma nomenclatura para migracion 1:1 si llegan |
 | 11 | Medidas de card | **Solo el container tiene medidas**: 12dp shape, 16dp left/right padding, 8dp max entre cards, start-aligned. **La media no tiene medida y es libre por diseno** | La tabla de `cards/specs` publica exactamente esas 4 filas y ninguna mas. La spec dice "Card size is determined by the elements it contains": M3 no prescribe aspect ratio ni thumbnail fijo, el componente es slot-based. No se inventan 16:9 ni 80x80 (auditados: sin fuente). `mango-next` elige la proporcion de sus imagenes sin violar M3 |
 | 12 | Inset divider | **16dp**, igual al padding del container | La spec define full-width e inset pero no da el numero del inset. Se infiere del padding (16dp), que si esta publicado, para que la linea alinee con el texto. Decision de proyecto, no dato de tabla |
 | 13 | Elevacion del container | **Solo el container expresa elevacion**; ningun slot interno lleva sombra | Texto oficial: "Card elevation is expressed by the container". Dos elementos con sombra dentro se leerian como dos superficies |
 | 14 | Bloques de contenido | **Los slots se agrupan en bloques** con enfasis variable; **el padding es del contenido, no del container** | 3 fuentes: imagen edge-to-edge (flush al borde), content blocks ("grouped into blocks"), media contenida entre texto y actions. Prepara el refactor opcion A del paso 4 |
-| 15 | Action area | **Botones a la derecha (`flex-end`) con gap 8dp** (`space-100`) | Sin fuente: la tabla publica 8dp max *entre cards*, no entre botones; stories.ts usa 16 entre bloques. Se toma el 8dp por ser la unica medida publicada de separacion. Si aparece el valor real, cambia en una linea |
+| 15 | Action area | **Botones a la derecha (`flex-end`) con gap 8dp** (`measurement-100`) | Sin fuente: la tabla publica 8dp max *entre cards*, no entre botones; stories.ts usa 16 entre bloques. Se toma el 8dp por ser la unica medida publicada de separacion. Si aparece el valor real, cambia en una linea |
 | 16 | Ritmo de typography | **Plano: 8 dentro del par, 16 entre specimens** (decision de proyecto, no dato M3) | Verificado en el vendor: cada rol publica font, size, weight, line-height y tracking; cero margin/padding. El half-leading de M3 es absoluto-plano (2-4px en los 15 roles) con ratio decreciente (1.5 en body-large a 1.123 en display-large). Un margen proporcional al tamano iria contra M3. Seccion Teoria en typography.html con la tabla de ratios |
 
 ## 6. Capa de tokens
@@ -201,7 +201,7 @@ powershell -ExecutionPolicy Bypass -File tools/verify-tokens.ps1
 | State sin ruido | Toda opacidad `--md-sys-state-*-state-layer-opacity` propia vale 0.08, 0.10 o 0.16 exactos (sin ruido Figma ni 0.12 de M2) |
 | Motion con tokens | Ningun `transition`/`animation-duration` con duracion literal en CSS propio (todo pasa por token; el bloque reduced-motion se excluye) |
 | Iconos con primitiva | Ningun HTML usa la clase generica de Google (`.material-symbols-*`); todo icono pasa por `.rdm-icon` |
-| Spacing con tokens | Ningun `padding`/`margin`/`gap` con valor literal en `css/comp/` (todo pasa por `--rdm-space-*`; cero y auto permitidos) |
+| Spacing con tokens | Ningun `padding`/`margin`/`gap` con valor literal en `css/comp/` (todo pasa por `--rdm-measurement-*`; cero y auto permitidos) |
 | Roles con tema | Todo `--md-sys-color-*` propio declarado 2+ veces (light y dark) |
 | Chrome fuera de demo | Ningun `css/demo/` pinta `header`/`section`/`main` (la estructura la daran los componentes) |
 | Showroom por componente | Cada `css/comp/*.css` tiene su `<nombre>.html` en la raiz |
@@ -229,11 +229,11 @@ powershell -ExecutionPolicy Bypass -File tools/verify-tokens.ps1
 | Vendor con licencia | Todo archivo bajo `vendor/` cubierto por Apache 2.0 (cabecera propia o LICENSE en su carpeta o superiores) |
 | Fila de acciones | `.demo-card-actions` alinea a la derecha con gap de token (decision 15, no literal) |
 | Sin margenes UA | `p`, `h1-h6`, `ul` y `ol` llevan `margin: 0` en `base.css` (ritmo 100% de tokens) |
-| Ritmo con token en demo | Ningun `css/demo/` usa `em` en `margin*` ni `padding*` (todo aire sale de `--rdm-space-*`) |
+| Ritmo con token en demo | Ningun `css/demo/` usa `em` en `margin*` ni `padding*` (todo aire sale de `--rdm-measurement-*`) |
 | Specimens tipograficos | `typography.html` enlaza su demo CSS y cada rol vive en `.demo-type` (8 dentro del par, 16 entre specimens) |
 | Demo CSS por foundation | Las 10 paginas de foundations linkean su `css/demo/<pagina>.css` (`layout.html` era la segunda sin demo CSS) |
-| Escala aritmetica | Todo `--rdm-space-NNN` cumple `8 x NNN/100` exacto y estan los 17 (rango 0x-9x + 4 nested + 150/250 propios) |
-| Origen distinguido | La tabla de `spacing.html` marca `space-150` y `space-250` como extension del proyecto (la spec solo define los nested que usa) |
+| Escala aritmetica | Todo `--rdm-measurement-NNN` cumple `8 x NNN/100` exacto y estan los 17 (rango 0x-9x + 4 nested + 150/250 propios) |
+| Origen distinguido | La tabla de `spacing.html` marca `measurement-150` y `measurement-250` como extension del proyecto (la spec solo define los nested que usa) |
 
 Corre en cada commit de la capa de tokens. Estado actual: 49/49 en verde.
 
@@ -366,8 +366,8 @@ cualquier `@import` relativo roto, probado con archivo temporal.
   Motion physics (los springs reemplazan duration+easing; Web convierte
   desde Compose). Retractacion: el padding 24dp NO estaba deprecado,
   16dp es solo Expressive.
-- **v0.19** - Spacing: escala `--rdm-space-*` en `project.css` (0 a 400:
-  recomendados 100-400 mas nested 2/4/6/10 y ejemplos space125/space225,
+- **v0.19** - Spacing: escala `--rdm-measurement-*` en `project.css` (0 a 400:
+  recomendados 100-400 mas nested 2/4/6/10 y ejemplos measurement125/measurement225,
   resto por multiplicador). Correccion a v0.14: el sistema SI es spec,
   los tokens son Compose-only (Web Unavailable). `spacing.html` con tabla,
   9 barras visuales, modelo padding/gap/margin y consumo por mapeo.
@@ -410,7 +410,7 @@ cualquier `@import` relativo roto, probado con archivo temporal.
   hover en 4: unico componente que levanta. Extended con padding 16/20 y
   gap 12 de la implementacion (sin tokens comp). Small es baseline, no se
   construye. Focus/pressed 12% por sys (spec dice 10%, pendiente).
-  space-150 y space-250 por regla del multiplicador. Check 20: showroom
+  measurement-150 y measurement-250 por regla del multiplicador. Check 20: showroom
   por componente, probado contra css sin html. Fix post-entrega: fab
   States tenia 1 solo disabled sin nada interactivo; ahora lleva enabled
   + dragged + texto de prueba en vivo. Regla: toda seccion States lleva
@@ -428,7 +428,7 @@ cualquier `@import` relativo roto, probado con archivo temporal.
 - **v0.33** - Card actions: 2 botones de texto por card (filled + outlined; outlined en vez de text para no confundirse con linked text del supporting text) + subhead (title-small) en las 3 variants. Fila flex con gap de token 16 en demo (el whitespace de 3px no lo controla ninguna regla). `vertical-align: middle` en los 4 inline (button, icon-button, fab, button-group): el glifo deriva la baseline 8px, middle alinea por caja. Anatomy con las 6 partes; overflow menu pendiente de Menus. Check 31: inline con caja, probado contra regla sin vertical-align.
 - **v0.34** - Card tokens y disabled: seccion Tokens con valores reales de la spec (enabled + states) marcando filas abiertas y huecos de extraccion. `.rdm-card--disabled` (container 0.38, outlined borde outline 12%, sin layer) + demo filled con botones disabled e interactive disabled con aria-disabled. Icono primary 24dp ilustrado en Anatomy con probe demo-card-icon (.rdm-icon ya mide 24px). Comentario de state corregido en additions.css y delta #FEF7FF anotado. Abiertas: focus indicator reservado v0.38 (pasada transversal button/icon/fab/card). Check 32: disabled interactivo con contrato, probado sin aria-disabled.
 - **v0.35** - Card paso 1 (anatomia): showroom reordenado por anatomia. Variants con 3 containers vacios (aria-label) y Disabled sin botones; demo de icono retirada (vuelve en su paso, el probe demo-card-icon queda). Regla de actions movida al paso 6. Sin refactor de padding: espera medidas de media (paso 4). Check 30 pasa en vacio hasta el paso 6. Sin cambios de script: 32/32. Nota: el check 12 cuenta divs identicos en orden de documento (no hermanos reales); el wrapper unico de Disabled se elimino por redundante y para no formar racha de 3. En v0.36 el check 12 excluye `demo-*` (wrappers de layout, no specimens).
-- **v0.36** - Card paso 2 (texto) + a11y: seccion Text con caso completo (headline+subhead+supporting) y minimo (sin subhead). Fix spacing entre cards 16→8 (`space-100`); actions se queda en 16. Texto interactive corregido (rol link: Enter si, Space no). Check 33: base sin estados (sin layer, cursor pointer solo en interactive). Check 34: un solo tab stop (no tabindex/role en no-interactive). Focus indicator pasa a v0.38.
+- **v0.36** - Card paso 2 (texto) + a11y: seccion Text con caso completo (headline+subhead+supporting) y minimo (sin subhead). Fix spacing entre cards 16→8 (`measurement-100`); actions se queda en 16. Texto interactive corregido (rol link: Enter si, Space no). Check 33: base sin estados (sin layer, cursor pointer solo en interactive). Check 34: un solo tab stop (no tabindex/role en no-interactive). Focus indicator pasa a v0.38.
 - **v0.37** - State 0.10: focus/pressed pasan de 0.12 a 0.10 (pagina de fundamentos state-layers + tabla de Card; el 0.12 era M2 arrastrado por el vendor). Toca los 4 componentes con layer via token, sin reglas por componente. Check 14 corregido a 0.08/0.10/0.16. Hallazgo para v0.38: layer 40dp vs target 48dp (el `inset: 0` de la primitiva no distingue).
 - **v0.38** - Focus indicator transversal: anillo secondary 3px offset 2px en `:focus-visible` dentro de la primitiva (los 4 componentes lo heredan; el outline sigue el radio de cada uno). Sin hit-slop de 48dp (decision de proyecto: anillo al borde visible + 2px). Outlined interactive: borde a on-surface en focus (unico estado donde el outline se mueve) + demo outlined en Interactive para verificarlo. Check 35: anillo presente, probado quitando la regla.
 - **v0.39** - Auditoria de baseline: vendor shape con 7 de 10 niveles (faltan large-increased 20, extra-large-increased 32, extra-extra-large 48; ningun valor mal, solo huecos). Agregados en additions.css con el patron del vendor; shape.html con los 10 + advertencia no-large/full-en-densas en Rules de card. Resultado: state contaminada (M2, corregida v0.37), shape incompleta (corregida), elevation/motion/color OK. Sombras M3 pendientes (distancias OK, recetas M2). Check 36: shape post-2023 con valor exacto, probado quitando un token.
@@ -443,14 +443,15 @@ cualquier `@import` relativo roto, probado con archivo temporal.
 - **v0.48** - Anatomia en las 3 variantes: misma composicion (media + texto + linked text + icon + outlined + filled), solo cambia el modificador. El action area es identico porque los 3 botones pasan 4.5:1 en las 3 superficies; tonal y elevated fuera por regla. Sin CSS ni checks nuevos: el check 30 ya valida los 9 botones. 43/43.
 - **v0.49** - Rotulos de variante en Anatomy: cada referencia lleva su nombre fuera de la card (title-medium, por convencion de swatches); la composicion interna queda intacta. Sin cambios de CSS ni checks: 43/43.
 - **v0.50** - Reset de margenes UA: p, h1-h6, ul y ol con margin 0 en base.css (el ritmo era mitad UA); content de card a flex column con gap 16 (stories.ts). Rotulos uniformes a 8. Check 44: sin margenes UA, probado quitando el reset. Render en typography, spacing y motion.
-- **v0.51** - Ritmo de showroom con tokens: h2 separa 16, p apilados 8, header 8 en showroom.css; 13 margin-bottom y 5 padding de 1em a space-200 en demo/. El 1em escalaba con el font-size (57px de aire en display-large). Check 45: sin em en margin/padding de demo, probado con 1em trampa.
+- **v0.51** - Ritmo de showroom con tokens: h2 separa 16, p apilados 8, header 8 en showroom.css; 13 margin-bottom y 5 padding de 1em a measurement-200 en demo/. El 1em escalaba con el font-size (57px de aire en display-large). Check 45: sin em en margin/padding de demo, probado con 1em trampa.
 - **v0.52** - Specimens tipograficos: typography.html era la unica pagina sin demo CSS (16 p pelados en section). Nuevo demo/typography.css con .demo-type (8 dentro del par nombre+spec, 16 entre specimens) y los 15 roles envueltos. Check 46: link + ritmo de pares, probado sin wrapper.
 - **v0.53** - Ritmo plano documentado (decision 16): M3 publica 5 propiedades por rol y cero spacing; half-leading absoluto-plano (2-4px) con ratio decreciente (1.5 a 1.123): un margen proporcional iria contra M3. Seccion Teoria en typography.html con tabla de ratios. layout.html tapado: nuevo demo/layout.css (tabla con ritmo, container real anidado como specimen). Check 47: las 10 foundations linkean su demo CSS, probado sin link.
-- **v0.54a** - Escala de spacing completa: la spec publica el rango 0x a 9x (alt del diagrama de tokens) y nosotros parabamos en 400. Agregados space-500 a space-900 (40 a 72dp) en project.css, con sus 5 barras y 5 filas. Tabla de spacing.html con Origen distinguido: 10 del rango principal + 4 nested M3 + ejemplo oficial del multiplicador (225) + 2 extensiones del proyecto (150, 250). Check 48: escala aritmetica parseada (8 x N/100 + los 17 presentes), probado con token mal calculado. Check 49: 150 y 250 marcados como extension, probado sin marca.
+- **v0.54a** - Escala de spacing completa: la spec publica el rango 0x a 9x (alt del diagrama de tokens) y nosotros parabamos en 400. Agregados measurement-500 a measurement-900 (40 a 72dp) en project.css, con sus 5 barras y 5 filas. Tabla de spacing.html con Origen distinguido: 10 del rango principal + 4 nested M3 + ejemplo oficial del multiplicador (225) + 2 extensiones del proyecto (150, 250). Check 48: escala aritmetica parseada (8 x N/100 + los 17 presentes), probado con token mal calculado. Check 49: 150 y 250 marcados como extension, probado sin marca.
+- **v0.54b** - Rename a measurement: el token oficial es md.sys.measurement.space100, asi que el namespace anterior (space) pasa a --rdm-measurement-* (118 ocurrencias en 25 archivos), specimens a demo-measurement-bar--* y etiquetas a measurement-NNN. Las citas literales de la spec (space225 = 18dp, leading space) se conservan como las escribe M3. El historial anterior se lee con el nombre nuevo. Sin checks nuevos: el check 1 (referencias rotas) caza cualquier var() huerfano, probado con grep a 0.
 - **v0.48** - Anatomia en las 3 variantes: misma composicion (media + texto + linked text + icon + outlined + filled), solo cambia el modificador. El action area es identico porque los 3 botones pasan 4.5:1 en las 3 superficies; tonal y elevated fuera por regla. Sin CSS ni checks nuevos: el check 30 ya valida los 9 botones. 43/43.
 - **v0.26** - Divider: `css/comp/divider.css` (full/inset/middle-inset/vertical, 1px outline-variant) y `divider.html`. Inset 16 solo izquierda (la tabla dice 16/0, middle 16/16). Chrome migrado: 45 `<hr>` entre secciones (+1 escrito a mano), border-top fuera de showroom.css. Check 23: sin border-top en demo, probado contra borde agregado.
 - **v0.25** - Chrome compartido: `css/demo/showroom.css` (ritmo vertical
-  space-400 + divisores outline-variant 1px, sin background-color) linkeado
+  measurement-400 + divisores outline-variant 1px, sin background-color) linkeado
   en las 13 paginas. Card descartado como chrome (no es un subject).
   Check 19 relajado a lo que ya hacia (solo fondo); check 22 nuevo: toda
   pagina linkea showroom.css, probado contra pagina sin link.

@@ -5,58 +5,58 @@
   Clases distintas por barra para no caer en el check de swatches
   identicos (cada ancho es un dato distinto).
 */
-.demo-space-bar {
+.demo-measurement-bar {
   background-color: var(--md-sys-color-primary-container);
   height: 1.5em;
   border-radius: var(--md-sys-shape-corner-extra-small-default-size);
-  margin-bottom: var(--rdm-space-200);
+  margin-bottom: var(--rdm-measurement-200);
 }
 
-.demo-space-bar--25 {
-  width: var(--rdm-space-25);
+.demo-measurement-bar--25 {
+  width: var(--rdm-measurement-25);
 }
-.demo-space-bar--50 {
-  width: var(--rdm-space-50);
+.demo-measurement-bar--50 {
+  width: var(--rdm-measurement-50);
 }
-.demo-space-bar--75 {
-  width: var(--rdm-space-75);
+.demo-measurement-bar--75 {
+  width: var(--rdm-measurement-75);
 }
-.demo-space-bar--100 {
-  width: var(--rdm-space-100);
+.demo-measurement-bar--100 {
+  width: var(--rdm-measurement-100);
 }
-.demo-space-bar--125 {
-  width: var(--rdm-space-125);
+.demo-measurement-bar--125 {
+  width: var(--rdm-measurement-125);
 }
-.demo-space-bar--150 {
-  width: var(--rdm-space-150);
+.demo-measurement-bar--150 {
+  width: var(--rdm-measurement-150);
 }
-.demo-space-bar--200 {
-  width: var(--rdm-space-200);
+.demo-measurement-bar--200 {
+  width: var(--rdm-measurement-200);
 }
-.demo-space-bar--225 {
-  width: var(--rdm-space-225);
+.demo-measurement-bar--225 {
+  width: var(--rdm-measurement-225);
 }
-.demo-space-bar--250 {
-  width: var(--rdm-space-250);
+.demo-measurement-bar--250 {
+  width: var(--rdm-measurement-250);
 }
-.demo-space-bar--300 {
-  width: var(--rdm-space-300);
+.demo-measurement-bar--300 {
+  width: var(--rdm-measurement-300);
 }
-.demo-space-bar--400 {
-  width: var(--rdm-space-400);
+.demo-measurement-bar--400 {
+  width: var(--rdm-measurement-400);
 }
-.demo-space-bar--500 {
-  width: var(--rdm-space-500);
+.demo-measurement-bar--500 {
+  width: var(--rdm-measurement-500);
 }
-.demo-space-bar--600 {
-  width: var(--rdm-space-600);
+.demo-measurement-bar--600 {
+  width: var(--rdm-measurement-600);
 }
-.demo-space-bar--700 {
-  width: var(--rdm-space-700);
+.demo-measurement-bar--700 {
+  width: var(--rdm-measurement-700);
 }
-.demo-space-bar--800 {
-  width: var(--rdm-space-800);
+.demo-measurement-bar--800 {
+  width: var(--rdm-measurement-800);
 }
-.demo-space-bar--900 {
-  width: var(--rdm-space-900);
+.demo-measurement-bar--900 {
+  width: var(--rdm-measurement-900);
 }

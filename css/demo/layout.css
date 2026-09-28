@@ -6,13 +6,13 @@
   superficie para leerse, igual que las cajas de divider.html.
 */
 .demo-layout-table {
-  margin-top: var(--rdm-space-200);
+  margin-top: var(--rdm-measurement-200);
   border-collapse: collapse;
 }
 
 .demo-layout-table th,
 .demo-layout-table td {
-  padding: var(--rdm-space-100) var(--rdm-space-200);
+  padding: var(--rdm-measurement-100) var(--rdm-measurement-200);
   text-align: start;
   border-bottom: 1px solid var(--md-sys-color-outline-variant);
 }
@@ -24,5 +24,5 @@
 .demo-layout-container {
   background-color: var(--md-sys-color-surface-container-high);
   border-radius: var(--md-sys-shape-corner-medium-default-size);
-  margin-top: var(--rdm-space-200);
+  margin-top: var(--rdm-measurement-200);
 }

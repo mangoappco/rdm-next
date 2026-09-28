@@ -5,9 +5,9 @@
   rol on. Asi es imposible mostrar un rol fuera de su pareja.
 */
 .demo-color {
-  padding: var(--rdm-space-200);
+  padding: var(--rdm-measurement-200);
   border-radius: var(--md-sys-shape-corner-medium-default-size);
-  margin-bottom: var(--rdm-space-200);
+  margin-bottom: var(--rdm-measurement-200);
 }
 
 .demo-color--primary {

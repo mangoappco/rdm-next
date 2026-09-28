@@ -11,21 +11,21 @@
   tablas de card.html: ritmo de token y filas con outline-variant.
 */
 .demo-type + .demo-type {
-  margin-top: var(--rdm-space-200);
+  margin-top: var(--rdm-measurement-200);
 }
 
 .demo-type > p + p {
-  margin-top: var(--rdm-space-100);
+  margin-top: var(--rdm-measurement-100);
 }
 
 .demo-type-table {
-  margin-top: var(--rdm-space-200);
+  margin-top: var(--rdm-measurement-200);
   border-collapse: collapse;
 }
 
 .demo-type-table th,
 .demo-type-table td {
-  padding: var(--rdm-space-100) var(--rdm-space-200);
+  padding: var(--rdm-measurement-100) var(--rdm-measurement-200);
   text-align: start;
   border-bottom: 1px solid var(--md-sys-color-outline-variant);
 }

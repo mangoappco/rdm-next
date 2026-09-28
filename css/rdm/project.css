@@ -40,31 +40,31 @@
   --rdm-icon-size: 24px;
 
   /* Espaciado (v0.19, rango completado en v0.54): el sistema es spec M3
-  (baseline 8dp = space100, multiplicador NNN/100: space225 = 18dp,
-  ejemplo oficial de la spec), pero los tokens son Compose-only
+  (baseline 8dp = measurement100; la spec escribe space225 = 18dp
+  como ejemplo oficial del multiplicador), pero los tokens son
   (Web: Unavailable). Se espeja la nomenclatura para migracion 1:1.
   La spec publica el rango 0x a 9x (alt del diagrama de tokens) y
   exactamente 4 nested (0.25x, 0.5x, 0.75x, 1.25x: los que usa
-  activamente). space150 y space250 son extension del proyecto con
+  activamente). measurement150 y measurement250 son extension del proyecto con
   la regla del multiplicador. El resto se agrega a demanda con la
   misma regla. 1dp = 1px en web. */
-  --rdm-space-0: 0;
-  --rdm-space-25: 2px;
-  --rdm-space-50: 4px;
-  --rdm-space-75: 6px;
-  --rdm-space-100: 8px;
-  --rdm-space-125: 10px;
-  --rdm-space-150: 12px; /* extension del proyecto (extended FAB gap) */
-  --rdm-space-200: 16px;
-  --rdm-space-225: 18px;
-  --rdm-space-250: 20px; /* extension del proyecto (extended FAB padding) */
-  --rdm-space-300: 24px;
-  --rdm-space-400: 32px;
-  --rdm-space-500: 40px;
-  --rdm-space-600: 48px;
-  --rdm-space-700: 56px;
-  --rdm-space-800: 64px;
-  --rdm-space-900: 72px;
+  --rdm-measurement-0: 0;
+  --rdm-measurement-25: 2px;
+  --rdm-measurement-50: 4px;
+  --rdm-measurement-75: 6px;
+  --rdm-measurement-100: 8px;
+  --rdm-measurement-125: 10px;
+  --rdm-measurement-150: 12px; /* extension del proyecto (extended FAB gap) */
+  --rdm-measurement-200: 16px;
+  --rdm-measurement-225: 18px;
+  --rdm-measurement-250: 20px; /* extension del proyecto (extended FAB padding) */
+  --rdm-measurement-300: 24px;
+  --rdm-measurement-400: 32px;
+  --rdm-measurement-500: 40px;
+  --rdm-measurement-600: 48px;
+  --rdm-measurement-700: 56px;
+  --rdm-measurement-800: 64px;
+  --rdm-measurement-900: 72px;
 }
 
 @media (min-width: 600px) {

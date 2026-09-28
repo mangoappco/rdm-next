@@ -8,8 +8,8 @@
   display: flex;
   flex-wrap: wrap;
   align-items: center;
-  gap: var(--rdm-space-300);
-  margin-bottom: var(--rdm-space-200);
+  gap: var(--rdm-measurement-300);
+  margin-bottom: var(--rdm-measurement-200);
 }
 
 /* Cada fila nombra su demo (grep + check 12): el contenido difiere,

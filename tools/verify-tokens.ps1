@@ -298,7 +298,7 @@ foreach ($h in (Get-ChildItem "$root\*.html" -ErrorAction SilentlyContinue)) {
 if ($gen -eq 0) { Write-Output "  ninguna" } else { $fail++ }
 
 # 17. Espaciado literal en componentes: padding/margin/gap de css/comp/
-# pasan por --rdm-space-*. El cero pelado y auto estan permitidos.
+# pasan por --rdm-measurement-*. El cero pelado y auto estan permitidos.
 Write-Output ""
 Write-Output "=== Espaciado literal en componentes ==="
 $spl = 0
@@ -856,7 +856,7 @@ if (Test-Path $dcf) {
   else {
     $body = $m.Groups[1].Value
     if ($body -notmatch '(?i)justify-content\s*:\s*flex-end') { Write-Output "  SIN-DERECHA demo/card.css"; $far++ }
-    if ($body -notmatch 'gap\s*:\s*var\(--rdm-space-100\)') { Write-Output "  SIN-TOKEN demo/card.css"; $far++ }
+    if ($body -notmatch 'gap\s*:\s*var\(--rdm-measurement-100\)') { Write-Output "  SIN-TOKEN demo/card.css"; $far++ }
   }
 } else { Write-Output "  SIN-ARCHIVO demo/card.css"; $far++ }
 if ($far -eq 0) { Write-Output "  fila a la derecha" } else { $fail++ }
@@ -885,7 +885,7 @@ if ($mrg -eq 0) { Write-Output "  ritmo propio" } else { $fail++ }
 
 # 45. Ritmo con token en demo: ningun css/demo/ usa em en margin* ni
 # padding* (escalan con el font-size como el 1em del UA). Todo aire de
-# showroom sale de --rdm-space-*.
+# showroom sale de --rdm-measurement-*.
 Write-Output ""
 Write-Output "=== Ritmo con token en demo ==="
 $rem = 0
@@ -912,8 +912,8 @@ if (-not (Test-Path $td)) { Write-Output "  SIN-DEMO demo/typography.css"; $typ+
 else {
   $t = (Read-Css $td).TrimStart([char]0xFEFF)
   $t = [regex]::Replace($t, '/\*.*?\*/', '', 'Singleline')
-  if ($t -notmatch '(?m)^\.demo-type \+ \.demo-type\s*\{[^}]*margin-top\s*:\s*var\(--rdm-space-200\)') { Write-Output "  SIN-RITMO demo/typography.css"; $typ++ }
-  if ($t -notmatch '(?m)^\.demo-type > p \+ p\s*\{[^}]*margin-top\s*:\s*var\(--rdm-space-100\)') { Write-Output "  SIN-PAR demo/typography.css"; $typ++ }
+  if ($t -notmatch '(?m)^\.demo-type \+ \.demo-type\s*\{[^}]*margin-top\s*:\s*var\(--rdm-measurement-200\)') { Write-Output "  SIN-RITMO demo/typography.css"; $typ++ }
+  if ($t -notmatch '(?m)^\.demo-type > p \+ p\s*\{[^}]*margin-top\s*:\s*var\(--rdm-measurement-100\)') { Write-Output "  SIN-PAR demo/typography.css"; $typ++ }
 }
 if ($typ -eq 0) { Write-Output "  15 roles agrupados" } else { $fail++ }
 
@@ -934,10 +934,10 @@ foreach ($pg in @("color","divider","elevation","icons","layout","motion","shape
 }
 if ($fdn -eq 0) { Write-Output "  10 foundations con demo" } else { $fail++ }
 
-# 48. Escala aritmetica: todo --rdm-space-NNN declarado en project.css
+# 48. Escala aritmetica: todo --rdm-measurement-NNN declarado en project.css
 # cumple valor = 8 x NNN/100 exacto, y estan los 17 (rango 0x a 9x de
 # la spec + 4 nested + 150/250 propios). Se parsea el numero, no el
-# string: un space-275 a 20px falla aunque exista.
+# string: un measurement-275 a 20px falla aunque exista.
 Write-Output ""
 Write-Output "=== Escala aritmetica ==="
 $ari = 0
@@ -947,21 +947,21 @@ else {
   $t = (Read-Css $pc).TrimStart([char]0xFEFF)
   $t = [regex]::Replace($t, '/\*.*?\*/', '', 'Singleline')
   $decl = @{}
-  foreach ($m in ([regex]::Matches($t, '--rdm-space-(\d+)\s*:\s*([\d.]+)(px)?'))) {
+  foreach ($m in ([regex]::Matches($t, '--rdm-measurement-(\d+)\s*:\s*([\d.]+)(px)?'))) {
     $n = [int]$m.Groups[1].Value
     $v = [double]$m.Groups[2].Value
     $decl[$n] = $v
     $esp = 8 * $n / 100
-    if ([math]::Abs($v - $esp) -gt 0.001) { Write-Output ("  MAL-CALCULO space-" + $n + ": " + $v + "px, debe ser " + $esp); $ari++ }
+    if ([math]::Abs($v - $esp) -gt 0.001) { Write-Output ("  MAL-CALCULO measurement-" + $n + ": " + $v + "px, debe ser " + $esp); $ari++ }
   }
   foreach ($n in @(0,25,50,75,100,125,150,200,225,250,300,400,500,600,700,800,900)) {
-    if (-not $decl.ContainsKey($n)) { Write-Output ("  FALTA space-" + $n); $ari++ }
+    if (-not $decl.ContainsKey($n)) { Write-Output ("  FALTA measurement-" + $n); $ari++ }
   }
 }
 if ($ari -eq 0) { Write-Output "  17 tokens exactos" } else { $fail++ }
 
-# 49. Origen distinguido: la tabla de spacing.html marca space-150 y
-# space-250 como extension del proyecto. La spec solo define los
+# 49. Origen distinguido: la tabla de spacing.html marca measurement-150 y
+# measurement-250 como extension del proyecto. La spec solo define los
 # nested que usa activamente (0.25x, 0.5x, 0.75x, 1.25x); 150 y 250
 # salen del multiplicador y lo tienen que decir.
 Write-Output ""
@@ -972,9 +972,9 @@ if (-not (Test-Path $sh)) { Write-Output "  SIN-PAGINA spacing.html"; $ori++ }
 else {
   $t = Read-Css $sh
   foreach ($n in @(150,250)) {
-    $row = [regex]::Match($t, '<tr><td><code>--rdm-space-' + $n + '</code></td>.*?</tr>', 'Singleline')
-    if (-not $row.Success) { Write-Output ("  SIN-FILA space-" + $n); $ori++ }
-    elseif ($row.Value -notmatch '(?i)extension del proyecto') { Write-Output ("  SIN-ORIGEN space-" + $n); $ori++ }
+    $row = [regex]::Match($t, '<tr><td><code>--rdm-measurement-' + $n + '</code></td>.*?</tr>', 'Singleline')
+    if (-not $row.Success) { Write-Output ("  SIN-FILA measurement-" + $n); $ori++ }
+    elseif ($row.Value -notmatch '(?i)extension del proyecto') { Write-Output ("  SIN-ORIGEN measurement-" + $n); $ori++ }
   }
 }
 if ($ori -eq 0) { Write-Output "  150 y 250 marcados" } else { $fail++ }
