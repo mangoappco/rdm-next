@@ -36,28 +36,30 @@
   <section>
     <h2 class="rdm-typography--title-large">Variants</h2>
     <p class="rdm-typography--body-large">Enfasis real: outlined primero,
-       elevated despues, filled ultimo. Con botones reales dentro
-       (modo no-actionable).</p>
+       elevated despues, filled ultimo. Action area del modelo M3: boton
+       filled (accion primaria) + icon button standard (secundaria).
+       Sin tonal ni elevated dentro: su fondo no da 3:1 contra la card
+       (ver Contrast).</p>
 
     <!-- INICIO: card variants demo -->
     <div class="demo-card-spacing">
       <div class="rdm-card rdm-card--elevated">
         <p class="rdm-typography--title-large">Elevated</p>
         <p class="rdm-typography--body-medium">surface-container-low con sombra 1. Separa del fondo sin borde.</p>
-        <button type="button" class="rdm-button rdm-button--tonal rdm-state-layer rdm-typography--label-large">Action</button>
-        <button type="button" class="rdm-button rdm-button--text rdm-state-layer rdm-typography--label-large">More</button>
+        <button type="button" class="rdm-button rdm-button--filled rdm-state-layer rdm-typography--label-large">Add to cart</button>
+        <button type="button" aria-label="Save" class="rdm-icon-button rdm-state-layer"><span class="rdm-icon" aria-hidden="true">favorite</span></button>
       </div>
       <div class="rdm-card rdm-card--filled">
         <p class="rdm-typography--title-large">Filled</p>
         <p class="rdm-typography--body-medium">surface-container-highest. La mas sutil de las tres.</p>
-        <button type="button" class="rdm-button rdm-button--tonal rdm-state-layer rdm-typography--label-large">Action</button>
-        <button type="button" class="rdm-button rdm-button--text rdm-state-layer rdm-typography--label-large">More</button>
+        <button type="button" class="rdm-button rdm-button--filled rdm-state-layer rdm-typography--label-large">Add to cart</button>
+        <button type="button" aria-label="Save" class="rdm-icon-button rdm-state-layer"><span class="rdm-icon" aria-hidden="true">favorite</span></button>
       </div>
       <div class="rdm-card rdm-card--outlined">
         <p class="rdm-typography--title-large">Outlined</p>
         <p class="rdm-typography--body-medium">surface con borde outline-variant. El borde da el mayor enfasis.</p>
-        <button type="button" class="rdm-button rdm-button--tonal rdm-state-layer rdm-typography--label-large">Action</button>
-        <button type="button" class="rdm-button rdm-button--text rdm-state-layer rdm-typography--label-large">More</button>
+        <button type="button" class="rdm-button rdm-button--filled rdm-state-layer rdm-typography--label-large">Add to cart</button>
+        <button type="button" aria-label="Save" class="rdm-icon-button rdm-state-layer"><span class="rdm-icon" aria-hidden="true">favorite</span></button>
       </div>
     </div>
     <!-- FIN: card variants demo -->
@@ -88,6 +90,34 @@
 
   <hr class="rdm-divider">
 
+  <!-- INICIO: card contrast -->
+  <section>
+    <h2 class="rdm-typography--title-large">Contrast</h2>
+    <p class="rdm-typography--body-large">Los surface-container son sustrato
+       de layout, no fondo para containers de acento: M3 solo garantiza 3:1
+       en los pares intended. Fondo del boton contra fondo de la card
+       (medido del arbol real de tokens):</p>
+
+    <!-- INICIO: card contrast table -->
+    <table>
+      <thead>
+        <tr><th>Boton dentro de card</th><th>Light</th><th>Dark</th><th>Estado</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>tonal en elevated / filled / outlined</td><td>1.17 / 1.00 / 1.26</td><td>1.84 / 1.32 / 1.84</td><td>prohibido (en filled es invisible)</td></tr>
+        <tr><td>elevated en elevated / filled / outlined</td><td>1.00 / 1.17 / 1.08</td><td>1.00 / 1.39 / 1.00</td><td>prohibido (mismo token que la card)</td></tr>
+        <tr><td>filled en elevated / filled / outlined</td><td>5.84 / 4.97 / 6.28</td><td>10.02 / 7.20 / 10.05</td><td>permitido</td></tr>
+        <tr><td>text y outlined (label primary)</td><td>5.84 / 4.97 / 6.28</td><td>10.02 / 7.20 / 10.05</td><td>permitido (borde outline-variant con label 4.5:1, clausula Caution de la spec)</td></tr>
+        <tr><td>icon standard (on-surface-variant)</td><td>8.47 / 7.21 / 9.11</td><td>10.02 / 7.20 / 10.05</td><td>permitido</td></tr>
+      </tbody>
+    </table>
+    <!-- FIN: card contrast table -->
+
+  </section>
+  <!-- FIN: card contrast -->
+
+  <hr class="rdm-divider">
+
   <!-- INICIO: card specs -->
   <section>
     <h2 class="rdm-typography--title-large">Specs</h2>
@@ -114,7 +144,7 @@
   <!-- INICIO: card rules -->
   <section>
     <h2 class="rdm-typography--title-large">Rules</h2>
-    <p class="rdm-typography--body-medium">un subject por card · el container es lo unico obligatorio, el resto opcional · el tamano lo da el contenido · no forzar contenido en cards (espaciado o divisores si es mas simple) · jamas accion sobre superficie accionable</p>
+    <p class="rdm-typography--body-medium">un subject por card · el container es lo unico obligatorio, el resto opcional · el tamano lo da el contenido · no forzar contenido en cards (espaciado o divisores si es mas simple) · jamas accion sobre superficie accionable · dentro solo botones con 3:1 contra la card: filled, text, outlined, icon standard (tonal y elevated prohibidos)</p>
   </section>
   <!-- FIN: card rules -->
 

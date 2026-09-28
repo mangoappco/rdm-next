@@ -201,8 +201,9 @@ powershell -ExecutionPolicy Bypass -File tools/verify-tokens.ps1
 | Destructive con error | Toda regla `.rdm-button--destructive` solo consume familia `error` (`error*`, `on-error*`) |
 | Sin acciones anidadas | Ninguna seccion con `.rdm-card--interactive` contiene `<button>` ni `<a href>` |
 | Card en bloque | `.rdm-card` declara `display: block` (un `<a>` inline se fragmenta por line box) |
+| Contraste contenido en card | Todo boton con fondo propio dentro de `.rdm-card--*` da 3:1 (fondo vs fondo) en light y dark, con tokens leidos del arbol real |
 
-Corre en cada commit de la capa de tokens. Estado actual: 29/29 en verde.
+Corre en cada commit de la capa de tokens. Estado actual: 30/30 en verde.
 
 **Leccion v0.5:** el import de `primitives/typography.css` se escribio como
 `../primitives/` (sube un nivel de mas) y la hoja nunca llego al navegador:
@@ -391,6 +392,7 @@ cualquier `@import` relativo roto, probado con archivo temporal.
 - **v0.29** - Destructive: `.rdm-button--destructive` en 4 variantes (text, outlined, tonal, filled) con roles error, demo en Semantics de button.html. No es tipo M3 (ausente en las 10 + guidelines + dialogs: 0 matches); es aplicacion del rol error (urgencia) con 3:1 y label que nombra la accion. Excluye FAB y elevated. Check 27: destructive solo con tokens error*, probado contra rol primario.
 - **v0.30** - Card: `css/comp/card.css` (elevated/filled/outlined, shape 12dp, padding 16dp) y `card.html` (variantes con botones reales, interactive como link, specs, rules). Opcion A: no-actionable por defecto, interactive sin botones dentro (HTML invalido). Enfasis real outlined > elevated > filled. Elevacion estatica (sin valores dinamicos verificados). Reset de links con (0,1,1). Check 28: sin acciones anidadas, probado contra boton dentro de interactive.
 - **v0.31** - Card fix display: `.rdm-card` con `display: block`. El `<a>` interactive era inline y se fragmentaba por line box (fondo y radio partidos, layer del hover cortado). En `div` es no-op. Check 29: card en bloque, probado quitando la linea. Leccion: medir propiedades no caza cajas rotas; verificar tambien `display`.
+- **v0.32** - Card contrast: action area al modelo M3 (filled + icon standard, sin tonal). Tabla Contrast con ratios medidos del arbol real: tonal 1.00-1.84 y elevated 1.00-1.39 dentro de cards, prohibidos; filled/text/outlined/icon permitidos (borde outline-variant con clausula Caution). Check 30 card-scoped: resuelve palette+themes+additions y exige 3:1 fondo-vs-fondo en ambos temas; el tonal sobre surface pagina (1.26) es baseline M3, no bug. Regla en Rules.
 - **v0.26** - Divider: `css/comp/divider.css` (full/inset/middle-inset/vertical, 1px outline-variant) y `divider.html`. Inset 16 solo izquierda (la tabla dice 16/0, middle 16/16). Chrome migrado: 45 `<hr>` entre secciones (+1 escrito a mano), border-top fuera de showroom.css. Check 23: sin border-top en demo, probado contra borde agregado.
 - **v0.25** - Chrome compartido: `css/demo/showroom.css` (ritmo vertical
   space-400 + divisores outline-variant 1px, sin background-color) linkeado

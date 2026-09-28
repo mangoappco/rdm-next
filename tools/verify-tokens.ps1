@@ -477,6 +477,89 @@ if (Test-Path $cf) {
 } else { Write-Output "  SIN ARCHIVO card.css"; $blk++ }
 if ($blk -eq 0) { Write-Output "  en bloque" } else { $fail++ }
 
+# 30. Contraste contenido en card: todo boton CON fondo propio dentro de
+# una .rdm-card--* da 3:1 (fondo vs fondo) en light y en dark. Los tokens
+# se leen del arbol real (palette + themes + additions), no hay valores
+# hardcodeados. Scope card: el tonal sobre surface pagina (1.26) es M3
+# baseline, no bug nuestro. Disabled se salta (WCAG lo exime).
+Write-Output ""
+Write-Output "=== Contraste contenido en card ==="
+$con = 0
+function Get-Decls($txt) {
+  $d = @{}
+  foreach ($m in ([regex]::Matches($txt, '(?m)^\s*(--[\w-]+)\s*:\s*([^;{}]+);'))) { $d[$m.Groups[1].Value] = $m.Groups[2].Value.Trim() }
+  return $d
+}
+function Resolve-Token($name, $map, $pal) {
+  $v = $map[$name]
+  if ($null -eq $v) { return $null }
+  for ($i = 0; $i -lt 8; $i++) {
+    $m = [regex]::Match($v, 'var\((--[\w-]+)\)')
+    if (-not $m.Success) { break }
+    $k = $m.Groups[1].Value
+    if ($pal.ContainsKey($k)) { $nx = $pal[$k] } elseif ($map.ContainsKey($k)) { $nx = $map[$k] } else { return $null }
+    $v = $v.Replace($m.Groups[0].Value, $nx)
+  }
+  return $v.Trim()
+}
+function Get-Lum($hex) {
+  $h = ([regex]::Match($hex, '#([0-9a-fA-F]{6})')).Groups[1].Value
+  $c = @([Convert]::ToInt32($h.Substring(0,2),16), [Convert]::ToInt32($h.Substring(2,2),16), [Convert]::ToInt32($h.Substring(4,2),16))
+  $l = @()
+  foreach ($ch in $c) { $v = $ch / 255; if ($v -le 0.03928) { $l += ($v / 12.92) } else { $l += [Math]::Pow(($v + 0.055) / 1.055, 2.4) } }
+  return 0.2126 * $l[0] + 0.7152 * $l[1] + 0.0722 * $l[2]
+}
+function Get-Ratio($a, $b) {
+  $l1 = Get-Lum $a; $l2 = Get-Lum $b
+  $hi = [Math]::Max($l1, $l2); $lo = [Math]::Min($l1, $l2)
+  return ($hi + 0.05) / ($lo + 0.05)
+}
+$pal = Get-Decls (Read-Css "$root\vendor\material-tokens\css\palette.css")
+$add = Read-Css "$root\css\md\additions.css"
+$addLight = Get-Decls $add.Substring($add.IndexOf(":root"), $add.IndexOf("@media") - $add.IndexOf(":root"))
+$darkBlock = ([regex]::Match($add, '(?s)@media[^{]*\{(.*)\}\s*$')).Groups[1].Value
+$addDark = Get-Decls $darkBlock
+$lightMap = Get-Decls (Read-Css "$root\vendor\material-tokens\css\theme\light.css")
+foreach ($k in $addLight.Keys) { $lightMap[$k] = $addLight[$k] }
+$darkMap = Get-Decls (Read-Css "$root\vendor\material-tokens\css\theme\dark.css")
+foreach ($k in $addDark.Keys) { $darkMap[$k] = $addDark[$k] }
+$cardBg = @{ "elevated" = "--md-sys-color-surface-container-low"; "filled" = "--md-sys-color-surface-container-highest"; "outlined" = "--md-sys-color-surface" }
+foreach ($h in (Get-ChildItem "$root\*.html" -ErrorAction SilentlyContinue)) {
+  $t = Read-Css $h.FullName
+  foreach ($m in ([regex]::Matches($t, '(?s)<(div|a)[^>]*class="[^"]*rdm-card--(elevated|filled|outlined)[^"]*"[^>]*>(.*?)</\1>'))) {
+    $cv = $m.Groups[2].Value
+    $inner = $m.Groups[3].Value
+    foreach ($b in ([regex]::Matches($inner, '(?i)<button[^>]*class="([^"]*)"[^>]*>'))) {
+      $tag = $b.Groups[0].Value
+      $cls = $b.Groups[1].Value
+      if ($tag -match '(?i)\bdisabled\b') { continue }
+      $btnBg = $null
+      if ($cls -match 'rdm-button--filled') { if ($cls -match 'rdm-button--destructive') { $btnBg = "--md-sys-color-error" } else { $btnBg = "--md-sys-color-primary" } }
+      elseif ($cls -match 'rdm-button--tonal') { if ($cls -match 'rdm-button--destructive') { $btnBg = "--md-sys-color-error-container" } else { $btnBg = "--md-sys-color-secondary-container" } }
+      elseif ($cls -match 'rdm-button--elevated') { $btnBg = "--md-sys-color-surface-container-low" }
+      elseif ($cls -match 'rdm-icon-button--filled') {
+        if (($cls -match 'rdm-icon-button--toggle') -and ($tag -notmatch 'aria-pressed="true"')) { $btnBg = "--md-sys-color-surface-container-highest" }
+        elseif ($cls -match 'rdm-button--destructive') { $btnBg = "--md-sys-color-error" }
+        else { $btnBg = "--md-sys-color-primary" }
+      }
+      elseif ($cls -match 'rdm-icon-button--tonal') {
+        if (($cls -match 'rdm-icon-button--toggle') -and ($tag -notmatch 'aria-pressed="true"')) { $btnBg = "--md-sys-color-surface-container-highest" }
+        else { $btnBg = "--md-sys-color-secondary-container" }
+      }
+      else { continue }
+      foreach ($th in @("light", "dark")) {
+        if ($th -eq "light") { $map = $lightMap } else { $map = $darkMap }
+        $cb = Resolve-Token $cardBg[$cv] $map $pal
+        $bb = Resolve-Token $btnBg $map $pal
+        if ($null -eq $cb -or $null -eq $bb) { Write-Output ("  SIN-RESOLVER " + $h.Name + " " + $th + ": card=" + $cb + " btn=" + $bb); $con++; continue }
+        $r = Get-Ratio $cb $bb
+        if ($r -lt 3) { Write-Output ("  BAJO-CONTRASTE " + $h.Name + " " + $th + ": " + $btnBg + " en card--" + $cv + " = " + [Math]::Round($r, 2)); $con++ }
+      }
+    }
+  }
+}
+if ($con -eq 0) { Write-Output "  3:1 en cards" } else { $fail++ }
+
 Write-Output ""
 if ($fail -eq 0) { Write-Output "OK: capa de tokens integra" } else { Write-Output ("FALLA: " + $fail + " chequeo(s)") }
 exit $fail
