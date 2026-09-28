@@ -13,6 +13,8 @@
 */
 .rdm-icon-button {
   display: inline-flex;
+  /* middle: ver .rdm-button (drift de 8px con baseline mixto). */
+  vertical-align: middle;
   align-items: center;
   justify-content: center;
   width: 2.5rem;

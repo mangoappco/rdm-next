@@ -20,6 +20,10 @@
 */
 .rdm-button {
   display: inline-flex;
+  /* middle, no baseline: la linea base deriva con contenido mixto
+     (glifo vs texto, drift de 8px medido en card); middle alinea
+     por caja y es inmune al contenido interno. */
+  vertical-align: middle;
   align-items: center;
   justify-content: center;
   gap: var(--rdm-space-100);

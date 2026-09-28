@@ -36,30 +36,45 @@
   <section>
     <h2 class="rdm-typography--title-large">Variants</h2>
     <p class="rdm-typography--body-large">Enfasis real: outlined primero,
-       elevated despues, filled ultimo. Action area del modelo M3: boton
-       filled (accion primaria) + icon button standard (secundaria).
-       Sin tonal ni elevated dentro: su fondo no da 3:1 contra la card
-       (ver Contrast).</p>
+       elevated despues, filled ultimo. Dos botones por card (headline,
+       subhead y supporting text en jerarquia). Sin icon button en la
+       fila: el glifo deriva la linea base 8px; el modelo de 2 botones
+       de texto alinea a 0. Sin tonal ni elevated dentro (ver Contrast).</p>
 
     <!-- INICIO: card variants demo -->
     <div class="demo-card-spacing">
       <div class="rdm-card rdm-card--elevated">
         <p class="rdm-typography--title-large">Elevated</p>
-        <p class="rdm-typography--body-medium">surface-container-low con sombra 1. Separa del fondo sin borde.</p>
-        <button type="button" class="rdm-button rdm-button--filled rdm-state-layer rdm-typography--label-large">Add to cart</button>
-        <button type="button" aria-label="Save" class="rdm-icon-button rdm-state-layer"><span class="rdm-icon" aria-hidden="true">favorite</span></button>
+        <p class="rdm-typography--title-small">surface-container-low · shadow 1</p>
+        <p class="rdm-typography--body-medium">Separa del fondo sin borde.</p>
+        <!-- INICIO: card elevated actions -->
+        <div class="demo-card-actions">
+          <button type="button" class="rdm-button rdm-button--filled rdm-state-layer rdm-typography--label-large">Add to cart</button>
+          <button type="button" class="rdm-button rdm-button--outlined rdm-state-layer rdm-typography--label-large">Learn more</button>
+        </div>
+        <!-- FIN: card elevated actions -->
       </div>
       <div class="rdm-card rdm-card--filled">
         <p class="rdm-typography--title-large">Filled</p>
-        <p class="rdm-typography--body-medium">surface-container-highest. La mas sutil de las tres.</p>
-        <button type="button" class="rdm-button rdm-button--filled rdm-state-layer rdm-typography--label-large">Add to cart</button>
-        <button type="button" aria-label="Save" class="rdm-icon-button rdm-state-layer"><span class="rdm-icon" aria-hidden="true">favorite</span></button>
+        <p class="rdm-typography--title-small">surface-container-highest · sin sombra</p>
+        <p class="rdm-typography--body-medium">La mas sutil de las tres.</p>
+        <!-- INICIO: card filled actions -->
+        <div class="demo-card-actions">
+          <button type="button" class="rdm-button rdm-button--filled rdm-state-layer rdm-typography--label-large">Add to cart</button>
+          <button type="button" class="rdm-button rdm-button--outlined rdm-state-layer rdm-typography--label-large">Learn more</button>
+        </div>
+        <!-- FIN: card filled actions -->
       </div>
       <div class="rdm-card rdm-card--outlined">
         <p class="rdm-typography--title-large">Outlined</p>
-        <p class="rdm-typography--body-medium">surface con borde outline-variant. El borde da el mayor enfasis.</p>
-        <button type="button" class="rdm-button rdm-button--filled rdm-state-layer rdm-typography--label-large">Add to cart</button>
-        <button type="button" aria-label="Save" class="rdm-icon-button rdm-state-layer"><span class="rdm-icon" aria-hidden="true">favorite</span></button>
+        <p class="rdm-typography--title-small">surface · borde outline-variant</p>
+        <p class="rdm-typography--body-medium">El borde da el mayor enfasis.</p>
+        <!-- INICIO: card outlined actions -->
+        <div class="demo-card-actions">
+          <button type="button" class="rdm-button rdm-button--filled rdm-state-layer rdm-typography--label-large">Add to cart</button>
+          <button type="button" class="rdm-button rdm-button--outlined rdm-state-layer rdm-typography--label-large">Learn more</button>
+        </div>
+        <!-- FIN: card outlined actions -->
       </div>
     </div>
     <!-- FIN: card variants demo -->
@@ -153,7 +168,7 @@
   <!-- INICIO: card anatomy -->
   <section>
     <h2 class="rdm-typography--title-large">Anatomy</h2>
-    <p class="rdm-typography--body-medium">rdm-card: geometria 12dp y padding 16 · variante: color, borde y sombra · rdm-card--interactive: cursor y target unico · rdm-state-layer: estados en modo interactive</p>
+    <p class="rdm-typography--body-medium">container (unico obligatorio): geometria 12dp y padding 16 · headline + subhead + supporting text: jerarquia por composicion tipografica · actions: 2 botones de texto con 3:1 contra la card, en fila flex con gap 16 · media, thumbnail y video: contenido con scrim si lleva texto encima · dividers: full-width para expandir, inset para separar · overflow menu: pendiente, depende de Menus (no construido)</p>
   </section>
   <!-- FIN: card anatomy -->
 

@@ -8,5 +8,7 @@
 */
 .rdm-button-group {
   display: inline-flex;
+  /* middle: ver .rdm-button (drift de 8px con baseline mixto). */
+  vertical-align: middle;
   gap: var(--rdm-space-25);
 }

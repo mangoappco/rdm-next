@@ -560,6 +560,27 @@ foreach ($h in (Get-ChildItem "$root\*.html" -ErrorAction SilentlyContinue)) {
 }
 if ($con -eq 0) { Write-Output "  3:1 en cards" } else { $fail++ }
 
+# 31. Inline con caja: toda regla inline-flex/inline-block/inline-grid de
+# css/comp/ declara vertical-align middle (nunca baseline). La linea base
+# deriva hasta 8px con contenido mixto (glifo vs texto, medido en card);
+# middle alinea por caja y es inmune al contenido interno.
+Write-Output ""
+Write-Output "=== Inline con caja ==="
+$ali = 0
+foreach ($f in (Get-ChildItem "$root\css\comp" -Filter *.css -ErrorAction SilentlyContinue)) {
+  $t = (Read-Css $f.FullName).TrimStart([char]0xFEFF)
+  $t = [regex]::Replace($t, '/\*.*?\*/', '', 'Singleline')
+  foreach ($m in ([regex]::Matches($t, '([^{}]+)\{([^{}]*)\}'))) {
+    $body = $m.Groups[2].Value
+    if ($body -match '(?i)display\s*:\s*inline-(flex|block|grid)') {
+      if (($body -notmatch '(?i)vertical-align\s*:') -or ($body -match '(?i)vertical-align\s*:\s*baseline')) {
+        Write-Output ("  SIN-CAJA " + $f.Name + ": " + $m.Groups[1].Value.Trim().Substring(0, [Math]::Min(50, $m.Groups[1].Value.Trim().Length))); $ali++
+      }
+    }
+  }
+}
+if ($ali -eq 0) { Write-Output "  todos middle" } else { $fail++ }
+
 Write-Output ""
 if ($fail -eq 0) { Write-Output "OK: capa de tokens integra" } else { Write-Output ("FALLA: " + $fail + " chequeo(s)") }
 exit $fail

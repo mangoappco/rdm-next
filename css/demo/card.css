@@ -7,3 +7,12 @@
 .demo-card-spacing > * + * {
   margin-top: var(--rdm-space-200);
 }
+
+/* Fila de acciones: flex con gap de token. El gap entre acciones es
+   layout de pagina, no propiedad del card; sin esto queda un nodo de
+   texto en blanco de 3px que ninguna regla controla. */
+.demo-card-actions {
+  display: flex;
+  align-items: center;
+  gap: var(--rdm-space-200);
+}
