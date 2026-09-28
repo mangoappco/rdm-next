@@ -1,4 +1,4 @@
-/*
+﻿/*
   RDM Next - Card (v0.30): 3 variantes M3 core, contenido sobre un subject.
   No-actionable por defecto (contiene botones); .rdm-card--interactive
   para target unico SIN botones ni links dentro (HTML invalido si se
@@ -9,6 +9,10 @@
   12dp, padding 16dp, enfasis real: outlined > elevated > filled.
 */
 .rdm-card {
+  /* block: la card es contenedor de contenido; sin esto un <a> queda
+     inline y se fragmenta por line box (fondo y radio partidos, layer
+     del hover cortado). En <div> es no-op. */
+  display: block;
   border-radius: var(--md-sys-shape-corner-medium-default-size);
   padding: var(--rdm-space-200);
 }
@@ -45,3 +49,4 @@ a.rdm-card {
   text-decoration: none;
   color: var(--md-sys-color-on-surface);
 }
+

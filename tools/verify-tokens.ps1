@@ -460,6 +460,23 @@ foreach ($h in (Get-ChildItem "$root\*.html" -ErrorAction SilentlyContinue)) {
 }
 if ($nes -eq 0) { Write-Output "  ninguna" } else { $fail++ }
 
+# 29. Card en bloque: .rdm-card declara display block. Sin esto un <a>
+# queda inline y se fragmenta por line box (fondo y radio partidos,
+# layer del hover cortado a la mitad).
+Write-Output ""
+Write-Output "=== Card en bloque ==="
+$blk = 0
+$cf = "$root\css\comp\card.css"
+if (Test-Path $cf) {
+  $t = (Read-Css $cf).TrimStart([char]0xFEFF)
+  $t = [regex]::Replace($t, '/\*.*?\*/', '', 'Singleline')
+  $m = [regex]::Match($t, '(?s)\.rdm-card\s*\{([^{}]*)\}')
+  if (-not $m.Success -or $m.Groups[1].Value -notmatch '(?i)display\s*:\s*block') {
+    Write-Output "  SIN BLOCK card.css"; $blk++
+  }
+} else { Write-Output "  SIN ARCHIVO card.css"; $blk++ }
+if ($blk -eq 0) { Write-Output "  en bloque" } else { $fail++ }
+
 Write-Output ""
 if ($fail -eq 0) { Write-Output "OK: capa de tokens integra" } else { Write-Output ("FALLA: " + $fail + " chequeo(s)") }
 exit $fail
