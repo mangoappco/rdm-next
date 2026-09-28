@@ -819,6 +819,28 @@ else {
 }
 if ($elv -eq 0) { Write-Output "  niveles coinciden" } else { $fail++ }
 
+# 42. Vendor con licencia: todo archivo bajo vendor/ esta cubierto por
+# Apache 2.0, por cabecera propia o por LICENSE en su carpeta o
+# superiores (decision 4: cada token es demostrablemente de Google).
+Write-Output ""
+Write-Output "=== Vendor con licencia ==="
+$lic = 0
+$vroot = Join-Path $root 'vendor'
+foreach ($f in (Get-ChildItem $vroot -Recurse -File -ErrorAction SilentlyContinue)) {
+  $t = Read-Css $f.FullName
+  if ($t -match 'Apache(-| )License|SPDX-License-Identifier:\s*Apache-2\.0') { continue }
+  $d = Split-Path -Parent $f.FullName
+  $covered = $false
+  while ($d.StartsWith($vroot)) {
+    if (Test-Path (Join-Path $d 'LICENSE')) { $covered = $true; break }
+    $up = Split-Path -Parent $d
+    if ($up -eq $d) { break }
+    $d = $up
+  }
+  if (-not $covered) { Write-Output ("  SIN-LICENCIA " + $f.FullName.Substring($vroot.Length + 1)); $lic++ }
+}
+if ($lic -eq 0) { Write-Output "  todo cubierto" } else { $fail++ }
+
 Write-Output ""
 if ($fail -eq 0) { Write-Output "OK: capa de tokens integra" } else { Write-Output ("FALLA: " + $fail + " chequeo(s)") }
 exit $fail

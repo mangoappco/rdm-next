@@ -6,6 +6,10 @@
   colors.css del vendor se omite a proposito: no define tokens, son clases
   de demostracion (.primary, .surface...) que colisionarian con el markup
   del showroom. Verificado: 0 custom properties en ese archivo.
+
+  vendor/material-web-tokens/ (.scss de labs/card v0_192) es solo
+  referencia de auditoria: Sass no corre en el navegador y esos archivos
+  nunca se importan. Ver su README.
 */
 @import url(../../vendor/material-tokens/css/palette.css);
 @import url(../../vendor/material-tokens/css/typography.css);
