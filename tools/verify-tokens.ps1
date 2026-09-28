@@ -100,6 +100,25 @@ foreach ($f in $ownFiles) {
 }
 if ($dsp -eq 0) { Write-Output "  ninguno" } else { $fail++ }
 
+# 7. Imports que resuelven: cada @import relativo apunta a un archivo que
+# existe. Rutas relativas al archivo que importa; se saltan las http(s).
+Write-Output ""
+Write-Output "=== Imports rotos ==="
+$badImp = 0
+foreach ($f in $ownFiles) {
+  $dir = Split-Path -Parent $f.FullName
+  foreach ($m in (Select-String -Path $f.FullName -Pattern '@import url\(([^)]+?)\)')) {
+    $target = $m.Matches[0].Groups[1].Value.Trim().Split(' ')[0]
+    if ($target -match '^https?://') { continue }
+    $full = Join-Path $dir $target
+    if (-not (Test-Path $full)) {
+      Write-Output ("  ROTO " + $f.Name + " -> " + $target)
+      $badImp++
+    }
+  }
+}
+if ($badImp -eq 0) { Write-Output "  ninguno" } else { $fail++ }
+
 Write-Output ""
 if ($fail -eq 0) { Write-Output "OK: capa de tokens integra" } else { Write-Output ("FALLA: " + $fail + " chequeo(s)") }
 exit $fail

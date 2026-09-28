@@ -5,6 +5,6 @@
   proyecto (rdm).
 */
 @import url(md/tokens.css);
-@import url(../primitives/typography.css);
+@import url(primitives/typography.css);
 @import url(rdm/project.css);
 @import url(rdm/base.css);

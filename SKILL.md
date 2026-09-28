@@ -169,9 +169,15 @@ powershell -ExecutionPolicy Bypass -File tools/verify-tokens.ps1
 | sys incompleto | Un rol de superficie sin light o sin dark |
 | Fugas de capa | `comp/`, `rdm/`, `primitives/` o `demo/` leyendo `--md-ref-*` (prohibido) |
 | DSP consumido | `var()` a `-value`, `-unit` o `axis-value` (ruido de Figma) |
-| Imports | Todos los `@import` resuelven a archivo existente |
+| Imports | Todos los `@import` relativos resuelven a archivo existente; se saltan los `https://` |
 
-Corre en cada commit de la capa de tokens. Estado actual: 6/6 en verde.
+Corre en cada commit de la capa de tokens. Estado actual: 7/7 en verde.
+
+**Leccion v0.5:** el import de `primitives/typography.css` se escribio como
+`../primitives/` (sube un nivel de mas) y la hoja nunca llego al navegador:
+todo el showroom se veia igual. El chequeo de imports existia en esta tabla
+pero no estaba implementado en el script. Ahora si: el check 7 falla ante
+cualquier `@import` relativo roto, probado con archivo temporal.
 
 ## 9. Historial de versiones
 
@@ -194,6 +200,10 @@ Corre en cada commit de la capa de tokens. Estado actual: 6/6 en verde.
   con valores visibles por rol. Se descartan `-value`/`-unit` (ruido DSP),
   `axis-value` y los 4 `unset`, mas el enum crudo `label-medium-text-transform: 1`
   de Figma. Check 6 en el script: ningun token DSP se consume.
+- **v0.5** - Fix: el import de primitives apuntaba a `../primitives/`
+  (un nivel de mas) y typography.css nunca llegaba al navegador. Check 7
+  de imports implementado (la tabla lo prometia, el script no lo tenia),
+  probado contra archivo temporal con import roto.
 
 ## 10. Decisiones pendientes
 
