@@ -1,0 +1,35 @@
+/*
+  RDM Next - Divider (v0.26): linea de 1px con fondo, no un borde.
+  Asi la variante vertical es solo cambiar de eje. outline-variant es
+  el rol de la spec ("visible but not bold").
+
+  Inset 16dp solo a la izquierda, middle-inset 16dp ambos lados (tabla
+  de medidas de la spec). Los margenes van en la variante porque son
+  medida de la variante. Vertical con aire lateral espejando el
+  vertical del horizontal.
+*/
+.rdm-divider {
+  display: block;
+  block-size: 1px;
+  inline-size: 100%;
+  border: 0;
+  margin-block: var(--rdm-space-100);
+  margin-inline: 0;
+  padding: 0;
+  background-color: var(--md-sys-color-outline-variant);
+}
+
+.rdm-divider--inset {
+  margin-inline-start: var(--rdm-space-200);
+}
+
+.rdm-divider--middle-inset {
+  margin-inline: var(--rdm-space-200);
+}
+
+.rdm-divider--vertical {
+  block-size: 100%;
+  inline-size: 1px;
+  margin-block: 0;
+  margin-inline: var(--rdm-space-100);
+}

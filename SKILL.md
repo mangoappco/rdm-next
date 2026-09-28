@@ -194,8 +194,9 @@ powershell -ExecutionPolicy Bypass -File tools/verify-tokens.ps1
 | Showroom por componente | Cada `css/comp/*.css` tiene su `<nombre>.html` en la raiz |
 | Grupo invisible | `button-group.css` sin `background-color`, `color`, `border` ni `box-shadow` (container sin visuales) |
 | Chrome compartido | Todo `.html` de raiz linkea `css/demo/showroom.css` y tiene ≥1 `<section>` |
+| Divisores ad-hoc | Ningun `css/demo/` declara `border-top` (viven en `css/comp/divider.css`) |
 
-Corre en cada commit de la capa de tokens. Estado actual: 22/22 en verde.
+Corre en cada commit de la capa de tokens. Estado actual: 23/23 en verde.
 
 **Leccion v0.5:** el import de `primitives/typography.css` se escribio como
 `../primitives/` (sube un nivel de mas) y la hoja nunca llego al navegador:
@@ -376,6 +377,7 @@ cualquier `@import` relativo roto, probado con archivo temporal.
   + dragged + texto de prueba en vivo. Regla: toda seccion States lleva
   al menos un enabled en vivo (live con pseudo-clase, modificador sin
   ella, tabla si es dato).
+- **v0.26** - Divider: `css/comp/divider.css` (full/inset/middle-inset/vertical, 1px outline-variant) y `divider.html`. Inset 16 solo izquierda (la tabla dice 16/0, middle 16/16). Chrome migrado: 43 `<hr>` entre secciones, border-top fuera de showroom.css. Check 23: sin border-top en demo, probado contra borde agregado.
 - **v0.25** - Chrome compartido: `css/demo/showroom.css` (ritmo vertical
   space-400 + divisores outline-variant 1px, sin background-color) linkeado
   en las 13 paginas. Card descartado como chrome (no es un subject).
@@ -401,4 +403,4 @@ cualquier `@import` relativo roto, probado con archivo temporal.
 - [ ] Springs de M3 Expressive: 2 esquemas (expressive, standard) x 2 tipos (spatial con rebote: posicion, rotacion, tamano, radio; effects sin rebote: color, opacidad) x 3 velocidades (default, fast, slow). Criterio por tamano: componentes chicos (switches, buttons) = fast, bottom sheet = default, fullscreen = slow. Todo componente corre con fast spatial + fast effects. Sin tokens en ninguna exportacion CSS; la pagina Specs explica la conversion desde Compose.
 - [x] Button (resuelto en v0.22 con mapeo de la spec; label outlined = primary por codigo de Material Web).
 - [ ] Botones restantes (6 de 10 tipos): icon button, toggle icon button, split button, standard/connected groups, FAB menu. Toggle button es Expressive (fuera de scope). FAB hecho en v0.23.
-- [ ] Divider como componente: M3 lo define (/components/divider); el chrome usa border-top ad-hoc. Migrar showroom.css a .rdm-divider real cuando se construya.
+- [x] Divider (resuelto en v0.26).

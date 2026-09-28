@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Divider - RDM Next</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Google+Sans:wght@400..700&display=swap" rel="stylesheet">
+  <!-- Material Symbols recortado: peso 400, sin ejes variables sin uso -->
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@24,400,0,0" rel="stylesheet">
+
+  <link rel="stylesheet" href="css/rdm-next.css">
+  <link rel="stylesheet" href="css/demo/showroom.css">
+  <link rel="stylesheet" href="css/demo/divider.css">
+</head>
+<body>
+
+<!-- INICIO: divider container -->
+<div class="rdm-container">
+
+<!-- INICIO: divider header -->
+<header>
+  <p class="rdm-typography--label-large"><a href="index.html">RDM Next</a></p>
+  <h1 class="rdm-typography--display-small">Divider</h1>
+  <p class="rdm-typography--body-large">Linea de 1px en outline-variant que
+     agrupa contenido. Full-width para secciones no relacionadas, inset
+     para contenido relacionado con ancla.</p>
+</header>
+<!-- FIN: divider header -->
+
+<main>
+
+  <!-- INICIO: divider variants -->
+  <section>
+    <h2 class="rdm-typography--title-large">Variants</h2>
+
+    <!-- INICIO: divider full -->
+    <p class="rdm-typography--title-medium">Full-width</p>
+    <p class="rdm-typography--body-small"><code>.rdm-divider · 100%</code></p>
+    <hr class="rdm-divider">
+    <!-- FIN: divider full -->
+
+    <!-- INICIO: divider inset -->
+    <p class="rdm-typography--title-medium">Inset</p>
+    <p class="rdm-typography--body-small"><code>.rdm-divider--inset · 16dp a la izquierda</code></p>
+    <div class="demo-divider-box">
+      <hr class="rdm-divider rdm-divider--inset">
+    </div>
+    <!-- FIN: divider inset -->
+
+    <!-- INICIO: divider middle -->
+    <p class="rdm-typography--title-medium">Middle-inset</p>
+    <p class="rdm-typography--body-small"><code>.rdm-divider--middle-inset · 16dp ambos lados</code></p>
+    <div class="demo-divider-box">
+      <hr class="rdm-divider rdm-divider--middle-inset">
+    </div>
+    <!-- FIN: divider middle -->
+
+    <!-- INICIO: divider vertical -->
+    <p class="rdm-typography--title-medium">Vertical</p>
+    <p class="rdm-typography--body-small"><code>.rdm-divider--vertical · pantallas grandes</code></p>
+    <div class="demo-divider-tall">
+      <div class="rdm-divider rdm-divider--vertical"></div>
+    </div>
+    <!-- FIN: divider vertical -->
+
+  </section>
+  <!-- FIN: divider variants -->
+
+  <hr class="rdm-divider">
+
+  <!-- INICIO: divider measures -->
+  <section>
+    <h2 class="rdm-typography--title-large">Measures</h2>
+
+    <!-- INICIO: divider measures table -->
+    <table>
+      <thead>
+        <tr><th>Medida</th><th>Valor</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Full-width</td><td>100%</td></tr>
+        <tr><td>Inset</td><td>16dp izquierda, 0dp derecha</td></tr>
+        <tr><td>Middle-inset</td><td>16dp ambos lados</td></tr>
+        <tr><td>Espacio a supporting-text</td><td>4dp</td></tr>
+        <tr><td>Margen derecho / inferior</td><td>8dp</td></tr>
+      </tbody>
+    </table>
+    <!-- FIN: divider measures table -->
+
+  </section>
+  <!-- FIN: divider measures -->
+
+  <hr class="rdm-divider">
+
+  <!-- INICIO: divider usage -->
+  <section>
+    <h2 class="rdm-typography--title-large">Usage</h2>
+    <p class="rdm-typography--body-large">Solo si el espacio abierto no
+       agrupa: con formato repetitivo alcanza el margen. Agrupan, no
+       separan items sueltos. Con moderacion: demasiadas lineas
+       recargan. Full-width para secciones, inset para contenido
+       relacionado con ancla (avatar, icono).</p>
+  </section>
+  <!-- FIN: divider usage -->
+
+</main>
+
+<!-- FIN: divider container -->
+</div>
+
+</body>
+</html>

@@ -360,6 +360,18 @@ foreach ($h in (Get-ChildItem "$root\*.html" -ErrorAction SilentlyContinue)) {
 }
 if ($sho -eq 0) { Write-Output "  todas" } else { $fail++ }
 
+# 23. Sin divisores ad-hoc: ningun css/demo/ declara border-top.
+# Los divisores viven en css/comp/divider.css.
+Write-Output ""
+Write-Output "=== Divisores ad-hoc ==="
+$adh = 0
+foreach ($f in (Get-ChildItem "$root\css\demo" -Filter *.css)) {
+  $t = (Read-Css $f.FullName).TrimStart([char]0xFEFF)
+  $t = [regex]::Replace($t, '/\*.*?\*/', '', 'Singleline')
+  if ($t -match '(?i)border-top\s*:') { Write-Output ("  ADHOC " + $f.Name); $adh++ }
+}
+if ($adh -eq 0) { Write-Output "  ninguno" } else { $fail++ }
+
 Write-Output ""
 if ($fail -eq 0) { Write-Output "OK: capa de tokens integra" } else { Write-Output ("FALLA: " + $fail + " chequeo(s)") }
 exit $fail

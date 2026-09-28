@@ -1,0 +1,22 @@
+/*
+  RDM Next - Estilos SOLO del showroom de divider.html
+  No forman parte de la libreria. Ningun componente los importa.
+  Solo cajas de contexto: el inset necesita un contenedor para que el
+  margen se vea, el vertical necesita alto. Sin fondo sobre
+  section/header (check 19).
+*/
+.demo-divider-box {
+  background-color: var(--md-sys-color-surface-container-high);
+  border-radius: var(--md-sys-shape-corner-medium-default-size);
+  padding: var(--rdm-space-200);
+  margin-bottom: 1em;
+}
+
+.demo-divider-tall {
+  display: flex;
+  block-size: 6em;
+  background-color: var(--md-sys-color-surface-container-high);
+  border-radius: var(--md-sys-shape-corner-medium-default-size);
+  padding: var(--rdm-space-200);
+  margin-bottom: 1em;
+}

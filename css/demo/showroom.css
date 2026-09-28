@@ -1,20 +1,10 @@
 /*
-  RDM Next - Chrome compartido del showroom (v0.25)
-  No es libreria ni componente: es ritmo y divisores para las secciones
-  de las paginas de demo. Vive aca (un archivo) en vez de repetido en
-  cada demo, y en vez de un Card falso (una seccion no es un subject).
-
-  Ritmo con tokens de spacing, divisores con outline-variant (la spec:
-  "decorative elements, such as dividers"). Sin background-color: las
-  superficies falsas estan prohibidas por el check 19.
+  RDM Next - Chrome compartido del showroom (v0.25, migrado en v0.26)
+  Solo ritmo vertical con tokens. Los divisores son el componente
+  .rdm-divider (elementos <hr> entre secciones), no un borde ad-hoc.
 */
 .rdm-container section {
   margin-bottom: var(--rdm-space-400);
-}
-
-.rdm-container section + section {
-  border-top: 1px solid var(--md-sys-color-outline-variant);
-  padding-top: var(--rdm-space-400);
 }
 
 .rdm-container > header {
