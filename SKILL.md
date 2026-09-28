@@ -91,6 +91,7 @@ que `--icon-only`.
 | 6 | `comp` por componente | Se jala de Material Web al construir cada uno | El repo oficial frena en ref+sys; no hay `comp.css` gigante adelantado |
 | 7 | Unidades | `em` en componentes, como la libreria anterior | Consistencia con el proyecto; los tokens usan px (spec) |
 | 8 | Clase base | `.rdm-button` + `.rdm-button--filled`, siempre las dos | La libreria anterior usaba modificadores sin base y selectores `button { }` globales: M3 nunca aplica estilos a etiquetas nativas y sin base habia que duplicar geometria por variante (bug de sincronizacion card/form). La base lleva geometria, tipografia, shape y state layer; la variante solo color y elevacion |
+| 9 | M3 core, no Expressive | **Target M3 core** (vendor pre-2023 + material-web v0.192) | M3 Expressive (May 2025: 5 tamanos, square, shape morph, toggle, springs, padding 16dp) no esta disponible para Web en botones. No somos ancient, somos baseline-matched: 24dp padding, round, small, duration+easing |
 
 ## 6. Capa de tokens
 
@@ -308,6 +309,16 @@ cualquier `@import` relativo roto, probado con archivo temporal.
   ejes, ejes completos solo en `icons.html` (el resto recortado), y reglas
   ARIA documentadas. Check 16: ninguna clase generica de Google en HTML,
   probado contra span con clase generica.
+- **v0.18** - Solo documentacion (sin codigo): decision #9 "M3 core, no
+  Expressive" en §5 con su tabla, correccion de la nota de springs en
+  `additions.css` (existen para Web por conversion, ninguna exportacion
+  CSS los emite, son device-relativos) y pendientes de springs + Button.
+  Origen: lectura con browser de la spec de Buttons (icono 20dp, no 18dp;
+  padding 24dp confirmado para core; mapeo de color de la spec con 2
+  diferencias vs Material Web; radios Full; elevated 1/0 disabled) y de
+  Motion physics (los springs reemplazan duration+easing; Web convierte
+  desde Compose). Retractacion: el padding 24dp NO estaba deprecado,
+  16dp es solo Expressive.
 
 ## 10. Decisiones pendientes
 
@@ -316,3 +327,5 @@ cualquier `@import` relativo roto, probado con archivo temporal.
 - [ ] Easing y duraciones de motion por componente: los tokens existen (45 en `motion.css`), falta mapearlos al construir cada componente. `160ms` no es token M3.
 - [ ] Zona header/avatar de card y taxonomia de actions: documentadas en la libreria anterior, aplicar al construir Card.
 - [ ] `--md-sys-elevation-surface-tint-color`: token M3 real del vendor (tinta primaria sobre superficies elevadas), hoy sin consumir. No es sombra ni nivel; evaluar cuando un componente necesite tinte de elevacion.
+- [ ] Springs de M3 Expressive: 2 esquemas (expressive, standard) x 2 tipos (spatial con rebote: posicion, rotacion, tamano, radio; effects sin rebote: color, opacidad) x 3 velocidades (default, fast, slow). Criterio por tamano: componentes chicos (switches, buttons) = fast, bottom sheet = default, fullscreen = slow. Todo componente corre con fast spatial + fast effects. Sin tokens en ninguna exportacion CSS; la pagina Specs explica la conversion desde Compose.
+- [ ] Button (valores verificados contra la spec, listos para construir): icono 20dp (el 18dp es herencia M2), padding 24dp confirmado para M3 core (16dp es solo Expressive), mapeo de color de la spec (elevated: surface-container-low + primary; outlined: borde outline-variant + label on-surface-variant; 2 diferencias vs Material Web, seguir la spec), radios Full en todos los tamanos, elevated 1 por defecto y 0 en disabled. Otros roles sirven con contraste 3:1 (habilita el destructivo).

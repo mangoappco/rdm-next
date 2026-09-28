@@ -54,9 +54,14 @@
   No es un error del vendor, lo define asi el spec. No tocar.
 
   --md-sys-motion-path-standard-path: 1 es basura: el generador de Material
-  Web dice 'Type motion_path is not supported'. El sistema de springs
-  espaciales de M3 no es expresable en CSS puro (no hay easing de resorte);
-  Material Web lo resuelve en JS. Limite real, documentado, no simulado.
+  Web dice 'Type motion_path is not supported'. Springs de M3 Expressive
+  (v0.18): existen para Web por conversion desde los valores de Compose
+  ("Compatible with Compose springs"), pero ninguna exportacion CSS los
+  emite (ni el vendor pre-2023 ni material-web v0_192, verificado en main).
+  Ademas son device-relativos: el mismo token corre distinto en wearable
+  que en tablet, asi que un token CSS de valor fijo no los puede expresar.
+  Estructura en SKILL pendientes (2 esquemas x 2 tipos x 3 velocidades).
+  No simulado con easing.
 */
 
 :root {
