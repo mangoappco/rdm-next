@@ -5,7 +5,8 @@
   el margen es layout de pagina, no del card.
 */
 .demo-card-spacing > * + * {
-  margin-top: var(--rdm-space-200);
+  /* 8dp max entre cards por spec (tabla de medidas). */
+  margin-top: var(--rdm-space-100);
 }
 
 /* Fila de acciones: flex con gap de token. El gap entre acciones es

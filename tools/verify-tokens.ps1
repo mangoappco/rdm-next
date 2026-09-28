@@ -193,13 +193,14 @@ if ($lvl -eq 0) { Write-Output "  ninguno" } else { $fail++ }
 # 12. Swatches identicos: 3+ <div> consecutivos con la misma clase no
 # demuestran nada (fue el bug de Levels: 6 cajas iguales). Si un valor no
 # se dibuja, va en tabla. Umbral 3: 2 identicos pueden ser estados
-# legitimos, 3 ya es patron sospechoso.
+# legitimos, 3 ya es patron sospechoso. Las clases demo-* se excluyen:
+# son wrappers de layout de showroom, nunca el specimen demostrado.
 Write-Output ""
 Write-Output "=== Swatches identicos (3+ div consecutivos, misma clase) ==="
 $dup = 0
 foreach ($f in (Get-ChildItem "$root\*.html" -ErrorAction SilentlyContinue)) {
   $t = Read-Css $f.FullName
-  $classes = @([regex]::Matches($t, '<div class="([^"]+)">') | ForEach-Object { $_.Groups[1].Value })
+  $classes = @([regex]::Matches($t, '<div class="([^"]+)">') | ForEach-Object { $_.Groups[1].Value } | Where-Object { $_ -notmatch '^demo-' })
   $run = 1
   for ($i = 1; $i -le $classes.Count; $i++) {
     if ($i -lt $classes.Count -and $classes[$i] -eq $classes[$i-1]) { $run++ }
@@ -597,6 +598,51 @@ foreach ($h in (Get-ChildItem "$root\*.html" -ErrorAction SilentlyContinue)) {
   }
 }
 if ($dic -eq 0) { Write-Output "  todos con contrato" } else { $fail++ }
+
+# 33. Base sin estados: una .rdm-card NO interactive no lleva
+# .rdm-state-layer (la spec: non-actionable no ripplea ni tiene hover)
+# y ninguna regla fuera de --interactive declara cursor pointer
+# (not-allowed en disabled no es estado de interaccion).
+Write-Output ""
+Write-Output "=== Base sin estados ==="
+$bes = 0
+foreach ($h in (Get-ChildItem "$root\*.html" -ErrorAction SilentlyContinue)) {
+  $t = Read-Css $h.FullName
+  foreach ($m in ([regex]::Matches($t, '(?i)<(div|a)[^>]*>'))) {
+    $tag = $m.Groups[0].Value
+    if ($tag -match 'rdm-card' -and $tag -notmatch 'rdm-card--interactive' -and $tag -match 'rdm-state-layer') {
+      Write-Output ("  CON-LAYER " + $h.Name + ": " + $tag.Trim().Substring(0, [Math]::Min(70, $tag.Trim().Length))); $bes++
+    }
+  }
+}
+$cc = "$root\css\comp\card.css"
+if (Test-Path $cc) {
+  $t = (Read-Css $cc).TrimStart([char]0xFEFF)
+  $t = [regex]::Replace($t, '/\*.*?\*/', '', 'Singleline')
+  foreach ($m in ([regex]::Matches($t, '([^{}]+)\{([^{}]*)\}'))) {
+    if ($m.Groups[2].Value -match '(?i)cursor\s*:\s*pointer' -and $m.Groups[1].Value -notmatch 'rdm-card--interactive') {
+      Write-Output ("  CON-CURSOR card.css: " + $m.Groups[1].Value.Trim()); $bes++
+    }
+  }
+}
+if ($bes -eq 0) { Write-Output "  base quieta" } else { $fail++ }
+
+# 34. Un solo tab stop: la card NO interactive no lleva tabindex ni
+# role (la spec: no es tab stop y no necesita rol; solo sus hijos
+# accionables lo son).
+Write-Output ""
+Write-Output "=== Un solo tab stop ==="
+$tbs = 0
+foreach ($h in (Get-ChildItem "$root\*.html" -ErrorAction SilentlyContinue)) {
+  $t = Read-Css $h.FullName
+  foreach ($m in ([regex]::Matches($t, '(?i)<(div|a)[^>]*>'))) {
+    $tag = $m.Groups[0].Value
+    if ($tag -match 'rdm-card' -and $tag -notmatch 'rdm-card--interactive' -and ($tag -match '(?i)\btabindex\b' -or $tag -match '(?i)\brole=')) {
+      Write-Output ("  CON-TAB " + $h.Name + ": " + $tag.Trim().Substring(0, [Math]::Min(70, $tag.Trim().Length))); $tbs++
+    }
+  }
+}
+if ($tbs -eq 0) { Write-Output "  un tab stop" } else { $fail++ }
 
 Write-Output ""
 if ($fail -eq 0) { Write-Output "OK: capa de tokens integra" } else { Write-Output ("FALLA: " + $fail + " chequeo(s)") }
