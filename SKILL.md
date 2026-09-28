@@ -104,6 +104,7 @@ que `--icon-only`.
 | 12 | Inset divider | **16dp**, igual al padding del container | La spec define full-width e inset pero no da el numero del inset. Se infiere del padding (16dp), que si esta publicado, para que la linea alinee con el texto. Decision de proyecto, no dato de tabla |
 | 13 | Elevacion del container | **Solo el container expresa elevacion**; ningun slot interno lleva sombra | Texto oficial: "Card elevation is expressed by the container". Dos elementos con sombra dentro se leerian como dos superficies |
 | 14 | Bloques de contenido | **Los slots se agrupan en bloques** con enfasis variable; **el padding es del contenido, no del container** | 3 fuentes: imagen edge-to-edge (flush al borde), content blocks ("grouped into blocks"), media contenida entre texto y actions. Prepara el refactor opcion A del paso 4 |
+| 15 | Action area | **Botones a la derecha (`flex-end`) con gap 8dp** (`space-100`) | Sin fuente: la tabla publica 8dp max *entre cards*, no entre botones; stories.ts usa 16 entre bloques. Se toma el 8dp por ser la unica medida publicada de separacion. Si aparece el valor real, cambia en una linea |
 
 ## 6. Capa de tokens
 
@@ -225,8 +226,9 @@ powershell -ExecutionPolicy Bypass -File tools/verify-tokens.ps1
 | Container que recorta | La base `.rdm-card` declara `overflow: hidden` (el radio solo recorta con overflow) |
 | Elevacion de card | La tabla Elevation de `card.html` coincide con los niveles de material-web (reposo/hover/focus/pressed/dragged por variante) |
 | Vendor con licencia | Todo archivo bajo `vendor/` cubierto por Apache 2.0 (cabecera propia o LICENSE en su carpeta o superiores) |
+| Fila de acciones | `.demo-card-actions` alinea a la derecha con gap de token (decision 15, no literal) |
 
-Corre en cada commit de la capa de tokens. Estado actual: 42/42 en verde.
+Corre en cada commit de la capa de tokens. Estado actual: 43/43 en verde.
 
 **Leccion v0.5:** el import de `primitives/typography.css` se escribio como
 `../primitives/` (sube un nivel de mas) y la hoja nunca llego al navegador:
@@ -430,6 +432,7 @@ cualquier `@import` relativo roto, probado con archivo temporal.
 - **v0.44** - Auditoria contra material-web (labs/card + tokens v0_192 en vendor/material-web-tokens, 6 archivos byte-exactos, Apache 2.0): la elevacion NO es estatica, correccion a v0.30/v0.35. Dinamica por variante (elevated 1-2-1-1-4, filled/outlined 0-1-0-0-3) solo en interactive, con transicion short3+standard; orden hover, focus, active, dragged. Disabled con colores reales (elevated surface, filled surface-variant: resuelve el pendiente de surface-variant). Google no implementa hover/pressed/disabled en labs (2 TODOs): nuestro interactive/disabled son construccion propia. labs SCSS solo mapea tokens, sin geometria: la nuestra es propia. Check 41: tabla Elevation contra vendor, probado cambiando un nivel.
 - **v0.45** - Dos vendors: LICENSE Apache 2.0 copiado byte-exacto + README en material-web-tokens; nota en tokens.css (los .scss nunca se importan); decision 4 extendida (dos procedencias, dos capas, dos generaciones: no se unifican). Check 42: todo archivo bajo vendor/ cubierto por licencia, probado con archivo huerfano.
 - **v0.46** - stories.ts de labs en vendor (byte-exacto, 6278 bytes): confirma padding-16 y gap-16 en content, img height-128 sin aspect-ratio, border-radius inherit y un solo boton filled. Refuta el analisis externo de 3 zonas con flex-end y gap 8 (sin avatar, sin alineacion, sin par tonal+filled). Decisiones 11/14, opcion A y v0.43 suben de diagrama a codigo ejecutable de Google. Sin cambios de CSS ni checks: 42/42.
+- **v0.47** - Referencia visual de anatomia: seccion Anatomy con card compuesta (media + headline + subhead + supporting con linked text + icon + outlined + filled, todo real). Fila a flex-end con gap 8 (decision 15: sin fuente, del 8dp max publicado). Check 43: fila con token, probado con gap literal.
 - **v0.26** - Divider: `css/comp/divider.css` (full/inset/middle-inset/vertical, 1px outline-variant) y `divider.html`. Inset 16 solo izquierda (la tabla dice 16/0, middle 16/16). Chrome migrado: 45 `<hr>` entre secciones (+1 escrito a mano), border-top fuera de showroom.css. Check 23: sin border-top en demo, probado contra borde agregado.
 - **v0.25** - Chrome compartido: `css/demo/showroom.css` (ritmo vertical
   space-400 + divisores outline-variant 1px, sin background-color) linkeado

@@ -841,6 +841,26 @@ foreach ($f in (Get-ChildItem $vroot -Recurse -File -ErrorAction SilentlyContinu
 }
 if ($lic -eq 0) { Write-Output "  todo cubierto" } else { $fail++ }
 
+# 43. Fila de acciones: .demo-card-actions alinea a la derecha con gap
+# de token (decision 15). Sin flex-end los botones quedan a la izquierda;
+# con gap literal el 8dp no se puede re-tematizar.
+Write-Output ""
+Write-Output "=== Fila de acciones ==="
+$far = 0
+$dcf = "$root\css\demo\card.css"
+if (Test-Path $dcf) {
+  $t = (Read-Css $dcf).TrimStart([char]0xFEFF)
+  $t = [regex]::Replace($t, '/\*.*?\*/', '', 'Singleline')
+  $m = [regex]::Match($t, '(?m)^\.demo-card-actions\s*\{([^{}]*)\}')
+  if (-not $m.Success) { Write-Output "  SIN-FILA demo/card.css"; $far++ }
+  else {
+    $body = $m.Groups[1].Value
+    if ($body -notmatch '(?i)justify-content\s*:\s*flex-end') { Write-Output "  SIN-DERECHA demo/card.css"; $far++ }
+    if ($body -notmatch 'gap\s*:\s*var\(--rdm-space-100\)') { Write-Output "  SIN-TOKEN demo/card.css"; $far++ }
+  }
+} else { Write-Output "  SIN-ARCHIVO demo/card.css"; $far++ }
+if ($far -eq 0) { Write-Output "  fila a la derecha" } else { $fail++ }
+
 Write-Output ""
 if ($fail -eq 0) { Write-Output "OK: capa de tokens integra" } else { Write-Output ("FALLA: " + $fail + " chequeo(s)") }
 exit $fail

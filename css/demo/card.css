@@ -1,4 +1,4 @@
-/*
+﻿/*
   RDM Next - Estilos SOLO del showroom de card.html
   No forman parte de la libreria. Ningun componente los importa.
   Solo separacion entre specimens: el componente no trae margen porque
@@ -9,13 +9,15 @@
   margin-top: var(--rdm-space-100);
 }
 
-/* Fila de acciones: flex con gap de token. El gap entre acciones es
-   layout de pagina, no propiedad del card; sin esto queda un nodo de
-   texto en blanco de 3px que ninguna regla controla. */
+/* Fila de acciones: flex, botones a la derecha y gap de token (decision
+   15: flex-end y gap 8dp son decision de proyecto, no hay fuente; el 8dp
+   viene de "padding between cards: 8dp max", la unica medida publicada
+   de separacion). El gap es layout del action area, no del card. */
 .demo-card-actions {
   display: flex;
   align-items: center;
-  gap: var(--rdm-space-200);
+  justify-content: flex-end;
+  gap: var(--rdm-space-100);
 }
 
 /* Probe del color de icono de card: la spec lo pide en primary a 24dp.
@@ -29,9 +31,10 @@
    divider base ya es full-bleed entre bloques de contenido. */
 
 /* Media de card (paso 4): specimen con altura libre por decision 11
-   (10rem arbitrario, no token). Sin sombra (decision 13): la elevacion
-   la expresa el container. Sin radio en edge-to-edge: recorta el
-   container (overflow hidden); completo en la contenida. */
+   (10rem arbitrario, no token; stories.ts usa height 128 sin
+   aspect-ratio). Sin sombra (decision 13): la elevacion la expresa el
+   container. Sin radio en edge-to-edge: recorta el container (overflow
+   hidden); completo en la contenida. */
 .demo-card-media {
   display: flex;
   align-items: center;
@@ -48,3 +51,4 @@
 .demo-card-media--contained {
   border-radius: var(--md-sys-shape-corner-medium-default-size);
 }
+

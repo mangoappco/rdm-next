@@ -326,7 +326,7 @@
   <!-- INICIO: card rules -->
   <section>
     <h2 class="rdm-typography--title-large">Rules</h2>
-    <p class="rdm-typography--body-medium">un subject por card · el container es lo unico obligatorio, el resto opcional · el tamano lo da el contenido · no forzar contenido en cards (espaciado o divisores si es mas simple) · jamas accion sobre superficie accionable · actions y media se construyen en sus pasos (ver Anatomy) · cuidado con large/full en cards densas (spec): medium 12 alcanza · dividers full para expandir, inset 16 para separar · media edge-to-edge o contenida, sin sombra, alto libre</p>
+    <p class="rdm-typography--body-medium">un subject por card · el container es lo unico obligatorio, el resto opcional · el tamano lo da el contenido · no forzar contenido en cards (espaciado o divisores si es mas simple) · jamas accion sobre superficie accionable · actions y media se construyen en sus pasos (ver Anatomy) · cuidado con large/full en cards densas (spec): medium 12 alcanza · dividers full para expandir, inset 16 para separar · media edge-to-edge o contenida, sin sombra, alto libre · actions: botones a la derecha con gap 8 (decision 15)</p>
   </section>
   <!-- FIN: card rules -->
 
@@ -335,7 +335,32 @@
   <!-- INICIO: card anatomy -->
   <section>
     <h2 class="rdm-typography--title-large">Anatomy</h2>
-    <p class="rdm-typography--body-medium">Reconstruccion por anatomia, un paso por vez: 1 container · 2 texto (headline, subhead, supporting) · 3 dividers (inset = padding 16dp) · 4 media libre por diseno (sin aspect ratio ni thumbnail fijo) · 5 texto sobre imagen · 6 actions · 7 overflow menu (bloqueado: depende de Menus) · 8 interactive. Container, tokens, contraste, specs, rules y disabled ya estan; texto, dividers y media listos; actions espera componentes.</p>
+    <p class="rdm-typography--body-large">Referencia visual con la anatomia
+       completa: media, texto y actions con componentes reales. Zonas:
+       media (decisiones 11 y 13) · texto (composicion tipografica) ·
+       actions (botones, decision 15).</p>
+
+    <!-- INICIO: card anatomy demo -->
+    <div class="demo-card-spacing">
+      <div class="rdm-card rdm-card--elevated">
+        <div class="demo-card-media" role="img" aria-label="Foto de ruta en la Patagonia"><span class="rdm-icon" aria-hidden="true">image</span></div>
+        <div class="rdm-card-content">
+          <p class="rdm-typography--title-large">Viaje al sur</p>
+          <p class="rdm-typography--title-small">12 fotos · Patagonia</p>
+          <p class="rdm-typography--body-medium">Tres dias de ruta y dos lagos. El <a href="card.html">album completo</a> tiene el resto.</p>
+          <!-- INICIO: card anatomy actions -->
+          <div class="demo-card-actions">
+            <button type="button" aria-label="Save" class="rdm-icon-button rdm-state-layer"><span class="rdm-icon" aria-hidden="true">favorite</span></button>
+            <button type="button" class="rdm-button rdm-button--outlined rdm-state-layer rdm-typography--label-large">Learn more</button>
+            <button type="button" class="rdm-button rdm-button--filled rdm-state-layer rdm-typography--label-large">Add to cart</button>
+          </div>
+          <!-- FIN: card anatomy actions -->
+        </div>
+      </div>
+    </div>
+    <!-- FIN: card anatomy demo -->
+
+    <p class="rdm-typography--body-medium">Reconstruccion por anatomia, un paso por vez: 1 container · 2 texto (headline, subhead, supporting) · 3 dividers (inset = padding 16dp) · 4 media libre por diseno (sin aspect ratio ni thumbnail fijo) · 5 texto sobre imagen · 6 actions · 7 overflow menu (bloqueado: depende de Menus) · 8 interactive. Container, tokens, contraste, specs, rules y disabled ya estan; texto, dividers y media listos; actions con botones construidos (selection controls y overflow pendientes).</p>
   </section>
   <!-- FIN: card anatomy -->
 
