@@ -1,0 +1,12 @@
+/*
+  RDM Next - Extended FAB (v0.28): el unico extended core es el baseline
+  de 56px (small/medium/large 56/80/96 son Expressive). Compone .rdm-fab
+  en el HTML: esta hoja solo trae lo propio (ancho auto, padding 16/20,
+  gap 12). Icono opcional por spec, pero nunca icono sin label.
+*/
+.rdm-extended-fab {
+  width: auto;
+  gap: var(--rdm-space-150);
+  padding-inline-start: var(--rdm-space-200);
+  padding-inline-end: var(--rdm-space-250);
+}

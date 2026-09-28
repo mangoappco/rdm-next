@@ -197,8 +197,9 @@ powershell -ExecutionPolicy Bypass -File tools/verify-tokens.ps1
 | Divisores ad-hoc | Ningun `css/demo/` declara `border-top` (viven en `css/comp/divider.css`) |
 | Toggle con contrato | Todo `.rdm-icon-button--toggle` lleva `aria-pressed` (sin atributo no hay selected) |
 | Divisores por seccion | En toda pagina, `<hr class="rdm-divider">` ≥ secciones − 1 |
+| Un componente por archivo | La primera clase `.rdm-*` de cada regla pertenece a la familia del archivo |
 
-Corre en cada commit de la capa de tokens. Estado actual: 25/25 en verde.
+Corre en cada commit de la capa de tokens. Estado actual: 26/26 en verde.
 
 **Leccion v0.5:** el import de `primitives/typography.css` se escribio como
 `../primitives/` (sube un nivel de mas) y la hoja nunca llego al navegador:
@@ -378,8 +379,12 @@ cualquier `@import` relativo roto, probado con archivo temporal.
   States tenia 1 solo disabled sin nada interactivo; ahora lleva enabled
   + dragged + texto de prueba en vivo. Regla: toda seccion States lleva
   al menos un enabled en vivo (live con pseudo-clase, modificador sin
-  ella, tabla si es dato).
+  ella, tabla si es dato). Fix extended-fab Label: el caso sin icono se
+  veia corrido por la asimetria 16/20 (espec: equilibra el icono); se
+  muestra solo el caso principal y la asimetria queda documentada, sin
+  inventar padding simetrico.
 - **v0.27** - Icon button: `css/comp/icon-button.css` (40px round, 4 estilos + toggle) y `icon-button.html`. Mapeo de tokens v0_192: selected de outlined = inverse-surface (no adivinado). Toggle sin JS: estados CSS sobre aria-pressed, specimens fijos, sin checkbox-hack. Icono 24px, disabled 12%/38%. Check 24: todo toggle con aria-pressed, probado contra toggle sin atributo. Render en localhost: toggle filled #6750A4, outlined inverse #313033. Hallazgo del render: botones a 33px por em sobre font-size UA (bug latente tambien anterior); geometria a rem, decision 7 enmendada. Leccion: el navegador cachea los @import (ni ?v= en el entry los refresca); render con archivos frescos o fetch no-store. Fix post-entrega: icon-button.html salio sin divisores (v0.26 migro lo existente); check 25 exige hr >= secciones - 1, probado contra pagina sin divisores.
+- **v0.28** - Extended FAB promovido a `css/comp/extended-fab.css` + `extended-fab.html` (baseline 56px, con/sin icono, states, rules). Los 3 tamanos son Expressive; type de label-large a title-medium solo ahi. Icono opcional, nunca sin label; 1 por pantalla; margenes 16dp; sin tooltip; aria-label con prefijo. Check 26: un componente por archivo (primera clase de cada regla), probado contra clase ajena.
 - **v0.26** - Divider: `css/comp/divider.css` (full/inset/middle-inset/vertical, 1px outline-variant) y `divider.html`. Inset 16 solo izquierda (la tabla dice 16/0, middle 16/16). Chrome migrado: 45 `<hr>` entre secciones (+1 escrito a mano), border-top fuera de showroom.css. Check 23: sin border-top en demo, probado contra borde agregado.
 - **v0.25** - Chrome compartido: `css/demo/showroom.css` (ritmo vertical
   space-400 + divisores outline-variant 1px, sin background-color) linkeado

@@ -401,6 +401,29 @@ foreach ($h in (Get-ChildItem "$root\*.html" -ErrorAction SilentlyContinue)) {
 }
 if ($div -eq 0) { Write-Output "  todas" } else { $fail++ }
 
+# 26. Un componente por archivo: la primera clase .rdm-* de cada regla
+# pertenece a la familia del archivo (sin el --modificador). Referencias
+# cruzadas (.rdm-fab .rdm-icon) no cuentan: solo la primera.
+Write-Output ""
+Write-Output "=== Un componente por archivo ==="
+$mix = 0
+foreach ($f in (Get-ChildItem "$root\css\comp" -Filter *.css -ErrorAction SilentlyContinue)) {
+  $fam = [System.IO.Path]::GetFileNameWithoutExtension($f.Name)
+  $t = (Read-Css $f.FullName).TrimStart([char]0xFEFF)
+  $t = [regex]::Replace($t, '/\*.*?\*/', '', 'Singleline')
+  foreach ($m in ([regex]::Matches($t, '([^{}]+)\{'))) {
+    $sel = $m.Groups[1].Value
+    foreach ($s in ($sel -split ',')) {
+      $c = [regex]::Match($s, '\.rdm-([\w-]+)')
+      if ($c.Success) {
+        $cls = $c.Groups[1].Value -replace '--.*$', ''
+        if ($cls -ne $fam) { Write-Output ("  MEZCLA " + $f.Name + ": ." + $c.Groups[1].Value); $mix++ }
+      }
+    }
+  }
+}
+if ($mix -eq 0) { Write-Output "  puros" } else { $fail++ }
+
 Write-Output ""
 if ($fail -eq 0) { Write-Output "OK: capa de tokens integra" } else { Write-Output ("FALLA: " + $fail + " chequeo(s)") }
 exit $fail

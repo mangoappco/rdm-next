@@ -1,7 +1,7 @@
 /*
-  RDM Next - FAB (v0.23): primary-container + on-primary-container, que es
+  RDM Next - FAB (v0.23, extended extraido en v0.28): primary-container + on-primary-container, que es
   el default de la spec (surface quedo como baseline no recomendado; los
-  tokens v0_192 son de esa generacion). Medium 56 + large 96 + extended;
+  tokens v0_192 son de esa generacion). Medium 56 + large 96;
   small es baseline y no se construye.
 
   Elevacion 3 con hover en 4 (token explicito de Material Web): el unico
@@ -48,13 +48,6 @@
 
 .rdm-fab--large .rdm-icon {
   font-size: 2.25rem;
-}
-
-.rdm-fab--extended {
-  width: auto;
-  gap: var(--rdm-space-150);
-  padding-inline-start: var(--rdm-space-200);
-  padding-inline-end: var(--rdm-space-250);
 }
 
 .rdm-fab:disabled {

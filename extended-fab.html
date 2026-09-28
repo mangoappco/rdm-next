@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Extended FAB - RDM Next</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Google+Sans:wght@400..700&display=swap" rel="stylesheet">
+  <!-- Material Symbols recortado: peso 400, sin ejes variables sin uso -->
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@24,400,0,0" rel="stylesheet">
+
+  <link rel="stylesheet" href="css/rdm-next.css">
+  <link rel="stylesheet" href="css/demo/showroom.css">
+  <link rel="stylesheet" href="css/demo/extended-fab.css">
+</head>
+<body>
+
+<!-- INICIO: extended-fab container -->
+<div class="rdm-container">
+
+<!-- INICIO: extended-fab header -->
+<header>
+  <p class="rdm-typography--label-large"><a href="index.html">RDM Next</a></p>
+  <h1 class="rdm-typography--display-small">Extended FAB</h1>
+  <p class="rdm-typography--body-large">El unico core es el baseline de 56px
+     (small/medium/large son Expressive). Compone <code>.rdm-fab</code>:
+     esta pagina demuestra lo propio.</p>
+</header>
+<!-- FIN: extended-fab header -->
+
+<main>
+
+  <!-- INICIO: extended-fab label -->
+  <section>
+    <h2 class="rdm-typography--title-large">Label</h2>
+    <p class="rdm-typography--body-large">Label obligatorio (1-2 palabras),
+       icono opcional: sin icono el padding queda asimetrico por diseno
+       (16/20 equilibra el ancho del icono). Sin tooltip: ya hay texto
+       visible. El aria-label empieza con la misma palabra que el label.</p>
+
+    <!-- INICIO: extended-fab label demo -->
+    <div class="demo-extended-fab-row demo-extended-fab-row--label">
+      <button type="button" class="rdm-fab rdm-extended-fab rdm-state-layer rdm-typography--label-large"><span class="rdm-icon" aria-hidden="true">edit</span>Create</button>
+    </div>
+    <!-- FIN: extended-fab label demo -->
+
+  </section>
+  <!-- FIN: extended-fab label -->
+
+  <hr class="rdm-divider">
+
+  <!-- INICIO: extended-fab states -->
+  <section>
+    <h2 class="rdm-typography--title-large">States</h2>
+    <p class="rdm-typography--body-large">Hover a 4 en vivo. Disabled
+       heredado de FAB.</p>
+
+    <!-- INICIO: extended-fab states demo -->
+    <div class="demo-extended-fab-row demo-extended-fab-row--states">
+      <button type="button" disabled class="rdm-fab rdm-extended-fab rdm-state-layer rdm-typography--label-large"><span class="rdm-icon" aria-hidden="true">edit</span>Create</button>
+    </div>
+    <!-- FIN: extended-fab states demo -->
+
+  </section>
+  <!-- FIN: extended-fab states -->
+
+  <hr class="rdm-divider">
+
+  <!-- INICIO: extended-fab rules -->
+  <section>
+    <h2 class="rdm-typography--title-large">Rules</h2>
+    <p class="rdm-typography--body-medium">uno por pantalla · no como opcion en un set (ahi van filled buttons) · margenes de 16dp · mejor en pantallas grandes y vistas con scroll largo</p>
+  </section>
+  <!-- FIN: extended-fab rules -->
+
+  <hr class="rdm-divider">
+
+  <!-- INICIO: extended-fab anatomy -->
+  <section>
+    <h2 class="rdm-typography--title-large">Anatomy</h2>
+    <p class="rdm-typography--body-medium">rdm-fab: geometria 56 y sombra · rdm-extended-fab: ancho auto, padding 16/20, gap 12 · rdm-state-layer: estados · label-large: etiqueta</p>
+  </section>
+  <!-- FIN: extended-fab anatomy -->
+
+</main>
+
+<!-- FIN: extended-fab container -->
+</div>
+
+</body>
+</html>
