@@ -185,8 +185,9 @@ powershell -ExecutionPolicy Bypass -File tools/verify-tokens.ps1
 | Container en paginas | Todo `.html` de raiz usa `.rdm-container` (ningun showroom de lado a lado) |
 | State sin ruido | Toda opacidad `--md-sys-state-*-state-layer-opacity` propia vale 0.08, 0.12 o 0.16 exactos (sin ruido Figma) |
 | Motion con tokens | Ningun `transition`/`animation-duration` con duracion literal en CSS propio (todo pasa por token; el bloque reduced-motion se excluye) |
+| Iconos con primitiva | Ningun HTML usa la clase generica de Google (`.material-symbols-*`); todo icono pasa por `.rdm-icon` |
 
-Corre en cada commit de la capa de tokens. Estado actual: 15/15 en verde.
+Corre en cada commit de la capa de tokens. Estado actual: 16/16 en verde.
 
 **Leccion v0.5:** el import de `primitives/typography.css` se escribio como
 `../primitives/` (sube un nivel de mas) y la hoja nunca llego al navegador:
@@ -296,6 +297,17 @@ cualquier `@import` relativo roto, probado con archivo temporal.
   ninguna duracion literal en transition/animation (excluye el bloque
   reduced-motion: 0.01ms ahi es patron de accesibilidad), probado contra
   valor literal.
+- **v0.17** - Icons: primitiva `.rdm-icon` en `css/primitives/` (Rounded,
+  `font-optical-sizing: auto`, tamano desde `--rdm-icon-size: 24px` en
+  `project.css`, GRAD 0 en light y -25 en dark por spec). Hallazgos contra
+  la pagina oficial (leida con browser): escala 20/24/40/48 (el 18px es
+  escala de componente, bajo el minimo optico), baseline 11.5%, target
+  48px para glifo 24px, grade como estado activo, y Rounded validado
+  ("rounded buttons and round icons"). Correciones a la propuesta externa:
+  `body-large-size` vale 16px (no 24px), outlined/sharp son familias no
+  ejes, ejes completos solo en `icons.html` (el resto recortado), y reglas
+  ARIA documentadas. Check 16: ninguna clase generica de Google en HTML,
+  probado contra span con clase generica.
 
 ## 10. Decisiones pendientes
 

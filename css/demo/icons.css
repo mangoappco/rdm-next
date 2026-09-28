@@ -1,0 +1,40 @@
+/*
+  RDM Next - Estilos SOLO del showroom de icons.html
+  No forman parte de la libreria. Ningun componente los importa.
+  Los tamanos 20/40/48 son valores de la spec; los modificadores de
+  ejes repiten font-variation-settings a proposito porque son demo de
+  los rangos variables (esta pagina carga la fuente completa).
+*/
+.demo-icon--size20 {
+  font-size: 20px;
+}
+.demo-icon--size40 {
+  font-size: 40px;
+}
+.demo-icon--size48 {
+  font-size: 48px;
+}
+
+/* Ejes en vivo: 700 de peso y 200 de grade sobre la base. */
+.demo-icon--wght700 {
+  font-variation-settings: "FILL" 0, "wght" 700, "GRAD" 0;
+}
+.demo-icon--grad200 {
+  font-variation-settings: "FILL" 0, "wght" 400, "GRAD" 200;
+}
+
+/* Alineacion con texto: baseline 11.5% del tamano (spec). */
+.demo-icon--baseline {
+  transform: translateY(11.5%);
+}
+
+/* Target tactil: 48px alrededor del glifo de 24px (spec). */
+.demo-icon-target {
+  display: inline-grid;
+  place-items: center;
+  width: 48px;
+  height: 48px;
+  background-color: var(--md-sys-color-surface-container-high);
+  border-radius: var(--md-sys-shape-corner-medium-default-size);
+  margin-bottom: 1em;
+}

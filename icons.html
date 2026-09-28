@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Icons - RDM Next</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Google+Sans:wght@400..700&display=swap" rel="stylesheet">
+  <!-- Material Symbols completo: solo esta pagina demuestra los ejes variables -->
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-25..200" rel="stylesheet">
+
+  <link rel="stylesheet" href="css/rdm-next.css">
+  <link rel="stylesheet" href="css/demo/icons.css">
+</head>
+<body>
+
+<!-- INICIO: icons container -->
+<div class="rdm-container">
+
+<!-- INICIO: icons header -->
+<header>
+  <p class="rdm-typography--label-large"><a href="index.html">RDM Next</a></p>
+  <h1 class="rdm-typography--display-small">Icons</h1>
+  <p class="rdm-typography--body-large">Material Symbols Rounded, con
+     tamano optico automatico. Outlined y sharp son familias aparte,
+     no ejes: aca solo Rounded, que es el estilo de M3 para botones
+     redondeados.</p>
+</header>
+<!-- FIN: icons header -->
+
+<main>
+
+  <!-- INICIO: icons sizes -->
+  <section>
+    <h2 class="rdm-typography--title-large">Sizes</h2>
+    <p class="rdm-typography--body-large">Los 4 tamanos opticos de la spec.
+       El 18px de los botones es escala de componente, no del sistema:
+       queda por debajo del minimo optico de 20dp.</p>
+
+    <!-- INICIO: icons size 20 -->
+    <p class="rdm-typography--title-medium">20dp</p>
+    <p class="rdm-typography--body-small"><code>dense layouts en desktop</code></p>
+    <div><span class="rdm-icon demo-icon--size20" aria-hidden="true">home</span></div>
+    <!-- FIN: icons size 20 -->
+
+    <!-- INICIO: icons size 24 -->
+    <p class="rdm-typography--title-medium">24dp (base)</p>
+    <p class="rdm-typography--body-small"><code>--rdm-icon-size</code></p>
+    <div><span class="rdm-icon" aria-hidden="true">home</span></div>
+    <!-- FIN: icons size 24 -->
+
+    <!-- INICIO: icons size 40 -->
+    <p class="rdm-typography--title-medium">40dp</p>
+    <p class="rdm-typography--body-small"><code>acciones primarias destacadas</code></p>
+    <div><span class="rdm-icon demo-icon--size40" aria-hidden="true">home</span></div>
+    <!-- FIN: icons size 40 -->
+
+    <!-- INICIO: icons size 48 -->
+    <p class="rdm-typography--title-medium">48dp</p>
+    <p class="rdm-typography--body-small"><code>maximo del sistema</code></p>
+    <div><span class="rdm-icon demo-icon--size48" aria-hidden="true">home</span></div>
+    <!-- FIN: icons size 48 -->
+
+  </section>
+  <!-- FIN: icons sizes -->
+
+  <!-- INICIO: icons fill -->
+  <section>
+    <h2 class="rdm-typography--title-large">Fill</h2>
+    <p class="rdm-typography--body-large">FILL 0 contra FILL 1 con
+       <code>.rdm-icon--filled</code>. Junto con el peso, es el atributo
+       que mas cambia el aspecto: sirve como indicador de estado
+       (no seleccionado / seleccionado).</p>
+
+    <!-- INICIO: icons unfilled -->
+    <p class="rdm-typography--title-medium">Unfilled</p>
+    <p class="rdm-typography--body-small"><code>FILL 0</code></p>
+    <div><span class="rdm-icon" aria-hidden="true">favorite</span></div>
+    <!-- FIN: icons unfilled -->
+
+    <!-- INICIO: icons filled -->
+    <p class="rdm-typography--title-medium">Filled</p>
+    <p class="rdm-typography--body-small"><code>.rdm-icon--filled · FILL 1</code></p>
+    <div><span class="rdm-icon rdm-icon--filled" aria-hidden="true">favorite</span></div>
+    <!-- FIN: icons filled -->
+
+  </section>
+  <!-- FIN: icons fill -->
+
+  <!-- INICIO: icons axes -->
+  <section>
+    <h2 class="rdm-typography--title-large">Axes</h2>
+    <p class="rdm-typography--body-large">Peso y grade en vivo (esta pagina
+       carga los rangos completos). El grade tambien compensa el tema:
+       la primitiva usa 0 en light y -25 en dark.</p>
+
+    <!-- INICIO: icons weight -->
+    <p class="rdm-typography--title-medium">Weight 400 vs 700</p>
+    <p class="rdm-typography--body-small"><code>minimo 200 a 24dp por spec</code></p>
+    <div><span class="rdm-icon" aria-hidden="true">settings</span> <span class="rdm-icon demo-icon--wght700" aria-hidden="true">settings</span></div>
+    <!-- FIN: icons weight -->
+
+    <!-- INICIO: icons grade -->
+    <p class="rdm-typography--title-medium">Grade 0 vs 200</p>
+    <p class="rdm-typography--body-small"><code>positivo = enfasis, como estado activo</code></p>
+    <div><span class="rdm-icon" aria-hidden="true">settings</span> <span class="rdm-icon demo-icon--grad200" aria-hidden="true">settings</span></div>
+    <!-- FIN: icons grade -->
+
+  </section>
+  <!-- FIN: icons axes -->
+
+  <!-- INICIO: icons text -->
+  <section>
+    <h2 class="rdm-typography--title-large">With text</h2>
+    <p class="rdm-typography--body-large">Mismo tamano para icono y texto,
+       y baseline del icono 11.5% hacia abajo. Los iconos decorativos
+       llevan <code>aria-hidden="true"</code>: sin eso el lector anuncia
+       la ligadura.</p>
+
+    <!-- INICIO: icons text demo -->
+    <p class="rdm-typography--body-large"><span class="rdm-icon demo-icon--baseline" aria-hidden="true">search</span> Buscar en la biblioteca</p>
+    <!-- FIN: icons text demo -->
+
+  </section>
+  <!-- FIN: icons text -->
+
+  <!-- INICIO: icons target -->
+  <section>
+    <h2 class="rdm-typography--title-large">Target</h2>
+    <p class="rdm-typography--body-large">Un glifo de 24dp exige un area
+       tactil de 48dp. Bajo 20dp casi siempre hace falta label visible,
+       y los iconos de navegacion siempre lo llevan.</p>
+
+    <!-- INICIO: icons target demo -->
+    <div class="demo-icon-target"><span class="rdm-icon" aria-hidden="true">menu</span></div>
+    <!-- FIN: icons target demo -->
+
+  </section>
+  <!-- FIN: icons target -->
+
+</main>
+
+<!-- FIN: icons container -->
+</div>
+
+</body>
+</html>

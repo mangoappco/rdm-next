@@ -1,0 +1,56 @@
+/*
+  RDM Next - Primitiva de iconos M3 (Material Symbols Rounded)
+  Rounded es el estilo de M3 para marcas con botones redondeados
+  ("rounded buttons and round icons", spec). Outlined y sharp NO son
+  ejes: son familias de fuente distintas y no se cambian con
+  font-variation-settings.
+
+  Tamano desde --rdm-icon-size (24px, medio del sistema 20/24/40/48),
+  nunca desde un rol tipografico: body-large-size vale 16px y el icono
+  saldria mal. El eje opsz NO se fija: font-optical-sizing: auto lo
+  deriva del font-size renderizado. Fijarlo en 24 desactivaria el
+  tamano optico, que es la razon de la fuente variable.
+
+  GRAD cambia con el tema (spec: 0 en light, -25 en dark para compensar
+  el visual bleed del icono claro sobre fondo oscuro). FILL va por
+  variable para que el modificador --filled no tenga que repetir toda
+  la declaracion ni pelear con el override de dark.
+
+  Accesibilidad (spec, seccion Accessibility):
+  - Icono decorativo junto a etiqueta: aria-hidden="true" en el icono.
+  - Icono solo (icon button): aria-label en el control, aria-hidden
+    en el icono. Sin esto el lector anuncia la ligadura ("home").
+  - Bajo 20px casi siempre exige label visible; iconos de navegacion
+    SIEMPRE llevan label.
+*/
+.rdm-icon {
+  font-family: "Material Symbols Rounded";
+  font-weight: normal;
+  font-style: normal;
+  font-size: var(--rdm-icon-size, 24px);
+  line-height: 1;
+  letter-spacing: normal;
+  text-transform: none;
+  display: inline-block;
+  white-space: nowrap;
+  direction: ltr;
+  -webkit-font-smoothing: antialiased;
+  font-optical-sizing: auto;
+  font-variation-settings:
+    "FILL" var(--rdm-icon-fill, 0),
+    "wght" 400,
+    "GRAD" 0;
+}
+
+@media (prefers-color-scheme: dark) {
+  .rdm-icon {
+    font-variation-settings:
+      "FILL" var(--rdm-icon-fill, 0),
+      "wght" 400,
+      "GRAD" -25;
+  }
+}
+
+.rdm-icon--filled {
+  --rdm-icon-fill: 1;
+}

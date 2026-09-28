@@ -250,6 +250,19 @@ foreach ($f in $ownFiles) {
 }
 if ($lit -eq 0) { Write-Output "  ninguna" } else { $fail++ }
 
+# 16. Primitiva de iconos: ningun HTML usa la clase generica de Google
+# (.material-symbols-*); todo icono pasa por .rdm-icon.
+Write-Output ""
+Write-Output "=== Clases genericas de iconos ==="
+$gen = 0
+foreach ($h in (Get-ChildItem "$root\*.html" -ErrorAction SilentlyContinue)) {
+  $t = Read-Css $h.FullName
+  foreach ($m in ([regex]::Matches($t, 'material-symbols-[a-z]+'))) {
+    Write-Output ("  GENERICA " + $h.Name + ": " + $m.Groups[0].Value); $gen++
+  }
+}
+if ($gen -eq 0) { Write-Output "  ninguna" } else { $fail++ }
+
 Write-Output ""
 if ($fail -eq 0) { Write-Output "OK: capa de tokens integra" } else { Write-Output ("FALLA: " + $fail + " chequeo(s)") }
 exit $fail
