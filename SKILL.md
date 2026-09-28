@@ -179,8 +179,9 @@ powershell -ExecutionPolicy Bypass -File tools/verify-tokens.ps1
 | Imports | Todos los `@import` relativos resuelven a archivo existente; se saltan los `https://` |
 | Texto pelado | Ningun `<p>` ni `<h1-h6>` sin clase en los `.html` |
 | Fuente conectada | `--md-ref-typeface-plain/-brand` (valor efectivo) cargada via `<link>` en los HTML |
+| Shape sin ruido | Ningun `-family` consumido en `var()` (todos valen 1px o 3px, basura DSP) |
 
-Corre en cada commit de la capa de tokens. Estado actual: 9/9 en verde.
+Corre en cada commit de la capa de tokens. Estado actual: 10/10 en verde.
 
 **Leccion v0.5:** el import de `primitives/typography.css` se escribio como
 `../primitives/` (sube un nivel de mas) y la hoja nunca llego al navegador:
@@ -220,12 +221,18 @@ cualquier `@import` relativo roto, probado con archivo temporal.
   copy `body-large` x3, swatch `title-medium` x8, spec `body-small` x15).
   Check 8: ningun `<p>` ni `<h1-h6>` pelado en los HTML, probado contra
   archivo temporal. Convencion tipografica documentada.
-- **v0.8** - Tipografia a Google Sans (variable 400..700 via `<link>`).
-  Override de 2 tokens en `additions.css` (`--md-ref-typeface-plain` y
+- **v0.8** - Tipografia a Google Sans (variable 400..700 via `<link>`).  Override de 2 tokens en `additions.css` (`--md-ref-typeface-plain` y
   `-brand`); los 15 roles siguen la cadena solos. Sin `opsz`/`GRAD`/
   cursivas (no aportan). Pesos 400/500 segun M3, no 475. Check 9: la
   familia del token debe estar cargada en los HTML, probado en ambos
   sentidos (stash del override -> ROTA Roboto x2).
+- **v0.9** - Shape: `shape.html` con 7 simetricos + 4 direccionales y
+  `css/demo/shape.css` (11 clases 1:1). Token `full` ausente en el vendor
+  (solo `-family: 3px`): agregado a `additions.css` en 9999px segun spec.
+  Shape no lleva primitiva (es atomico, se consume directo). Nota: el
+  vendor trae 10 clases sin prefijo (`.shape-medium`, `.large-top`...)
+  que entran con el import; no usarlas, son demo de Google. Check 10:
+  ningun `-family` consumido, probado contra archivo temporal.
 
 ## 10. Decisiones pendientes
 

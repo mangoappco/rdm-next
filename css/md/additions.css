@@ -23,12 +23,20 @@
   los HTML). Este archivo se importa despues de typography.css, asi que
   el override gana por cascada. Los 15 roles siguen la cadena solos:
   15 consumidores, 2 origenes. Pesos sin tocar: 400/500 segun M3.
+
+  Shape (v0.9): al vendor le falta --md-sys-shape-corner-full-default-size.
+  Solo declara -family: 3px, que es basura DSP. M3 lo define en 9999dp,
+  asi que se agrega aqui. Misma clase de hueco que surface-container:
+  token que la spec exige y el export de Figma no emitio.
 */
 
 :root {
   /* --- Typeface (override del vendor: Roboto -> Google Sans) --- */
   --md-ref-typeface-plain: "Google Sans";
   --md-ref-typeface-brand: "Google Sans";
+
+  /* --- Shape: full (ausente en el vendor, valor de la spec M3) --- */
+  --md-sys-shape-corner-full-default-size: 9999px;
 
   /* --- Base / canvas --- */
   /* surface (neutral99) y surface-variant ya vienen del vendor. Solo dim: */

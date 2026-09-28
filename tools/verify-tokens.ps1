@@ -162,6 +162,19 @@ foreach ($role in @("plain","brand")) {
 }
 if ($mj -eq 0) { Write-Output "  --> conectadas" } else { $fail++ }
 
+# 10. Tokens -family consumidos: todos valen 1px o 3px (basura DSP de
+# Figma). Ningun archivo propio debe leerlos en un var(). El check 6 ya
+# cubre -value/-unit/axis-value; este cierra -family.
+Write-Output ""
+Write-Output "=== Tokens -family consumidos ==="
+$fam = 0
+foreach ($f in $ownFiles) {
+  $t = Read-Css $f.FullName
+  $hits = [regex]::Matches($t, 'var\(--md-sys-[a-z-]+-family[a-z-]*\)') | ForEach-Object { $_.Groups[0].Value } | Sort-Object -Unique
+  foreach ($h in $hits) { Write-Output ("  FAMILY " + $f.Name + ": " + $h); $fam++ }
+}
+if ($fam -eq 0) { Write-Output "  ninguno" } else { $fail++ }
+
 Write-Output ""
 if ($fail -eq 0) { Write-Output "OK: capa de tokens integra" } else { Write-Output ("FALLA: " + $fail + " chequeo(s)") }
 exit $fail
