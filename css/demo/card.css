@@ -25,20 +25,13 @@
   color: var(--md-sys-color-primary);
 }
 
-/* Full-bleed dentro de card: rompe el padding 16 del container para ir
-   de borde a borde (spec: full-width para regiones expandibles). El
-   inline-size vuelve a auto: con el 100% del divider base los margenes
-   negativos corren la caja sin estirarla. Solo staging del showroom;
-   el patron real llega con el paso 4 (media). */
-.demo-card-divider-full {
-  margin-inline: calc(var(--rdm-space-200) * -1);
-  inline-size: auto;
-}
+/* demo-card-divider-full eliminado en v0.43: con overflow hidden el
+   divider base ya es full-bleed entre bloques de contenido. */
 
 /* Media de card (paso 4): specimen con altura libre por decision 11
    (10rem arbitrario, no token). Sin sombra (decision 13): la elevacion
-   la expresa el container. Radio superior heredado del container para
-   la variante edge-to-edge; completo para la contenida. */
+   la expresa el container. Sin radio en edge-to-edge: recorta el
+   container (overflow hidden); completo en la contenida. */
 .demo-card-media {
   display: flex;
   align-items: center;
@@ -46,8 +39,6 @@
   block-size: 10rem;
   background-color: var(--md-sys-color-primary-container);
   color: var(--md-sys-color-on-primary-container);
-  border-start-start-radius: var(--md-sys-shape-corner-medium-default-size);
-  border-end-start-radius: var(--md-sys-shape-corner-medium-default-size);
 }
 
 .demo-card-media .rdm-icon {

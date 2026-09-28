@@ -222,8 +222,9 @@ powershell -ExecutionPolicy Bypass -File tools/verify-tokens.ps1
 | Medidas de card | La tabla Specs de `card.html` lista los 4 valores que publica `cards/specs` (12dp, 16dp, 8dp max, start-aligned) |
 | Inset alineado | El inset del divider usa el mismo token que el padding del contenido de card (decision 12) |
 | Container sin padding | La base `.rdm-card` no declara padding (vive en `.rdm-card-content`, opcion A) |
+| Container que recorta | La base `.rdm-card` declara `overflow: hidden` (el radio solo recorta con overflow) |
 
-Corre en cada commit de la capa de tokens. Estado actual: 39/39 en verde.
+Corre en cada commit de la capa de tokens. Estado actual: 40/40 en verde.
 
 **Leccion v0.5:** el import de `primitives/typography.css` se escribio como
 `../primitives/` (sube un nivel de mas) y la hoja nunca llego al navegador:
@@ -423,6 +424,7 @@ cualquier `@import` relativo roto, probado con archivo temporal.
 - **v0.40** - Decisiones 11 y 12: medidas solo del container (12/16/8dp/start) y media libre por diseno; inset divider = padding 16dp por inferencia. La tabla de `cards/specs` renderiza con 4 filas; un analisis externo que afirmaba que M3 elimino las specs de card no se sostiene contra la fuente primaria, y sus numeros de media (16:9, 80x80, edge-to-edge) no tienen cita. Anatomy marca el paso 4 como libre por diseno en vez de bloqueado. Check 37: los 4 valores en la tabla Specs.
 - **v0.41** - Card paso 3 (dividers): seccion Dividers con full-width (rompe el padding via clase demo, solo staging hasta el paso 4) e inset (divider base: el padding alinea solo). Decisiones 13 (elevacion solo del container) y 14 (bloques con enfasis; padding del contenido, 3 fuentes). Regla en Rules. Check 38: inset alineado al padding, probado cambiando el padding.
 - **v0.42** - Card paso 4 (media) + refactor opcion A: padding movido de `.rdm-card` a `.rdm-card-content`; la media queda fuera del wrapper y sangra al borde. Specimens edge-to-edge y contenida (altura 10rem libre, sin sombra, radio heredado). Variants y Disabled migran a contenido minimo (el container vacio colapsa a 0: prueba empirica de la decision 11). Convencion elemento/modificador en SKILL + check 26 extendido. Check 39: container sin padding. Hallazgo: `·` mojibakeado como `Â·` en card.html (18 casos, reparado a byte con BOM intacto); `edit` escribe limpio.
+- **v0.43** - Card recorta: `overflow: hidden` en `.rdm-card` (el radio solo recorta con overflow; el outline propio no se ve afectado). Media edge-to-edge sin radio (recorta el container) y divider full-bleed estructural entre bloques (eliminado el truco de margenes negativos). Regla: radio propio solo si la media no toca el borde. Check 40: container que recorta, probado quitando el overflow.
 - **v0.26** - Divider: `css/comp/divider.css` (full/inset/middle-inset/vertical, 1px outline-variant) y `divider.html`. Inset 16 solo izquierda (la tabla dice 16/0, middle 16/16). Chrome migrado: 45 `<hr>` entre secciones (+1 escrito a mano), border-top fuera de showroom.css. Check 23: sin border-top en demo, probado contra borde agregado.
 - **v0.25** - Chrome compartido: `css/demo/showroom.css` (ritmo vertical
   space-400 + divisores outline-variant 1px, sin background-color) linkeado

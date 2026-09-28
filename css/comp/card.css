@@ -14,6 +14,10 @@
      del hover cortado). En <div> es no-op. */
   display: block;
   border-radius: var(--md-sys-shape-corner-medium-default-size);
+  /* hidden (v0.43): el radio solo recorta con overflow. La media y los
+     dividers full-bleed heredan el recorte del container; el outline
+     del propio elemento (focus indicator) no se ve afectado. */
+  overflow: hidden;
 }
 
 /* Contenido (opcion A): lleva el padding 16. La media queda fuera del
@@ -85,6 +89,7 @@ a.rdm-card {
 .rdm-card--outlined.rdm-card--interactive:focus-visible {
   border-color: var(--md-sys-color-on-surface);
 }
+
 
 
 

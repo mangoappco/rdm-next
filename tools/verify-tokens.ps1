@@ -763,6 +763,17 @@ if (-not $cb2.Success) { Write-Output "  SIN-BASE card.css"; $pad++ }
 elseif ($cb2.Groups[1].Value -match '(?i)\bpadding\s*:') { Write-Output "  CON-PADDING card.css"; $pad++ }
 if ($pad -eq 0) { Write-Output "  sin padding" } else { $fail++ }
 
+# 40. Container que recorta: la base .rdm-card declara overflow hidden.
+# El radio solo recorta con overflow; sin esto la media sangra por
+# fuera de las esquinas y el fallo es visual, no de token.
+Write-Output ""
+Write-Output "=== Container que recorta ==="
+$clip = 0
+$cb3 = [regex]::Match((Strip-Comments (Read-Css "$root\css\comp\card.css")), '(?m)^\.rdm-card\s*\{([^{}]*)\}')
+if (-not $cb3.Success) { Write-Output "  SIN-BASE card.css"; $clip++ }
+elseif ($cb3.Groups[1].Value -notmatch '(?i)\boverflow\s*:\s*hidden') { Write-Output "  SIN-RECORTE card.css"; $clip++ }
+if ($clip -eq 0) { Write-Output "  recorta" } else { $fail++ }
+
 Write-Output ""
 if ($fail -eq 0) { Write-Output "OK: capa de tokens integra" } else { Write-Output ("FALLA: " + $fail + " chequeo(s)") }
 exit $fail
