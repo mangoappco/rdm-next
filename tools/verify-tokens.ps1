@@ -774,6 +774,51 @@ if (-not $cb3.Success) { Write-Output "  SIN-BASE card.css"; $clip++ }
 elseif ($cb3.Groups[1].Value -notmatch '(?i)\boverflow\s*:\s*hidden') { Write-Output "  SIN-RECORTE card.css"; $clip++ }
 if ($clip -eq 0) { Write-Output "  recorta" } else { $fail++ }
 
+# 41. Elevacion de card: la tabla Elevation de card.html coincide con
+# los niveles de material-web (labs/card v0_192 en vendor). Filas en
+# orden Elevated, Filled, Outlined; columnas reposo-hover-focus-
+# pressed-dragged. Si Google los cambia, la tabla y este guard avisan.
+Write-Output ""
+Write-Output "=== Elevacion de card ==="
+$elv = 0
+$mw = @{}
+foreach ($v in @("elevated", "filled", "outlined")) {
+  $vf = "$root\vendor\material-web-tokens\tokens\versions\v0_192\_md-comp-$v-card.scss"
+  if (-not (Test-Path $vf)) { Write-Output ("  SIN-VENDOR " + $v); $elv++; continue }
+  $t = Read-Css $vf
+  $map = @{}
+  foreach ($m in ([regex]::Matches($t, '''(?:(hover|focus|pressed|dragged)-)?container-elevation'':\s*map\.get\(\$deps,\s*''md-sys-elevation'',\s*''(level\d)''\)'))) {
+    $st = if ($m.Groups[1].Value -eq '') { 'container' } else { $m.Groups[1].Value }
+    $map[$st] = $m.Groups[2].Value
+  }
+  $mw[$v] = $map
+}
+$ch = Read-Css "$root\card.html"
+$et = [regex]::Match($ch, '(?s)<!-- INICIO: card elevation table -->(.*?)<!-- FIN: card elevation table -->')
+if (-not $et.Success) { Write-Output "  SIN-TABLA card.html"; $elv++ }
+else {
+  $rows = @()
+  foreach ($rm in ([regex]::Matches($et.Groups[1].Value, '(?s)<tr>(.*?)</tr>'))) {
+    $cells = @([regex]::Matches($rm.Groups[1].Value, '<td>(.*?)</td>') | ForEach-Object { $_.Groups[1].Value.Trim() })
+    if ($cells.Count -gt 0) { $rows += ,$cells }
+  }
+  $order = @("container", "hover", "focus", "pressed", "dragged")
+  $vars = @("elevated", "filled", "outlined")
+  $vnames = @("Elevated", "Filled", "Outlined")
+  if ($rows.Count -ne 3) { Write-Output ("  FILAS: " + $rows.Count); $elv++ }
+  else {
+    for ($i = 0; $i -lt 3; $i++) {
+      $cells = $rows[$i]
+      if ($cells.Count -ne 6 -or $cells[0] -cne $vnames[$i]) { Write-Output ("  FORMA fila " + $i); $elv++; continue }
+      for ($j = 0; $j -lt 5; $j++) {
+        $exp = $mw[$vars[$i]][$order[$j]]
+        if ($cells[$j + 1] -cne $exp) { Write-Output ("  NIVEL " + $vars[$i] + "/" + $order[$j] + ": tabla=" + $cells[$j + 1] + " vendor=" + $exp); $elv++ }
+      }
+    }
+  }
+}
+if ($elv -eq 0) { Write-Output "  niveles coinciden" } else { $fail++ }
+
 Write-Output ""
 if ($fail -eq 0) { Write-Output "OK: capa de tokens integra" } else { Write-Output ("FALLA: " + $fail + " chequeo(s)") }
 exit $fail

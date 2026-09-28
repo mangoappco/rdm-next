@@ -4,9 +4,12 @@
   para target unico SIN botones ni links dentro (HTML invalido si se
   anidan). Tipografia por composicion, state layer por primitiva.
 
-  Elevacion estatica + layer (sin valores dinamicos verificados en la
-  spec; la tabla hover-level2 era propuesta sin fuente). Shape medium
-  12dp, padding 16dp, enfasis real: outlined > elevated > filled.
+  Elevacion dinamica por tokens de material-web (labs/card v0_192 en
+  vendor/material-web-tokens): elevated 1-2-1-1-4, filled y outlined
+  0-1-0-0-3 (reposo-hover-focus-pressed-dragged). Solo interactive
+  levanta; la base no tiene hover (spec). Corrige v0.30/v0.35, donde
+  se documento estatica por falta de fuente. Shape medium 12dp,
+  padding en content 16dp, enfasis real: outlined > elevated > filled.
 */
 .rdm-card {
   /* block: la card es contenedor de contenido; sin esto un <a> queda
@@ -47,6 +50,46 @@
   border: solid 0.0625rem var(--md-sys-color-outline-variant);
 }
 
+/* Elevacion dinamica (v0.44, tokens labs/card v0_192): la sombra
+   transiciona con short3 + standard. Orden hover, focus, active,
+   dragged: focus/pressed vuelven al reposo y dragged gana por
+   especificidad (0,4,0). Solo interactive levanta. */
+.rdm-card--elevated,
+.rdm-card--filled,
+.rdm-card--outlined {
+  transition: box-shadow var(--md-sys-motion-duration-short3) var(--md-sys-motion-easing-standard);
+}
+
+.rdm-card--elevated.rdm-card--interactive:hover {
+  box-shadow: var(--rdm-shadow-level2);
+}
+
+.rdm-card--filled.rdm-card--interactive:hover,
+.rdm-card--outlined.rdm-card--interactive:hover {
+  box-shadow: var(--rdm-shadow-level1);
+}
+
+.rdm-card--elevated.rdm-card--interactive:focus-visible,
+.rdm-card--elevated.rdm-card--interactive:active {
+  box-shadow: var(--rdm-shadow-level1);
+}
+
+.rdm-card--filled.rdm-card--interactive:focus-visible,
+.rdm-card--filled.rdm-card--interactive:active,
+.rdm-card--outlined.rdm-card--interactive:focus-visible,
+.rdm-card--outlined.rdm-card--interactive:active {
+  box-shadow: none;
+}
+
+.rdm-card--elevated.rdm-card--interactive.rdm-state-layer--dragged {
+  box-shadow: var(--rdm-shadow-level4);
+}
+
+.rdm-card--filled.rdm-card--interactive.rdm-state-layer--dragged,
+.rdm-card--outlined.rdm-card--interactive.rdm-state-layer--dragged {
+  box-shadow: var(--rdm-shadow-level3);
+}
+
 /* Interactive: target unico con cursor y layer. Sin botones dentro. */
 .rdm-card--interactive {
   cursor: pointer;
@@ -60,13 +103,21 @@ a.rdm-card {
   color: var(--md-sys-color-on-surface);
 }
 
-/* Disabled por spec: container 0.38 (todo el card se atenua, incluido
-   el texto) y en outlined el borde pasa a outline 12%. El elevated
-   lista #FEF7FF como color disabled pero contradice al filled: probable
-   typo del generador, no se persigue. Sin layer ni interaccion. */
+/* Disabled por material-web (labs/card v0_192): container 0.38 con
+   color real por variante (elevated surface, filled surface-variant;
+   el #FEF7FF del generador era en realidad surface). En outlined el
+   borde pasa a outline 12%. Sin layer ni interaccion. */
 .rdm-card--disabled {
   opacity: 0.38;
   cursor: not-allowed;
+}
+
+.rdm-card--elevated.rdm-card--disabled {
+  background-color: var(--md-sys-color-surface);
+}
+
+.rdm-card--filled.rdm-card--disabled {
+  background-color: var(--md-sys-color-surface-variant);
 }
 
 .rdm-card--outlined.rdm-card--disabled {

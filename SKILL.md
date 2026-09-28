@@ -223,8 +223,9 @@ powershell -ExecutionPolicy Bypass -File tools/verify-tokens.ps1
 | Inset alineado | El inset del divider usa el mismo token que el padding del contenido de card (decision 12) |
 | Container sin padding | La base `.rdm-card` no declara padding (vive en `.rdm-card-content`, opcion A) |
 | Container que recorta | La base `.rdm-card` declara `overflow: hidden` (el radio solo recorta con overflow) |
+| Elevacion de card | La tabla Elevation de `card.html` coincide con los niveles de material-web (reposo/hover/focus/pressed/dragged por variante) |
 
-Corre en cada commit de la capa de tokens. Estado actual: 40/40 en verde.
+Corre en cada commit de la capa de tokens. Estado actual: 41/41 en verde.
 
 **Leccion v0.5:** el import de `primitives/typography.css` se escribio como
 `../primitives/` (sube un nivel de mas) y la hoja nunca llego al navegador:
@@ -425,6 +426,7 @@ cualquier `@import` relativo roto, probado con archivo temporal.
 - **v0.41** - Card paso 3 (dividers): seccion Dividers con full-width (rompe el padding via clase demo, solo staging hasta el paso 4) e inset (divider base: el padding alinea solo). Decisiones 13 (elevacion solo del container) y 14 (bloques con enfasis; padding del contenido, 3 fuentes). Regla en Rules. Check 38: inset alineado al padding, probado cambiando el padding.
 - **v0.42** - Card paso 4 (media) + refactor opcion A: padding movido de `.rdm-card` a `.rdm-card-content`; la media queda fuera del wrapper y sangra al borde. Specimens edge-to-edge y contenida (altura 10rem libre, sin sombra, radio heredado). Variants y Disabled migran a contenido minimo (el container vacio colapsa a 0: prueba empirica de la decision 11). Convencion elemento/modificador en SKILL + check 26 extendido. Check 39: container sin padding. Hallazgo: `·` mojibakeado como `Â·` en card.html (18 casos, reparado a byte con BOM intacto); `edit` escribe limpio.
 - **v0.43** - Card recorta: `overflow: hidden` en `.rdm-card` (el radio solo recorta con overflow; el outline propio no se ve afectado). Media edge-to-edge sin radio (recorta el container) y divider full-bleed estructural entre bloques (eliminado el truco de margenes negativos). Regla: radio propio solo si la media no toca el borde. Check 40: container que recorta, probado quitando el overflow.
+- **v0.44** - Auditoria contra material-web (labs/card + tokens v0_192 en vendor/material-web-tokens, 6 archivos byte-exactos, Apache 2.0): la elevacion NO es estatica, correccion a v0.30/v0.35. Dinamica por variante (elevated 1-2-1-1-4, filled/outlined 0-1-0-0-3) solo en interactive, con transicion short3+standard; orden hover, focus, active, dragged. Disabled con colores reales (elevated surface, filled surface-variant: resuelve el pendiente de surface-variant). Google no implementa hover/pressed/disabled en labs (2 TODOs): nuestro interactive/disabled son construccion propia. labs SCSS solo mapea tokens, sin geometria: la nuestra es propia. Check 41: tabla Elevation contra vendor, probado cambiando un nivel.
 - **v0.26** - Divider: `css/comp/divider.css` (full/inset/middle-inset/vertical, 1px outline-variant) y `divider.html`. Inset 16 solo izquierda (la tabla dice 16/0, middle 16/16). Chrome migrado: 45 `<hr>` entre secciones (+1 escrito a mano), border-top fuera de showroom.css. Check 23: sin border-top en demo, probado contra borde agregado.
 - **v0.25** - Chrome compartido: `css/demo/showroom.css` (ritmo vertical
   space-400 + divisores outline-variant 1px, sin background-color) linkeado
@@ -444,7 +446,7 @@ cualquier `@import` relativo roto, probado con archivo temporal.
 ## 10. Decisiones pendientes
 
 - [x] Peso mediano con Google Sans: **500** segun spec M3 (resuelto en v0.8; 475 es lo que shippea Google, descartado).
-- [ ] `surface-variant` en depreciacion: mantener el token del vendor o alias a `highest`. No tocar hasta que un componente lo necesite.
+- [x] `surface-variant` en depreciacion: se usa para filled disabled por material-web (v0.44). Era token real, no alias.
 - [ ] Easing y duraciones de motion por componente: los tokens existen (45 en `motion.css`), falta mapearlos al construir cada componente. `160ms` no es token M3.
 - [ ] Zona header/avatar de card y taxonomia de actions: documentadas en la libreria anterior, aplicar al construir Card.
 - [ ] `--md-sys-elevation-surface-tint-color`: token M3 real del vendor (tinta primaria sobre superficies elevadas), hoy sin consumir. No es sombra ni nivel; evaluar cuando un componente necesite tinte de elevacion.

@@ -255,9 +255,9 @@
   <!-- INICIO: card tokens -->
   <section>
     <h2 class="rdm-typography--title-large">Tokens</h2>
-    <p class="rdm-typography--body-large">Valores reales de la tabla de
-       specs de Card (light). Las filas marcadas estan abiertas o son
-       huecos de extraccion, no verdad de spec.</p>
+    <p class="rdm-typography--body-large">Valores oficiales de material-web
+       (labs/card v0_192 en vendor). Roles, no hex: el valor resuelve
+       por tema.</p>
 
     <!-- INICIO: card tokens enabled -->
     <table>
@@ -265,33 +265,30 @@
         <tr><th>Elemento</th><th>Filled</th><th>Elevated</th><th>Outlined</th></tr>
       </thead>
       <tbody>
-        <tr><td>Container</td><td>#E6E0E9</td><td>#F7F2FA</td><td>#FEF7FF (delta de baseline, ver nota)</td></tr>
-        <tr><td>Elevation</td><td>vacio en el generador</td><td>vacio en el generador</td><td>vacio en el generador</td></tr>
-        <tr><td>Shape</td><td>vacio en el generador</td><td>vacio en el generador</td><td>vacio en el generador</td></tr>
-        <tr><td>Shadow</td><td>#000000</td><td>#000000</td><td>#000000</td></tr>
-        <tr><td>Tint</td><td>#6750A4</td><td>#6750A4</td><td>#6750A4</td></tr>
-        <tr><td>Outline</td><td>â€”</td><td>â€”</td><td>1dp #CAC4D0</td></tr>
-        <tr><td>Icon</td><td>#6750A4 24dp</td><td>#6750A4 24dp</td><td>#6750A4 24dp</td></tr>
+        <tr><td>Container</td><td>surface-container-highest</td><td>surface-container-low</td><td>surface</td></tr>
+        <tr><td>Elevation</td><td>level0</td><td>level1</td><td>level0</td></tr>
+        <tr><td>Shape</td><td>corner-medium</td><td>corner-medium</td><td>corner-medium</td></tr>
+        <tr><td>Outline</td><td>sin outline</td><td>sin outline</td><td>outline-variant 1px</td></tr>
+        <tr><td>Icon</td><td>primary 24px</td><td>primary 24px</td><td>primary 24px</td></tr>
+        <tr><td>Disabled</td><td>surface-variant 0.38</td><td>surface 0.38</td><td>outline 0.12</td></tr>
       </tbody>
     </table>
     <!-- FIN: card tokens enabled -->
 
-    <!-- INICIO: card tokens states -->
+    <!-- INICIO: card elevation table -->
     <table>
       <thead>
-        <tr><th>Estado</th><th>Layer</th><th>Extra</th></tr>
+        <tr><th>Variante</th><th>Reposo</th><th>Hover</th><th>Focus</th><th>Pressed</th><th>Dragged</th></tr>
       </thead>
       <tbody>
-        <tr><td>Hover</td><td>#1D1B20 0.08</td><td>outlined outline #CAC4D0</td></tr>
-        <tr><td>Focus</td><td>#1D1B20 0.10</td><td>indicator #625B71 3dp offset 2dp · outlined outline #1D1B20</td></tr>
-        <tr><td>Pressed</td><td>#1D1B20 0.10</td><td>outlined outline #CAC4D0</td></tr>
-        <tr><td>Dragged</td><td>#1D1B20 0.16</td><td>outlined outline #CAC4D0</td></tr>
-        <tr><td>Disabled</td><td>container 0.38</td><td>outlined outline #79747E 0.12</td></tr>
+        <tr><td>Elevated</td><td>level1</td><td>level2</td><td>level1</td><td>level1</td><td>level4</td></tr>
+        <tr><td>Filled</td><td>level0</td><td>level1</td><td>level0</td><td>level0</td><td>level3</td></tr>
+        <tr><td>Outlined</td><td>level0</td><td>level1</td><td>level0</td><td>level0</td><td>level3</td></tr>
       </tbody>
     </table>
-    <!-- FIN: card tokens states -->
+    <!-- FIN: card elevation table -->
 
-    <p class="rdm-typography--body-medium">Notas: shape y elevation vacios son hueco de extraccion (12dp y sombra 1 verificados por otro lado). Focus indicator reservado para v0.35. El disabled color #FEF7FF del elevated contradice al filled: probable typo del generador.</p>
+    <p class="rdm-typography--body-medium">Notas: Google no implementa hover/focus/pressed ni disabled en labs (TODO b/307362112 y b/307361748): los tokens existen pero el componente no los consume; nuestro interactive y disabled son construccion propia sobre esos tokens. Las sombras rdm-shadow son recetas propias sobre las distancias oficiales.</p>
 
   </section>
   <!-- FIN: card tokens -->
@@ -346,4 +343,10 @@
 
 </body>
 </html>
+
+
+
+
+
+
 
