@@ -183,8 +183,9 @@ powershell -ExecutionPolicy Bypass -File tools/verify-tokens.ps1
 | Niveles sys intactos | Ningun `--md-sys-elevation-levelN:` declarado en CSS propio (son dp del vendor; sombras en `--rdm-shadow-*`) |
 | Swatches identicos | Ningun run de 3+ `<div>` consecutivos con la misma clase (si no varia, es tabla) |
 | Container en paginas | Todo `.html` de raiz usa `.rdm-container` (ningun showroom de lado a lado) |
+| State sin ruido | Toda opacidad `--md-sys-state-*-state-layer-opacity` propia vale 0.08, 0.12 o 0.16 exactos (sin ruido Figma) |
 
-Corre en cada commit de la capa de tokens. Estado actual: 13/13 en verde.
+Corre en cada commit de la capa de tokens. Estado actual: 14/14 en verde.
 
 **Leccion v0.5:** el import de `primitives/typography.css` se escribio como
 `../primitives/` (sube un nivel de mas) y la hoja nunca llego al navegador:
@@ -270,6 +271,15 @@ cualquier `@import` relativo roto, probado con archivo temporal.
   circulan no existen y el check 2 los marcaria. Grid de 12 columnas y app
   frame difieren por YAGNI. Check 13: todo HTML de raiz con container,
   probado contra pagina temporal sin el.
+- **v0.15** - State layer: 4 opacidades limpias en `additions.css`
+  (el vendor trae ruido Figma: 0.07999999821186066...), primitiva
+  `.rdm-state-layer` en `css/primitives/` con `::after`,
+  `pointer-events: none` y los 4 estados via `color-mix` sobre `--layer`
+  (opacidad del token con `calc * 100%`). Dragged es modificador porque
+  no tiene pseudo-clase. `state-layer.html` con tabla, mecanismo en vivo,
+  comparacion hover/pressed/dragged y focus con `:focus-visible` + nota
+  de Tab. Check 14: opacidades propias exactas (0.08/0.12/0.16),
+  probado contra valor con ruido.
 
 ## 10. Decisiones pendientes
 

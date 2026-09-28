@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>State layer - RDM Next</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Google+Sans:wght@400..700&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="css/rdm-next.css">
+  <link rel="stylesheet" href="css/demo/state-layer.css">
+</head>
+<body>
+
+<!-- INICIO: state-layer container -->
+<div class="rdm-container">
+
+<!-- INICIO: state-layer header -->
+<header>
+  <p class="rdm-typography--label-large"><a href="index.html">RDM Next</a></p>
+  <h1 class="rdm-typography--display-small">State layer</h1>
+  <p class="rdm-typography--body-large">Los estados no cambian el color base:
+     sobreponen una capa del color de contraste con la opacidad del token.
+     El componente declara <code>--layer</code>; la primitiva
+     <code>.rdm-state-layer</code> aporta el resto.</p>
+</header>
+<!-- FIN: state-layer header -->
+
+<main>
+
+  <!-- INICIO: state-layer opacities -->
+  <section>
+    <h2 class="rdm-typography--title-large">Opacities</h2>
+    <p class="rdm-typography--body-large">Los 4 valores oficiales, limpios del
+       ruido binario de Figma en <code>additions.css</code>.</p>
+
+    <!-- INICIO: state-layer opacities table -->
+    <table>
+      <thead>
+        <tr><th>Estado</th><th>Token</th><th>Valor</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Hover</td><td><code>--md-sys-state-hover-state-layer-opacity</code></td><td>0.08</td></tr>
+        <tr><td>Focus</td><td><code>--md-sys-state-focus-state-layer-opacity</code></td><td>0.12</td></tr>
+        <tr><td>Pressed</td><td><code>--md-sys-state-pressed-state-layer-opacity</code></td><td>0.12</td></tr>
+        <tr><td>Dragged</td><td><code>--md-sys-state-dragged-state-layer-opacity</code></td><td>0.16</td></tr>
+      </tbody>
+    </table>
+    <!-- FIN: state-layer opacities table -->
+
+  </section>
+  <!-- FIN: state-layer opacities -->
+
+  <!-- INICIO: state-layer mechanism -->
+  <section>
+    <h2 class="rdm-typography--title-large">Mechanism</h2>
+    <p class="rdm-typography--body-large">La capa vive en
+       <code>::after</code> con <code>pointer-events: none</code>: pasa el
+       mouse por encima y aparece primary al 8% sin mover el contenido.</p>
+
+    <!-- INICIO: state-layer mechanism demo -->
+    <div class="demo-state-layer rdm-state-layer">
+      <p class="rdm-typography--title-medium">Hover me</p>
+      <p class="rdm-typography--body-small"><code>--layer: primary · hover 8%</code></p>
+    </div>
+    <!-- FIN: state-layer mechanism demo -->
+
+  </section>
+  <!-- FIN: state-layer mechanism -->
+
+  <!-- INICIO: state-layer comparison -->
+  <section>
+    <h2 class="rdm-typography--title-large">Comparison</h2>
+    <p class="rdm-typography--body-large">Hover 8% ya lo viste en vivo en
+       Mechanism. Aca los otros dos: pressed 12% manteniendo presionado
+       (:active) y dragged 16% con el modificador real
+       <code>.rdm-state-layer--dragged</code> (no tiene pseudo-clase
+       en CSS).</p>
+
+    <!-- INICIO: state-layer pressed -->
+    <div class="demo-state-layer rdm-state-layer">
+      <p class="rdm-typography--title-medium">Pressed 12%</p>
+      <p class="rdm-typography--body-small"><code>mantené presionado (:active)</code></p>
+    </div>
+    <!-- FIN: state-layer pressed -->
+
+    <!-- INICIO: state-layer dragged -->
+    <div class="demo-state-layer rdm-state-layer rdm-state-layer--dragged">
+      <p class="rdm-typography--title-medium">Dragged 16%</p>
+      <p class="rdm-typography--body-small"><code>modificador --dragged, siempre visible</code></p>
+    </div>
+    <!-- FIN: state-layer dragged -->
+
+  </section>
+  <!-- FIN: state-layer comparison -->
+
+  <!-- INICIO: state-layer focus -->
+  <section>
+    <h2 class="rdm-typography--title-large">Focus</h2>
+    <p class="rdm-typography--body-large">La primitiva usa
+       <code>:focus-visible</code>: solo responde al teclado. Hacé Tab hasta
+       llegar al boton y aparece la capa al 12%. Con mouse no se dispara,
+       que es el comportamiento accesible correcto.</p>
+
+    <!-- INICIO: state-layer focus demo -->
+    <button type="button" class="demo-state-layer rdm-state-layer">
+      <span class="rdm-typography--title-medium">Tab hasta aquí</span><br>
+      <span class="rdm-typography--body-small"><code>:focus-visible 12%</code></span>
+    </button>
+    <!-- FIN: state-layer focus demo -->
+
+  </section>
+  <!-- FIN: state-layer focus -->
+
+</main>
+
+<!-- FIN: state-layer container -->
+</div>
+
+</body>
+</html>

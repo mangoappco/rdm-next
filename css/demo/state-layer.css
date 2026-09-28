@@ -1,0 +1,23 @@
+/*
+  RDM Next - Estilos SOLO del showroom de state-layer.html
+  No forman parte de la libreria. Ningun componente los importa.
+  La base es un bloque tonal con --layer en primary; la primitiva
+  .rdm-state-layer (del HTML) aporta el ::after y los 4 estados.
+  El boton hereda todo y solo neutraliza los estilos de agente de usuario.
+*/
+.demo-state-layer {
+  background-color: var(--md-sys-color-surface-container-high);
+  color: var(--md-sys-color-on-surface);
+  border-radius: var(--md-sys-shape-corner-medium-default-size);
+  padding: 1em;
+  margin-bottom: 1em;
+  --layer: var(--md-sys-color-primary);
+}
+
+button.demo-state-layer {
+  font: inherit;
+  text-align: start;
+  border: none;
+  cursor: pointer;
+  width: 100%;
+}

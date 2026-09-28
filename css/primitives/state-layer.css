@@ -1,0 +1,53 @@
+/*
+  RDM Next - Primitiva de state layer M3
+  Los estados de interaccion nunca cambian el color base: sobreponen una
+  capa del color de contraste con la opacidad del token sys. La capa vive
+  en ::after para no interferir con el contenido.
+
+  El componente solo declara --layer (su color de contraste); esta
+  primitiva aporta posicion, forma y los 4 estados. El fallback a
+  on-surface no es decorativo: sin el, una variante sin --layer haria
+  invalida la declaracion y el hover desapareceria en silencio.
+
+  Las opacidades se leen del token (calc * 100% porque color-mix pide
+  porcentaje), no se hardcodean: un solo origen para cada valor.
+
+  Dragged no tiene pseudo-clase en CSS, asi que es modificador
+  (.rdm-state-layer--dragged) para estados manejados por JS o demo.
+
+  Transicion 160ms: valor de la libreria anterior, pendiente de mapear
+  a los tokens de motion (ver SKILL, decisiones pendientes).
+*/
+.rdm-state-layer {
+  position: relative;
+}
+
+.rdm-state-layer::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 160ms ease, background-color 160ms ease;
+}
+
+.rdm-state-layer:hover::after {
+  background-color: color-mix(in srgb, var(--layer, var(--md-sys-color-on-surface)) calc(var(--md-sys-state-hover-state-layer-opacity) * 100%), transparent);
+  opacity: 1;
+}
+
+.rdm-state-layer:focus-visible::after {
+  background-color: color-mix(in srgb, var(--layer, var(--md-sys-color-on-surface)) calc(var(--md-sys-state-focus-state-layer-opacity) * 100%), transparent);
+  opacity: 1;
+}
+
+.rdm-state-layer:active::after {
+  background-color: color-mix(in srgb, var(--layer, var(--md-sys-color-on-surface)) calc(var(--md-sys-state-pressed-state-layer-opacity) * 100%), transparent);
+  opacity: 1;
+}
+
+.rdm-state-layer--dragged::after {
+  background-color: color-mix(in srgb, var(--layer, var(--md-sys-color-on-surface)) calc(var(--md-sys-state-dragged-state-layer-opacity) * 100%), transparent);
+  opacity: 1;
+}

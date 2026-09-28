@@ -28,6 +28,11 @@
   Solo declara -family: 3px, que es basura DSP. M3 lo define en 9999dp,
   asi que se agrega aqui. Misma clase de hueco que surface-container:
   token que la spec exige y el export de Figma no emitio.
+
+  State (v0.15): el vendor trae las 4 opacidades con ruido binario de
+  Figma (0.07999999821186066...). Se sobreescriben con los valores
+  exactos de la spec: hover 0.08, focus 0.12, pressed 0.12, dragged
+  0.16. Iguales en light y dark, asi que van solo en :root.
 */
 
 :root {
@@ -37,6 +42,12 @@
 
   /* --- Shape: full (ausente en el vendor, valor de la spec M3) --- */
   --md-sys-shape-corner-full-default-size: 9999px;
+
+  /* --- State: opacidades limpias (override del ruido Figma del vendor) --- */
+  --md-sys-state-hover-state-layer-opacity: 0.08;
+  --md-sys-state-focus-state-layer-opacity: 0.12;
+  --md-sys-state-pressed-state-layer-opacity: 0.12;
+  --md-sys-state-dragged-state-layer-opacity: 0.16;
 
   /* --- Base / canvas --- */
   /* surface (neutral99) y surface-variant ya vienen del vendor. Solo dim: */
