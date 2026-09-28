@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Card - RDM Next</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Google+Sans:wght@400..700&display=swap" rel="stylesheet">
+  <!-- Material Symbols recortado: peso 400, sin ejes variables sin uso -->
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@24,400,0,0" rel="stylesheet">
+
+  <link rel="stylesheet" href="css/rdm-next.css">
+  <link rel="stylesheet" href="css/demo/showroom.css">
+  <link rel="stylesheet" href="css/demo/card.css">
+</head>
+<body>
+
+<!-- INICIO: card container -->
+<div class="rdm-container">
+
+<!-- INICIO: card header -->
+<header>
+  <p class="rdm-typography--label-large"><a href="index.html">RDM Next</a></p>
+  <h1 class="rdm-typography--display-small">Card</h1>
+  <p class="rdm-typography--body-large">Contenido y acciones sobre un solo
+     sujeto. No-actionable por defecto; interactive como target unico
+     sin botones dentro.</p>
+</header>
+<!-- FIN: card header -->
+
+<main>
+
+  <!-- INICIO: card variants -->
+  <section>
+    <h2 class="rdm-typography--title-large">Variants</h2>
+    <p class="rdm-typography--body-large">Enfasis real: outlined primero,
+       elevated despues, filled ultimo. Con botones reales dentro
+       (modo no-actionable).</p>
+
+    <!-- INICIO: card variants demo -->
+    <div class="demo-card-spacing">
+      <div class="rdm-card rdm-card--elevated">
+        <p class="rdm-typography--title-large">Elevated</p>
+        <p class="rdm-typography--body-medium">surface-container-low con sombra 1. Separa del fondo sin borde.</p>
+        <button type="button" class="rdm-button rdm-button--tonal rdm-state-layer rdm-typography--label-large">Action</button>
+        <button type="button" class="rdm-button rdm-button--text rdm-state-layer rdm-typography--label-large">More</button>
+      </div>
+      <div class="rdm-card rdm-card--filled">
+        <p class="rdm-typography--title-large">Filled</p>
+        <p class="rdm-typography--body-medium">surface-container-highest. La mas sutil de las tres.</p>
+        <button type="button" class="rdm-button rdm-button--tonal rdm-state-layer rdm-typography--label-large">Action</button>
+        <button type="button" class="rdm-button rdm-button--text rdm-state-layer rdm-typography--label-large">More</button>
+      </div>
+      <div class="rdm-card rdm-card--outlined">
+        <p class="rdm-typography--title-large">Outlined</p>
+        <p class="rdm-typography--body-medium">surface con borde outline-variant. El borde da el mayor enfasis.</p>
+        <button type="button" class="rdm-button rdm-button--tonal rdm-state-layer rdm-typography--label-large">Action</button>
+        <button type="button" class="rdm-button rdm-button--text rdm-state-layer rdm-typography--label-large">More</button>
+      </div>
+    </div>
+    <!-- FIN: card variants demo -->
+
+  </section>
+  <!-- FIN: card variants -->
+
+  <hr class="rdm-divider">
+
+  <!-- INICIO: card interactive -->
+  <section>
+    <h2 class="rdm-typography--title-large">Interactive</h2>
+    <p class="rdm-typography--body-large">Un solo target, sin botones
+       dentro (anidarlos es HTML invalido). Es un link al sujeto: Tab,
+       Enter y hover funcionan de verdad.</p>
+
+    <!-- INICIO: card interactive demo -->
+    <div class="demo-card-spacing">
+      <a href="card.html" class="rdm-card rdm-card--elevated rdm-card--interactive rdm-state-layer">
+        <p class="rdm-typography--title-large">Album: Viaje al sur</p>
+        <p class="rdm-typography--body-medium">12 fotos · actualizado ayer. Toda la card es el link.</p>
+      </a>
+    </div>
+    <!-- FIN: card interactive demo -->
+
+  </section>
+  <!-- FIN: card interactive -->
+
+  <hr class="rdm-divider">
+
+  <!-- INICIO: card specs -->
+  <section>
+    <h2 class="rdm-typography--title-large">Specs</h2>
+
+    <!-- INICIO: card specs table -->
+    <table>
+      <thead>
+        <tr><th>Atributo</th><th>Valor</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Shape</td><td>12dp (corner-medium, no es pildora)</td></tr>
+        <tr><td>Padding</td><td>16dp</td></tr>
+        <tr><td>Entre cards</td><td>8dp maximo</td></tr>
+        <tr><td>Texto</td><td>start-aligned</td></tr>
+      </tbody>
+    </table>
+    <!-- FIN: card specs table -->
+
+  </section>
+  <!-- FIN: card specs -->
+
+  <hr class="rdm-divider">
+
+  <!-- INICIO: card rules -->
+  <section>
+    <h2 class="rdm-typography--title-large">Rules</h2>
+    <p class="rdm-typography--body-medium">un subject por card · el container es lo unico obligatorio, el resto opcional · el tamano lo da el contenido · no forzar contenido en cards (espaciado o divisores si es mas simple) · jamas accion sobre superficie accionable</p>
+  </section>
+  <!-- FIN: card rules -->
+
+  <hr class="rdm-divider">
+
+  <!-- INICIO: card anatomy -->
+  <section>
+    <h2 class="rdm-typography--title-large">Anatomy</h2>
+    <p class="rdm-typography--body-medium">rdm-card: geometria 12dp y padding 16 · variante: color, borde y sombra · rdm-card--interactive: cursor y target unico · rdm-state-layer: estados en modo interactive</p>
+  </section>
+  <!-- FIN: card anatomy -->
+
+</main>
+
+<!-- FIN: card container -->
+</div>
+
+</body>
+</html>

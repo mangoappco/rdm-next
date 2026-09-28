@@ -199,8 +199,9 @@ powershell -ExecutionPolicy Bypass -File tools/verify-tokens.ps1
 | Divisores por seccion | En toda pagina, `<hr class="rdm-divider">` ≥ secciones − 1 |
 | Un componente por archivo | La primera clase `.rdm-*` de cada regla pertenece a la familia del archivo |
 | Destructive con error | Toda regla `.rdm-button--destructive` solo consume familia `error` (`error*`, `on-error*`) |
+| Sin acciones anidadas | Ninguna seccion con `.rdm-card--interactive` contiene `<button>` ni `<a href>` |
 
-Corre en cada commit de la capa de tokens. Estado actual: 27/27 en verde.
+Corre en cada commit de la capa de tokens. Estado actual: 28/28 en verde.
 
 **Leccion v0.5:** el import de `primitives/typography.css` se escribio como
 `../primitives/` (sube un nivel de mas) y la hoja nunca llego al navegador:
@@ -387,6 +388,7 @@ cualquier `@import` relativo roto, probado con archivo temporal.
 - **v0.27** - Icon button: `css/comp/icon-button.css` (40px round, 4 estilos + toggle) y `icon-button.html`. Mapeo de tokens v0_192: selected de outlined = inverse-surface (no adivinado). Toggle sin JS: estados CSS sobre aria-pressed, specimens fijos, sin checkbox-hack. Icono 24px, disabled 12%/38%. Check 24: todo toggle con aria-pressed, probado contra toggle sin atributo. Render en localhost: toggle filled #6750A4, outlined inverse #313033. Hallazgo del render: botones a 33px por em sobre font-size UA (bug latente tambien anterior); geometria a rem, decision 7 enmendada. Leccion: el navegador cachea los @import (ni ?v= en el entry los refresca); render con archivos frescos o fetch no-store. Fix post-entrega: icon-button.html salio sin divisores (v0.26 migro lo existente); check 25 exige hr >= secciones - 1, probado contra pagina sin divisores.
 - **v0.28** - Extended FAB promovido a `css/comp/extended-fab.css` + `extended-fab.html` (baseline 56px, con/sin icono, states, rules). Los 3 tamanos son Expressive; type de label-large a title-medium solo ahi. Icono opcional, nunca sin label; 1 por pantalla; margenes 16dp; sin tooltip; aria-label con prefijo. Check 26: un componente por archivo (primera clase de cada regla), probado contra clase ajena. Fix post-entrega: caso sin icono se veia corrido (asimetria 16/20 por diseno); solo caso principal, sin padding inventado.
 - **v0.29** - Destructive: `.rdm-button--destructive` en 4 variantes (text, outlined, tonal, filled) con roles error, demo en Semantics de button.html. No es tipo M3 (ausente en las 10 + guidelines + dialogs: 0 matches); es aplicacion del rol error (urgencia) con 3:1 y label que nombra la accion. Excluye FAB y elevated. Check 27: destructive solo con tokens error*, probado contra rol primario.
+- **v0.30** - Card: `css/comp/card.css` (elevated/filled/outlined, shape 12dp, padding 16dp) y `card.html` (variantes con botones reales, interactive como link, specs, rules). Opcion A: no-actionable por defecto, interactive sin botones dentro (HTML invalido). Enfasis real outlined > elevated > filled. Elevacion estatica (sin valores dinamicos verificados). Reset de links con (0,1,1). Check 28: sin acciones anidadas, probado contra boton dentro de interactive.
 - **v0.26** - Divider: `css/comp/divider.css` (full/inset/middle-inset/vertical, 1px outline-variant) y `divider.html`. Inset 16 solo izquierda (la tabla dice 16/0, middle 16/16). Chrome migrado: 45 `<hr>` entre secciones (+1 escrito a mano), border-top fuera de showroom.css. Check 23: sin border-top en demo, probado contra borde agregado.
 - **v0.25** - Chrome compartido: `css/demo/showroom.css` (ritmo vertical
   space-400 + divisores outline-variant 1px, sin background-color) linkeado

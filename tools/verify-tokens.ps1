@@ -442,6 +442,24 @@ foreach ($f in (Get-ChildItem "$root\css\comp" -Filter *.css -ErrorAction Silent
 }
 if ($des -eq 0) { Write-Output "  solo error" } else { $fail++ }
 
+# 28. Sin acciones anidadas: una seccion con .rdm-card--interactive no
+# contiene <button> ni <a href> (accion sobre superficie accionable es
+# HTML invalido y viola la spec).
+Write-Output ""
+Write-Output "=== Sin acciones anidadas ==="
+$nes = 0
+foreach ($h in (Get-ChildItem "$root\*.html" -ErrorAction SilentlyContinue)) {
+  $t = Read-Css $h.FullName
+  foreach ($m in ([regex]::Matches($t, '(?s)<section>.*?</section>'))) {
+    $sec = $m.Groups[0].Value
+    if ($sec -match 'rdm-card--interactive') {
+      $sin = [regex]::Replace($sec, '<[^>]*rdm-card--interactive[^>]*>', '')
+      if ($sin -match '(<button|<a href)') { Write-Output ("  ANIDADA " + $h.Name); $nes++ }
+    }
+  }
+}
+if ($nes -eq 0) { Write-Output "  ninguna" } else { $fail++ }
+
 Write-Output ""
 if ($fail -eq 0) { Write-Output "OK: capa de tokens integra" } else { Write-Output ("FALLA: " + $fail + " chequeo(s)") }
 exit $fail

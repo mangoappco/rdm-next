@@ -1,0 +1,9 @@
+/*
+  RDM Next - Estilos SOLO del showroom de card.html
+  No forman parte de la libreria. Ningun componente los importa.
+  Solo separacion entre specimens: el componente no trae margen porque
+  el margen es layout de pagina, no del card.
+*/
+.demo-card-spacing > * + * {
+  margin-top: var(--rdm-space-200);
+}

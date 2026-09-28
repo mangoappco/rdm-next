@@ -1,0 +1,47 @@
+/*
+  RDM Next - Card (v0.30): 3 variantes M3 core, contenido sobre un subject.
+  No-actionable por defecto (contiene botones); .rdm-card--interactive
+  para target unico SIN botones ni links dentro (HTML invalido si se
+  anidan). Tipografia por composicion, state layer por primitiva.
+
+  Elevacion estatica + layer (sin valores dinamicos verificados en la
+  spec; la tabla hover-level2 era propuesta sin fuente). Shape medium
+  12dp, padding 16dp, enfasis real: outlined > elevated > filled.
+*/
+.rdm-card {
+  border-radius: var(--md-sys-shape-corner-medium-default-size);
+  padding: var(--rdm-space-200);
+}
+
+.rdm-card--elevated {
+  background-color: var(--md-sys-color-surface-container-low);
+  color: var(--md-sys-color-on-surface);
+  --layer: var(--md-sys-color-on-surface);
+  box-shadow: var(--rdm-shadow-level1);
+}
+
+.rdm-card--filled {
+  background-color: var(--md-sys-color-surface-container-highest);
+  color: var(--md-sys-color-on-surface);
+  --layer: var(--md-sys-color-on-surface);
+}
+
+.rdm-card--outlined {
+  background-color: var(--md-sys-color-surface);
+  color: var(--md-sys-color-on-surface);
+  --layer: var(--md-sys-color-on-surface);
+  border: solid 0.0625rem var(--md-sys-color-outline-variant);
+}
+
+/* Interactive: target unico con cursor y layer. Sin botones dentro. */
+.rdm-card--interactive {
+  cursor: pointer;
+}
+
+/* Links como card: sin subrayado y con on-surface (las 3 variantes lo
+   usan; si alguna difiere, revisar). Especificidad (0,1,1) para ganarle
+   al color del UA. */
+a.rdm-card {
+  text-decoration: none;
+  color: var(--md-sys-color-on-surface);
+}
