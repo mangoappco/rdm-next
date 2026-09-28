@@ -67,12 +67,15 @@
   <!-- INICIO: fab states -->
   <section>
     <h2 class="rdm-typography--title-large">States</h2>
-    <p class="rdm-typography--body-large">Pasa el mouse: la sombra sube a 4
-       y la capa al 8%. Focus y pressed vuelven a 3 con layer 12% por
-       sys (la spec dice 10%, pendiente). Disabled heredado de button.</p>
+    <p class="rdm-typography--body-large">Probalo en vivo: pasa el mouse
+       (sombra a 4, capa 8%), hace Tab (focus, capa 12%), mantene
+       presionado (pressed, capa 12%). Dragged 16% no tiene pseudo-clase
+       y se muestra con el modificador. Disabled heredado de button.</p>
 
     <!-- INICIO: fab states demo -->
     <div class="demo-fab-row demo-fab-row--states">
+      <button type="button" aria-label="Create" class="rdm-fab rdm-state-layer"><span class="rdm-icon" aria-hidden="true">add</span></button>
+      <button type="button" aria-label="Create dragged" class="rdm-fab rdm-state-layer rdm-state-layer--dragged"><span class="rdm-icon" aria-hidden="true">add</span></button>
       <button type="button" disabled aria-label="Create disabled" class="rdm-fab rdm-state-layer"><span class="rdm-icon" aria-hidden="true">add</span></button>
     </div>
     <!-- FIN: fab states demo -->

@@ -369,7 +369,11 @@ cualquier `@import` relativo roto, probado con archivo temporal.
   gap 12 de la implementacion (sin tokens comp). Small es baseline, no se
   construye. Focus/pressed 12% por sys (spec dice 10%, pendiente).
   space-150 y space-250 por regla del multiplicador. Check 20: showroom
-  por componente, probado contra css sin html.
+  por componente, probado contra css sin html. Fix post-entrega: fab
+  States tenia 1 solo disabled sin nada interactivo; ahora lleva enabled
+  + dragged + texto de prueba en vivo. Regla: toda seccion States lleva
+  al menos un enabled en vivo (live con pseudo-clase, modificador sin
+  ella, tabla si es dato).
 
 ## 10. Decisiones pendientes
 
