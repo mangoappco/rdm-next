@@ -23,7 +23,7 @@
   align-items: center;
   justify-content: center;
   gap: var(--rdm-space-100);
-  height: 2.5em;
+  height: 2.5rem;
   padding-inline: var(--rdm-space-300);
   border: none;
   border-radius: var(--md-sys-shape-corner-full-default-size);
@@ -36,7 +36,7 @@
 /* Icono leading 20px por spec (el 18dp anterior era herencia M2).
    20px no tiene token sys: va en em como resto de la geometria. */
 .rdm-button .rdm-icon {
-  font-size: 1.25em;
+  font-size: 1.25rem;
 }
 
 /* Padding asimetrico con icono: 16px del lado leading, 24px trailing. */
@@ -70,7 +70,7 @@
 .rdm-button--outlined {
   color: var(--md-sys-color-primary);
   --layer: var(--md-sys-color-primary);
-  border: solid 0.0625em var(--md-sys-color-outline-variant);
+  border: solid 0.0625rem var(--md-sys-color-outline-variant);
 }
 
 /* Text: transparente + primary, sin borde. */

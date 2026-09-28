@@ -1,0 +1,115 @@
+/*
+  RDM Next - Icon button (v0.27): 40px, round, 4 estilos + toggle.
+  Valores de los tokens generados v0_192 (codigo, no prosa). Sin etiqueta
+  visible: aria-label obligatorio en el HTML, el icono va aria-hidden.
+
+  Toggle sin JS: los estados selected/unselected son CSS puro sobre
+  [aria-pressed]; el producto alterna el atributo (y el label) con JS.
+  Sin checkbox-hack: no es M3. Selected de outlined = inverse-surface
+  (token explicito, no adivinanza).
+
+  Icono 24px = 1.5rem (decision 7: rem, el button no hereda font-size).
+  Disabled 12%/38% como button.
+*/
+.rdm-icon-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.5rem;
+  height: 2.5rem;
+  border: none;
+  border-radius: var(--md-sys-shape-corner-full-default-size);
+  background-color: transparent;
+  color: var(--md-sys-color-on-surface-variant);
+  --layer: var(--md-sys-color-on-surface-variant);
+  cursor: pointer;
+  user-select: none;
+  transition: background-color var(--md-sys-motion-duration-short3) var(--md-sys-motion-easing-standard), color var(--md-sys-motion-duration-short3) var(--md-sys-motion-easing-standard), border-color var(--md-sys-motion-duration-short3) var(--md-sys-motion-easing-standard);
+}
+
+.rdm-icon-button .rdm-icon {
+  font-size: 1.5rem;
+}
+
+.rdm-icon-button--filled {
+  background-color: var(--md-sys-color-primary);
+  color: var(--md-sys-color-on-primary);
+  --layer: var(--md-sys-color-on-primary);
+}
+
+.rdm-icon-button--tonal {
+  background-color: var(--md-sys-color-secondary-container);
+  color: var(--md-sys-color-on-secondary-container);
+  --layer: var(--md-sys-color-on-secondary-container);
+}
+
+.rdm-icon-button--outlined {
+  border: solid 0.0625rem var(--md-sys-color-outline);
+  color: var(--md-sys-color-on-surface-variant);
+  --layer: var(--md-sys-color-on-surface-variant);
+}
+
+/* Toggle apagado: filled y tonal usan highest, outlined su borde. */
+.rdm-icon-button--toggle.rdm-icon-button--filled {
+  background-color: var(--md-sys-color-surface-container-highest);
+  color: var(--md-sys-color-primary);
+  --layer: var(--md-sys-color-primary);
+}
+
+.rdm-icon-button--toggle.rdm-icon-button--tonal {
+  background-color: var(--md-sys-color-surface-container-highest);
+  color: var(--md-sys-color-on-surface-variant);
+  --layer: var(--md-sys-color-on-surface-variant);
+}
+
+/* Toggle prendido: filled, tonal lleno, outlined inverso, standard primario. */
+/* Toggle prendido generico: icono primario. Las variantes con container
+   lo pisan con reglas mas especificas. */
+.rdm-icon-button--toggle[aria-pressed="true"] {
+  color: var(--md-sys-color-primary);
+  --layer: var(--md-sys-color-primary);
+}
+
+.rdm-icon-button--toggle.rdm-icon-button--filled[aria-pressed="true"] {
+  background-color: var(--md-sys-color-primary);
+  color: var(--md-sys-color-on-primary);
+  --layer: var(--md-sys-color-on-primary);
+}
+
+.rdm-icon-button--toggle.rdm-icon-button--tonal[aria-pressed="true"] {
+  background-color: var(--md-sys-color-secondary-container);
+  color: var(--md-sys-color-on-secondary-container);
+  --layer: var(--md-sys-color-on-secondary-container);
+}
+
+.rdm-icon-button--toggle.rdm-icon-button--outlined[aria-pressed="true"] {
+  background-color: var(--md-sys-color-inverse-surface);
+  color: var(--md-sys-color-inverse-on-surface);
+  --layer: var(--md-sys-color-inverse-on-surface);
+  border-color: transparent;
+}
+
+/* Disabled: icono 38% en todas, wash 12% donde hay container, borde
+   12% en outlined. Sin layer. */
+.rdm-icon-button:disabled {
+  color: color-mix(in srgb, var(--md-sys-color-on-surface) 38%, transparent);
+  pointer-events: none;
+  cursor: not-allowed;
+}
+
+.rdm-icon-button--filled:disabled,
+.rdm-icon-button--tonal:disabled,
+.rdm-icon-button--toggle.rdm-icon-button--filled[aria-pressed="true"]:disabled,
+.rdm-icon-button--toggle.rdm-icon-button--tonal[aria-pressed="true"]:disabled,
+.rdm-icon-button--toggle.rdm-icon-button--outlined[aria-pressed="true"]:disabled {
+  background-color: color-mix(in srgb, var(--md-sys-color-on-surface) 12%, transparent);
+  border-color: transparent;
+}
+
+.rdm-icon-button--outlined:disabled {
+  border-color: color-mix(in srgb, var(--md-sys-color-on-surface) 12%, transparent);
+}
+
+.rdm-icon-button:disabled::after {
+  opacity: 0;
+}

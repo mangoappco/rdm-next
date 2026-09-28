@@ -1,0 +1,24 @@
+/*
+  RDM Next - Estilos SOLO del showroom de icon-button.html
+  No forman parte de la libreria. Ningun componente los importa.
+  Solo layout de filas; ningun color ni chrome. Cada fila nombra su
+  demo (grep + check 12).
+*/
+.demo-icon-button-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--rdm-space-200);
+  margin-bottom: 1em;
+}
+
+/* Cada fila nombra su demo (grep + check 12): el contenido difiere,
+   la receta es la misma. */
+.demo-icon-button-row--variants {
+}
+.demo-icon-button-row--toggle-off {
+}
+.demo-icon-button-row--toggle-on {
+}
+.demo-icon-button-row--states {
+}

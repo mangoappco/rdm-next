@@ -17,8 +17,8 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 3.5em;
-  height: 3.5em;
+  width: 3.5rem;
+  height: 3.5rem;
   padding: 0;
   border: none;
   border-radius: var(--md-sys-shape-corner-large-default-size);
@@ -37,17 +37,17 @@
 }
 
 .rdm-fab .rdm-icon {
-  font-size: 1.5em;
+  font-size: 1.5rem;
 }
 
 .rdm-fab--large {
-  width: 6em;
-  height: 6em;
+  width: 6rem;
+  height: 6rem;
   border-radius: var(--md-sys-shape-corner-extra-large-default-size);
 }
 
 .rdm-fab--large .rdm-icon {
-  font-size: 2.25em;
+  font-size: 2.25rem;
 }
 
 .rdm-fab--extended {

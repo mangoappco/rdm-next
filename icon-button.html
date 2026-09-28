@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Icon button - RDM Next</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Google+Sans:wght@400..700&display=swap" rel="stylesheet">
+  <!-- Material Symbols recortado: peso 400, sin ejes variables sin uso -->
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@24,400,0,0" rel="stylesheet">
+
+  <link rel="stylesheet" href="css/rdm-next.css">
+  <link rel="stylesheet" href="css/demo/showroom.css">
+  <link rel="stylesheet" href="css/demo/icon-button.css">
+</head>
+<body>
+
+<!-- INICIO: icon-button container -->
+<div class="rdm-container">
+
+<!-- INICIO: icon-button header -->
+<header>
+  <p class="rdm-typography--label-large"><a href="index.html">RDM Next</a></p>
+  <h1 class="rdm-typography--display-small">Icon button</h1>
+  <p class="rdm-typography--body-large">40px, round, sin etiqueta visible:
+     aria-label obligatorio y el icono va aria-hidden. Toggle con
+     aria-pressed: el producto lo alterna con JS.</p>
+</header>
+<!-- FIN: icon-button header -->
+
+<main>
+
+  <!-- INICIO: icon-button variants -->
+  <section>
+    <h2 class="rdm-typography--title-large">Variants</h2>
+    <p class="rdm-typography--body-large">Standard sin container, filled en
+       primary, tonal en secondary-container, outlined con borde outline
+       de 1px. Icono 24px en las cuatro.</p>
+
+    <!-- INICIO: icon-button variants demo -->
+    <div class="demo-icon-button-row demo-icon-button-row--variants">
+      <button type="button" aria-label="Search" class="rdm-icon-button rdm-state-layer"><span class="rdm-icon" aria-hidden="true">search</span></button>
+      <button type="button" aria-label="Add" class="rdm-icon-button rdm-icon-button--filled rdm-state-layer"><span class="rdm-icon" aria-hidden="true">add</span></button>
+      <button type="button" aria-label="Edit" class="rdm-icon-button rdm-icon-button--tonal rdm-state-layer"><span class="rdm-icon" aria-hidden="true">edit</span></button>
+      <button type="button" aria-label="More options" class="rdm-icon-button rdm-icon-button--outlined rdm-state-layer"><span class="rdm-icon" aria-hidden="true">more_vert</span></button>
+    </div>
+    <!-- FIN: icon-button variants demo -->
+
+  </section>
+  <!-- FIN: icon-button variants -->
+
+  <hr class="rdm-divider">
+
+  <!-- INICIO: icon-button toggle -->
+  <section>
+    <h2 class="rdm-typography--title-large">Toggle</h2>
+    <p class="rdm-typography--body-large">Sin JS no hay toggle en vivo: los
+       estados son CSS sobre aria-pressed y se muestran fijos. El
+       producto alterna el atributo y el label. Selected de outlined es
+       inverse-surface por token.</p>
+
+    <!-- INICIO: icon-button toggle off -->
+    <div class="demo-icon-button-row demo-icon-button-row--toggle-off">
+      <button type="button" aria-label="Add to favorites" aria-pressed="false" class="rdm-icon-button rdm-icon-button--toggle rdm-state-layer"><span class="rdm-icon" aria-hidden="true">favorite</span></button>
+      <button type="button" aria-label="Add to favorites" aria-pressed="false" class="rdm-icon-button rdm-icon-button--filled rdm-icon-button--toggle rdm-state-layer"><span class="rdm-icon" aria-hidden="true">favorite</span></button>
+      <button type="button" aria-label="Add to favorites" aria-pressed="false" class="rdm-icon-button rdm-icon-button--tonal rdm-icon-button--toggle rdm-state-layer"><span class="rdm-icon" aria-hidden="true">favorite</span></button>
+      <button type="button" aria-label="Add to favorites" aria-pressed="false" class="rdm-icon-button rdm-icon-button--outlined rdm-icon-button--toggle rdm-state-layer"><span class="rdm-icon" aria-hidden="true">favorite</span></button>
+    </div>
+    <!-- FIN: icon-button toggle off -->
+
+    <!-- INICIO: icon-button toggle on -->
+    <div class="demo-icon-button-row demo-icon-button-row--toggle-on">
+      <button type="button" aria-label="Remove from favorites" aria-pressed="true" class="rdm-icon-button rdm-icon-button--toggle rdm-state-layer"><span class="rdm-icon rdm-icon--filled" aria-hidden="true">favorite</span></button>
+      <button type="button" aria-label="Remove from favorites" aria-pressed="true" class="rdm-icon-button rdm-icon-button--filled rdm-icon-button--toggle rdm-state-layer"><span class="rdm-icon rdm-icon--filled" aria-hidden="true">favorite</span></button>
+      <button type="button" aria-label="Remove from favorites" aria-pressed="true" class="rdm-icon-button rdm-icon-button--tonal rdm-icon-button--toggle rdm-state-layer"><span class="rdm-icon rdm-icon--filled" aria-hidden="true">favorite</span></button>
+      <button type="button" aria-label="Remove from favorites" aria-pressed="true" class="rdm-icon-button rdm-icon-button--outlined rdm-icon-button--toggle rdm-state-layer"><span class="rdm-icon rdm-icon--filled" aria-hidden="true">favorite</span></button>
+    </div>
+    <!-- FIN: icon-button toggle on -->
+
+  </section>
+  <!-- FIN: icon-button toggle -->
+
+  <hr class="rdm-divider">
+
+  <!-- INICIO: icon-button states -->
+  <section>
+    <h2 class="rdm-typography--title-large">States</h2>
+    <p class="rdm-typography--body-large">Disabled: icono 38%, wash 12%
+       donde hay container. Hover en vivo arriba; focus con Tab en
+       cualquier boton.</p>
+
+    <!-- INICIO: icon-button states demo -->
+    <div class="demo-icon-button-row demo-icon-button-row--states">
+      <button type="button" disabled aria-label="Search disabled" class="rdm-icon-button rdm-state-layer"><span class="rdm-icon" aria-hidden="true">search</span></button>
+      <button type="button" disabled aria-label="Add disabled" class="rdm-icon-button rdm-icon-button--filled rdm-state-layer"><span class="rdm-icon" aria-hidden="true">add</span></button>
+      <button type="button" disabled aria-label="More options disabled" class="rdm-icon-button rdm-icon-button--outlined rdm-state-layer"><span class="rdm-icon" aria-hidden="true">more_vert</span></button>
+    </div>
+    <!-- FIN: icon-button states demo -->
+
+  </section>
+  <!-- FIN: icon-button states -->
+
+  <hr class="rdm-divider">
+
+  <!-- INICIO: icon-button anatomy -->
+  <section>
+    <h2 class="rdm-typography--title-large">Anatomy</h2>
+    <p class="rdm-typography--body-medium">rdm-icon-button: 40px round sin container · variante: color y borde · rdm-state-layer: estados · aria-label siempre, aria-pressed en toggle · toggle selected por atributo, JS lo alterna</p>
+  </section>
+  <!-- FIN: icon-button anatomy -->
+
+</main>
+
+<!-- FIN: icon-button container -->
+</div>
+
+</body>
+</html>

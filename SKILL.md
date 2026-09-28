@@ -89,7 +89,7 @@ que `--icon-only`.
 | 4 | Vendor separado | `vendor/material-tokens/` intacto en `css/` | Cada token propio es demostrablemente de Google. Lo nuestro vive en `additions.css` y `project.css`, aislado |
 | 5 | `colors.css` excluido | No se importa | Son clases demo (`.primary`, `.surface`...), 0 custom properties, colisionarian con el showroom |
 | 6 | `comp` por componente | Se jala de Material Web al construir cada uno | El repo oficial frena en ref+sys; no hay `comp.css` gigante adelantado |
-| 7 | Unidades | `em` en componentes, como la libreria anterior | Consistencia con el proyecto; los tokens usan px (spec) |
+| 7 | Unidades | `rem` en geometria de componentes | La libreria anterior usaba `em`, pero `<button>` no hereda el font-size del body (13.33px del UA): sus botones median 33px, no 40px. `rem` es raiz-fija e inmune a la etiqueta (14px) y al UA. `em` solo donde lo relativo al texto es lo querido |
 | 8 | Clase base | `.rdm-button` + `.rdm-button--filled`, siempre las dos | La libreria anterior usaba modificadores sin base y selectores `button { }` globales: M3 nunca aplica estilos a etiquetas nativas y sin base habia que duplicar geometria por variante (bug de sincronizacion card/form). La base lleva geometria, shape y state layer; la variante solo color y elevacion. Tipografia por composicion con `rdm-typography--*` en el HTML (v0.22), no redeclarada |
 | 9 | M3 core, no Expressive | **Target M3 core** (vendor pre-2023 + material-web v0.192) | M3 Expressive (May 2025: 5 tamanos, square, shape morph, toggle, springs, padding 16dp) no esta disponible para Web en botones. No somos ancient, somos baseline-matched: 24dp padding, round, small, duration+easing |
 | 10 | Spacing | `--rdm-space-*` con nomenclatura M3 (`space100` = 8dp) | El sistema es spec pero los tokens son Compose-only (Web Unavailable); misma nomenclatura para migracion 1:1 si llegan |
@@ -195,8 +195,10 @@ powershell -ExecutionPolicy Bypass -File tools/verify-tokens.ps1
 | Grupo invisible | `button-group.css` sin `background-color`, `color`, `border` ni `box-shadow` (container sin visuales) |
 | Chrome compartido | Todo `.html` de raiz linkea `css/demo/showroom.css` y tiene ≥1 `<section>` |
 | Divisores ad-hoc | Ningun `css/demo/` declara `border-top` (viven en `css/comp/divider.css`) |
+| Toggle con contrato | Todo `.rdm-icon-button--toggle` lleva `aria-pressed` (sin atributo no hay selected) |
+| Divisores por seccion | En toda pagina, `<hr class="rdm-divider">` ≥ secciones − 1 |
 
-Corre en cada commit de la capa de tokens. Estado actual: 23/23 en verde.
+Corre en cada commit de la capa de tokens. Estado actual: 25/25 en verde.
 
 **Leccion v0.5:** el import de `primitives/typography.css` se escribio como
 `../primitives/` (sube un nivel de mas) y la hoja nunca llego al navegador:
@@ -377,7 +379,8 @@ cualquier `@import` relativo roto, probado con archivo temporal.
   + dragged + texto de prueba en vivo. Regla: toda seccion States lleva
   al menos un enabled en vivo (live con pseudo-clase, modificador sin
   ella, tabla si es dato).
-- **v0.26** - Divider: `css/comp/divider.css` (full/inset/middle-inset/vertical, 1px outline-variant) y `divider.html`. Inset 16 solo izquierda (la tabla dice 16/0, middle 16/16). Chrome migrado: 43 `<hr>` entre secciones, border-top fuera de showroom.css. Check 23: sin border-top en demo, probado contra borde agregado.
+- **v0.27** - Icon button: `css/comp/icon-button.css` (40px round, 4 estilos + toggle) y `icon-button.html`. Mapeo de tokens v0_192: selected de outlined = inverse-surface (no adivinado). Toggle sin JS: estados CSS sobre aria-pressed, specimens fijos, sin checkbox-hack. Icono 24px, disabled 12%/38%. Check 24: todo toggle con aria-pressed, probado contra toggle sin atributo. Render en localhost: toggle filled #6750A4, outlined inverse #313033. Hallazgo del render: botones a 33px por em sobre font-size UA (bug latente tambien anterior); geometria a rem, decision 7 enmendada. Leccion: el navegador cachea los @import (ni ?v= en el entry los refresca); render con archivos frescos o fetch no-store. Fix post-entrega: icon-button.html salio sin divisores (v0.26 migro lo existente); check 25 exige hr >= secciones - 1, probado contra pagina sin divisores.
+- **v0.26** - Divider: `css/comp/divider.css` (full/inset/middle-inset/vertical, 1px outline-variant) y `divider.html`. Inset 16 solo izquierda (la tabla dice 16/0, middle 16/16). Chrome migrado: 45 `<hr>` entre secciones (+1 escrito a mano), border-top fuera de showroom.css. Check 23: sin border-top en demo, probado contra borde agregado.
 - **v0.25** - Chrome compartido: `css/demo/showroom.css` (ritmo vertical
   space-400 + divisores outline-variant 1px, sin background-color) linkeado
   en las 13 paginas. Card descartado como chrome (no es un subject).

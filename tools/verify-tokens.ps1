@@ -372,6 +372,35 @@ foreach ($f in (Get-ChildItem "$root\css\demo" -Filter *.css)) {
 }
 if ($adh -eq 0) { Write-Output "  ninguno" } else { $fail++ }
 
+# 24. Toggle con contrato: todo .rdm-icon-button--toggle lleva aria-pressed.
+# Sin el atributo no hay estado selected; el producto lo alterna con JS.
+Write-Output ""
+Write-Output "=== Toggle con contrato ==="
+$tog = 0
+foreach ($h in (Get-ChildItem "$root\*.html" -ErrorAction SilentlyContinue)) {
+  $t = Read-Css $h.FullName
+  foreach ($m in ([regex]::Matches($t, '(?i)<button[^>]*>'))) {
+    $tag = $m.Groups[0].Value
+    if ($tag -match 'rdm-icon-button--toggle' -and $tag -notmatch 'aria-pressed=') {
+      Write-Output ("  SIN CONTRATO " + $h.Name + ": " + $tag.Trim().Substring(0, [Math]::Min(70, $tag.Trim().Length))); $tog++
+    }
+  }
+}
+if ($tog -eq 0) { Write-Output "  todos" } else { $fail++ }
+
+# 25. Divisores por seccion: <hr class="rdm-divider"> >= secciones - 1.
+# La ultima no lleva (no divide nada). divider.html pasa con 3 >= 2.
+Write-Output ""
+Write-Output "=== Divisores por seccion ==="
+$div = 0
+foreach ($h in (Get-ChildItem "$root\*.html" -ErrorAction SilentlyContinue)) {
+  $t = Read-Css $h.FullName
+  $sec = ([regex]::Matches($t, '<section[ >]')).Count
+  $hr = ([regex]::Matches($t, '<hr class="rdm-divider">')).Count
+  if ($sec -gt 0 -and $hr -lt ($sec - 1)) { Write-Output ("  FALTAN " + $h.Name + ": " + $sec + " secciones, " + $hr + " divisores"); $div++ }
+}
+if ($div -eq 0) { Write-Output "  todas" } else { $fail++ }
+
 Write-Output ""
 if ($fail -eq 0) { Write-Output "OK: capa de tokens integra" } else { Write-Output ("FALLA: " + $fail + " chequeo(s)") }
 exit $fail
