@@ -31,9 +31,3 @@
 .demo-elevation--shadow5 {
   box-shadow: var(--rdm-shadow-level5);
 }
-
-/* Dentro de la tabla fusionada el swatch es solo un parche visual:
-   sin margen inferior para no inflar la celda. */
-td > .demo-elevation {
-  margin-bottom: 0;
-}

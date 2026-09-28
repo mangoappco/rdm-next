@@ -29,31 +29,27 @@
 
   <!-- INICIO: elevation levels -->
   <section>
-    <h2 class="rdm-typography--title-large">Levels y sombras</h2>
-    <p class="rdm-typography--body-large">Cada nivel M3 es un numero (distancia
-       en dp) que en web no dibuja nada; la columna Render muestra la receta
-       <code>--rdm-shadow-levelN</code> que lo dibuja. Niveles 0-3: estados en
-       reposo. Niveles 4-5: solo hover y dragged.</p>
+    <h2 class="rdm-typography--title-large">Levels</h2>
+    <p class="rdm-typography--body-large">Distancias oficiales M3
+       (<code>--md-sys-elevation-level0..5</code>). Son numeros, no sombras:
+       <code>box-shadow: 1px</code> dibujaria un borde duro. Niveles 0-3:
+       estados en reposo. Niveles 4-5: solo hover y dragged.</p>
 
-    <!-- INICIO: elevation table -->
+    <!-- INICIO: levels table -->
     <table>
       <thead>
-        <tr><th>Level</th><th>Token sys</th><th>dp</th><th>Render</th><th>Swatch</th></tr>
+        <tr><th>Level</th><th>Token</th><th>Valor</th><th>Uso tipico</th></tr>
       </thead>
       <tbody>
-        <tr><td>0</td><td><code>--md-sys-elevation-level0</code></td><td>0px</td><td><code>--rdm-shadow-level0</code></td><td><div class="demo-elevation demo-elevation--shadow0"></div></td></tr>
-        <tr><td>1</td><td><code>--md-sys-elevation-level1</code></td><td>1px</td><td><code>--rdm-shadow-level1</code></td><td><div class="demo-elevation demo-elevation--shadow1"></div></td></tr>
-        <tr><td>2</td><td><code>--md-sys-elevation-level2</code></td><td>3px</td><td><code>--rdm-shadow-level2</code></td><td><div class="demo-elevation demo-elevation--shadow2"></div></td></tr>
-        <tr><td>3</td><td><code>--md-sys-elevation-level3</code></td><td>6px</td><td><code>--rdm-shadow-level3</code></td><td><div class="demo-elevation demo-elevation--shadow3"></div></td></tr>
-        <tr><td>4</td><td><code>--md-sys-elevation-level4</code></td><td>8px</td><td><code>--rdm-shadow-level4</code></td><td><div class="demo-elevation demo-elevation--shadow4"></div></td></tr>
-        <tr><td>5</td><td><code>--md-sys-elevation-level5</code></td><td>12px</td><td><code>--rdm-shadow-level5</code></td><td><div class="demo-elevation demo-elevation--shadow5"></div></td></tr>
+        <tr><td>0</td><td><code>--md-sys-elevation-level0</code></td><td>0px</td><td>Flat: filled buttons, outlined cards</td></tr>
+        <tr><td>1</td><td><code>--md-sys-elevation-level1</code></td><td>1px</td><td>Elevated cards, bottom sheets</td></tr>
+        <tr><td>2</td><td><code>--md-sys-elevation-level2</code></td><td>3px</td><td>Resting state</td></tr>
+        <tr><td>3</td><td><code>--md-sys-elevation-level3</code></td><td>6px</td><td>Resting state (incl. FAB)</td></tr>
+        <tr><td>4</td><td><code>--md-sys-elevation-level4</code></td><td>8px</td><td>Solo estados de interaccion</td></tr>
+        <tr><td>5</td><td><code>--md-sys-elevation-level5</code></td><td>12px</td><td>Solo dragged</td></tr>
       </tbody>
     </table>
-    <!-- FIN: elevation table -->
-
-    <p class="rdm-typography--body-small">Las recetas son extension del proyecto
-       (sombras compuestas key + ambient del set 0.3 / 0.15).
-       <strong>No son M3</strong>: van en namespace propio a proposito.</p>
+    <!-- FIN: levels table -->
 
   </section>
   <!-- FIN: elevation levels -->
@@ -68,6 +64,59 @@
     <p class="rdm-typography--body-medium">Elevated: surface-container-low · Filled: surface-container-highest · Outlined: surface</p>
   </section>
   <!-- FIN: elevation tonal -->
+
+  <!-- INICIO: elevation shadow -->
+  <section>
+    <h2 class="rdm-typography--title-large">Shadow (extension del proyecto)</h2>
+    <p class="rdm-typography--body-large">Recetas <code>--rdm-shadow-level0..5</code>
+       para cuando la tonal no alcanza (fondos densos, flotantes). Sombras
+       compuestas key + ambient del set 0.3 / 0.15. <strong>No son M3</strong>:
+       van en namespace propio a proposito.</p>
+
+    <!-- INICIO: shadow 0 -->
+    <div class="demo-elevation demo-elevation--shadow0">
+      <p class="rdm-typography--title-medium">Shadow 0</p>
+      <p class="rdm-typography--body-small"><code>--rdm-shadow-level0 · none</code></p>
+    </div>
+    <!-- FIN: shadow 0 -->
+
+    <!-- INICIO: shadow 1 -->
+    <div class="demo-elevation demo-elevation--shadow1">
+      <p class="rdm-typography--title-medium">Shadow 1</p>
+      <p class="rdm-typography--body-small"><code>--rdm-shadow-level1</code></p>
+    </div>
+    <!-- FIN: shadow 1 -->
+
+    <!-- INICIO: shadow 2 -->
+    <div class="demo-elevation demo-elevation--shadow2">
+      <p class="rdm-typography--title-medium">Shadow 2</p>
+      <p class="rdm-typography--body-small"><code>--rdm-shadow-level2</code></p>
+    </div>
+    <!-- FIN: shadow 2 -->
+
+    <!-- INICIO: shadow 3 -->
+    <div class="demo-elevation demo-elevation--shadow3">
+      <p class="rdm-typography--title-medium">Shadow 3</p>
+      <p class="rdm-typography--body-small"><code>--rdm-shadow-level3</code></p>
+    </div>
+    <!-- FIN: shadow 3 -->
+
+    <!-- INICIO: shadow 4 -->
+    <div class="demo-elevation demo-elevation--shadow4">
+      <p class="rdm-typography--title-medium">Shadow 4</p>
+      <p class="rdm-typography--body-small"><code>--rdm-shadow-level4</code></p>
+    </div>
+    <!-- FIN: shadow 4 -->
+
+    <!-- INICIO: shadow 5 -->
+    <div class="demo-elevation demo-elevation--shadow5">
+      <p class="rdm-typography--title-medium">Shadow 5</p>
+      <p class="rdm-typography--body-small"><code>--rdm-shadow-level5</code></p>
+    </div>
+    <!-- FIN: shadow 5 -->
+
+  </section>
+  <!-- FIN: elevation shadow -->
 
 </main>
 

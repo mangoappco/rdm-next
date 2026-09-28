@@ -255,6 +255,12 @@ cualquier `@import` relativo roto, probado con archivo temporal.
   parche visual dentro de la celda (`td > .demo-elevation` sin margen).
   `surface-tint-color` (token M3 real, sin consumir) queda en pendientes:
   tintar superficies no es elevacion y se vera cuando un componente lo pida.
+- **v0.13** - Revert de la tabla fusionada: embeber los swatches en celdas
+  los dejo vacios y diminutos, sin aire para que la sombra respire. Vuelta
+  a dos secciones (Levels como tabla pura de datos, Shadow como galeria de
+  6 swatches grandes). Leccion: arreglar la seccion con el bug, no
+  redisenar la pagina alrededor de el; una galeria necesita swatches de
+  bloque completo para que se lea la progresion sutil-prominente.
 
 ## 10. Decisiones pendientes
 
