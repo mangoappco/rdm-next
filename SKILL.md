@@ -232,8 +232,10 @@ powershell -ExecutionPolicy Bypass -File tools/verify-tokens.ps1
 | Ritmo con token en demo | Ningun `css/demo/` usa `em` en `margin*` ni `padding*` (todo aire sale de `--rdm-space-*`) |
 | Specimens tipograficos | `typography.html` enlaza su demo CSS y cada rol vive en `.demo-type` (8 dentro del par, 16 entre specimens) |
 | Demo CSS por foundation | Las 10 paginas de foundations linkean su `css/demo/<pagina>.css` (`layout.html` era la segunda sin demo CSS) |
+| Escala aritmetica | Todo `--rdm-space-NNN` cumple `8 x NNN/100` exacto y estan los 17 (rango 0x-9x + 4 nested + 150/250 propios) |
+| Origen distinguido | La tabla de `spacing.html` marca `space-150` y `space-250` como extension del proyecto (la spec solo define los nested que usa) |
 
-Corre en cada commit de la capa de tokens. Estado actual: 47/47 en verde.
+Corre en cada commit de la capa de tokens. Estado actual: 49/49 en verde.
 
 **Leccion v0.5:** el import de `primitives/typography.css` se escribio como
 `../primitives/` (sube un nivel de mas) y la hoja nunca llego al navegador:
@@ -444,6 +446,7 @@ cualquier `@import` relativo roto, probado con archivo temporal.
 - **v0.51** - Ritmo de showroom con tokens: h2 separa 16, p apilados 8, header 8 en showroom.css; 13 margin-bottom y 5 padding de 1em a space-200 en demo/. El 1em escalaba con el font-size (57px de aire en display-large). Check 45: sin em en margin/padding de demo, probado con 1em trampa.
 - **v0.52** - Specimens tipograficos: typography.html era la unica pagina sin demo CSS (16 p pelados en section). Nuevo demo/typography.css con .demo-type (8 dentro del par nombre+spec, 16 entre specimens) y los 15 roles envueltos. Check 46: link + ritmo de pares, probado sin wrapper.
 - **v0.53** - Ritmo plano documentado (decision 16): M3 publica 5 propiedades por rol y cero spacing; half-leading absoluto-plano (2-4px) con ratio decreciente (1.5 a 1.123): un margen proporcional iria contra M3. Seccion Teoria en typography.html con tabla de ratios. layout.html tapado: nuevo demo/layout.css (tabla con ritmo, container real anidado como specimen). Check 47: las 10 foundations linkean su demo CSS, probado sin link.
+- **v0.54a** - Escala de spacing completa: la spec publica el rango 0x a 9x (alt del diagrama de tokens) y nosotros parabamos en 400. Agregados space-500 a space-900 (40 a 72dp) en project.css, con sus 5 barras y 5 filas. Tabla de spacing.html con Origen distinguido: 10 del rango principal + 4 nested M3 + ejemplo oficial del multiplicador (225) + 2 extensiones del proyecto (150, 250). Check 48: escala aritmetica parseada (8 x N/100 + los 17 presentes), probado con token mal calculado. Check 49: 150 y 250 marcados como extension, probado sin marca.
 - **v0.48** - Anatomia en las 3 variantes: misma composicion (media + texto + linked text + icon + outlined + filled), solo cambia el modificador. El action area es identico porque los 3 botones pasan 4.5:1 en las 3 superficies; tonal y elevated fuera por regla. Sin CSS ni checks nuevos: el check 30 ya valida los 9 botones. 43/43.
 - **v0.26** - Divider: `css/comp/divider.css` (full/inset/middle-inset/vertical, 1px outline-variant) y `divider.html`. Inset 16 solo izquierda (la tabla dice 16/0, middle 16/16). Chrome migrado: 45 `<hr>` entre secciones (+1 escrito a mano), border-top fuera de showroom.css. Check 23: sin border-top en demo, probado contra borde agregado.
 - **v0.25** - Chrome compartido: `css/demo/showroom.css` (ritmo vertical

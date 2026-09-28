@@ -36,9 +36,10 @@
   <!-- INICIO: spacing scale -->
   <section>
     <h2 class="rdm-typography--title-large">Scale</h2>
-    <p class="rdm-typography--body-large">Recomendados de 100 a 400
-       (multiplos de 8) mas los nested que la spec nombra. La regla del
-       multiplicador cubre el resto: spaceNNN = 8dp x NNN/100.</p>
+    <p class="rdm-typography--body-large">Rango principal de 0 a 900
+       (multiplos de 8, de 0x a 9x segun la spec) mas los 4 nested que
+       M3 define (0.25x a 1.25x). La regla del multiplicador cubre el
+       resto: spaceNNN = 8dp x NNN/100.</p>
 
     <!-- INICIO: spacing scale table -->
     <table>
@@ -46,16 +47,23 @@
         <tr><th>Token</th><th>Valor</th><th>Origen</th></tr>
       </thead>
       <tbody>
-        <tr><td><code>--rdm-space-0</code></td><td>0</td><td>cero del sistema</td></tr>
-        <tr><td><code>--rdm-space-25</code></td><td>2px</td><td>nested de la spec</td></tr>
-        <tr><td><code>--rdm-space-50</code></td><td>4px</td><td>nested de la spec</td></tr>
-        <tr><td><code>--rdm-space-75</code></td><td>6px</td><td>nested de la spec</td></tr>
-        <tr><td><code>--rdm-space-100</code></td><td>8px</td><td>baseline del sistema</td></tr>
-        <tr><td><code>--rdm-space-125</code></td><td>10px</td><td>nested + ejemplo oficial</td></tr>
-        <tr><td><code>--rdm-space-200</code></td><td>16px</td><td>recomendado (8 x 2)</td></tr>
-        <tr><td><code>--rdm-space-225</code></td><td>18px</td><td>ejemplo del multiplicador</td></tr>
-        <tr><td><code>--rdm-space-300</code></td><td>24px</td><td>recomendado (8 x 3)</td></tr>
-        <tr><td><code>--rdm-space-400</code></td><td>32px</td><td>recomendado (8 x 4)</td></tr>
+        <tr><td><code>--rdm-space-0</code></td><td>0</td><td>rango principal M3 (0x)</td></tr>
+        <tr><td><code>--rdm-space-25</code></td><td>2px</td><td>nested M3 (0.25x)</td></tr>
+        <tr><td><code>--rdm-space-50</code></td><td>4px</td><td>nested M3 (0.5x)</td></tr>
+        <tr><td><code>--rdm-space-75</code></td><td>6px</td><td>nested M3 (0.75x)</td></tr>
+        <tr><td><code>--rdm-space-100</code></td><td>8px</td><td>rango principal M3 (1x, baseline)</td></tr>
+        <tr><td><code>--rdm-space-125</code></td><td>10px</td><td>nested M3 (1.25x)</td></tr>
+        <tr><td><code>--rdm-space-150</code></td><td>12px</td><td>extension del proyecto (multiplicador)</td></tr>
+        <tr><td><code>--rdm-space-200</code></td><td>16px</td><td>rango principal M3 (2x)</td></tr>
+        <tr><td><code>--rdm-space-225</code></td><td>18px</td><td>ejemplo oficial del multiplicador</td></tr>
+        <tr><td><code>--rdm-space-250</code></td><td>20px</td><td>extension del proyecto (multiplicador)</td></tr>
+        <tr><td><code>--rdm-space-300</code></td><td>24px</td><td>rango principal M3 (3x)</td></tr>
+        <tr><td><code>--rdm-space-400</code></td><td>32px</td><td>rango principal M3 (4x)</td></tr>
+        <tr><td><code>--rdm-space-500</code></td><td>40px</td><td>rango principal M3 (5x)</td></tr>
+        <tr><td><code>--rdm-space-600</code></td><td>48px</td><td>rango principal M3 (6x)</td></tr>
+        <tr><td><code>--rdm-space-700</code></td><td>56px</td><td>rango principal M3 (7x)</td></tr>
+        <tr><td><code>--rdm-space-800</code></td><td>64px</td><td>rango principal M3 (8x)</td></tr>
+        <tr><td><code>--rdm-space-900</code></td><td>72px</td><td>rango principal M3 (9x)</td></tr>
       </tbody>
     </table>
     <!-- FIN: spacing scale table -->
@@ -96,6 +104,11 @@
     <div class="demo-space-bar demo-space-bar--125"></div>
     <!-- FIN: spacing bar 125 -->
 
+    <!-- INICIO: spacing bar 150 -->
+    <p class="rdm-typography--title-medium">space-150 · 12px</p>
+    <div class="demo-space-bar demo-space-bar--150"></div>
+    <!-- FIN: spacing bar 150 -->
+
     <!-- INICIO: spacing bar 200 -->
     <p class="rdm-typography--title-medium">space-200 · 16px</p>
     <div class="demo-space-bar demo-space-bar--200"></div>
@@ -106,6 +119,11 @@
     <div class="demo-space-bar demo-space-bar--225"></div>
     <!-- FIN: spacing bar 225 -->
 
+    <!-- INICIO: spacing bar 250 -->
+    <p class="rdm-typography--title-medium">space-250 · 20px</p>
+    <div class="demo-space-bar demo-space-bar--250"></div>
+    <!-- FIN: spacing bar 250 -->
+
     <!-- INICIO: spacing bar 300 -->
     <p class="rdm-typography--title-medium">space-300 · 24px</p>
     <div class="demo-space-bar demo-space-bar--300"></div>
@@ -115,6 +133,31 @@
     <p class="rdm-typography--title-medium">space-400 · 32px</p>
     <div class="demo-space-bar demo-space-bar--400"></div>
     <!-- FIN: spacing bar 400 -->
+
+    <!-- INICIO: spacing bar 500 -->
+    <p class="rdm-typography--title-medium">space-500 · 40px</p>
+    <div class="demo-space-bar demo-space-bar--500"></div>
+    <!-- FIN: spacing bar 500 -->
+
+    <!-- INICIO: spacing bar 600 -->
+    <p class="rdm-typography--title-medium">space-600 · 48px</p>
+    <div class="demo-space-bar demo-space-bar--600"></div>
+    <!-- FIN: spacing bar 600 -->
+
+    <!-- INICIO: spacing bar 700 -->
+    <p class="rdm-typography--title-medium">space-700 · 56px</p>
+    <div class="demo-space-bar demo-space-bar--700"></div>
+    <!-- FIN: spacing bar 700 -->
+
+    <!-- INICIO: spacing bar 800 -->
+    <p class="rdm-typography--title-medium">space-800 · 64px</p>
+    <div class="demo-space-bar demo-space-bar--800"></div>
+    <!-- FIN: spacing bar 800 -->
+
+    <!-- INICIO: spacing bar 900 -->
+    <p class="rdm-typography--title-medium">space-900 · 72px</p>
+    <div class="demo-space-bar demo-space-bar--900"></div>
+    <!-- FIN: spacing bar 900 -->
 
   </section>
   <!-- FIN: spacing visual -->

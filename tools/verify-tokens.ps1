@@ -934,6 +934,51 @@ foreach ($pg in @("color","divider","elevation","icons","layout","motion","shape
 }
 if ($fdn -eq 0) { Write-Output "  10 foundations con demo" } else { $fail++ }
 
+# 48. Escala aritmetica: todo --rdm-space-NNN declarado en project.css
+# cumple valor = 8 x NNN/100 exacto, y estan los 17 (rango 0x a 9x de
+# la spec + 4 nested + 150/250 propios). Se parsea el numero, no el
+# string: un space-275 a 20px falla aunque exista.
+Write-Output ""
+Write-Output "=== Escala aritmetica ==="
+$ari = 0
+$pc = "$root\css\rdm\project.css"
+if (-not (Test-Path $pc)) { Write-Output "  SIN-ARCHIVO project.css"; $ari++ }
+else {
+  $t = (Read-Css $pc).TrimStart([char]0xFEFF)
+  $t = [regex]::Replace($t, '/\*.*?\*/', '', 'Singleline')
+  $decl = @{}
+  foreach ($m in ([regex]::Matches($t, '--rdm-space-(\d+)\s*:\s*([\d.]+)(px)?'))) {
+    $n = [int]$m.Groups[1].Value
+    $v = [double]$m.Groups[2].Value
+    $decl[$n] = $v
+    $esp = 8 * $n / 100
+    if ([math]::Abs($v - $esp) -gt 0.001) { Write-Output ("  MAL-CALCULO space-" + $n + ": " + $v + "px, debe ser " + $esp); $ari++ }
+  }
+  foreach ($n in @(0,25,50,75,100,125,150,200,225,250,300,400,500,600,700,800,900)) {
+    if (-not $decl.ContainsKey($n)) { Write-Output ("  FALTA space-" + $n); $ari++ }
+  }
+}
+if ($ari -eq 0) { Write-Output "  17 tokens exactos" } else { $fail++ }
+
+# 49. Origen distinguido: la tabla de spacing.html marca space-150 y
+# space-250 como extension del proyecto. La spec solo define los
+# nested que usa activamente (0.25x, 0.5x, 0.75x, 1.25x); 150 y 250
+# salen del multiplicador y lo tienen que decir.
+Write-Output ""
+Write-Output "=== Origen distinguido ==="
+$ori = 0
+$sh = "$root\spacing.html"
+if (-not (Test-Path $sh)) { Write-Output "  SIN-PAGINA spacing.html"; $ori++ }
+else {
+  $t = Read-Css $sh
+  foreach ($n in @(150,250)) {
+    $row = [regex]::Match($t, '<tr><td><code>--rdm-space-' + $n + '</code></td>.*?</tr>', 'Singleline')
+    if (-not $row.Success) { Write-Output ("  SIN-FILA space-" + $n); $ori++ }
+    elseif ($row.Value -notmatch '(?i)extension del proyecto') { Write-Output ("  SIN-ORIGEN space-" + $n); $ori++ }
+  }
+}
+if ($ori -eq 0) { Write-Output "  150 y 250 marcados" } else { $fail++ }
+
 Write-Output ""
 if ($fail -eq 0) { Write-Output "OK: capa de tokens integra" } else { Write-Output ("FALLA: " + $fail + " chequeo(s)") }
 exit $fail

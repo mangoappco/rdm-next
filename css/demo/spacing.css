@@ -27,15 +27,36 @@
 .demo-space-bar--125 {
   width: var(--rdm-space-125);
 }
+.demo-space-bar--150 {
+  width: var(--rdm-space-150);
+}
 .demo-space-bar--200 {
   width: var(--rdm-space-200);
 }
 .demo-space-bar--225 {
   width: var(--rdm-space-225);
 }
+.demo-space-bar--250 {
+  width: var(--rdm-space-250);
+}
 .demo-space-bar--300 {
   width: var(--rdm-space-300);
 }
 .demo-space-bar--400 {
   width: var(--rdm-space-400);
+}
+.demo-space-bar--500 {
+  width: var(--rdm-space-500);
+}
+.demo-space-bar--600 {
+  width: var(--rdm-space-600);
+}
+.demo-space-bar--700 {
+  width: var(--rdm-space-700);
+}
+.demo-space-bar--800 {
+  width: var(--rdm-space-800);
+}
+.demo-space-bar--900 {
+  width: var(--rdm-space-900);
 }
