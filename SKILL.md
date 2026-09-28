@@ -182,8 +182,9 @@ powershell -ExecutionPolicy Bypass -File tools/verify-tokens.ps1
 | Shape sin ruido | Ningun `-family` consumido en `var()` (todos valen 1px o 3px, basura DSP) |
 | Niveles sys intactos | Ningun `--md-sys-elevation-levelN:` declarado en CSS propio (son dp del vendor; sombras en `--rdm-shadow-*`) |
 | Swatches identicos | Ningun run de 3+ `<div>` consecutivos con la misma clase (si no varia, es tabla) |
+| Container en paginas | Todo `.html` de raiz usa `.rdm-container` (ningun showroom de lado a lado) |
 
-Corre en cada commit de la capa de tokens. Estado actual: 12/12 en verde.
+Corre en cada commit de la capa de tokens. Estado actual: 13/13 en verde.
 
 **Leccion v0.5:** el import de `primitives/typography.css` se escribio como
 `../primitives/` (sube un nivel de mas) y la hoja nunca llego al navegador:
@@ -261,6 +262,14 @@ cualquier `@import` relativo roto, probado con archivo temporal.
   6 swatches grandes). Leccion: arreglar la seccion con el bug, no
   redisenar la pagina alrededor de el; una galeria necesita swatches de
   bloque completo para que se lea la progresion sutil-prominente.
+- **v0.14** - Layout: `layout.html` + `.rdm-container` en `project.css`
+  (`--rdm-layout-max-width: 1200px`, `--rdm-layout-margin: 16px` que pasa
+  a 24px en 600px) y reset `box-sizing` en `base.css`. Los 5 HTML envuelven
+  header+main en el container. Hallazgo: M3 no exporta tokens de layout ni
+  spacing (grep al vendor: cero matches); los `--md-sys-spacing-*` que
+  circulan no existen y el check 2 los marcaria. Grid de 12 columnas y app
+  frame difieren por YAGNI. Check 13: todo HTML de raiz con container,
+  probado contra pagina temporal sin el.
 
 ## 10. Decisiones pendientes
 

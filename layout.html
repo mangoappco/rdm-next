@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Layout - RDM Next</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Google+Sans:wght@400..700&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="css/rdm-next.css">
+</head>
+<body>
+
+<!-- INICIO: layout container -->
+<div class="rdm-container">
+
+<!-- INICIO: layout header -->
+<header>
+  <p class="rdm-typography--label-large"><a href="index.html">RDM Next</a></p>
+  <h1 class="rdm-typography--display-small">Layout</h1>
+  <p class="rdm-typography--body-large">M3 no exporta tokens de layout ni
+     spacing en el vendor, asi que el container es extension del proyecto
+     (<code>--rdm-layout-*</code>). Esta pagina vive dentro de uno:
+     redimensiona la ventana y los margenes laterales cambian de 16px
+     a 24px al cruzar los 600px.</p>
+</header>
+<!-- FIN: layout header -->
+
+<main>
+
+  <!-- INICIO: layout window-classes -->
+  <section>
+    <h2 class="rdm-typography--title-large">Window size classes</h2>
+    <p class="rdm-typography--body-large">Las 3 clases oficiales M3. El
+       container solo aplica el margen; las columnas (4 / 8 / 12) se
+       definiran cuando un componente las necesite.</p>
+
+    <!-- INICIO: layout window table -->
+    <table>
+      <thead>
+        <tr><th>Clase</th><th>Ancho</th><th>Columnas</th><th>Margen</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Compact</td><td>0-599px</td><td>4</td><td>16px</td></tr>
+        <tr><td>Medium</td><td>600-839px</td><td>8</td><td>24px</td></tr>
+        <tr><td>Expanded</td><td>840px en adelante</td><td>12</td><td>24px</td></tr>
+      </tbody>
+    </table>
+    <!-- FIN: layout window table -->
+
+  </section>
+  <!-- FIN: layout window-classes -->
+
+  <!-- INICIO: layout container -->
+  <section>
+    <h2 class="rdm-typography--title-large">Container</h2>
+    <p class="rdm-typography--body-large">Ancho maximo de
+       <code>--rdm-layout-max-width: 1200px</code> (decision del proyecto,
+       no token M3), centrado con <code>margin-inline: auto</code> y aire
+       lateral de <code>--rdm-layout-margin</code>. Requiere el reset
+       <code>box-sizing: border-box</code> de <code>base.css</code>: sin el,
+       <code>width: 100%</code> mas padding desborda.</p>
+  </section>
+  <!-- FIN: layout container -->
+
+</main>
+
+<!-- FIN: layout container -->
+</div>
+
+</body>
+</html>

@@ -209,6 +209,17 @@ foreach ($f in (Get-ChildItem "$root\*.html" -ErrorAction SilentlyContinue)) {
 }
 if ($dup -eq 0) { Write-Output "  ninguno" } else { $fail++ }
 
+# 13. Container en paginas: toda pagina .html de raiz usa .rdm-container
+# para que ningun showroom vuelva a desparramarse de lado a lado.
+Write-Output ""
+Write-Output "=== Container en paginas ==="
+$noc = 0
+foreach ($h in (Get-ChildItem "$root\*.html" -ErrorAction SilentlyContinue)) {
+  $t = Read-Css $h.FullName
+  if ($t -notmatch 'rdm-container') { Write-Output ("  SIN CONTAINER " + $h.Name); $noc++ }
+}
+if ($noc -eq 0) { Write-Output "  todas" } else { $fail++ }
+
 Write-Output ""
 if ($fail -eq 0) { Write-Output "OK: capa de tokens integra" } else { Write-Output ("FALLA: " + $fail + " chequeo(s)") }
 exit $fail

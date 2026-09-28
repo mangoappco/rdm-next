@@ -14,6 +14,13 @@
   que usaba rdm/tokens.css. Un componente elige sombra
   (var(--rdm-shadow-level3)) o tonal
   (var(--md-sys-color-surface-container-low)); nunca se mezclan.
+
+  Layout (v0.14): M3 no exporta tokens de layout ni spacing en el vendor
+  (verificado con grep: cero matches). El container es extension del
+  proyecto: max-width 1200px (decision propia, no token M3) y margen
+  lateral 16px que pasa a 24px en 600px (window classes M3: Compact
+  0-599, Medium 600-839, Expanded 840+). Grid de 12 columnas y app frame
+  difieren hasta que un componente los necesite (YAGNI).
 */
 :root {
   --rdm-z-base: 0;
@@ -27,4 +34,20 @@
   --rdm-shadow-level3: 0px 1px 3px 0px rgba(0, 0, 0, 0.3), 0px 4px 8px 3px rgba(0, 0, 0, 0.15);
   --rdm-shadow-level4: 0px 2px 4px 0px rgba(0, 0, 0, 0.3), 0px 6px 10px 4px rgba(0, 0, 0, 0.15);
   --rdm-shadow-level5: 0px 4px 8px 3px rgba(0, 0, 0, 0.15), 0px 8px 12px 6px rgba(0, 0, 0, 0.15);
+
+  --rdm-layout-max-width: 1200px;
+  --rdm-layout-margin: 16px;
+}
+
+@media (min-width: 600px) {
+  :root {
+    --rdm-layout-margin: 24px;
+  }
+}
+
+.rdm-container {
+  width: 100%;
+  max-width: var(--rdm-layout-max-width);
+  margin-inline: auto;
+  padding-inline: var(--rdm-layout-margin);
 }

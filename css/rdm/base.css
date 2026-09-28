@@ -8,7 +8,16 @@
   base de UI en M3 y lo que usa Material Web. El copy de lectura opta
   explicitamente por body-large con su clase. Asi cada elemento declara su
   rol y ninguna clase es redundante.
+
+  Reset box-sizing global (v0.14): el container usa width 100% + padding,
+  sin border-box desbordaria.
 */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
 body {
   background-color: var(--md-sys-color-surface);
   color: var(--md-sys-color-on-surface);
