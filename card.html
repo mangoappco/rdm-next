@@ -140,7 +140,10 @@
     <p class="rdm-typography--body-large">Paso 4: dos posiciones, ambas sin
        sombra (decision 13). Edge-to-edge arriba, fuera del wrapper;
        contenida adentro, con el padding. Altura libre por decision 11
-       (10rem arbitrario del specimen, no token).</p>
+       (10rem arbitrario del specimen, no token). Confirmado por el
+       codigo de Google (stories.ts en vendor): content con padding 16
+       y gap 16; img con height 128 sin aspect-ratio y border-radius
+       inherit (nuestra v0.43 recorta desde el container: mismo efecto).</p>
 
     <!-- INICIO: card media demo -->
     <div class="demo-card-spacing">
