@@ -119,6 +119,20 @@ foreach ($f in $ownFiles) {
 }
 if ($badImp -eq 0) { Write-Output "  ninguno" } else { $fail++ }
 
+# 8. Elementos de texto pelados: ningun <p> ni <h1-h6> sin clase en los
+# .html. Cada elemento de texto declara su rol tipografico explicito.
+Write-Output ""
+Write-Output "=== Texto pelado en HTML (<p> o <h1-h6> sin clase) ==="
+$bare = 0
+foreach ($f in (Get-ChildItem "$root\*.html" -ErrorAction SilentlyContinue)) {
+  $t = Read-Css $f.FullName
+  $np = ([regex]::Matches($t, '<p>')).Count
+  $nh = ([regex]::Matches($t, '<h[1-6]>')).Count
+  if ($np -gt 0) { Write-Output ("  PELADO " + $f.Name + ": " + $np + " <p>"); $bare += $np }
+  if ($nh -gt 0) { Write-Output ("  PELADO " + $f.Name + ": " + $nh + " <h>"); $bare += $nh }
+}
+if ($bare -eq 0) { Write-Output "  ninguno" } else { $fail++ }
+
 Write-Output ""
 if ($fail -eq 0) { Write-Output "OK: capa de tokens integra" } else { Write-Output ("FALLA: " + $fail + " chequeo(s)") }
 exit $fail

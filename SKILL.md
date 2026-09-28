@@ -50,9 +50,16 @@ directo en el `<head>`, no via `rdm-next.css`.
 **Primitivas:** viven en `css/primitives/` (typography, icon, ...). Son
 clases base que leen tokens sys y que los componentes consumen. Se importan
 en `rdm-next.css` entre tokens y componentes. Excepcion deliberada:
-`base.css` lee los tokens de body-large directo en vez de exigir la clase
-`.rdm-typography--body-large` en cada `<body>` — si una pagina olvidara la
+`base.css` lee los tokens de body-medium directo en vez de exigir la clase
+`.rdm-typography--body-medium` en cada `<body>` — si una pagina olvidara la
 clase, el texto caeria al default del navegador.
+
+**Convencion tipografica del showroom:** ningun `<p>` ni `<h1-h6>` pelado.
+Cada elemento de texto declara su rol explicito. El default del `body` es
+body-medium (estilo base de UI en M3); el copy de lectura opta por
+body-large con su clase. Reparto: nav `label-large`, copy `body-large`,
+nombre de swatch `title-medium`, spec tecnica `body-small`. El check 8 del
+script lo vigila.
 
 **Plantilla minima del showroom:**
 
@@ -170,8 +177,9 @@ powershell -ExecutionPolicy Bypass -File tools/verify-tokens.ps1
 | Fugas de capa | `comp/`, `rdm/`, `primitives/` o `demo/` leyendo `--md-ref-*` (prohibido) |
 | DSP consumido | `var()` a `-value`, `-unit` o `axis-value` (ruido de Figma) |
 | Imports | Todos los `@import` relativos resuelven a archivo existente; se saltan los `https://` |
+| Texto pelado | Ningun `<p>` ni `<h1-h6>` sin clase en los `.html` |
 
-Corre en cada commit de la capa de tokens. Estado actual: 7/7 en verde.
+Corre en cada commit de la capa de tokens. Estado actual: 8/8 en verde.
 
 **Leccion v0.5:** el import de `primitives/typography.css` se escribio como
 `../primitives/` (sube un nivel de mas) y la hoja nunca llego al navegador:
@@ -204,6 +212,14 @@ cualquier `@import` relativo roto, probado con archivo temporal.
   (un nivel de mas) y typography.css nunca llegaba al navegador. Check 7
   de imports implementado (la tabla lo prometia, el script no lo tenia),
   probado contra archivo temporal con import roto.
+- **v0.6** - Showroom usa su propia primitiva: los 3 `h1` a
+  `display-small` y los 13 `h2` a `title-large` en las 3 paginas. 0
+  headings pelados en el proyecto (verificado por conteo).
+- **v0.7** - Default del `body` a body-medium (estilo base de UI en M3) y
+  28 parrafos con clase explicita por categoria (nav `label-large` x2,
+  copy `body-large` x3, swatch `title-medium` x8, spec `body-small` x15).
+  Check 8: ningun `<p>` ni `<h1-h6>` pelado en los HTML, probado contra
+  archivo temporal. Convencion tipografica documentada.
 
 ## 10. Decisiones pendientes
 

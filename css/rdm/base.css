@@ -3,11 +3,16 @@
   Rompe el ciclo superficie/typography: el body necesita UN token de cada
   familia (color + fuente), no las primitivas completas. Con esto, las 6
   paginas de showroom de Foundations funcionan.
+
+  El default es body-medium (14/20), no body-large: es el estilo de texto
+  base de UI en M3 y lo que usa Material Web. El copy de lectura opta
+  explicitamente por body-large con su clase. Asi cada elemento declara su
+  rol y ninguna clase es redundante.
 */
 body {
   background-color: var(--md-sys-color-surface);
   color: var(--md-sys-color-on-surface);
-  font-family: var(--md-sys-typescale-body-large-font);
-  font-size: var(--md-sys-typescale-body-large-size);
+  font-family: var(--md-sys-typescale-body-medium-font);
+  font-size: var(--md-sys-typescale-body-medium-size);
   margin: 0;
 }
