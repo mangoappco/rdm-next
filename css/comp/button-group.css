@@ -1,0 +1,12 @@
+/*
+  RDM Next - Button group container (v0.24): solo la parte M3-core.
+  La spec define al grupo como container invisible sin color propio:
+  agrega padding entre botones, nada mas. El morph de forma, el cambio
+  de ancho y la seleccion son Expressive (Web Unavailable) y no se
+  construyen. Medidas guardadas en SKILL (standard 18/12/8, connected
+  2dp, radios internos, min-width 48).
+*/
+.rdm-button-group {
+  display: inline-flex;
+  gap: var(--rdm-space-25);
+}

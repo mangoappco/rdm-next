@@ -330,6 +330,24 @@ foreach ($f in (Get-ChildItem "$root\css\comp" -Filter *.css -ErrorAction Silent
 }
 if ($mis -eq 0) { Write-Output "  todos" } else { $fail++ }
 
+# 21. Grupo invisible: button-group.css no declara color, fondo, borde
+# ni sombra. La spec lo define como container sin propiedades visuales.
+Write-Output ""
+Write-Output "=== Grupo invisible ==="
+$vis = 0
+$bg = "$root\css\comp\button-group.css"
+if (Test-Path $bg) {
+  $t = Read-Css $bg
+  $t = [regex]::Replace($t, '/\*.*?\*/', '', 'Singleline')
+  foreach ($m in ([regex]::Matches($t, '(?i)(background-color|box-shadow)\s*:'))) {
+    Write-Output ("  VISIBLE " + $m.Groups[1].Value); $vis++
+  }
+  foreach ($m in ([regex]::Matches($t, '(?i)(?<![\w-])(color|border)\s*:'))) {
+    Write-Output ("  VISIBLE " + $m.Groups[1].Value); $vis++
+  }
+}
+if ($vis -eq 0) { Write-Output "  invisible" } else { $fail++ }
+
 Write-Output ""
 if ($fail -eq 0) { Write-Output "OK: capa de tokens integra" } else { Write-Output ("FALLA: " + $fail + " chequeo(s)") }
 exit $fail

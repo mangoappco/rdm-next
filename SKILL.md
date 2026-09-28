@@ -192,8 +192,9 @@ powershell -ExecutionPolicy Bypass -File tools/verify-tokens.ps1
 | Roles con tema | Todo `--md-sys-color-*` propio declarado 2+ veces (light y dark) |
 | Chrome fuera de demo | Ningun `css/demo/` pinta `header`/`section`/`main` (la estructura la daran los componentes) |
 | Showroom por componente | Cada `css/comp/*.css` tiene su `<nombre>.html` en la raiz |
+| Grupo invisible | `button-group.css` sin `background-color`, `color`, `border` ni `box-shadow` (container sin visuales) |
 
-Corre en cada commit de la capa de tokens. Estado actual: 20/20 en verde.
+Corre en cada commit de la capa de tokens. Estado actual: 21/21 en verde.
 
 **Leccion v0.5:** el import de `primitives/typography.css` se escribio como
 `../primitives/` (sube un nivel de mas) y la hoja nunca llego al navegador:
@@ -374,6 +375,12 @@ cualquier `@import` relativo roto, probado con archivo temporal.
   + dragged + texto de prueba en vivo. Regla: toda seccion States lleva
   al menos un enabled en vivo (live con pseudo-clase, modificador sin
   ella, tabla si es dato).
+- **v0.24** - Button group container: `css/comp/button-group.css` (solo
+  `display: inline-flex` + gap 2dp) y `button-group.html` (demo Walk/Bike/
+  Drive, tabla de medidas, aviso Expressive). Standard no existe en core;
+  connected solo como segmented (no recomendado). Medidas guardadas.
+  Check 21: grupo invisible (sin color/fondo/borde/sombra), probado
+  contra fondo agregado.
 
 ## 10. Decisiones pendientes
 
