@@ -424,6 +424,24 @@ foreach ($f in (Get-ChildItem "$root\css\comp" -Filter *.css -ErrorAction Silent
 }
 if ($mix -eq 0) { Write-Output "  puros" } else { $fail++ }
 
+# 27. Destructive con error: toda regla .rdm-button--destructive solo
+# consume tokens de la familia error (error* y on-error*). Un destructive
+# en primary es bug.
+Write-Output ""
+Write-Output "=== Destructive con error ==="
+$des = 0
+foreach ($f in (Get-ChildItem "$root\css\comp" -Filter *.css -ErrorAction SilentlyContinue)) {
+  $t = (Read-Css $f.FullName).TrimStart([char]0xFEFF)
+  $t = [regex]::Replace($t, '/\*.*?\*/', '', 'Singleline')
+  foreach ($m in ([regex]::Matches($t, '([^{}]*rdm-button--destructive[^{}]*)\{([^{}]*)\}'))) {
+    $body = $m.Groups[2].Value
+    foreach ($v in ([regex]::Matches($body, 'var\(--md-sys-color-([\w-]+)\)'))) {
+      if ($v.Groups[1].Value -notmatch '^(on-)?error') { Write-Output ("  NO-ERROR " + $f.Name + ": " + $v.Groups[1].Value); $des++ }
+    }
+  }
+}
+if ($des -eq 0) { Write-Output "  solo error" } else { $fail++ }
+
 Write-Output ""
 if ($fail -eq 0) { Write-Output "OK: capa de tokens integra" } else { Write-Output ("FALLA: " + $fail + " chequeo(s)") }
 exit $fail

@@ -98,3 +98,33 @@
 .rdm-button:disabled::after {
   opacity: 0;
 }
+
+/* ===== Rol destructivo: modificador, no variante =====
+   M3 no lo define como tipo (no esta entre los 10) pero define el rol
+   error para urgencia en fills/icons/text, y permite otros roles con
+   3:1 de contraste. Esto aplica error a 4 variantes. Exclusiones: FAB
+   y elevated (la destructive nunca es la accion flotante principal).
+   La etiqueta nombra la accion (WCAG 1.4.1: el color nunca es el unico
+   portador del significado). */
+.rdm-button--text.rdm-button--destructive {
+  color: var(--md-sys-color-error);
+  --layer: var(--md-sys-color-error);
+}
+
+.rdm-button--outlined.rdm-button--destructive {
+  color: var(--md-sys-color-error);
+  --layer: var(--md-sys-color-error);
+  border-color: var(--md-sys-color-error);
+}
+
+.rdm-button--tonal.rdm-button--destructive {
+  background-color: var(--md-sys-color-error-container);
+  color: var(--md-sys-color-on-error-container);
+  --layer: var(--md-sys-color-on-error-container);
+}
+
+.rdm-button--filled.rdm-button--destructive {
+  background-color: var(--md-sys-color-error);
+  color: var(--md-sys-color-on-error);
+  --layer: var(--md-sys-color-on-error);
+}
