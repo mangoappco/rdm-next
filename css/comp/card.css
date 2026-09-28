@@ -73,3 +73,10 @@ a.rdm-card {
   opacity: 0;
 }
 
+/* Focus en outlined interactive: el borde pasa a on-surface por spec
+   (el unico estado donde el outline se mueve). Solo interactive puede
+   recibir foco (check 34); el anillo exterior lo pone la primitiva. */
+.rdm-card--outlined.rdm-card--interactive:focus-visible {
+  border-color: var(--md-sys-color-on-surface);
+}
+

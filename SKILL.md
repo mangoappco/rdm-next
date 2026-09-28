@@ -206,8 +206,9 @@ powershell -ExecutionPolicy Bypass -File tools/verify-tokens.ps1
 | Disabled interactivo con contrato | Todo `.rdm-card--interactive` con `.rdm-card--disabled` lleva `aria-disabled="true"` |
 | Base sin estados | Ninguna `.rdm-card` no-interactive lleva `.rdm-state-layer`; `cursor: pointer` solo en `--interactive` |
 | Un solo tab stop | Ninguna card no-interactive lleva `tabindex` ni `role` |
+| Anillo de foco | La primitiva declara el focus indicator (`secondary` 3px, offset 2px) en `:focus-visible` |
 
-Corre en cada commit de la capa de tokens. Estado actual: 34/34 en verde.
+Corre en cada commit de la capa de tokens. Estado actual: 35/35 en verde.
 
 **Leccion v0.5:** el import de `primitives/typography.css` se escribio como
 `../primitives/` (sube un nivel de mas) y la hoja nunca llego al navegador:
@@ -402,6 +403,7 @@ cualquier `@import` relativo roto, probado con archivo temporal.
 - **v0.35** - Card paso 1 (anatomia): showroom reordenado por anatomia. Variants con 3 containers vacios (aria-label) y Disabled sin botones; demo de icono retirada (vuelve en su paso, el probe demo-card-icon queda). Regla de actions movida al paso 6. Sin refactor de padding: espera medidas de media (paso 4). Check 30 pasa en vacio hasta el paso 6. Sin cambios de script: 32/32. Nota: el check 12 cuenta divs identicos en orden de documento (no hermanos reales); el wrapper unico de Disabled se elimino por redundante y para no formar racha de 3. En v0.36 el check 12 excluye `demo-*` (wrappers de layout, no specimens).
 - **v0.36** - Card paso 2 (texto) + a11y: seccion Text con caso completo (headline+subhead+supporting) y minimo (sin subhead). Fix spacing entre cards 16→8 (`space-100`); actions se queda en 16. Texto interactive corregido (rol link: Enter si, Space no). Check 33: base sin estados (sin layer, cursor pointer solo en interactive). Check 34: un solo tab stop (no tabindex/role en no-interactive). Focus indicator pasa a v0.38.
 - **v0.37** - State 0.10: focus/pressed pasan de 0.12 a 0.10 (pagina de fundamentos state-layers + tabla de Card; el 0.12 era M2 arrastrado por el vendor). Toca los 4 componentes con layer via token, sin reglas por componente. Check 14 corregido a 0.08/0.10/0.16. Hallazgo para v0.38: layer 40dp vs target 48dp (el `inset: 0` de la primitiva no distingue).
+- **v0.38** - Focus indicator transversal: anillo secondary 3px offset 2px en `:focus-visible` dentro de la primitiva (los 4 componentes lo heredan; el outline sigue el radio de cada uno). Sin hit-slop de 48dp (decision de proyecto: anillo al borde visible + 2px). Outlined interactive: borde a on-surface en focus (unico estado donde el outline se mueve) + demo outlined en Interactive para verificarlo. Check 35: anillo presente, probado quitando la regla.
 - **v0.26** - Divider: `css/comp/divider.css` (full/inset/middle-inset/vertical, 1px outline-variant) y `divider.html`. Inset 16 solo izquierda (la tabla dice 16/0, middle 16/16). Chrome migrado: 45 `<hr>` entre secciones (+1 escrito a mano), border-top fuera de showroom.css. Check 23: sin border-top en demo, probado contra borde agregado.
 - **v0.25** - Chrome compartido: `css/demo/showroom.css` (ritmo vertical
   space-400 + divisores outline-variant 1px, sin background-color) linkeado

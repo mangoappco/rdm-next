@@ -1,4 +1,4 @@
-/*
+﻿/*
   RDM Next - Primitiva de state layer M3
   Los estados de interaccion nunca cambian el color base: sobreponen una
   capa del color de contraste con la opacidad del token sys. La capa vive
@@ -52,3 +52,13 @@
   background-color: color-mix(in srgb, var(--layer, var(--md-sys-color-on-surface)) calc(var(--md-sys-state-dragged-state-layer-opacity) * 100%), transparent);
   opacity: 1;
 }
+
+/* Focus indicator M3 (v0.38): anillo secondary 3px con offset 2px en
+   :focus-visible. Vive en la primitiva: los 4 componentes lo heredan y
+   el outline sigue el border-radius de cada uno. Sin hit-slop de 48dp
+   (decision de proyecto): el anillo va al borde visible + 2px. */
+.rdm-state-layer:focus-visible {
+  outline: solid 3px var(--md-sys-color-secondary);
+  outline-offset: 2px;
+}
+

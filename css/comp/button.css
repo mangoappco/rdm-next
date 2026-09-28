@@ -13,7 +13,8 @@
   Disabled por spec via color-mix: container 12% + label 38% de
   on-surface (la libreria anterior usaba 38% plano). Solo las contenidas
   llevan wash; outlined/text quedan transparentes. Sin sombra y sin layer.
-  Focus sin anillo propio: outline del navegador + layer de la primitiva.
+  Focus con anillo M3 (secondary 3px, offset 2px) + layer, ambos de
+  la primitiva.
 
   En M3 la elevacion es estatica: solo elevated la tiene y no cambia con
   hover ni pressed. El feedback lo da el state layer.

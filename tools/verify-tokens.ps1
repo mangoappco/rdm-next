@@ -644,6 +644,27 @@ foreach ($h in (Get-ChildItem "$root\*.html" -ErrorAction SilentlyContinue)) {
 }
 if ($tbs -eq 0) { Write-Output "  un tab stop" } else { $fail++ }
 
+# 35. Anillo de foco: la primitiva declara el focus indicator M3 en
+# :focus-visible (outline secondary 3px, offset 2px). Los 4 componentes
+# lo heredan; sin esta regla el indicador se pierde de un borrado.
+Write-Output ""
+Write-Output "=== Anillo de foco ==="
+$rin = 0
+$sl = "$root\css\primitives\state-layer.css"
+if (Test-Path $sl) {
+  $t = (Read-Css $sl).TrimStart([char]0xFEFF)
+  $t = [regex]::Replace($t, '/\*.*?\*/', '', 'Singleline')
+  $m = [regex]::Match($t, '(?s)\.rdm-state-layer:focus-visible\s*\{([^{}]*)\}')
+  if (-not $m.Success) { Write-Output "  SIN-REGLA state-layer.css"; $rin++ }
+  else {
+    $body = $m.Groups[1].Value
+    if ($body -notmatch '(?i)outline\s*:[^;{}]*var\(--md-sys-color-secondary\)') { Write-Output "  SIN-COLOR state-layer.css"; $rin++ }
+    if ($body -notmatch '(?i)outline\s*:[^;{}]*3px') { Write-Output "  SIN-GROSOR state-layer.css"; $rin++ }
+    if ($body -notmatch '(?i)outline-offset\s*:\s*2px') { Write-Output "  SIN-OFFSET state-layer.css"; $rin++ }
+  }
+} else { Write-Output "  SIN-ARCHIVO state-layer.css"; $rin++ }
+if ($rin -eq 0) { Write-Output "  anillo presente" } else { $fail++ }
+
 Write-Output ""
 if ($fail -eq 0) { Write-Output "OK: capa de tokens integra" } else { Write-Output ("FALLA: " + $fail + " chequeo(s)") }
 exit $fail
