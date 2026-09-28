@@ -9,7 +9,7 @@
   flex-wrap: wrap;
   align-items: center;
   gap: var(--rdm-space-200);
-  margin-bottom: 1em;
+  margin-bottom: var(--rdm-space-200);
 }
 
 /* Cada fila nombra su demo (grep + check 12): el contenido difiere,

@@ -228,8 +228,9 @@ powershell -ExecutionPolicy Bypass -File tools/verify-tokens.ps1
 | Vendor con licencia | Todo archivo bajo `vendor/` cubierto por Apache 2.0 (cabecera propia o LICENSE en su carpeta o superiores) |
 | Fila de acciones | `.demo-card-actions` alinea a la derecha con gap de token (decision 15, no literal) |
 | Sin margenes UA | `p`, `h1-h6`, `ul` y `ol` llevan `margin: 0` en `base.css` (ritmo 100% de tokens) |
+| Ritmo con token en demo | Ningun `css/demo/` usa `em` en `margin*` ni `padding*` (todo aire sale de `--rdm-space-*`) |
 
-Corre en cada commit de la capa de tokens. Estado actual: 44/44 en verde.
+Corre en cada commit de la capa de tokens. Estado actual: 45/45 en verde.
 
 **Leccion v0.5:** el import de `primitives/typography.css` se escribio como
 `../primitives/` (sube un nivel de mas) y la hoja nunca llego al navegador:
@@ -437,6 +438,7 @@ cualquier `@import` relativo roto, probado con archivo temporal.
 - **v0.48** - Anatomia en las 3 variantes: misma composicion (media + texto + linked text + icon + outlined + filled), solo cambia el modificador. El action area es identico porque los 3 botones pasan 4.5:1 en las 3 superficies; tonal y elevated fuera por regla. Sin CSS ni checks nuevos: el check 30 ya valida los 9 botones. 43/43.
 - **v0.49** - Rotulos de variante en Anatomy: cada referencia lleva su nombre fuera de la card (title-medium, por convencion de swatches); la composicion interna queda intacta. Sin cambios de CSS ni checks: 43/43.
 - **v0.50** - Reset de margenes UA: p, h1-h6, ul y ol con margin 0 en base.css (el ritmo era mitad UA); content de card a flex column con gap 16 (stories.ts). Rotulos uniformes a 8. Check 44: sin margenes UA, probado quitando el reset. Render en typography, spacing y motion.
+- **v0.51** - Ritmo de showroom con tokens: h2 separa 16, p apilados 8, header 8 en showroom.css; 13 margin-bottom y 5 padding de 1em a space-200 en demo/. El 1em escalaba con el font-size (57px de aire en display-large). Check 45: sin em en margin/padding de demo, probado con 1em trampa.
 - **v0.48** - Anatomia en las 3 variantes: misma composicion (media + texto + linked text + icon + outlined + filled), solo cambia el modificador. El action area es identico porque los 3 botones pasan 4.5:1 en las 3 superficies; tonal y elevated fuera por regla. Sin CSS ni checks nuevos: el check 30 ya valida los 9 botones. 43/43.
 - **v0.26** - Divider: `css/comp/divider.css` (full/inset/middle-inset/vertical, 1px outline-variant) y `divider.html`. Inset 16 solo izquierda (la tabla dice 16/0, middle 16/16). Chrome migrado: 45 `<hr>` entre secciones (+1 escrito a mano), border-top fuera de showroom.css. Check 23: sin border-top en demo, probado contra borde agregado.
 - **v0.25** - Chrome compartido: `css/demo/showroom.css` (ritmo vertical

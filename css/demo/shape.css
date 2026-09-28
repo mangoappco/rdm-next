@@ -6,8 +6,8 @@
 .demo-shape {
   background-color: var(--md-sys-color-surface-container-highest);
   color: var(--md-sys-color-on-surface);
-  padding: 1em;
-  margin-bottom: 1em;
+  padding: var(--rdm-space-200);
+  margin-bottom: var(--rdm-space-200);
 }
 
 /* --- Simetricos --- */

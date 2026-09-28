@@ -7,6 +7,22 @@
   margin-bottom: var(--rdm-space-400);
 }
 
+/* Ritmo de showroom (v0.51): con el reset de margenes UA, el aire entre
+   bloques de texto sale de tokens. h2 separa 16 de su primer hijo; los
+   p apilados, 8; el header, 8 entre bloques. Los specimens se separan
+   en su demo CSS. */
+.rdm-container section > h2 {
+  margin-bottom: var(--rdm-space-200);
+}
+
+.rdm-container section > p + p {
+  margin-top: var(--rdm-space-100);
+}
+
+.rdm-container > header > * + * {
+  margin-top: var(--rdm-space-100);
+}
+
 .rdm-container > header {
   margin-bottom: var(--rdm-space-400);
 }

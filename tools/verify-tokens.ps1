@@ -883,6 +883,21 @@ if (Test-Path $bb) {
 } else { Write-Output "  SIN-ARCHIVO base.css"; $mrg++ }
 if ($mrg -eq 0) { Write-Output "  ritmo propio" } else { $fail++ }
 
+# 45. Ritmo con token en demo: ningun css/demo/ usa em en margin* ni
+# padding* (escalan con el font-size como el 1em del UA). Todo aire de
+# showroom sale de --rdm-space-*.
+Write-Output ""
+Write-Output "=== Ritmo con token en demo ==="
+$rem = 0
+foreach ($f in (Get-ChildItem "$root\css\demo" -Filter *.css)) {
+  $t = (Read-Css $f.FullName).TrimStart([char]0xFEFF)
+  $t = [regex]::Replace($t, '/\*.*?\*/', '', 'Singleline')
+  foreach ($m in ([regex]::Matches($t, '(?i)(margin|padding)(-[a-z]+)?\s*:[^;{}]*?\b\d+(\.\d+)?em\b'))) {
+    Write-Output ("  EM " + $f.Name + ": " + $m.Groups[0].Value.Trim()); $rem++
+  }
+}
+if ($rem -eq 0) { Write-Output "  todo con token" } else { $fail++ }
+
 Write-Output ""
 if ($fail -eq 0) { Write-Output "OK: capa de tokens integra" } else { Write-Output ("FALLA: " + $fail + " chequeo(s)") }
 exit $fail

@@ -9,7 +9,7 @@
   background-color: var(--md-sys-color-primary-container);
   height: 1.5em;
   border-radius: var(--md-sys-shape-corner-extra-small-default-size);
-  margin-bottom: 1em;
+  margin-bottom: var(--rdm-space-200);
 }
 
 .demo-space-bar--25 {
