@@ -105,6 +105,7 @@ que `--icon-only`.
 | 13 | Elevacion del container | **Solo el container expresa elevacion**; ningun slot interno lleva sombra | Texto oficial: "Card elevation is expressed by the container". Dos elementos con sombra dentro se leerian como dos superficies |
 | 14 | Bloques de contenido | **Los slots se agrupan en bloques** con enfasis variable; **el padding es del contenido, no del container** | 3 fuentes: imagen edge-to-edge (flush al borde), content blocks ("grouped into blocks"), media contenida entre texto y actions. Prepara el refactor opcion A del paso 4 |
 | 15 | Action area | **Botones a la derecha (`flex-end`) con gap 8dp** (`space-100`) | Sin fuente: la tabla publica 8dp max *entre cards*, no entre botones; stories.ts usa 16 entre bloques. Se toma el 8dp por ser la unica medida publicada de separacion. Si aparece el valor real, cambia en una linea |
+| 16 | Ritmo de typography | **Plano: 8 dentro del par, 16 entre specimens** (decision de proyecto, no dato M3) | Verificado en el vendor: cada rol publica font, size, weight, line-height y tracking; cero margin/padding. El half-leading de M3 es absoluto-plano (2-4px en los 15 roles) con ratio decreciente (1.5 en body-large a 1.123 en display-large). Un margen proporcional al tamano iria contra M3. Seccion Teoria en typography.html con la tabla de ratios |
 
 ## 6. Capa de tokens
 
@@ -230,8 +231,9 @@ powershell -ExecutionPolicy Bypass -File tools/verify-tokens.ps1
 | Sin margenes UA | `p`, `h1-h6`, `ul` y `ol` llevan `margin: 0` en `base.css` (ritmo 100% de tokens) |
 | Ritmo con token en demo | Ningun `css/demo/` usa `em` en `margin*` ni `padding*` (todo aire sale de `--rdm-space-*`) |
 | Specimens tipograficos | `typography.html` enlaza su demo CSS y cada rol vive en `.demo-type` (8 dentro del par, 16 entre specimens) |
+| Demo CSS por foundation | Las 10 paginas de foundations linkean su `css/demo/<pagina>.css` (`layout.html` era la segunda sin demo CSS) |
 
-Corre en cada commit de la capa de tokens. Estado actual: 46/46 en verde.
+Corre en cada commit de la capa de tokens. Estado actual: 47/47 en verde.
 
 **Leccion v0.5:** el import de `primitives/typography.css` se escribio como
 `../primitives/` (sube un nivel de mas) y la hoja nunca llego al navegador:
@@ -441,6 +443,7 @@ cualquier `@import` relativo roto, probado con archivo temporal.
 - **v0.50** - Reset de margenes UA: p, h1-h6, ul y ol con margin 0 en base.css (el ritmo era mitad UA); content de card a flex column con gap 16 (stories.ts). Rotulos uniformes a 8. Check 44: sin margenes UA, probado quitando el reset. Render en typography, spacing y motion.
 - **v0.51** - Ritmo de showroom con tokens: h2 separa 16, p apilados 8, header 8 en showroom.css; 13 margin-bottom y 5 padding de 1em a space-200 en demo/. El 1em escalaba con el font-size (57px de aire en display-large). Check 45: sin em en margin/padding de demo, probado con 1em trampa.
 - **v0.52** - Specimens tipograficos: typography.html era la unica pagina sin demo CSS (16 p pelados en section). Nuevo demo/typography.css con .demo-type (8 dentro del par nombre+spec, 16 entre specimens) y los 15 roles envueltos. Check 46: link + ritmo de pares, probado sin wrapper.
+- **v0.53** - Ritmo plano documentado (decision 16): M3 publica 5 propiedades por rol y cero spacing; half-leading absoluto-plano (2-4px) con ratio decreciente (1.5 a 1.123): un margen proporcional iria contra M3. Seccion Teoria en typography.html con tabla de ratios. layout.html tapado: nuevo demo/layout.css (tabla con ritmo, container real anidado como specimen). Check 47: las 10 foundations linkean su demo CSS, probado sin link.
 - **v0.48** - Anatomia en las 3 variantes: misma composicion (media + texto + linked text + icon + outlined + filled), solo cambia el modificador. El action area es identico porque los 3 botones pasan 4.5:1 en las 3 superficies; tonal y elevated fuera por regla. Sin CSS ni checks nuevos: el check 30 ya valida los 9 botones. 43/43.
 - **v0.26** - Divider: `css/comp/divider.css` (full/inset/middle-inset/vertical, 1px outline-variant) y `divider.html`. Inset 16 solo izquierda (la tabla dice 16/0, middle 16/16). Chrome migrado: 45 `<hr>` entre secciones (+1 escrito a mano), border-top fuera de showroom.css. Check 23: sin border-top en demo, probado contra borde agregado.
 - **v0.25** - Chrome compartido: `css/demo/showroom.css` (ritmo vertical

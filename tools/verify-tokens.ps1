@@ -917,6 +917,23 @@ else {
 }
 if ($typ -eq 0) { Write-Output "  15 roles agrupados" } else { $fail++ }
 
+# 47. Demo CSS por foundation: cada pagina de foundations linkea su
+# css/demo/<pagina>.css. layout.html era la segunda sin demo CSS
+# (la tabla flotaba sin ritmo y Container no mostraba nada).
+# index.html queda fuera (es indice, sin specimens) y las paginas de
+# componentes tienen su propio contrato (check 20).
+Write-Output ""
+Write-Output "=== Demo CSS por foundation ==="
+$fdn = 0
+foreach ($pg in @("color","divider","elevation","icons","layout","motion","shape","spacing","state-layer","typography")) {
+  $h = "$root\$pg.html"
+  $d = "$root\css\demo\$pg.css"
+  if (-not (Test-Path $h)) { Write-Output "  SIN-PAGINA $pg.html"; $fdn++; continue }
+  if ((Read-Css $h) -notmatch ('css/demo/' + $pg + '\.css')) { Write-Output "  SIN-LINK $pg.html"; $fdn++ }
+  if (-not (Test-Path $d)) { Write-Output "  SIN-DEMO demo/$pg.css"; $fdn++ }
+}
+if ($fdn -eq 0) { Write-Output "  10 foundations con demo" } else { $fail++ }
+
 Write-Output ""
 if ($fail -eq 0) { Write-Output "OK: capa de tokens integra" } else { Write-Output ("FALLA: " + $fail + " chequeo(s)") }
 exit $fail
