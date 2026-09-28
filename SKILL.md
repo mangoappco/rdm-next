@@ -341,6 +341,10 @@ cualquier `@import` relativo roto, probado con archivo temporal.
   outline-variant NO existia (vendor solo trae outline); agregado a
   additions.css en ambos temas (neutral-variant80/30, verificado v1.18).
   Octavo rol post-2023.
+- **v0.21** - Motion transitions: 3 secciones nuevas en `motion.html`
+  (tabla de 6 patrones, modelo espacial, notas). Retractacion: no son
+  4 patrones, son 6 (el 4 venia de M2). Sin recetas numericas porque la
+  spec no las publica en web. Sin check nuevo: documentacion pura.
 
 ## 10. Decisiones pendientes
 

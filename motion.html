@@ -136,6 +136,65 @@
   </section>
   <!-- FIN: motion pattern -->
 
+  <!-- INICIO: motion transitions -->
+  <section>
+    <h2 class="rdm-typography--title-large">Transitions</h2>
+    <p class="rdm-typography--body-large">Seis patrones, no cuatro: el conteo
+       de 4 viene de M2. Son datos sin receta numerica (la spec no publica
+       duraciones por patron en web), asi que van en tabla.</p>
+
+    <!-- INICIO: motion transitions table -->
+    <table>
+      <thead>
+        <tr><th>Patron</th><th>Conecta</th><th>Uso tipico</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Container transform</td><td>un elemento con su detalle (card a pagina)</td><td>Cards, listas, search, sheets, FABs, chips</td></tr>
+        <tr><td>Forward and backward</td><td>niveles consecutivos de jerarquia (inbox a hilo)</td><td>Listas, cards, botones, links</td></tr>
+        <tr><td>Lateral</td><td>contenido par del mismo nivel (swipe entre tabs)</td><td>Tabs, carruseles, galerias</td></tr>
+        <tr><td>Top level</td><td>destinos principales (nav bar)</td><td>Nav bar, rail, drawer</td></tr>
+        <tr><td>Enter and exit</td><td>introduce o quita un componente</td><td>Dialogs, menus, snackbars, tooltips</td></tr>
+        <tr><td>Skeleton loaders</td><td>carga temporal a contenido real</td><td>Launch, carga diferida</td></tr>
+      </tbody>
+    </table>
+    <!-- FIN: motion transitions table -->
+
+  </section>
+  <!-- FIN: motion transitions -->
+
+  <!-- INICIO: motion spatial -->
+  <section>
+    <h2 class="rdm-typography--title-large">Spatial model</h2>
+    <p class="rdm-typography--body-large">La direccion de entrada establece
+       el modelo espacial: cada borde es el hogar de lo que entra por el.</p>
+
+    <!-- INICIO: motion spatial table -->
+    <table>
+      <thead>
+        <tr><th>Entra desde</th><th>Componente</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Arriba</td><td>notificacion (el drawer tambien baja de ahi)</td></tr>
+        <tr><td>Izquierda</td><td>nav drawer (ahi vive cuando esta fuera)</td></tr>
+        <tr><td>Abajo</td><td>bottom sheet y teclado (el borde mas alcanzable)</td></tr>
+      </tbody>
+    </table>
+    <!-- FIN: motion spatial table -->
+
+  </section>
+  <!-- FIN: motion spatial -->
+
+  <!-- INICIO: motion notes -->
+  <section>
+    <h2 class="rdm-typography--title-large">Notes</h2>
+    <p class="rdm-typography--body-large">Las transiciones M3 usan el sistema
+       legacy de easing y duracion (lo dice la propia spec); los springs
+       reemplazan al motion de componentes, no a las transiciones. Y nada
+       de <code>scale</code> en Android: implicaria cambio de elevacion y
+       M3 tiene un modelo de elevacion reducido.</p>
+  </section>
+  <!-- FIN: motion notes -->
+
 </main>
 
 <!-- FIN: motion container -->
