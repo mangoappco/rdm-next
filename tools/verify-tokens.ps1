@@ -348,6 +348,17 @@ if (Test-Path $bg) {
 }
 if ($vis -eq 0) { Write-Output "  invisible" } else { $fail++ }
 
+# 22. Chrome compartido: toda pagina .html de raiz linkea showroom.css.
+# Sin el link, una pagina futura reabre el hueco de secciones planas.
+Write-Output ""
+Write-Output "=== Chrome compartido ==="
+$sho = 0
+foreach ($h in (Get-ChildItem "$root\*.html" -ErrorAction SilentlyContinue)) {
+  $t = Read-Css $h.FullName
+  if ($t -notmatch 'css/demo/showroom\.css') { Write-Output ("  SIN CHROME " + $h.Name); $sho++ }
+}
+if ($sho -eq 0) { Write-Output "  todas" } else { $fail++ }
+
 Write-Output ""
 if ($fail -eq 0) { Write-Output "OK: capa de tokens integra" } else { Write-Output ("FALLA: " + $fail + " chequeo(s)") }
 exit $fail

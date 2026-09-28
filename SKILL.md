@@ -193,8 +193,9 @@ powershell -ExecutionPolicy Bypass -File tools/verify-tokens.ps1
 | Chrome fuera de demo | Ningun `css/demo/` pinta `header`/`section`/`main` (la estructura la daran los componentes) |
 | Showroom por componente | Cada `css/comp/*.css` tiene su `<nombre>.html` en la raiz |
 | Grupo invisible | `button-group.css` sin `background-color`, `color`, `border` ni `box-shadow` (container sin visuales) |
+| Chrome compartido | Todo `.html` de raiz linkea `css/demo/showroom.css` (ritmo + divisores) |
 
-Corre en cada commit de la capa de tokens. Estado actual: 21/21 en verde.
+Corre en cada commit de la capa de tokens. Estado actual: 22/22 en verde.
 
 **Leccion v0.5:** el import de `primitives/typography.css` se escribio como
 `../primitives/` (sube un nivel de mas) y la hoja nunca llego al navegador:
@@ -375,6 +376,11 @@ cualquier `@import` relativo roto, probado con archivo temporal.
   + dragged + texto de prueba en vivo. Regla: toda seccion States lleva
   al menos un enabled en vivo (live con pseudo-clase, modificador sin
   ella, tabla si es dato).
+- **v0.25** - Chrome compartido: `css/demo/showroom.css` (ritmo vertical
+  space-400 + divisores outline-variant 1px, sin background-color) linkeado
+  en las 13 paginas. Card descartado como chrome (no es un subject).
+  Check 19 relajado a lo que ya hacia (solo fondo); check 22 nuevo: toda
+  pagina linkea showroom.css, probado contra pagina sin link.
 - **v0.24** - Button group container: `css/comp/button-group.css` (solo
   `display: inline-flex` + gap 2dp) y `button-group.html` (demo Walk/Bike/
   Drive, tabla de medidas, aviso Expressive). Standard no existe en core;
