@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Motion - RDM Next</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Google+Sans:wght@400..700&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="css/rdm-next.css">
+  <link rel="stylesheet" href="css/demo/motion.css">
+</head>
+<body>
+
+<!-- INICIO: motion container -->
+<div class="rdm-container">
+
+<!-- INICIO: motion header -->
+<header>
+  <p class="rdm-typography--label-large"><a href="index.html">RDM Next</a></p>
+  <h1 class="rdm-typography--display-small">Motion</h1>
+  <p class="rdm-typography--body-large">El vendor trae cada curva explotada
+     en 4 puntos sueltos y duraciones sin nombre. Aca estan las 7 curvas
+     compuestas y los 16 alias semanticos. Las curvas se ven en loop:
+     cada punto se mueve distinto.</p>
+</header>
+<!-- FIN: motion header -->
+
+<main>
+
+  <!-- INICIO: motion easings -->
+  <section>
+    <h2 class="rdm-typography--title-large">Easings</h2>
+    <p class="rdm-typography--body-large">Misma duracion (extra-long4, 1000ms
+       en loop) para que solo la curva cambie. Emphasized y standard
+       comparten curva por spec, no es un error.</p>
+
+    <!-- INICIO: motion easing emphasized -->
+    <p class="rdm-typography--title-medium">Emphasized</p>
+    <p class="rdm-typography--body-small"><code>--md-sys-motion-easing-emphasized · cubic-bezier(0.2, 0, 0, 1)</code></p>
+    <div class="demo-motion-track"><div class="demo-motion-dot demo-motion-dot--emphasized"></div></div>
+    <!-- FIN: motion easing emphasized -->
+
+    <!-- INICIO: motion easing emphasized-decelerate -->
+    <p class="rdm-typography--title-medium">Emphasized decelerate</p>
+    <p class="rdm-typography--body-small"><code>--md-sys-motion-easing-emphasized-decelerate · cubic-bezier(0.05, 0.7, 0.1, 1)</code></p>
+    <div class="demo-motion-track"><div class="demo-motion-dot demo-motion-dot--emphasized-decelerate"></div></div>
+    <!-- FIN: motion easing emphasized-decelerate -->
+
+    <!-- INICIO: motion easing emphasized-accelerate -->
+    <p class="rdm-typography--title-medium">Emphasized accelerate</p>
+    <p class="rdm-typography--body-small"><code>--md-sys-motion-easing-emphasized-accelerate · cubic-bezier(0.3, 0, 0.8, 0.15)</code></p>
+    <div class="demo-motion-track"><div class="demo-motion-dot demo-motion-dot--emphasized-accelerate"></div></div>
+    <!-- FIN: motion easing emphasized-accelerate -->
+
+    <!-- INICIO: motion easing standard -->
+    <p class="rdm-typography--title-medium">Standard</p>
+    <p class="rdm-typography--body-small"><code>--md-sys-motion-easing-standard · cubic-bezier(0.2, 0, 0, 1)</code></p>
+    <div class="demo-motion-track"><div class="demo-motion-dot demo-motion-dot--standard"></div></div>
+    <!-- FIN: motion easing standard -->
+
+    <!-- INICIO: motion easing standard-decelerate -->
+    <p class="rdm-typography--title-medium">Standard decelerate</p>
+    <p class="rdm-typography--body-small"><code>--md-sys-motion-easing-standard-decelerate · cubic-bezier(0, 0, 0, 1)</code></p>
+    <div class="demo-motion-track"><div class="demo-motion-dot demo-motion-dot--standard-decelerate"></div></div>
+    <!-- FIN: motion easing standard-decelerate -->
+
+    <!-- INICIO: motion easing standard-accelerate -->
+    <p class="rdm-typography--title-medium">Standard accelerate</p>
+    <p class="rdm-typography--body-small"><code>--md-sys-motion-easing-standard-accelerate · cubic-bezier(0.3, 0, 1, 1)</code></p>
+    <div class="demo-motion-track"><div class="demo-motion-dot demo-motion-dot--standard-accelerate"></div></div>
+    <!-- FIN: motion easing standard-accelerate -->
+
+    <!-- INICIO: motion easing linear -->
+    <p class="rdm-typography--title-medium">Linear</p>
+    <p class="rdm-typography--body-small"><code>--md-sys-motion-easing-linear · cubic-bezier(0, 0, 1, 1)</code></p>
+    <div class="demo-motion-track"><div class="demo-motion-dot demo-motion-dot--linear"></div></div>
+    <!-- FIN: motion easing linear -->
+
+  </section>
+  <!-- FIN: motion easings -->
+
+  <!-- INICIO: motion durations -->
+  <section>
+    <h2 class="rdm-typography--title-large">Durations</h2>
+    <p class="rdm-typography--body-large">Los valores del vendor estan bien;
+       lo que faltaba era el nombre. Son datos, asi que van en tabla.</p>
+
+    <!-- INICIO: motion durations table -->
+    <table>
+      <thead>
+        <tr><th>Alias</th><th>Token</th><th>Valor</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>short1</td><td><code>--md-sys-motion-duration-short1</code></td><td>50ms</td></tr>
+        <tr><td>short2</td><td><code>--md-sys-motion-duration-short2</code></td><td>100ms</td></tr>
+        <tr><td>short3</td><td><code>--md-sys-motion-duration-short3</code></td><td>150ms</td></tr>
+        <tr><td>short4</td><td><code>--md-sys-motion-duration-short4</code></td><td>200ms</td></tr>
+        <tr><td>medium1</td><td><code>--md-sys-motion-duration-medium1</code></td><td>250ms</td></tr>
+        <tr><td>medium2</td><td><code>--md-sys-motion-duration-medium2</code></td><td>300ms</td></tr>
+        <tr><td>medium3</td><td><code>--md-sys-motion-duration-medium3</code></td><td>350ms</td></tr>
+        <tr><td>medium4</td><td><code>--md-sys-motion-duration-medium4</code></td><td>400ms</td></tr>
+        <tr><td>long1</td><td><code>--md-sys-motion-duration-long1</code></td><td>450ms</td></tr>
+        <tr><td>long2</td><td><code>--md-sys-motion-duration-long2</code></td><td>500ms</td></tr>
+        <tr><td>long3</td><td><code>--md-sys-motion-duration-long3</code></td><td>550ms</td></tr>
+        <tr><td>long4</td><td><code>--md-sys-motion-duration-long4</code></td><td>600ms</td></tr>
+        <tr><td>extra-long1</td><td><code>--md-sys-motion-duration-extra-long1</code></td><td>700ms</td></tr>
+        <tr><td>extra-long2</td><td><code>--md-sys-motion-duration-extra-long2</code></td><td>800ms</td></tr>
+        <tr><td>extra-long3</td><td><code>--md-sys-motion-duration-extra-long3</code></td><td>900ms</td></tr>
+        <tr><td>extra-long4</td><td><code>--md-sys-motion-duration-extra-long4</code></td><td>1000ms</td></tr>
+      </tbody>
+    </table>
+    <!-- FIN: motion durations table -->
+
+  </section>
+  <!-- FIN: motion durations -->
+
+  <!-- INICIO: motion pattern -->
+  <section>
+    <h2 class="rdm-typography--title-large">Pattern</h2>
+    <p class="rdm-typography--body-large">La receta que copiara cada
+       componente interactivo: duracion corta con easing standard.
+       Pasa el mouse por encima.</p>
+
+    <!-- INICIO: motion pattern demo -->
+    <div class="demo-motion-pattern">
+      <p class="rdm-typography--title-medium">Hover me</p>
+      <p class="rdm-typography--body-small"><code>transition: background-color var(--md-sys-motion-duration-short3) var(--md-sys-motion-easing-standard)</code></p>
+    </div>
+    <!-- FIN: motion pattern demo -->
+
+  </section>
+  <!-- FIN: motion pattern -->
+
+</main>
+
+<!-- FIN: motion container -->
+</div>
+
+</body>
+</html>

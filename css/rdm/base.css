@@ -11,11 +11,26 @@
 
   Reset box-sizing global (v0.14): el container usa width 100% + padding,
   sin border-box desbordaria.
+
+  Accesibilidad (v0.16): el motion de M3 es el unico fundamento con
+  requisito de accesibilidad. Sin esto, un usuario con
+  prefers-reduced-motion sigue viendo todas las animaciones.
 */
 *,
 *::before,
 *::after {
   box-sizing: border-box;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
 }
 
 body {

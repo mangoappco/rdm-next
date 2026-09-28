@@ -33,6 +33,30 @@
   Figma (0.07999999821186066...). Se sobreescriben con los valores
   exactos de la spec: hover 0.08, focus 0.12, pressed 0.12, dragged
   0.16. Iguales en light y dark, asi que van solo en :root.
+
+  Motion (v0.16): el vendor explota cada curva en 4 puntos de control sueltos
+  (28 tokens, 16 con ruido Figma) y nunca emite la curva compuesta, asi que
+  cada componente tendria que escribir el wrapper cubic-bezier() a mano.
+  Aca se agregan las 7 curvas como valor completo. Los puntos de control NO
+  se sobreescriben: dejan de consumirse, y limpiar 16 tokens que nadie lee
+  seria ruido puro.
+
+  Las 16 duraciones del vendor tienen los valores correctos (verificados
+  contra material-web tokens/versions/v0_192/_md-sys-motion.scss) pero perdieron
+  los nombres semanticos: duration-400 en vez de duration-medium4. El numero
+  no dice cuando usarlo; el nombre si. Se agregan los 16 alias.
+
+  Faltan los 3 easings legacy de M2 (legacy, legacy-accelerate,
+  legacy-decelerate). No se agregan: estan deprecados en M3 y no se construye
+  ningun componente con easing de M2. Queda documentado.
+
+  Nota: emphasized y standard tienen la MISMA curva, cubic-bezier(0.2,0,0,1).
+  No es un error del vendor, lo define asi el spec. No tocar.
+
+  --md-sys-motion-path-standard-path: 1 es basura: el generador de Material
+  Web dice 'Type motion_path is not supported'. El sistema de springs
+  espaciales de M3 no es expresable en CSS puro (no hay easing de resorte);
+  Material Web lo resuelve en JS. Limite real, documentado, no simulado.
 */
 
 :root {
@@ -48,6 +72,33 @@
   --md-sys-state-focus-state-layer-opacity: 0.12;
   --md-sys-state-pressed-state-layer-opacity: 0.12;
   --md-sys-state-dragged-state-layer-opacity: 0.16;
+
+  /* --- Motion: curvas compuestas (el vendor solo trae puntos sueltos) --- */
+  --md-sys-motion-easing-emphasized: cubic-bezier(0.2, 0, 0, 1);
+  --md-sys-motion-easing-emphasized-decelerate: cubic-bezier(0.05, 0.7, 0.1, 1);
+  --md-sys-motion-easing-emphasized-accelerate: cubic-bezier(0.3, 0, 0.8, 0.15);
+  --md-sys-motion-easing-standard: cubic-bezier(0.2, 0, 0, 1);
+  --md-sys-motion-easing-standard-decelerate: cubic-bezier(0, 0, 0, 1);
+  --md-sys-motion-easing-standard-accelerate: cubic-bezier(0.3, 0, 1, 1);
+  --md-sys-motion-easing-linear: cubic-bezier(0, 0, 1, 1);
+
+  /* --- Motion: alias semanticos (el vendor solo trae duration-NNN) --- */
+  --md-sys-motion-duration-short1: var(--md-sys-motion-duration-50);
+  --md-sys-motion-duration-short2: var(--md-sys-motion-duration-100);
+  --md-sys-motion-duration-short3: var(--md-sys-motion-duration-150);
+  --md-sys-motion-duration-short4: var(--md-sys-motion-duration-200);
+  --md-sys-motion-duration-medium1: var(--md-sys-motion-duration-250);
+  --md-sys-motion-duration-medium2: var(--md-sys-motion-duration-300);
+  --md-sys-motion-duration-medium3: var(--md-sys-motion-duration-350);
+  --md-sys-motion-duration-medium4: var(--md-sys-motion-duration-400);
+  --md-sys-motion-duration-long1: var(--md-sys-motion-duration-450);
+  --md-sys-motion-duration-long2: var(--md-sys-motion-duration-500);
+  --md-sys-motion-duration-long3: var(--md-sys-motion-duration-550);
+  --md-sys-motion-duration-long4: var(--md-sys-motion-duration-600);
+  --md-sys-motion-duration-extra-long1: var(--md-sys-motion-duration-700);
+  --md-sys-motion-duration-extra-long2: var(--md-sys-motion-duration-800);
+  --md-sys-motion-duration-extra-long3: var(--md-sys-motion-duration-900);
+  --md-sys-motion-duration-extra-long4: var(--md-sys-motion-duration-1000);
 
   /* --- Base / canvas --- */
   /* surface (neutral99) y surface-variant ya vienen del vendor. Solo dim: */

@@ -235,6 +235,21 @@ foreach ($f in $ownFiles) {
 }
 if ($noi -eq 0) { Write-Output "  limpias" } else { $fail++ }
 
+# 15. Duraciones literales: todo transition/animation en CSS propio pasa
+# por token de motion. El bloque de prefers-reduced-motion se excluye:
+# 0.01ms ahi es el patron estandar de accesibilidad, no una duracion.
+Write-Output ""
+Write-Output "=== Duraciones literales ==="
+$lit = 0
+foreach ($f in $ownFiles) {
+  $t = Read-Css $f.FullName
+  $t = [regex]::Replace($t, '@media\s*\(prefers-reduced-motion:\s*reduce\)\s*\{(?:[^{}]|\{[^{}]*\})*\}', '', 'Singleline')
+  foreach ($m in ([regex]::Matches($t, '(?i)(transition(-duration|-timing-function|-delay)?|animation-duration)\s*:[^;{}]*?\b\d+(\.\d+)?m?s\b'))) {
+    Write-Output ("  LITERAL " + $f.Name + ": " + $m.Groups[0].Value.Trim()); $lit++
+  }
+}
+if ($lit -eq 0) { Write-Output "  ninguna" } else { $fail++ }
+
 Write-Output ""
 if ($fail -eq 0) { Write-Output "OK: capa de tokens integra" } else { Write-Output ("FALLA: " + $fail + " chequeo(s)") }
 exit $fail

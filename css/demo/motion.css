@@ -1,0 +1,74 @@
+/*
+  RDM Next - Estilos SOLO del showroom de motion.html
+  No forman parte de la libreria. Ningun componente los importa.
+  Cada punto usa una curva distinta con la misma duracion (extra-long4,
+  1000ms en loop alternado) para que la diferencia de easing se lea.
+  El patron de transicion es la receta que copiaran los componentes.
+*/
+.demo-motion-track {
+  background-color: var(--md-sys-color-surface-container-high);
+  border-radius: var(--md-sys-shape-corner-medium-default-size);
+  position: relative;
+  height: 4em;
+  margin-bottom: 1em;
+  overflow: hidden;
+}
+
+.demo-motion-dot {
+  position: absolute;
+  top: 1em;
+  left: 1em;
+  width: 2em;
+  height: 2em;
+  border-radius: var(--md-sys-shape-corner-full-default-size);
+  background-color: var(--md-sys-color-primary);
+  animation-name: demo-motion-slide;
+  animation-duration: var(--md-sys-motion-duration-extra-long4);
+  animation-iteration-count: infinite;
+  animation-direction: alternate;
+}
+
+@keyframes demo-motion-slide {
+  from {
+    left: 1em;
+  }
+  to {
+    left: calc(100% - 3em);
+  }
+}
+
+.demo-motion-dot--emphasized {
+  animation-timing-function: var(--md-sys-motion-easing-emphasized);
+}
+.demo-motion-dot--emphasized-decelerate {
+  animation-timing-function: var(--md-sys-motion-easing-emphasized-decelerate);
+}
+.demo-motion-dot--emphasized-accelerate {
+  animation-timing-function: var(--md-sys-motion-easing-emphasized-accelerate);
+}
+.demo-motion-dot--standard {
+  animation-timing-function: var(--md-sys-motion-easing-standard);
+}
+.demo-motion-dot--standard-decelerate {
+  animation-timing-function: var(--md-sys-motion-easing-standard-decelerate);
+}
+.demo-motion-dot--standard-accelerate {
+  animation-timing-function: var(--md-sys-motion-easing-standard-accelerate);
+}
+.demo-motion-dot--linear {
+  animation-timing-function: var(--md-sys-motion-easing-linear);
+}
+
+/* Patron de transicion real: lo que escribira cada componente interactivo. */
+.demo-motion-pattern {
+  background-color: var(--md-sys-color-surface-container-high);
+  color: var(--md-sys-color-on-surface);
+  border-radius: var(--md-sys-shape-corner-medium-default-size);
+  padding: 1em;
+  margin-bottom: 1em;
+  transition: background-color var(--md-sys-motion-duration-short3) var(--md-sys-motion-easing-standard);
+}
+
+.demo-motion-pattern:hover {
+  background-color: var(--md-sys-color-surface-container-highest);
+}

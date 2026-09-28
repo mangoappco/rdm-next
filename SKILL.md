@@ -184,8 +184,9 @@ powershell -ExecutionPolicy Bypass -File tools/verify-tokens.ps1
 | Swatches identicos | Ningun run de 3+ `<div>` consecutivos con la misma clase (si no varia, es tabla) |
 | Container en paginas | Todo `.html` de raiz usa `.rdm-container` (ningun showroom de lado a lado) |
 | State sin ruido | Toda opacidad `--md-sys-state-*-state-layer-opacity` propia vale 0.08, 0.12 o 0.16 exactos (sin ruido Figma) |
+| Motion con tokens | Ningun `transition`/`animation-duration` con duracion literal en CSS propio (todo pasa por token; el bloque reduced-motion se excluye) |
 
-Corre en cada commit de la capa de tokens. Estado actual: 14/14 en verde.
+Corre en cada commit de la capa de tokens. Estado actual: 15/15 en verde.
 
 **Leccion v0.5:** el import de `primitives/typography.css` se escribio como
 `../primitives/` (sube un nivel de mas) y la hoja nunca llego al navegador:
@@ -280,6 +281,21 @@ cualquier `@import` relativo roto, probado con archivo temporal.
   comparacion hover/pressed/dragged y focus con `:focus-visible` + nota
   de Tab. Check 14: opacidades propias exactas (0.08/0.12/0.16),
   probado contra valor con ruido.
+- **v0.16** - Motion: 7 curvas compuestas y 16 alias semanticos de duracion
+  en `additions.css`. Hallazgos: duraciones del vendor correctas pero sin
+  nombre (verificadas contra material-web v0_192), sin token de easing
+  compuesto (cada componente escribiria el wrapper a mano), ruido Figma
+  en 16 puntos de control (no se limpian: dejan de consumirse),
+  motion-path: 1 es basura (el generador dice 'not supported'), emphasized
+  y standard comparten curva por spec, springs espaciales imposibles en CSS
+  puro, y faltaba prefers-reduced-motion (agregado a `base.css`). Deuda
+  de v0.15 saldada: state-layer usa duration-short3 + easing-standard.
+  Short3 es decision de proyecto (M3 no da duracion para state layers),
+  a confirmar al construir Button. `motion.html` con 7 easings animados
+  en loop, tabla de 16 duraciones y patron de transicion real. Check 15:
+  ninguna duracion literal en transition/animation (excluye el bloque
+  reduced-motion: 0.01ms ahi es patron de accesibilidad), probado contra
+  valor literal.
 
 ## 10. Decisiones pendientes
 

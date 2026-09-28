@@ -15,8 +15,9 @@
   Dragged no tiene pseudo-clase en CSS, asi que es modificador
   (.rdm-state-layer--dragged) para estados manejados por JS o demo.
 
-  Transicion 160ms: valor de la libreria anterior, pendiente de mapear
-  a los tokens de motion (ver SKILL, decisiones pendientes).
+  Transicion con tokens de motion (v0.16): short3 por continuidad con el
+  160ms heredado de la libreria anterior, documentado como decision de
+  proyecto pendiente de confirmar contra Material Web al construir Button.
 */
 .rdm-state-layer {
   position: relative;
@@ -29,7 +30,7 @@
   border-radius: inherit;
   pointer-events: none;
   opacity: 0;
-  transition: opacity 160ms ease, background-color 160ms ease;
+  transition: opacity var(--md-sys-motion-duration-short3) var(--md-sys-motion-easing-standard), background-color var(--md-sys-motion-duration-short3) var(--md-sys-motion-easing-standard);
 }
 
 .rdm-state-layer:hover::after {
