@@ -97,11 +97,44 @@
         <p class="rdm-typography--title-large">Album: Viaje al sur</p>
         <p class="rdm-typography--body-medium">12 fotos · actualizado ayer. Toda la card es el link.</p>
       </a>
+      <a href="card.html" aria-disabled="true" class="rdm-card rdm-card--elevated rdm-card--interactive rdm-card--disabled rdm-state-layer">
+        <p class="rdm-typography--title-large">Album: Viaje al norte</p>
+        <p class="rdm-typography--body-medium">8 fotos · archivada. Disabled: sin layer ni interaccion.</p>
+      </a>
     </div>
     <!-- FIN: card interactive demo -->
 
   </section>
   <!-- FIN: card interactive -->
+
+  <hr class="rdm-divider">
+
+  <!-- INICIO: card disabled -->
+  <section>
+    <h2 class="rdm-typography--title-large">Disabled</h2>
+    <p class="rdm-typography--body-large">Container 0.38 por spec (todo el
+       card se atenua); en outlined el borde pasa a outline 12%. Los
+       botones internos van disabled tambien. La interactive disabled
+       lleva aria-disabled (ver Interactive).</p>
+
+    <!-- INICIO: card disabled demo -->
+    <div class="demo-card-spacing">
+      <div class="rdm-card rdm-card--filled rdm-card--disabled">
+        <p class="rdm-typography--title-large">Filled disabled</p>
+        <p class="rdm-typography--title-small">container 0.38</p>
+        <p class="rdm-typography--body-medium">Sin layer ni interaccion.</p>
+        <!-- INICIO: card disabled actions -->
+        <div class="demo-card-actions">
+          <button type="button" disabled class="rdm-button rdm-button--filled rdm-state-layer rdm-typography--label-large">Add to cart</button>
+          <button type="button" disabled class="rdm-button rdm-button--outlined rdm-state-layer rdm-typography--label-large">Learn more</button>
+        </div>
+        <!-- FIN: card disabled actions -->
+      </div>
+    </div>
+    <!-- FIN: card disabled demo -->
+
+  </section>
+  <!-- FIN: card disabled -->
 
   <hr class="rdm-divider">
 
@@ -130,6 +163,52 @@
 
   </section>
   <!-- FIN: card contrast -->
+
+  <hr class="rdm-divider">
+
+  <!-- INICIO: card tokens -->
+  <section>
+    <h2 class="rdm-typography--title-large">Tokens</h2>
+    <p class="rdm-typography--body-large">Valores reales de la tabla de
+       specs de Card (light). Las filas marcadas estan abiertas o son
+       huecos de extraccion, no verdad de spec.</p>
+
+    <!-- INICIO: card tokens enabled -->
+    <table>
+      <thead>
+        <tr><th>Elemento</th><th>Filled</th><th>Elevated</th><th>Outlined</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Container</td><td>#E6E0E9</td><td>#F7F2FA</td><td>#FEF7FF (delta de baseline, ver nota)</td></tr>
+        <tr><td>Elevation</td><td>vacio en el generador</td><td>vacio en el generador</td><td>vacio en el generador</td></tr>
+        <tr><td>Shape</td><td>vacio en el generador</td><td>vacio en el generador</td><td>vacio en el generador</td></tr>
+        <tr><td>Shadow</td><td>#000000</td><td>#000000</td><td>#000000</td></tr>
+        <tr><td>Tint</td><td>#6750A4</td><td>#6750A4</td><td>#6750A4</td></tr>
+        <tr><td>Outline</td><td>—</td><td>—</td><td>1dp #CAC4D0</td></tr>
+        <tr><td>Icon</td><td>#6750A4 24dp</td><td>#6750A4 24dp</td><td>#6750A4 24dp</td></tr>
+      </tbody>
+    </table>
+    <!-- FIN: card tokens enabled -->
+
+    <!-- INICIO: card tokens states -->
+    <table>
+      <thead>
+        <tr><th>Estado</th><th>Layer</th><th>Extra</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Hover</td><td>#1D1B20 0.08</td><td>outlined outline #CAC4D0</td></tr>
+        <tr><td>Focus</td><td>#1D1B20 0.10 (abierto: mantenemos 0.12)</td><td>indicator #625B71 3dp offset 2dp · outlined outline #1D1B20</td></tr>
+        <tr><td>Pressed</td><td>#1D1B20 0.10 (abierto: mantenemos 0.12)</td><td>outlined outline #CAC4D0</td></tr>
+        <tr><td>Dragged</td><td>#1D1B20 0.16</td><td>outlined outline #CAC4D0</td></tr>
+        <tr><td>Disabled</td><td>container 0.38</td><td>outlined outline #79747E 0.12</td></tr>
+      </tbody>
+    </table>
+    <!-- FIN: card tokens states -->
+
+    <p class="rdm-typography--body-medium">Notas: shape y elevation vacios son hueco de extraccion (12dp y sombra 1 verificados por otro lado). Focus indicator reservado para v0.35. El disabled color #FEF7FF del elevated contradice al filled: probable typo del generador.</p>
+
+  </section>
+  <!-- FIN: card tokens -->
 
   <hr class="rdm-divider">
 
@@ -168,7 +247,18 @@
   <!-- INICIO: card anatomy -->
   <section>
     <h2 class="rdm-typography--title-large">Anatomy</h2>
-    <p class="rdm-typography--body-medium">container (unico obligatorio): geometria 12dp y padding 16 · headline + subhead + supporting text: jerarquia por composicion tipografica · actions: 2 botones de texto con 3:1 contra la card, en fila flex con gap 16 · media, thumbnail y video: contenido con scrim si lleva texto encima · dividers: full-width para expandir, inset para separar · overflow menu: pendiente, depende de Menus (no construido)</p>
+    <p class="rdm-typography--body-medium">container (unico obligatorio): geometria 12dp y padding 16 · headline + subhead + supporting text: jerarquia por composicion tipografica · icon: primary 24dp · actions: 2 botones de texto con 3:1 contra la card, en fila flex con gap 16 · media, thumbnail y video: contenido con scrim si lleva texto encima · dividers: full-width para expandir, inset para separar · overflow menu: pendiente, depende de Menus (no construido)</p>
+
+    <!-- INICIO: card icon demo -->
+    <div class="demo-card-spacing">
+      <div class="rdm-card rdm-card--filled">
+        <span class="rdm-icon demo-card-icon" aria-hidden="true">star</span>
+        <p class="rdm-typography--title-large">Headline con icono</p>
+        <p class="rdm-typography--body-medium">El icono de card va en primary a 24dp; .rdm-icon ya mide 24px y el probe demo-card-icon pone el color del specimen.</p>
+      </div>
+    </div>
+    <!-- FIN: card icon demo -->
+
   </section>
   <!-- FIN: card anatomy -->
 

@@ -581,6 +581,23 @@ foreach ($f in (Get-ChildItem "$root\css\comp" -Filter *.css -ErrorAction Silent
 }
 if ($ali -eq 0) { Write-Output "  todos middle" } else { $fail++ }
 
+# 32. Disabled interactivo con contrato: todo .rdm-card--interactive con
+# .rdm-card--disabled lleva aria-disabled="true". El atributo disabled
+# no existe en <a>; sin el contrato el lector no anuncia el estado.
+Write-Output ""
+Write-Output "=== Disabled interactivo con contrato ==="
+$dic = 0
+foreach ($h in (Get-ChildItem "$root\*.html" -ErrorAction SilentlyContinue)) {
+  $t = Read-Css $h.FullName
+  foreach ($m in ([regex]::Matches($t, '(?i)<(div|a)[^>]*>'))) {
+    $tag = $m.Groups[0].Value
+    if ($tag -match 'rdm-card--interactive' -and $tag -match 'rdm-card--disabled' -and $tag -notmatch 'aria-disabled="true"') {
+      Write-Output ("  SIN-CONTRATO " + $h.Name + ": " + $tag.Trim().Substring(0, [Math]::Min(70, $tag.Trim().Length))); $dic++
+    }
+  }
+}
+if ($dic -eq 0) { Write-Output "  todos con contrato" } else { $fail++ }
+
 Write-Output ""
 if ($fail -eq 0) { Write-Output "OK: capa de tokens integra" } else { Write-Output ("FALLA: " + $fail + " chequeo(s)") }
 exit $fail

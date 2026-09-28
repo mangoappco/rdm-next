@@ -50,3 +50,26 @@ a.rdm-card {
   color: var(--md-sys-color-on-surface);
 }
 
+/* Disabled por spec: container 0.38 (todo el card se atenua, incluido
+   el texto) y en outlined el borde pasa a outline 12%. El elevated
+   lista #FEF7FF como color disabled pero contradice al filled: probable
+   typo del generador, no se persigue. Sin layer ni interaccion. */
+.rdm-card--disabled {
+  opacity: 0.38;
+  cursor: not-allowed;
+}
+
+.rdm-card--outlined.rdm-card--disabled {
+  border-color: color-mix(in srgb, var(--md-sys-color-outline) 12%, transparent);
+}
+
+.rdm-card--interactive.rdm-card--disabled {
+  pointer-events: none;
+}
+
+.rdm-card--disabled.rdm-state-layer:hover::after,
+.rdm-card--disabled.rdm-state-layer:focus-visible::after,
+.rdm-card--disabled.rdm-state-layer:active::after {
+  opacity: 0;
+}
+

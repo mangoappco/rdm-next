@@ -16,3 +16,10 @@
   align-items: center;
   gap: var(--rdm-space-200);
 }
+
+/* Probe del color de icono de card: la spec lo pide en primary a 24dp.
+   .rdm-icon ya mide 24px; esto solo pone el color del specimen para
+   ilustrar la composicion. No es API de la libreria. */
+.demo-card-icon {
+  color: var(--md-sys-color-primary);
+}

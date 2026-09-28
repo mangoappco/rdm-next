@@ -16,7 +16,9 @@
   Nota de baseline: surface es #FFFBFE (= neutral99), no #FEF7FF. El vendor
   define surface como var(--md-ref-palette-neutral99) y neutral99 es
   #FFFBFE, asi que este archivo es consistente con el vendor. #FEF7FF
-  pertenece a un baseline mas nuevo con otro seed.
+  pertenece a un baseline mas nuevo con otro seed. La tabla de tokens
+  de Card (v0.34) lista el container outlined en #FEF7FF: mismo delta
+  de baseline, no se persigue.
 
   Tipografia (v0.8): el vendor declara --md-ref-typeface-plain y -brand
   como Roboto. Se sobreescriben a Google Sans (variable, via <link> en
@@ -31,8 +33,11 @@
 
   State (v0.15): el vendor trae las 4 opacidades con ruido binario de
   Figma (0.07999999821186066...). Se sobreescriben con los valores
-  exactos de la spec: hover 0.08, focus 0.12, pressed 0.12, dragged
-  0.16. Iguales en light y dark, asi que van solo en :root.
+  exactos de la spec en ese momento: hover 0.08, focus 0.12, pressed
+  0.12, dragged 0.16. Iguales en light y dark, asi que van solo en
+  :root. Nota (v0.34): la tabla de tokens de Card lista focus/pressed
+  en 0.10; se mantiene 0.12 hasta verificar contra la tabla de Buttons.
+  Una sola fuente no mueve un token fundacional.
 
   Motion (v0.16): el vendor explota cada curva en 4 puntos de control sueltos
   (28 tokens, 16 con ruido Figma) y nunca emite la curva compuesta, asi que

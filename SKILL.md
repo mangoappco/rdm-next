@@ -203,8 +203,9 @@ powershell -ExecutionPolicy Bypass -File tools/verify-tokens.ps1
 | Card en bloque | `.rdm-card` declara `display: block` (un `<a>` inline se fragmenta por line box) |
 | Contraste contenido en card | Todo boton con fondo propio dentro de `.rdm-card--*` da 3:1 (fondo vs fondo) en light y dark, con tokens leidos del arbol real |
 | Inline con caja | Toda regla `inline-*` de `css/comp/` declara `vertical-align: middle`, nunca `baseline` |
+| Disabled interactivo con contrato | Todo `.rdm-card--interactive` con `.rdm-card--disabled` lleva `aria-disabled="true"` |
 
-Corre en cada commit de la capa de tokens. Estado actual: 31/31 en verde.
+Corre en cada commit de la capa de tokens. Estado actual: 32/32 en verde.
 
 **Leccion v0.5:** el import de `primitives/typography.css` se escribio como
 `../primitives/` (sube un nivel de mas) y la hoja nunca llego al navegador:
@@ -395,6 +396,7 @@ cualquier `@import` relativo roto, probado con archivo temporal.
 - **v0.31** - Card fix display: `.rdm-card` con `display: block`. El `<a>` interactive era inline y se fragmentaba por line box (fondo y radio partidos, layer del hover cortado). En `div` es no-op. Check 29: card en bloque, probado quitando la linea. Leccion: medir propiedades no caza cajas rotas; verificar tambien `display`.
 - **v0.32** - Card contrast: action area al modelo M3 (filled + icon standard, sin tonal). Tabla Contrast con ratios medidos del arbol real: tonal 1.00-1.84 y elevated 1.00-1.39 dentro de cards, prohibidos; filled/text/outlined/icon permitidos (borde outline-variant con clausula Caution). Check 30 card-scoped: resuelve palette+themes+additions y exige 3:1 fondo-vs-fondo en ambos temas; el tonal sobre surface pagina (1.26) es baseline M3, no bug. Regla en Rules.
 - **v0.33** - Card actions: 2 botones de texto por card (filled + outlined; outlined en vez de text para no confundirse con linked text del supporting text) + subhead (title-small) en las 3 variants. Fila flex con gap de token 16 en demo (el whitespace de 3px no lo controla ninguna regla). `vertical-align: middle` en los 4 inline (button, icon-button, fab, button-group): el glifo deriva la baseline 8px, middle alinea por caja. Anatomy con las 6 partes; overflow menu pendiente de Menus. Check 31: inline con caja, probado contra regla sin vertical-align.
+- **v0.34** - Card tokens y disabled: seccion Tokens con valores reales de la spec (enabled + states) marcando filas abiertas y huecos de extraccion. `.rdm-card--disabled` (container 0.38, outlined borde outline 12%, sin layer) + demo filled con botones disabled e interactive disabled con aria-disabled. Icono primary 24dp ilustrado en Anatomy con probe demo-card-icon (.rdm-icon ya mide 24px). Comentario falso de state corregido en additions.css (0.10 abierto, se mantiene 0.12) y delta #FEF7FF anotado. Abiertas: focus/pressed 0.10 (espera tabla Buttons), focus indicator reservado v0.35. Check 32: disabled interactivo con contrato, probado sin aria-disabled.
 - **v0.26** - Divider: `css/comp/divider.css` (full/inset/middle-inset/vertical, 1px outline-variant) y `divider.html`. Inset 16 solo izquierda (la tabla dice 16/0, middle 16/16). Chrome migrado: 45 `<hr>` entre secciones (+1 escrito a mano), border-top fuera de showroom.css. Check 23: sin border-top en demo, probado contra borde agregado.
 - **v0.25** - Chrome compartido: `css/demo/showroom.css` (ritmo vertical
   space-400 + divisores outline-variant 1px, sin background-color) linkeado
