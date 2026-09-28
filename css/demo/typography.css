@@ -1,0 +1,13 @@
+/*
+  RDM Next - Estilos SOLO del showroom de typography.html
+  No forman parte de la libreria. Ningun componente los importa.
+  Cada rol es un par nombre+spec: 8px dentro del par, 16px entre
+  specimens. Sin esto los 15 roles colapsan a 0 (reset v0.50).
+*/
+.demo-type + .demo-type {
+  margin-top: var(--rdm-space-200);
+}
+
+.demo-type > p + p {
+  margin-top: var(--rdm-space-100);
+}

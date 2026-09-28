@@ -898,6 +898,25 @@ foreach ($f in (Get-ChildItem "$root\css\demo" -Filter *.css)) {
 }
 if ($rem -eq 0) { Write-Output "  todo con token" } else { $fail++ }
 
+# 46. Specimens tipograficos agrupados: typography.html enlaza su
+# demo/typography.css y cada rol vive en un .demo-type (par nombre +
+# spec). Sin el wrapper los 15 roles colapsan a 0 tras el reset.
+Write-Output ""
+Write-Output "=== Specimens tipograficos ==="
+$typ = 0
+$th = "$root\typography.html"
+$td = "$root\css\demo\typography.css"
+if (-not (Test-Path $th)) { Write-Output "  SIN-PAGINA typography.html"; $typ++ }
+elseif ((Read-Css $th) -notmatch 'css/demo/typography\.css') { Write-Output "  SIN-LINK typography.html"; $typ++ }
+if (-not (Test-Path $td)) { Write-Output "  SIN-DEMO demo/typography.css"; $typ++ }
+else {
+  $t = (Read-Css $td).TrimStart([char]0xFEFF)
+  $t = [regex]::Replace($t, '/\*.*?\*/', '', 'Singleline')
+  if ($t -notmatch '(?m)^\.demo-type \+ \.demo-type\s*\{[^}]*margin-top\s*:\s*var\(--rdm-space-200\)') { Write-Output "  SIN-RITMO demo/typography.css"; $typ++ }
+  if ($t -notmatch '(?m)^\.demo-type > p \+ p\s*\{[^}]*margin-top\s*:\s*var\(--rdm-space-100\)') { Write-Output "  SIN-PAR demo/typography.css"; $typ++ }
+}
+if ($typ -eq 0) { Write-Output "  15 roles agrupados" } else { $fail++ }
+
 Write-Output ""
 if ($fail -eq 0) { Write-Output "OK: capa de tokens integra" } else { Write-Output ("FALLA: " + $fail + " chequeo(s)") }
 exit $fail
