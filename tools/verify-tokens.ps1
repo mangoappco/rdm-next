@@ -861,6 +861,28 @@ if (Test-Path $dcf) {
 } else { Write-Output "  SIN-ARCHIVO demo/card.css"; $far++ }
 if ($far -eq 0) { Write-Output "  fila a la derecha" } else { $fail++ }
 
+# 44. Sin margenes UA: p, h1-h6, ul y ol llevan margin 0 en base.css.
+# El ritmo vertical es 100% de tokens; el UA no gobierna ningun bloque
+# de texto del proyecto.
+Write-Output ""
+Write-Output "=== Sin margenes UA ==="
+$mrg = 0
+$bb = "$root\css\rdm\base.css"
+if (Test-Path $bb) {
+  $t = (Read-Css $bb).TrimStart([char]0xFEFF)
+  $t = [regex]::Replace($t, '/\*.*?\*/', '', 'Singleline')
+  foreach ($el in @("p", "h1", "h2", "h3", "h4", "h5", "h6", "ul", "ol")) {
+    $found = $false
+    foreach ($m in ([regex]::Matches($t, '([^{}]+)\{([^{}]*)\}'))) {
+      $sel = $m.Groups[1].Value
+      $body = $m.Groups[2].Value
+      if ($sel -match ('(?i)(^|[\s,])' + $el + '(?![\w-])') -and $body -match '(?i)margin\s*:\s*0') { $found = $true; break }
+    }
+    if (-not $found) { Write-Output ("  CON-MARGEN " + $el); $mrg++ }
+  }
+} else { Write-Output "  SIN-ARCHIVO base.css"; $mrg++ }
+if ($mrg -eq 0) { Write-Output "  ritmo propio" } else { $fail++ }
+
 Write-Output ""
 if ($fail -eq 0) { Write-Output "OK: capa de tokens integra" } else { Write-Output ("FALLA: " + $fail + " chequeo(s)") }
 exit $fail

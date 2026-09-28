@@ -10,7 +10,7 @@
   rol y ninguna clase es redundante.
 
   Reset box-sizing global (v0.14): el container usa width 100% + padding,
-  sin border-box desbordaria.
+  sin border-box desbordaria. Reset de margenes (v0.50): ver regla.
 
   Accesibilidad (v0.16): el motion de M3 es el unico fundamento con
   requisito de accesibilidad. Sin esto, un usuario con
@@ -20,6 +20,22 @@
 *::before,
 *::after {
   box-sizing: border-box;
+}
+
+/* Reset de margenes UA (v0.50): p, h1-h6, ul y ol traen margin del
+   navegador (1em en p) y el ritmo quedaba mitad nuestro mitad del UA.
+   Con esto el espaciado vertical es 100% de tokens; los bloques de
+   texto se separan con gap donde corresponde (ver .rdm-card-content). */
+p,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+ul,
+ol {
+  margin: 0;
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -40,3 +56,4 @@ body {
   font-size: var(--md-sys-typescale-body-medium-size);
   margin: 0;
 }
+

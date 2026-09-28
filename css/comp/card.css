@@ -1,4 +1,4 @@
-﻿/*
+/*
   RDM Next - Card (v0.30): 3 variantes M3 core, contenido sobre un subject.
   No-actionable por defecto (contiene botones); .rdm-card--interactive
   para target unico SIN botones ni links dentro (HTML invalido si se
@@ -25,8 +25,13 @@
 
 /* Contenido (opcion A): lleva el padding 16. La media queda fuera del
    wrapper para sangrar al borde; el container no lleva padding propio
-   ("size is determined by the elements it contains"). */
+   ("size is determined by the elements it contains"). Flex column con
+   gap 16 entre bloques (stories.ts: .content con gap 16); sin esto el
+   reset de margenes pegaria los bloques de texto. */
 .rdm-card-content {
+  display: flex;
+  flex-direction: column;
+  gap: var(--rdm-space-200);
   padding: var(--rdm-space-200);
 }
 

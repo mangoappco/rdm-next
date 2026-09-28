@@ -227,8 +227,9 @@ powershell -ExecutionPolicy Bypass -File tools/verify-tokens.ps1
 | Elevacion de card | La tabla Elevation de `card.html` coincide con los niveles de material-web (reposo/hover/focus/pressed/dragged por variante) |
 | Vendor con licencia | Todo archivo bajo `vendor/` cubierto por Apache 2.0 (cabecera propia o LICENSE en su carpeta o superiores) |
 | Fila de acciones | `.demo-card-actions` alinea a la derecha con gap de token (decision 15, no literal) |
+| Sin margenes UA | `p`, `h1-h6`, `ul` y `ol` llevan `margin: 0` en `base.css` (ritmo 100% de tokens) |
 
-Corre en cada commit de la capa de tokens. Estado actual: 43/43 en verde.
+Corre en cada commit de la capa de tokens. Estado actual: 44/44 en verde.
 
 **Leccion v0.5:** el import de `primitives/typography.css` se escribio como
 `../primitives/` (sube un nivel de mas) y la hoja nunca llego al navegador:
@@ -433,6 +434,9 @@ cualquier `@import` relativo roto, probado con archivo temporal.
 - **v0.45** - Dos vendors: LICENSE Apache 2.0 copiado byte-exacto + README en material-web-tokens; nota en tokens.css (los .scss nunca se importan); decision 4 extendida (dos procedencias, dos capas, dos generaciones: no se unifican). Check 42: todo archivo bajo vendor/ cubierto por licencia, probado con archivo huerfano.
 - **v0.46** - stories.ts de labs en vendor (byte-exacto, 6278 bytes): confirma padding-16 y gap-16 en content, img height-128 sin aspect-ratio, border-radius inherit y un solo boton filled. Refuta el analisis externo de 3 zonas con flex-end y gap 8 (sin avatar, sin alineacion, sin par tonal+filled). Decisiones 11/14, opcion A y v0.43 suben de diagrama a codigo ejecutable de Google. Sin cambios de CSS ni checks: 42/42.
 - **v0.47** - Referencia visual de anatomia: seccion Anatomy con card compuesta (media + headline + subhead + supporting con linked text + icon + outlined + filled, todo real). Fila a flex-end con gap 8 (decision 15: sin fuente, del 8dp max publicado). Check 43: fila con token, probado con gap literal.
+- **v0.48** - Anatomia en las 3 variantes: misma composicion (media + texto + linked text + icon + outlined + filled), solo cambia el modificador. El action area es identico porque los 3 botones pasan 4.5:1 en las 3 superficies; tonal y elevated fuera por regla. Sin CSS ni checks nuevos: el check 30 ya valida los 9 botones. 43/43.
+- **v0.49** - Rotulos de variante en Anatomy: cada referencia lleva su nombre fuera de la card (title-medium, por convencion de swatches); la composicion interna queda intacta. Sin cambios de CSS ni checks: 43/43.
+- **v0.50** - Reset de margenes UA: p, h1-h6, ul y ol con margin 0 en base.css (el ritmo era mitad UA); content de card a flex column con gap 16 (stories.ts). Rotulos uniformes a 8. Check 44: sin margenes UA, probado quitando el reset. Render en typography, spacing y motion.
 - **v0.48** - Anatomia en las 3 variantes: misma composicion (media + texto + linked text + icon + outlined + filled), solo cambia el modificador. El action area es identico porque los 3 botones pasan 4.5:1 en las 3 superficies; tonal y elevated fuera por regla. Sin CSS ni checks nuevos: el check 30 ya valida los 9 botones. 43/43.
 - **v0.26** - Divider: `css/comp/divider.css` (full/inset/middle-inset/vertical, 1px outline-variant) y `divider.html`. Inset 16 solo izquierda (la tabla dice 16/0, middle 16/16). Chrome migrado: 45 `<hr>` entre secciones (+1 escrito a mano), border-top fuera de showroom.css. Check 23: sin border-top en demo, probado contra borde agregado.
 - **v0.25** - Chrome compartido: `css/demo/showroom.css` (ritmo vertical
