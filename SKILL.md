@@ -92,6 +92,7 @@ que `--icon-only`.
 | 7 | Unidades | `em` en componentes, como la libreria anterior | Consistencia con el proyecto; los tokens usan px (spec) |
 | 8 | Clase base | `.rdm-button` + `.rdm-button--filled`, siempre las dos | La libreria anterior usaba modificadores sin base y selectores `button { }` globales: M3 nunca aplica estilos a etiquetas nativas y sin base habia que duplicar geometria por variante (bug de sincronizacion card/form). La base lleva geometria, tipografia, shape y state layer; la variante solo color y elevacion |
 | 9 | M3 core, no Expressive | **Target M3 core** (vendor pre-2023 + material-web v0.192) | M3 Expressive (May 2025: 5 tamanos, square, shape morph, toggle, springs, padding 16dp) no esta disponible para Web en botones. No somos ancient, somos baseline-matched: 24dp padding, round, small, duration+easing |
+| 10 | Spacing | `--rdm-space-*` con nomenclatura M3 (`space100` = 8dp) | El sistema es spec pero los tokens son Compose-only (Web Unavailable); misma nomenclatura para migracion 1:1 si llegan |
 
 ## 6. Capa de tokens
 
@@ -187,8 +188,9 @@ powershell -ExecutionPolicy Bypass -File tools/verify-tokens.ps1
 | State sin ruido | Toda opacidad `--md-sys-state-*-state-layer-opacity` propia vale 0.08, 0.12 o 0.16 exactos (sin ruido Figma) |
 | Motion con tokens | Ningun `transition`/`animation-duration` con duracion literal en CSS propio (todo pasa por token; el bloque reduced-motion se excluye) |
 | Iconos con primitiva | Ningun HTML usa la clase generica de Google (`.material-symbols-*`); todo icono pasa por `.rdm-icon` |
+| Spacing con tokens | Ningun `padding`/`margin`/`gap` con valor literal en `css/comp/` (todo pasa por `--rdm-space-*`; cero y auto permitidos) |
 
-Corre en cada commit de la capa de tokens. Estado actual: 16/16 en verde.
+Corre en cada commit de la capa de tokens. Estado actual: 17/17 en verde.
 
 **Leccion v0.5:** el import de `primitives/typography.css` se escribio como
 `../primitives/` (sube un nivel de mas) y la hoja nunca llego al navegador:
@@ -319,6 +321,14 @@ cualquier `@import` relativo roto, probado con archivo temporal.
   Motion physics (los springs reemplazan duration+easing; Web convierte
   desde Compose). Retractacion: el padding 24dp NO estaba deprecado,
   16dp es solo Expressive.
+- **v0.19** - Spacing: escala `--rdm-space-*` en `project.css` (0 a 400:
+  recomendados 100-400 mas nested 2/4/6/10 y ejemplos space125/space225,
+  resto por multiplicador). Correccion a v0.14: el sistema SI es spec,
+  los tokens son Compose-only (Web Unavailable). `spacing.html` con tabla,
+  9 barras visuales, modelo padding/gap/margin y consumo por mapeo.
+  Decision #10 en §5 (misma nomenclatura para migracion 1:1). Check 17:
+  ningun padding/margin/gap literal en `css/comp/`, probado contra
+  componente temporal.
 
 ## 10. Decisiones pendientes
 

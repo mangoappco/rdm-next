@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Spacing - RDM Next</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Google+Sans:wght@400..700&display=swap" rel="stylesheet">
+  <!-- Material Symbols recortado: peso 400, sin ejes variables sin uso -->
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@24,400,0,0" rel="stylesheet">
+
+  <link rel="stylesheet" href="css/rdm-next.css">
+  <link rel="stylesheet" href="css/demo/spacing.css">
+</head>
+<body>
+
+<!-- INICIO: spacing container -->
+<div class="rdm-container">
+
+<!-- INICIO: spacing header -->
+<header>
+  <p class="rdm-typography--label-large"><a href="index.html">RDM Next</a></p>
+  <h1 class="rdm-typography--display-small">Spacing</h1>
+  <p class="rdm-typography--body-large">El sistema es spec M3 (baseline 8dp),
+     pero los tokens son Compose-only: Web figura Unavailable. Aca se
+     espeja la nomenclatura en <code>--rdm-space-*</code> para migracion
+     1:1 cuando lleguen.</p>
+</header>
+<!-- FIN: spacing header -->
+
+<main>
+
+  <!-- INICIO: spacing scale -->
+  <section>
+    <h2 class="rdm-typography--title-large">Scale</h2>
+    <p class="rdm-typography--body-large">Recomendados de 100 a 400
+       (multiplos de 8) mas los nested que la spec nombra. La regla del
+       multiplicador cubre el resto: spaceNNN = 8dp x NNN/100.</p>
+
+    <!-- INICIO: spacing scale table -->
+    <table>
+      <thead>
+        <tr><th>Token</th><th>Valor</th><th>Origen</th></tr>
+      </thead>
+      <tbody>
+        <tr><td><code>--rdm-space-0</code></td><td>0</td><td>cero del sistema</td></tr>
+        <tr><td><code>--rdm-space-25</code></td><td>2px</td><td>nested de la spec</td></tr>
+        <tr><td><code>--rdm-space-50</code></td><td>4px</td><td>nested de la spec</td></tr>
+        <tr><td><code>--rdm-space-75</code></td><td>6px</td><td>nested de la spec</td></tr>
+        <tr><td><code>--rdm-space-100</code></td><td>8px</td><td>baseline del sistema</td></tr>
+        <tr><td><code>--rdm-space-125</code></td><td>10px</td><td>nested + ejemplo oficial</td></tr>
+        <tr><td><code>--rdm-space-200</code></td><td>16px</td><td>recomendado (8 x 2)</td></tr>
+        <tr><td><code>--rdm-space-225</code></td><td>18px</td><td>ejemplo del multiplicador</td></tr>
+        <tr><td><code>--rdm-space-300</code></td><td>24px</td><td>recomendado (8 x 3)</td></tr>
+        <tr><td><code>--rdm-space-400</code></td><td>32px</td><td>recomendado (8 x 4)</td></tr>
+      </tbody>
+    </table>
+    <!-- FIN: spacing scale table -->
+
+  </section>
+  <!-- FIN: spacing scale -->
+
+  <!-- INICIO: spacing visual -->
+  <section>
+    <h2 class="rdm-typography--title-large">Visual</h2>
+    <p class="rdm-typography--body-large">Cada barra mide su token exacto.
+       El cero no se dibuja: esta en la tabla.</p>
+
+    <!-- INICIO: spacing bar 25 -->
+    <p class="rdm-typography--title-medium">space-25 · 2px</p>
+    <div class="demo-space-bar demo-space-bar--25"></div>
+    <!-- FIN: spacing bar 25 -->
+
+    <!-- INICIO: spacing bar 50 -->
+    <p class="rdm-typography--title-medium">space-50 · 4px</p>
+    <div class="demo-space-bar demo-space-bar--50"></div>
+    <!-- FIN: spacing bar 50 -->
+
+    <!-- INICIO: spacing bar 75 -->
+    <p class="rdm-typography--title-medium">space-75 · 6px</p>
+    <div class="demo-space-bar demo-space-bar--75"></div>
+    <!-- FIN: spacing bar 75 -->
+
+    <!-- INICIO: spacing bar 100 -->
+    <p class="rdm-typography--title-medium">space-100 · 8px</p>
+    <div class="demo-space-bar demo-space-bar--100"></div>
+    <!-- FIN: spacing bar 100 -->
+
+    <!-- INICIO: spacing bar 125 -->
+    <p class="rdm-typography--title-medium">space-125 · 10px</p>
+    <div class="demo-space-bar demo-space-bar--125"></div>
+    <!-- FIN: spacing bar 125 -->
+
+    <!-- INICIO: spacing bar 200 -->
+    <p class="rdm-typography--title-medium">space-200 · 16px</p>
+    <div class="demo-space-bar demo-space-bar--200"></div>
+    <!-- FIN: spacing bar 200 -->
+
+    <!-- INICIO: spacing bar 225 -->
+    <p class="rdm-typography--title-medium">space-225 · 18px</p>
+    <div class="demo-space-bar demo-space-bar--225"></div>
+    <!-- FIN: spacing bar 225 -->
+
+    <!-- INICIO: spacing bar 300 -->
+    <p class="rdm-typography--title-medium">space-300 · 24px</p>
+    <div class="demo-space-bar demo-space-bar--300"></div>
+    <!-- FIN: spacing bar 300 -->
+
+    <!-- INICIO: spacing bar 400 -->
+    <p class="rdm-typography--title-medium">space-400 · 32px</p>
+    <div class="demo-space-bar demo-space-bar--400"></div>
+    <!-- FIN: spacing bar 400 -->
+
+  </section>
+  <!-- FIN: spacing visual -->
+
+  <!-- INICIO: spacing model -->
+  <section>
+    <h2 class="rdm-typography--title-large">Model</h2>
+    <p class="rdm-typography--body-large">Tres categorias con regla de uso:
+       <strong>padding</strong> (dentro del elemento),
+       <strong>gap</strong> (entre elementos de un grid o contenedor) y
+       <strong>margins</strong> (fuera). Padding y gaps antes que margins:
+       M3 casi no usa margins en componentes. Sin margins en hijos:
+       el espaciado lo declara el padre, que es uniforme y pide menos
+       tokens.</p>
+    <p class="rdm-typography--body-medium">Ejemplo oficial (search): 8dp de
+       padding vertical, 8dp de gaps horizontales, 24dp de margenes
+       (12dp en focus).</p>
+  </section>
+  <!-- FIN: spacing model -->
+
+  <!-- INICIO: spacing consumption -->
+  <section>
+    <h2 class="rdm-typography--title-large">Consumption</h2>
+    <p class="rdm-typography--body-large">Los componentes mapean atributos a
+       tokens del sistema: "Medium button: leading padding" en vez de
+       "leading space". La logica adaptativa (form factor, density) vive
+       en el mapeo, no en el valor. Y el espaciado se mantiene cuando el
+       texto escala al 200%.</p>
+    <p class="rdm-typography--body-medium">Si el token justo no existe, la
+       spec lo permite: se agrega siguiendo el multiplicador.</p>
+  </section>
+  <!-- FIN: spacing consumption -->
+
+</main>
+
+<!-- FIN: spacing container -->
+</div>
+
+</body>
+</html>

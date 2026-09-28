@@ -1,0 +1,41 @@
+/*
+  RDM Next - Estilos SOLO del showroom de spacing.html
+  No forman parte de la libreria. Ningun componente los importa.
+  Cada barra mide exactamente su token: la escala se ve, no se lee.
+  Clases distintas por barra para no caer en el check de swatches
+  identicos (cada ancho es un dato distinto).
+*/
+.demo-space-bar {
+  background-color: var(--md-sys-color-primary-container);
+  height: 1.5em;
+  border-radius: var(--md-sys-shape-corner-extra-small-default-size);
+  margin-bottom: 1em;
+}
+
+.demo-space-bar--25 {
+  width: var(--rdm-space-25);
+}
+.demo-space-bar--50 {
+  width: var(--rdm-space-50);
+}
+.demo-space-bar--75 {
+  width: var(--rdm-space-75);
+}
+.demo-space-bar--100 {
+  width: var(--rdm-space-100);
+}
+.demo-space-bar--125 {
+  width: var(--rdm-space-125);
+}
+.demo-space-bar--200 {
+  width: var(--rdm-space-200);
+}
+.demo-space-bar--225 {
+  width: var(--rdm-space-225);
+}
+.demo-space-bar--300 {
+  width: var(--rdm-space-300);
+}
+.demo-space-bar--400 {
+  width: var(--rdm-space-400);
+}

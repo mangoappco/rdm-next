@@ -263,6 +263,22 @@ foreach ($h in (Get-ChildItem "$root\*.html" -ErrorAction SilentlyContinue)) {
 }
 if ($gen -eq 0) { Write-Output "  ninguna" } else { $fail++ }
 
+# 17. Espaciado literal en componentes: padding/margin/gap de css/comp/
+# pasan por --rdm-space-*. El cero pelado y auto estan permitidos.
+Write-Output ""
+Write-Output "=== Espaciado literal en componentes ==="
+$spl = 0
+$compDir = Join-Path $root "css\comp"
+if (Test-Path $compDir) {
+  foreach ($f in (Get-ChildItem $compDir -Recurse -Filter *.css)) {
+    $t = Read-Css $f.FullName
+    foreach ($m in ([regex]::Matches($t, '(?i)(padding|margin|gap)(-[a-z]+)?\s*:[^;{}]*?\b\d+(\.\d+)?(px|em|rem)\b'))) {
+      Write-Output ("  LITERAL " + $f.Name + ": " + $m.Groups[0].Value.Trim()); $spl++
+    }
+  }
+}
+if ($spl -eq 0) { Write-Output "  ninguno" } else { $fail++ }
+
 Write-Output ""
 if ($fail -eq 0) { Write-Output "OK: capa de tokens integra" } else { Write-Output ("FALLA: " + $fail + " chequeo(s)") }
 exit $fail
