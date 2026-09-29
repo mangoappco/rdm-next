@@ -10,18 +10,22 @@
   elevated) y rejilla completa en vez de solo borde inferior.
   Padding 16/24 con tokens. Ningun valor literal.
 
-  Encabezado con rol title-small en on-surface-variant (v0.71,
-  decision 33: M3 no publica tabla, el rol se elige por ser el
-  encabezado mas chico del sistema; las celdas heredan el
-  body-medium del body sin declarar nada).
+  Rejilla dibujada con el borde de la tabla + right/bottom de las
+  celdas (v0.83): con borde en las 4 celdas, los bordes shared se
+  dibujan dos veces y las juntas se notan. El contorno va en la
+  tabla y las lineas internas solo right/bottom; el inset box-shadow
+  reemplaza al border de la tabla para que el radio medium recorte
+  igual. Con esto los bordes horizontales caen en pixeles enteros.
 
-  Sin columna de grupo: el rowspan es contenido, no estilo, y se
-  agrega tabla por tabla cuando el dato lo pida.
+  Nota sobre el medio pixel: con viewport impar, .rdm-container
+  centrado cae en left 192.5 y las verticales se antialisean. Es del
+  viewport, no de la tabla: el divider (.rdm-divider, fondo de 1px)
+  esta en el mismo 216.5. Se documenta, no se corrige.
 */
 .demo-table {
   width: 100%;
   background-color: var(--md-sys-color-surface-container-lowest);
-  border: 1px solid var(--md-sys-color-outline-variant);
+  box-shadow: inset 0 0 0 1px var(--md-sys-color-outline-variant);
   border-radius: var(--md-sys-shape-corner-medium-default-size);
   border-collapse: separate;
   border-spacing: 0;
@@ -34,7 +38,16 @@
   padding: var(--rdm-measurement-200) var(--rdm-measurement-300);
   text-align: start;
   vertical-align: middle;
-  border: 1px solid var(--md-sys-color-outline-variant);
+  border-right: 1px solid var(--md-sys-color-outline-variant);
+  border-bottom: 1px solid var(--md-sys-color-outline-variant);
+}
+
+.demo-table tr > *:last-child {
+  border-right: none;
+}
+
+.demo-table tbody tr:last-child > * {
+  border-bottom: none;
 }
 
 .demo-table thead th {

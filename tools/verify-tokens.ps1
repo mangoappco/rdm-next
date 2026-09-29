@@ -1470,9 +1470,9 @@ else {
   $t = (Read-Css $tcf).TrimStart([char]0xFEFF)
   $t = [regex]::Replace($t, '/\*.*?\*/', '', 'Singleline')
   if ($t -notmatch '(?m)^\.demo-table\s*\{[^}]*border-radius\s*:\s*var\(--md-sys-shape-corner-medium-default-size\)') { Write-Output "  SIN-RADIO"; $tf++ }
-  if ($t -notmatch '(?m)^\.demo-table\s*\{[^}]*border\s*:\s*1px solid var\(--md-sys-color-outline-variant\)') { Write-Output "  SIN-BORDE"; $tf++ }
+  if ($t -notmatch '(?m)^\.demo-table\s*\{[^}]*box-shadow\s*:\s*inset 0 0 0 1px var\(--md-sys-color-outline-variant\)') { Write-Output "  SIN-BORDE"; $tf++ }
   if ($t -notmatch '(?m)^\.demo-table thead th\s*\{[^}]*background-color\s*:\s*var\(--md-sys-color-surface-container-low\)') { Write-Output "  SIN-FONDO-TH"; $tf++ }
-  if ($t -notmatch '(?m)^\.demo-table th,\s*\n\.demo-table td\s*\{[^}]*border\s*:\s*1px solid var\(--md-sys-color-outline-variant\)') { Write-Output "  SIN-REJILLA"; $tf++ }
+  if ($t -notmatch '(?m)^\.demo-table th,\s*\n\.demo-table td\s*\{[^}]*border-right\s*:\s*1px solid var\(--md-sys-color-outline-variant\)') { Write-Output "  SIN-REJILLA"; $tf++ }
   if ($t -notmatch '(?m)^\.demo-table th,\s*\n\.demo-table td\s*\{[^}]*padding\s*:\s*var\(--rdm-measurement-200\)\s+var\(--rdm-measurement-300\)') { Write-Output "  SIN-PADDING-TOKEN"; $tf++ }
 }
 if ($tf -eq 0) { Write-Output "  formato con tokens" } else { $fail++ }
