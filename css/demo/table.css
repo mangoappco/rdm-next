@@ -10,12 +10,15 @@
   elevated) y rejilla completa en vez de solo borde inferior.
   Padding 16/24 con tokens. Ningun valor literal.
 
-  Rejilla dibujada con el borde de la tabla + right/bottom de las
-  celdas (v0.83): con borde en las 4 celdas, los bordes shared se
-  dibujan dos veces y las juntas se notan. El contorno va en la
-  tabla y las lineas internas solo right/bottom; el inset box-shadow
-  reemplaza al border de la tabla para que el radio medium recorte
-  igual. Con esto los bordes horizontales caen en pixeles enteros.
+  Contorno con `border` real, no inset box-shadow (v0.85): el inset
+  se pinta DEBAJO del fondo de las celdas hijas (orden de pintura
+  CSS), asi que el tinte del th lo tapaba y el borde superior de la
+  tabla quedaba invisible. Con border real la linea va por encima.
+
+  Rejilla con right/bottom de las celdas (v0.83) y sin las reglas
+  de excepcion: con border real en la tabla, el borde derecho de la
+  ultima celda y el inferior de la ultima fila se sobrepondrian al
+  contorno. Se dejan y el grid se ve limpio (medido).
 
   Borde del encabezado en `outline`, no en `outline-variant`
   (v0.84): sobre el tinte surface-container-low el outline-variant
@@ -30,7 +33,7 @@
 .demo-table {
   width: 100%;
   background-color: var(--md-sys-color-surface-container-lowest);
-  box-shadow: inset 0 0 0 1px var(--md-sys-color-outline-variant);
+  border: 1px solid var(--md-sys-color-outline-variant);
   border-radius: var(--md-sys-shape-corner-medium-default-size);
   border-collapse: separate;
   border-spacing: 0;
