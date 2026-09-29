@@ -1177,10 +1177,27 @@ foreach ($c in $comps) {
   $t = Read-Css $h
   foreach ($s in ([regex]::Matches($t, '<section[^>]*>(.*?)</section>', 'Singleline'))) {
     $b = $s.Groups[1].Value
-    if ($b -match '<table[ >]' -and $b -notmatch ('class="' + $c[1] + '[\s"]')) { Write-Output ("  SIN-SPECIMEN " + $c[0] + ".html"); $ej++; break }
+    if ($b -match '<table[ >]' -and $b -notmatch ('class="[^"]*' + $c[1] + '[\s"]')) { Write-Output ("  SIN-SPECIMEN " + $c[0] + ".html"); $ej++; break }
   }
 }
 if ($ej -eq 0) { Write-Output "  tablas con ejemplo" } else { $fail++ }
+
+# 60. Anatomy con specimen (v0.60, decision 22): toda seccion Anatomy
+# de un showroom de componente tiene >=1 specimen del propio
+# componente. La anatomia se muestra compuesta, no se narra.
+Write-Output ""
+Write-Output "=== Anatomy con specimen ==="
+$an = 0
+$comps2 = @(@("button","rdm-button"), @("card","rdm-card"), @("fab","rdm-fab"), @("extended-fab","rdm-extended-fab"), @("icon-button","rdm-icon-button"))
+foreach ($c in $comps2) {
+  $h = "$root\" + $c[0] + ".html"
+  if (-not (Test-Path $h)) { continue }
+  $t = Read-Css $h
+  $m = [regex]::Match($t, '<h2 class="rdm-typography--title-large">Anatomy</h2>(.*?)</section>', 'Singleline')
+  if (-not $m.Success) { Write-Output ("  SIN-SECCION " + $c[0] + ".html"); $an++; continue }
+  if ($m.Groups[1].Value -notmatch ('class="[^"]*' + $c[1] + '[\s"]')) { Write-Output ("  SIN-SPECIMEN " + $c[0] + ".html"); $an++ }
+}
+if ($an -eq 0) { Write-Output "  5 anatomias visuales" } else { $fail++ }
 
 Write-Output ""
 if ($fail -eq 0) { Write-Output "OK: capa de tokens integra" } else { Write-Output ("FALLA: " + $fail + " chequeo(s)") }

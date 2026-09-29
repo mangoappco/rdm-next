@@ -111,6 +111,7 @@ que `--icon-only`.
 | 19 | Contrato de spacing | **Componentes = padding + gap del padre; layouts = margin + spacer. Hijos sin margin jamas** | Spec Do/Don't textual: el padre organiza, los hijos no llevan margin porque no son uniformes y piden mas tokens. El margin no aparece en la lista de conceptos de componentes. divider.css exento: separar es su funcion |
 | 20 | Layout contra la spec actual | **Breakpoints (no window size classes), grid de 8, max-width dentro de expanded** | La spec renombro en mayo 2026 y nuestro layout.html publicaba el vocabulario viejo (3 clases, 12 columnas) con fecha para saber que es spec actual. El 1200 caia en Large; el 1024 vive en expanded. Tokens de breakpoint como limites inferiores (var() no vale en @media) |
 | 21 | Showroom = ejemplos + medidas | **Cada showroom muestra ejemplos de SU componente y sus medidas publicadas. La guia del sistema vive en SKILL.md** | Las secciones de documentacion se cuelan version tras version (Emphasis y Placement tenian 0 specimens). La tabla de medidas se queda porque hace falta para consumir el componente; Audit, Tokens narrados, Rules y notas de derivacion salen al apendice (seccion 11). Check 59 lo custodia |
+| 22 | Anatomy visual | **La anatomia es una referencia compuesta con el componente real, no un parrafo** | Card la tenia visual (35 specimens) y button/fab/extended-fab/icon-button en texto con el mismo nombre. El texto nombraba partes sin mostrarlas (y fab citaba rdm-fab--extended, que no existe como clase). Check 60 lo custodia |
 
 ## 6. Capa de tokens
 
@@ -249,8 +250,9 @@ powershell -ExecutionPolicy Bypass -File tools/verify-tokens.ps1
 | Grid de 8 | `layout.html` publica 8 columnas; el 12 no aparece |
 | Max-width en expanded | `--rdm-layout-max-width` entre 840 y 1199px |
 | Tablas con ejemplo | Toda seccion de showroom de componente con `<table>` tiene >=1 specimen del propio componente (las medidas se muestran, no solo se listan) |
+| Anatomy con specimen | Toda seccion Anatomy tiene >=1 specimen del componente (referencia visual, no parrafo) |
 
-Corre en cada commit de la capa de tokens. Estado actual: 59/59 en verde.
+Corre en cada commit de la capa de tokens. Estado actual: 60/60 en verde.
 
 **Leccion v0.5:** el import de `primitives/typography.css` se escribio como
 `../primitives/` (sube un nivel de mas) y la hoja nunca llego al navegador:
@@ -468,6 +470,7 @@ cualquier `@import` relativo roto, probado con archivo temporal.
 - **v0.57** - Contrato de spacing (decision 19): componentes = padding + gap del padre, layouts = margin + spacer, hijos sin margin jamas (Do/Don't textual de la spec). spacing.html con Model ampliado (listas componente vs layout), seccion Rules, extremos de escala verificados contra el alt (2/4/6/8 y 48/56/64/72 calzan), seccion Spacer con 3 specimens y Audit del boton en button.html (su showroom: cada showroom solo muestra su componente). Conclusion del audit: horizontal coincide, vertical derivado, small falta; se documenta, no se corrige. Nuevo .rdm-spacer en css/rdm/ (400 + 600/900). Check 54: comp sin margin (divider exento), probado con margin trampa. Check 55: spacer con token e import, probado sin import.
 - **v0.58** - Layout contra la spec actual (decision 20): la spec renombro window size classes a breakpoints en mayo 2026. layout.html con 5 breakpoints (tabla oficial con panes), Scaffold (bar/rail/pane sin CSS), Grid de 8 (dato, sin CSS), Margin (definicion + mapeo) y Measure (regla 40-60 + tabla medida: 147 chars a 1200 en body-large). max-width 1200 a 1024 (dentro de expanded) + 4 tokens de breakpoint como limites inferiores. Check 56: 5 breakpoints con anchos, probado sin Large. Check 57: 8 columnas sin 12, probado con 12. Check 58: max-width en expanded, probado con 1300.
 - **v0.59** - Showrooms sin documentacion (decision 21): salen 6 secciones de guia (button Emphasis/Placement/Audit con 0/0/1 specimens, card Rules, button-group Expressive, extended-fab Rules). El contenido se preserva en el apendice (seccion 11). Specimens agregados a las 4 secciones de medidas que no tenian (card Contrast/Tokens/Specs, button-group Measures). Check 59: tabla con ejemplo, probado con seccion sin specimen.
+- **v0.60** - Anatomias visuales (decision 22): las 4 secciones Anatomy en texto pasan a referencia compuesta (button filled con icono, fab en 2 tamanos, extended-fab, icon-button standard + toggle selected). El texto original queda en el apendice. Check 60: Anatomy con specimen, probado sin specimen.
 - **v0.57a** - Fix: el Audit del boton estaba en spacing.html y viola la regla de showroom (cada pagina solo muestra su componente). Movido a button.html como seccion Audit; spacing.html queda con 6 secciones de spacing puro.
 - **v0.48** - Anatomia en las 3 variantes: misma composicion (media + texto + linked text + icon + outlined + filled), solo cambia el modificador. El action area es identico porque los 3 botones pasan 4.5:1 en las 3 superficies; tonal y elevated fuera por regla. Sin CSS ni checks nuevos: el check 30 ya valida los 9 botones. 43/43.
 - **v0.26** - Divider: `css/comp/divider.css` (full/inset/middle-inset/vertical, 1px outline-variant) y `divider.html`. Inset 16 solo izquierda (la tabla dice 16/0, middle 16/16). Chrome migrado: 45 `<hr>` entre secciones (+1 escrito a mano), border-top fuera de showroom.css. Check 23: sin border-top en demo, probado contra borde agregado.
@@ -497,7 +500,7 @@ cualquier `@import` relativo roto, probado con archivo temporal.
 - [x] Button (resuelto en v0.22 con mapeo de la spec; label outlined = primary por codigo de Material Web).
 - [ ] Botones restantes (6 de 10 tipos): icon button, toggle icon button, split button, standard/connected groups, FAB menu. Toggle button es Expressive (fuera de scope). FAB hecho en v0.23.
 - [x] Divider (resuelto en v0.26).
-- [ ] Anatomia inconsistente: la de `card.html` es visual (35 specimens en 3 variantes) pero las de `button`, `extended-fab` e `icon-button` son parrafos de texto. Mismo nombre, dos cosas distintas. Unificar en otro commit, no mezclado con v0.59.
+- [x] Anatomia inconsistente: resuelto en v0.60 (referencia visual compuesta en los 5; el texto original queda en el apendice).
 
 ## 11. Apendice: guia movida de showrooms (v0.59)
 
@@ -544,3 +547,12 @@ Uno por pantalla. No como opcion en un set (ahi van filled buttons). Margenes de
 ### Nota de Expressive (ex `button-group.html`, seccion Expressive)
 
 Standard no existe en M3 core. Connected existe como segmented button, pero la spec lo marca no recomendado. Evitar icon buttons estandar y text buttons: no tienen container treatment.
+
+### Anatomias en texto (originales, ex 4 showrooms)
+
+Reemplazadas en v0.60 por referencia visual compuesta (decision 22). Se preservan porque nombran las partes:
+
+- button: base con geometria (40px, pill, gap 8); variante con color y elevacion; state layer en hover/pressed/focus; etiqueta con label-large; con icono padding 16/24.
+- fab: geometria 56, radio large, primary-container, sombra 3 (hover 4); large 96, radio extra-large, icono 36; extended ancho auto, padding 16/20, gap 12 (nota: rdm-fab--extended no existe como clase, el extendido es su componente); state layer; icono solo con aria-label en el boton.
+- extended-fab: base 56 con sombra; ancho auto, padding 16/20, gap 12; state layer; etiqueta label-large.
+- icon-button: 40px round sin container; variante con color y borde; state layer; aria-label siempre, aria-pressed en toggle; selected por atributo, JS lo alterna.
