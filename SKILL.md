@@ -114,6 +114,7 @@ que `--icon-only`.
 | 22 | Anatomy visual | **La anatomia es una referencia compuesta con el componente real, no un parrafo** | Card la tenia visual (35 specimens) y button/fab/extended-fab/icon-button en texto con el mismo nombre. El texto nombraba partes sin mostrarlas (y fab citaba rdm-fab--extended, que no existe como clase). Check 60 lo custodia |
 | 23 | Menu baseline por pasos | **Baseline (core) por decision 9; menu-item dentro de menu; showroom estatico sin JS** | El vertical es Expressive y no se construye. Lists viene despues: el item del menu no es el item de lista. Apertura y reposicion son comportamiento del producto; el showroom muestra el surface abierto con roles ARIA |
 | 24 | Scaffold temporal del showroom | **Barra minima (marca + index) porque no hay nav rail; el ritmo se define en `showroom.css` con token y bordes opuestos en 0** | Sin rail ni navigation bar no hay navegacion M3 que poner; 16 links en horizontal no son M3. El rail entra cuando exista el componente y la barra se ajusta. El ritmo vuelve con criterio unico y explicito (leccion v0.56: 41px por acumulacion) |
+| 25 | El padre declara el ritmo | **`section` e `intro` con flex + gap con token; ningun hijo declara `margin`** | Do/Don't textual de M3 + precedente del vendor (gap 16 uniforme en stories.ts). Los wrappers no se crean: section, intro, .demo-type y .demo-card-spacing ya existian, solo les faltaba layout. Con gap en el padre, un margin en el hijo sumaria (16+16=32): por eso salen, no por limpieza |
 
 ## 6. Capa de tokens
 
@@ -238,7 +239,7 @@ powershell -ExecutionPolicy Bypass -File tools/verify-tokens.ps1
 | Fila de acciones | `.demo-card-actions` alinea a la derecha con gap de token (decision 15, no literal) |
 | Sin margenes UA | `p`, `h1-h6`, `ul` y `ol` llevan `margin: 0` en `base.css` (ritmo 100% de tokens) |
 | Ritmo con token en demo | Ningun `css/demo/` usa `em` en `margin*` ni `padding*` (heredado de v0.51; desde v0.56 todo `margin` de demo vale 0) |
-| Specimens tipograficos | `typography.html` enlaza su demo CSS y cada rol vive en `.demo-type` (ritmo en cero desde v0.56) |
+| Specimens tipograficos | `typography.html` enlaza su demo CSS y cada rol vive en `.demo-type` (flex + gap 8 del padre, sin reglas en hijos) |
 | Demo CSS por foundation | Las 10 paginas de foundations linkean su `css/demo/<pagina>.css` (`layout.html` era la segunda sin demo CSS) |
 | Escala aritmetica | Todo `--rdm-measurement-NNN` cumple `8 x NNN/100` exacto y estan los 17 (rango 0x-9x + 4 nested + 150/250 propios) |
 | Origen distinguido | La tabla de `spacing.html` marca `measurement-150` y `measurement-250` como extension del proyecto (la spec solo define los nested que usa) |
@@ -256,8 +257,9 @@ powershell -ExecutionPolicy Bypass -File tools/verify-tokens.ps1
 | Container del menu | `.rdm-menu` con min 112, max 280, radio extra-small, surface-container, level2 y padding-block con token |
 | Ritmo con token | Toda declaracion `margin`/`padding` en `showroom.css` usa `var(--rdm-measurement-*)`, sin literales |
 | Estructura | 1 barra y 1 intro por pagina, `h1` dentro de `main` y fuera de la barra |
+| El padre declara | `section` e `intro` con flex + gap con token; ningun hijo declara `margin` en `showroom.css` ni en `demo/` |
 
-Corre en cada commit de la capa de tokens. Estado actual: 63/63 en verde.
+Corre en cada commit de la capa de tokens. Estado actual: 64/64 en verde.
 
 **Leccion v0.5:** el import de `primitives/typography.css` se escribio como
 `../primitives/` (sube un nivel de mas) y la hoja nunca llego al navegador:
@@ -478,6 +480,7 @@ cualquier `@import` relativo roto, probado con archivo temporal.
 - **v0.60** - Anatomias visuales (decision 22): las 4 secciones Anatomy en texto pasan a referencia compuesta (button filled con icono, fab en 2 tamanos, extended-fab, icon-button standard + toggle selected). El texto original queda en el apendice. Check 60: Anatomy con specimen, probado sin specimen.
 - **v0.61** - Menu paso 1, container (decision 23): vendor con los 2 archivos byte-exactos (wrapper + values v0_192). `.rdm-menu` con surface-container, level2, extra-small, min 7rem, max 17.5rem y padding-block con token. menu.html con seccion Container (vacio=min 112, texto largo=max 280) e index enlazado. Check 61: container con medidas, probado sin max-width.
 - **v0.62** - Estructura de showroom (decision 24): barra minima (marca + link a index, sin nav rail) e intro de pagina en main en las 18 paginas. Ritmo con token en showroom.css (barra 32, intro 16, h2 16, p 8, bordes opuestos en 0). Check 52 exime a showroom; nuevos 62 (ritmo con token) y 63 (1 barra + 1 intro, h1 en main), probados sin token y sin intro.
+- **v0.63** - El padre declara el ritmo (decision 25): section con flex + gap 16 e intro con flex + gap 8 en showroom.css; .demo-type y .demo-card-spacing con flex + gap 8. Se borran las 3 reglas de margin en hijos (con gap sumarian). p+p pasa de 8 a 16 (era nuestro, no spec); tablas a ancho completo por stretch. Check 46 al gap del padre; nuevo 64 (padres con gap, hijos sin reglas), probado en ambas direcciones.
 - **v0.57a** - Fix: el Audit del boton estaba en spacing.html y viola la regla de showroom (cada pagina solo muestra su componente). Movido a button.html como seccion Audit; spacing.html queda con 6 secciones de spacing puro.
 - **v0.48** - Anatomia en las 3 variantes: misma composicion (media + texto + linked text + icon + outlined + filled), solo cambia el modificador. El action area es identico porque los 3 botones pasan 4.5:1 en las 3 superficies; tonal y elevated fuera por regla. Sin CSS ni checks nuevos: el check 30 ya valida los 9 botones. 43/43.
 - **v0.26** - Divider: `css/comp/divider.css` (full/inset/middle-inset/vertical, 1px outline-variant) y `divider.html`. Inset 16 solo izquierda (la tabla dice 16/0, middle 16/16). Chrome migrado: 45 `<hr>` entre secciones (+1 escrito a mano), border-top fuera de showroom.css. Check 23: sin border-top en demo, probado contra borde agregado.

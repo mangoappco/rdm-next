@@ -900,8 +900,8 @@ if ($rem -eq 0) { Write-Output "  todo con token" } else { $fail++ }
 
 # 46. Specimens tipograficos agrupados: typography.html enlaza su
 # demo/typography.css y cada rol vive en un .demo-type (par nombre +
-# spec). Ritmo en cero (v0.56): las reglas existen con margin 0, el
-# aire se define despues con reglas de spacing explicitas.
+# spec). Ritmo con gap del padre (v0.63): flex column con gap 8, sin
+# reglas en hijos.
 Write-Output ""
 Write-Output "=== Specimens tipograficos ==="
 $typ = 0
@@ -913,8 +913,8 @@ if (-not (Test-Path $td)) { Write-Output "  SIN-DEMO demo/typography.css"; $typ+
 else {
   $t = (Read-Css $td).TrimStart([char]0xFEFF)
   $t = [regex]::Replace($t, '/\*.*?\*/', '', 'Singleline')
-  if ($t -notmatch '(?m)^\.demo-type \+ \.demo-type\s*\{[^}]*margin-top\s*:\s*0') { Write-Output "  SIN-RITMO demo/typography.css"; $typ++ }
-  if ($t -notmatch '(?m)^\.demo-type > p \+ p\s*\{[^}]*margin-top\s*:\s*0') { Write-Output "  SIN-PAR demo/typography.css"; $typ++ }
+  if ($t -notmatch '(?m)^\.demo-type\s*\{[^}]*display\s*:\s*flex') { Write-Output "  SIN-GAP demo/typography.css"; $typ++ }
+  if ($t -notmatch '(?m)^\.demo-type\s*\{[^}]*gap\s*:\s*var\(--rdm-measurement-100\)') { Write-Output "  SIN-PAR demo/typography.css"; $typ++ }
 }
 if ($typ -eq 0) { Write-Output "  15 roles agrupados" } else { $fail++ }
 
@@ -1257,6 +1257,30 @@ foreach ($h in (Get-ChildItem "$root\*.html" -ErrorAction SilentlyContinue)) {
   if ($m.Success -and $m.Groups[1].Value -match '<h1') { Write-Output ("  H1-EN-BARRA " + $h.Name); $est++ }
 }
 if ($est -eq 0) { Write-Output "  18 paginas con barra e intro" } else { $fail++ }
+
+# 64. El padre declara (v0.63, decision 25): section e intro con flex
+# + gap con token; ningun selector hijo declara margin. Do/Don't de
+# M3: el padre organiza, los hijos no llevan margin.
+Write-Output ""
+Write-Output "=== El padre declara ==="
+$pad = 0
+$t = (Read-Css "$root\css\demo\showroom.css").TrimStart([char]0xFEFF)
+$t = [regex]::Replace($t, '/\*.*?\*/', '', 'Singleline')
+$m = [regex]::Match($t, '(?m)^\.rdm-container section\s*\{([^}]*)\}')
+if (-not $m.Success -or $m.Groups[1].Value -notmatch '(?i)display\s*:\s*flex' -or $m.Groups[1].Value -notmatch 'gap\s*:\s*var\(--rdm-measurement-200\)') { Write-Output "  SIN-GAP section"; $pad++ }
+$m = [regex]::Match($t, '(?m)^\.rdm-showroom-intro\s*\{([^}]*)\}')
+if (-not $m.Success -or $m.Groups[1].Value -notmatch '(?i)display\s*:\s*flex' -or $m.Groups[1].Value -notmatch 'gap\s*:\s*var\(--rdm-measurement-100\)') { Write-Output "  SIN-GAP intro"; $pad++ }
+foreach ($son in @('section\s*>\s*h2\s*\{', 'section\s*>\s*p\b', 'showroom-intro\s*>\s*\*')) {
+  if ($t -match ('(?m)' + $son)) { Write-Output ("  HIJO-CON-REGLA showroom " + $son); $pad++ }
+}
+foreach ($f in (Get-ChildItem "$root\css\demo" -Filter *.css)) {
+  $t = (Read-Css $f.FullName).TrimStart([char]0xFEFF)
+  $t = [regex]::Replace($t, '/\*.*?\*/', '', 'Singleline')
+  foreach ($son in @('demo-type\s*>\s*p\b', 'demo-card-spacing\s*>\s*\*')) {
+    if ($t -match ('(?m)' + $son)) { Write-Output ("  HIJO-CON-REGLA " + $f.Name + " " + $son); $pad++ }
+  }
+}
+if ($pad -eq 0) { Write-Output "  padres con gap, hijos sin reglas" } else { $fail++ }
 
 Write-Output ""
 if ($fail -eq 0) { Write-Output "OK: capa de tokens integra" } else { Write-Output ("FALLA: " + $fail + " chequeo(s)") }

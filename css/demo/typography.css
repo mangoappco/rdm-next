@@ -1,8 +1,8 @@
 /*
   RDM Next - Estilos SOLO del showroom de typography.html
   No forman parte de la libreria. Ningun componente los importa.
-  Cada rol es un par nombre+spec. Ritmo en cero (v0.56): el aire
-  se define despues con reglas de spacing explicitas.
+  Cada rol es un par nombre+spec con gap 8 declarado por el padre
+  (v0.63, decision 25). Entre specimens, el gap 16 lo pone la section.
   El ritmo es plano a proposito (decision 16): M3 publica 5
   propiedades por rol (font, size, weight, line-height, tracking) y
   cero spacing; su half-leading es absoluto-plano (2-4px) con ratio
@@ -10,10 +10,8 @@
   contra M3. La tabla de ratios usa el patron compartido
   (css/demo/table.css).
 */
-.demo-type + .demo-type {
-  margin-top: 0;
-}
-
-.demo-type > p + p {
-  margin-top: 0;
+.demo-type {
+  display: flex;
+  flex-direction: column;
+  gap: var(--rdm-measurement-100);
 }

@@ -1,13 +1,14 @@
 /*
   RDM Next - Estilos SOLO del showroom de card.html
   No forman parte de la libreria. Ningun componente los importa.
-  Solo separacion entre specimens: el componente no trae margen porque
-  el margen es layout de pagina, no del card.
+  Solo separacion entre specimens con gap del padre (v0.63): el
+  componente no trae margen porque el margen es layout de pagina,
+  no del card.
 */
-.demo-card-spacing > * + * {
-  /* Ritmo en cero (v0.56): el 8dp max entre cards de la spec se aplica
-     cuando se definan las reglas de spacing, no por defecto. */
-  margin-top: 0;
+.demo-card-spacing {
+  display: flex;
+  flex-direction: column;
+  gap: var(--rdm-measurement-100);
 }
 
 /* Fila de acciones: flex, botones a la derecha y gap de token (decision
