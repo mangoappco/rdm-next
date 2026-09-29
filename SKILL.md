@@ -117,6 +117,7 @@ que `--icon-only`.
 | 25 | El padre declara el ritmo | **`section` e `intro` con flex + gap con token; ningun hijo declara `margin`** | Do/Don't textual de M3 + precedente del vendor (gap 16 uniforme en stories.ts). Los wrappers no se crean: section, intro, .demo-type y .demo-card-spacing ya existian, solo les faltaba layout. Con gap en el padre, un margin en el hijo sumaria (16+16=32): por eso salen, no por limpieza |
 | 26 | Divider con medidas de spec | **Vendor (color + thickness) + tabla de medidas; top-8 simetrico y vertical inline-8 como decisiones; 4dp y right-8 pendientes de Lists** | El vendor no trae geometria: todo margen sale de la tabla. La spec publica bottom 8; el top iguala por lectura simetrica. El 4dp a supporting-text y el right 8dp son del diagrama en contexto de lista, no de la base: forzarlos romperia inset (right 0) y full-width |
 | 27 | Aire de layout vs respiracion del componente | **`main > hr` con margin de layout; el 8/8 del componente intacto** | El hr entre secciones juega dos roles: linea (componente) y separacion (layout). Envolverlo en divs es churn en 18 archivos; una regla de contexto hace lo mismo. `main > hr` alcanza solo separadores (specimens y nav fuera). Total 33 sin superar los 32 de barra a main |
+| 28 | Indice por dependencia (dogfooding) | **Divider tras foundations; inputs por dependencia; menu antes que Lists** | Divider es componente M3 (no primitiva ni foundation): sube solo en el indice, `css/comp/divider.css` no se mueve. Checkbox/radio/switch no piden nada; select pide text field + menu. Menu define su propio MenuItem (vendor: paquetes separados). Limpia contaminacion externa: Paper es MUI, Badge fuera de scope, ciclo Select/Menu |
 
 ## 6. Capa de tokens
 
@@ -180,14 +181,24 @@ fusiono ahi) y `elevated` usa `surface-container-low`.
 ## 7. Orden de construccion de componentes
 
 Por dependencia y apalancamiento, uno por vez. Button primero: su anatomia
-la copian text field, FAB y los actions de card.
+la copian text field, FAB y los actions de card. Divider sube tras
+foundations: cero dependencias y lo consumen card, menu y lists.
 
 ```
+Base components: divider (sin dependencias; antes de sus consumidores)
 Actions: button (+ icon-only, FAB, destructive)
-Inputs: text field, select, checkbox, radio, switch, file input
-Containment: list, card, dialog, snackbar
+Inputs: checkbox, radio, switch (cero deps) -> text field -> select (pide text field + menu) -> file input
+Containment: card, menu (menu-item propio, no list-item: decision 23), list, dialog, snackbar
 Navigation: top bar, nav bar, drawer, rail, tabs
 ```
+
+Notas: `Destructive` enlaza a `button.html` a proposito (modificador sin
+pagina propia, plantilla de §4), no es duplicado. Menu va antes que List:
+en el vendor `menu/` y `list/` son paquetes separados y menu define su
+propio `MenuItem` (solo comparte el tipo `ListItem`). Correcciones a un
+analisis externo: `Paper` no existe en M3 (es vocabulario de MUI), Badge
+esta fuera de scope, y su esquema se contradice solo (Select en capa 3
+pidiendo Menu de capa 4).
 
 ## 8. Verificacion
 
@@ -487,6 +498,7 @@ cualquier `@import` relativo roto, probado con archivo temporal.
 - **v0.63** - El padre declara el ritmo (decision 25): section con flex + gap 16 e intro con flex + gap 8 en showroom.css; .demo-type y .demo-card-spacing con flex + gap 8. Se borran las 3 reglas de margin en hijos (con gap sumarian). p+p pasa de 8 a 16 (era nuestro, no spec); tablas a ancho completo por stretch. Check 46 al gap del padre; nuevo 64 (padres con gap, hijos sin reglas), probado en ambas direcciones.
 - **v0.64** - Divider con medidas de spec (decision 26): vendor con wrapper (878b) + values (720b) byte-exactos; cero cambios de valores (ya coincidian). Comentario documentando top-8 simetrico y vertical inline-8 como decisiones. Tabla Measures con Estado (4 coinciden, 2 pendientes Lists). Check 65: 7 pares medida/flag, probado sin inset.
 - **v0.65** - Aire entre secciones (decision 27): `main > hr.rdm-divider` con margin-block 200 en showroom.css (total 33). El 8/8 del componente intacto; specimens y nav fuera por selector. Check 66: aire de layout, probado sin regla.
+- **v0.66** - Indice por dependencia (decision 28): Divider sale de Containment a seccion propia `Base components` tras foundations (solo indice, el CSS no se mueve). Inputs por dependencia (checkbox/radio/switch primero, select ultimo). Containment con menu antes que Lists. Sin check nuevo: reordenacion de indice y docs; 66/66.
 - **v0.57a** - Fix: el Audit del boton estaba en spacing.html y viola la regla de showroom (cada pagina solo muestra su componente). Movido a button.html como seccion Audit; spacing.html queda con 6 secciones de spacing puro.
 - **v0.48** - Anatomia en las 3 variantes: misma composicion (media + texto + linked text + icon + outlined + filled), solo cambia el modificador. El action area es identico porque los 3 botones pasan 4.5:1 en las 3 superficies; tonal y elevated fuera por regla. Sin CSS ni checks nuevos: el check 30 ya valida los 9 botones. 43/43.
 - **v0.26** - Divider: `css/comp/divider.css` (full/inset/middle-inset/vertical, 1px outline-variant) y `divider.html`. Inset 16 solo izquierda (la tabla dice 16/0, middle 16/16). Chrome migrado: 45 `<hr>` entre secciones (+1 escrito a mano), border-top fuera de showroom.css. Check 23: sin border-top en demo, probado contra borde agregado.
