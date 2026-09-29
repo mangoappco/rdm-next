@@ -11,8 +11,9 @@ function Read-Css($path) {
   return [System.Text.Encoding]::UTF8.GetString([System.IO.File]::ReadAllBytes($path))
 }
 
-# 1. Definiciones propias (css/, excluye vendor/) vs usadas
-$ownFiles = Get-ChildItem "$root\css" -Recurse -Filter *.css
+# 1. Definiciones propias (css/, excluye vendor/) vs usadas.
+# El bundle es generado, no fuente: fuera (lo custodia el check 69).
+$ownFiles = Get-ChildItem "$root\css" -Recurse -Filter *.css | Where-Object { $_.Name -ne 'rdm-next.bundle.css' }
 $defined = @{}
 foreach ($f in $ownFiles) {
   $t = Read-Css $f.FullName
@@ -1374,6 +1375,34 @@ foreach ($h in (Get-ChildItem "$root\*.html" -ErrorAction SilentlyContinue)) {
   if ($m.Success) { Write-Output ("  CON-ESTADO " + $h.Name); $au++ }
 }
 if ($au -eq 0) { Write-Output "  medidas sin auditoria" } else { $fail++ }
+
+# 69. Bundle servido (v0.70, decision 32): las paginas linkean el bundle
+# con ?v= maxima de SKILL; el bundle trae cada comp vigente (si tocas
+# CSS sin regenerar, falla).
+Write-Output ""
+Write-Output "=== Bundle servido ==="
+$bu = 0
+$bff = "$root\css\rdm-next.bundle.css"
+if (-not (Test-Path $bff)) { Write-Output "  SIN-BUNDLE css/rdm-next.bundle.css"; $bu++ }
+else {
+  $bb = Read-Css $bff
+  foreach ($c in (Get-ChildItem "$root\css\comp" -Filter *.css -ErrorAction SilentlyContinue)) {
+    if ($bb -notmatch [regex]::Escape($c.Name)) { Write-Output ("  SIN-" + $c.BaseName.ToUpper() + " en bundle"); $bu++ }
+  }
+  $skb = Read-Css "$root\SKILL.md"
+  $mx = 0; $vv = ''
+  foreach ($m in [regex]::Matches($skb, '- \*\*v(\d+)\.(\d+)\*\*')) {
+    $v = [int]$m.Groups[1].Value * 1000 + [int]$m.Groups[2].Value
+    if ($v -gt $mx) { $mx = $v; $vv = $m.Groups[1].Value + '.' + $m.Groups[2].Value }
+  }
+  foreach ($h in (Get-ChildItem "$root\*.html" -ErrorAction SilentlyContinue)) {
+    $t = Read-Css $h.FullName
+    $mh = [regex]::Match($t, 'rdm-next\.bundle\.css\?v=([\d.]+)')
+    if (-not $mh.Success) { Write-Output ("  SIN-BUNDLE-LINK " + $h.Name); $bu++ }
+    elseif ($mh.Groups[1].Value -ne $vv) { Write-Output ("  VIEJO " + $h.Name + " (v" + $mh.Groups[1].Value + ", SKILL v" + $vv + ")"); $bu++ }
+  }
+}
+if ($bu -eq 0) { Write-Output "  bundle vigente" } else { $fail++ }
 
 Write-Output ""
 if ($fail -eq 0) { Write-Output "OK: capa de tokens integra" } else { Write-Output ("FALLA: " + $fail + " chequeo(s)") }

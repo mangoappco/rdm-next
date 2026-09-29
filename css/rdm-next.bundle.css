@@ -1,0 +1,2599 @@
+/* ===== rdm-next.css ===== */
+/*
+  RDM Next - Entry del proyecto
+  Los imports de comp/* se agregan aqui a medida que se construye cada
+  componente. Orden: tokens (md) -> primitivas -> componentes (comp) ->
+  proyecto (rdm).
+*/
+/* ===== md\tokens.css ===== */
+/*
+  RDM Next - Entry de la capa de tokens M3
+  Orden = dependencias: ref no importa nada, sys lee ref.
+  Los @import son relativos a este archivo (css/md/).
+
+  colors.css del vendor se omite a proposito: no define tokens, son clases
+  de demostracion (.primary, .surface...) que colisionarian con el markup
+  del showroom. Verificado: 0 custom properties en ese archivo.
+
+  vendor/material-web-tokens/ (.scss de labs/card v0_192) es solo
+  referencia de auditoria: Sass no corre en el navegador y esos archivos
+  nunca se importan. Ver su README.
+*/
+/* ===== ..\vendor\material-tokens\css\palette.css ===== */
+/*
+ Copyright 2016 Google Inc. All rights reserved.
+
+ Licensed under the Apache License, Version 2.0 (the "License");
+ you may not use this file except in compliance with the License.
+ You may obtain a copy of the License at
+
+     http://www.apache.org/licenses/LICENSE-2.0
+
+ Unless required by applicable law or agreed to in writing, software
+ distributed under the License is distributed on an "AS IS" BASIS,
+ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ See the License for the specific language governing permissions and
+ limitations under the License.
+*/
+
+:root {
+  /* Error 0 */
+  --md-ref-palette-error0: #000000ff;
+  /* Error 10 */
+  --md-ref-palette-error10: #410e0bff;
+  /* Error 20 */
+  --md-ref-palette-error20: #601410ff;
+  /* Error 30 */
+  --md-ref-palette-error30: #8c1d18ff;
+  /* Error 40 */
+  --md-ref-palette-error40: #b3261eff;
+  /* Error 50 */
+  --md-ref-palette-error50: #dc362eff;
+  /* Error 60 */
+  --md-ref-palette-error60: #e46962ff;
+  /* Error 70 */
+  --md-ref-palette-error70: #ec928eff;
+  /* Error 80 */
+  --md-ref-palette-error80: #f2b8b5ff;
+  /* Error 90 */
+  --md-ref-palette-error90: #f9dedcff;
+  /* Error 95 */
+  --md-ref-palette-error95: #fceeeeff;
+  /* Error 99 */
+  --md-ref-palette-error99: #fffbf9ff;
+  /* Error 100 */
+  --md-ref-palette-error100: #ffffffff;
+  /* Tertiary 0 */
+  --md-ref-palette-tertiary0: #000000ff;
+  /* Tertiary 10 */
+  --md-ref-palette-tertiary10: #31111dff;
+  /* Tertiary 20 */
+  --md-ref-palette-tertiary20: #492532ff;
+  /* Tertiary 30 */
+  --md-ref-palette-tertiary30: #633b48ff;
+  /* Tertiary 40 */
+  --md-ref-palette-tertiary40: #7d5260ff;
+  /* Tertiary 50 */
+  --md-ref-palette-tertiary50: #986977ff;
+  /* Tertiary 60 */
+  --md-ref-palette-tertiary60: #b58392ff;
+  /* Tertiary 70 */
+  --md-ref-palette-tertiary70: #d29dacff;
+  /* Tertiary 80 */
+  --md-ref-palette-tertiary80: #efb8c8ff;
+  /* Tertiary 90 */
+  --md-ref-palette-tertiary90: #ffd8e4ff;
+  /* Tertiary 95 */
+  --md-ref-palette-tertiary95: #ffecf1ff;
+  /* Tertiary 99 */
+  --md-ref-palette-tertiary99: #fffbfaff;
+  /* Tertiary 100 */
+  --md-ref-palette-tertiary100: #ffffffff;
+  /* Secondary 0 */
+  --md-ref-palette-secondary0: #000000ff;
+  /* Secondary 10 */
+  --md-ref-palette-secondary10: #1d192bff;
+  /* Secondary 20 */
+  --md-ref-palette-secondary20: #332d41ff;
+  /* Secondary 30 */
+  --md-ref-palette-secondary30: #4a4458ff;
+  /* Secondary 40 */
+  --md-ref-palette-secondary40: #625b71ff;
+  /* Secondary 50 */
+  --md-ref-palette-secondary50: #7a7289ff;
+  /* Secondary 60 */
+  --md-ref-palette-secondary60: #958da5ff;
+  /* Secondary 70 */
+  --md-ref-palette-secondary70: #b0a7c0ff;
+  /* Secondary 80 */
+  --md-ref-palette-secondary80: #ccc2dcff;
+  /* Secondary 90 */
+  --md-ref-palette-secondary90: #e8def8ff;
+  /* Secondary 95 */
+  --md-ref-palette-secondary95: #f6edffff;
+  /* Secondary 99 */
+  --md-ref-palette-secondary99: #fffbfeff;
+  /* Secondary 100 */
+  --md-ref-palette-secondary100: #ffffffff;
+  /* Primary 0 */
+  --md-ref-palette-primary0: #000000ff;
+  /* Primary 10 */
+  --md-ref-palette-primary10: #21005dff;
+  /* Primary 20 */
+  --md-ref-palette-primary20: #381e72ff;
+  /* Primary 30 */
+  --md-ref-palette-primary30: #4f378bff;
+  /* Primary 40 */
+  --md-ref-palette-primary40: #6750a4ff;
+  /* Primary 50 */
+  --md-ref-palette-primary50: #7f67beff;
+  /* Primary 60 */
+  --md-ref-palette-primary60: #9a82dbff;
+  /* Primary 70 */
+  --md-ref-palette-primary70: #b69df8ff;
+  /* Primary 80 */
+  --md-ref-palette-primary80: #d0bcffff;
+  /* Primary 90 */
+  --md-ref-palette-primary90: #eaddffff;
+  /* Primary 95 */
+  --md-ref-palette-primary95: #f6edffff;
+  /* Primary 99 */
+  --md-ref-palette-primary99: #fffbfeff;
+  /* Primary 100 */
+  --md-ref-palette-primary100: #ffffffff;
+  /* Neutral Variant 0 */
+  --md-ref-palette-neutral-variant0: #000000ff;
+  /* Neutral Variant 10 */
+  --md-ref-palette-neutral-variant10: #1d1a22ff;
+  /* Neutral Variant 20 */
+  --md-ref-palette-neutral-variant20: #322f37ff;
+  /* Neutral Variant 30 */
+  --md-ref-palette-neutral-variant30: #49454fff;
+  /* Neutral Variant 40 */
+  --md-ref-palette-neutral-variant40: #605d66ff;
+  /* Neutral Variant 50 */
+  --md-ref-palette-neutral-variant50: #79747eff;
+  /* Neutral Variant 60 */
+  --md-ref-palette-neutral-variant60: #938f99ff;
+  /* Neutral Variant 70 */
+  --md-ref-palette-neutral-variant70: #aea9b4ff;
+  /* Neutral Variant 80 */
+  --md-ref-palette-neutral-variant80: #cac4d0ff;
+  /* Neutral Variant 90 */
+  --md-ref-palette-neutral-variant90: #e7e0ecff;
+  /* Neutral Variant 95 */
+  --md-ref-palette-neutral-variant95: #f5eefaff;
+  /* Neutral Variant 99 */
+  --md-ref-palette-neutral-variant99: #fffbfeff;
+  /* Neutral Variant 100 */
+  --md-ref-palette-neutral-variant100: #ffffffff;
+  /* Neutral 0 */
+  --md-ref-palette-neutral0: #000000ff;
+  /* Neutral 10 */
+  --md-ref-palette-neutral10: #1c1b1fff;
+  /* Neutral 20 */
+  --md-ref-palette-neutral20: #313033ff;
+  /* Neutral 30 */
+  --md-ref-palette-neutral30: #484649ff;
+  /* Neutral 40 */
+  --md-ref-palette-neutral40: #605d62ff;
+  /* Neutral 50 */
+  --md-ref-palette-neutral50: #787579ff;
+  /* Neutral 60 */
+  --md-ref-palette-neutral60: #939094ff;
+  /* Neutral 70 */
+  --md-ref-palette-neutral70: #aeaaaeff;
+  /* Neutral 80 */
+  --md-ref-palette-neutral80: #c9c5caff;
+  /* Neutral 90 */
+  --md-ref-palette-neutral90: #e6e1e5ff;
+  /* Neutral 95 */
+  --md-ref-palette-neutral95: #f4eff4ff;
+  /* Neutral 99 */
+  --md-ref-palette-neutral99: #fffbfeff;
+  /* Neutral 100 */
+  --md-ref-palette-neutral100: #ffffffff;
+  /* Black */
+  --md-ref-palette-black: #000000ff;
+  /* White */
+  --md-ref-palette-white: #ffffffff;
+}
+/* ===== ..\vendor\material-tokens\css\typography.css ===== */
+/*
+ Copyright 2016 Google Inc. All rights reserved.
+
+ Licensed under the Apache License, Version 2.0 (the "License");
+ you may not use this file except in compliance with the License.
+ You may obtain a copy of the License at
+
+     http://www.apache.org/licenses/LICENSE-2.0
+
+ Unless required by applicable law or agreed to in writing, software
+ distributed under the License is distributed on an "AS IS" BASIS,
+ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ See the License for the specific language governing permissions and
+ limitations under the License.
+*/
+
+/* This file is generated */
+
+/* DO NOT EDIT */
+
+:root {
+  /* Label Small */
+  --md-sys-typescale-label-small-text-transform: unset;
+  --md-sys-typescale-label-small-axis-value: unset;
+  --md-sys-typescale-label-small-font-style: unset;
+  --md-sys-typescale-label-small-text-decoration: unset;
+  /* Label Small line height */
+  --md-sys-typescale-label-small-line-height-value: 16px;
+  --md-sys-typescale-label-small-line-height-unit: 2px;
+  --md-sys-typescale-label-small-line-height: 16px;
+  /* Label Small font tracking */
+  --md-sys-typescale-label-small-tracking-value: 0.5px;
+  --md-sys-typescale-label-small-tracking-unit: 2px;
+  --md-sys-typescale-label-small-tracking: 0.5px;
+  /* Label Small font size */
+  --md-sys-typescale-label-small-size-value: 11px;
+  --md-sys-typescale-label-small-size-unit: 2px;
+  --md-sys-typescale-label-small-size: 11px;
+  /* Label Small font weight */
+  --md-sys-typescale-label-small-weight: var(--md-ref-typeface-weight-medium);
+  /* Label Small font name */
+  --md-sys-typescale-label-small-font: var(--md-ref-typeface-plain);
+  /* Label Medium */
+  --md-sys-typescale-label-medium-axis-value: unset;
+  --md-sys-typescale-label-medium-font-style: unset;
+  --md-sys-typescale-label-medium-text-decoration: unset;
+  /* Label Medium text transform */
+  --md-sys-typescale-label-medium-text-transform: 1;
+  /* Label Medium line height */
+  --md-sys-typescale-label-medium-line-height-value: 16px;
+  --md-sys-typescale-label-medium-line-height-unit: 2px;
+  --md-sys-typescale-label-medium-line-height: 16px;
+  /* Label Medium font tracking */
+  --md-sys-typescale-label-medium-tracking-value: 0.5px;
+  --md-sys-typescale-label-medium-tracking-unit: 2px;
+  --md-sys-typescale-label-medium-tracking: 0.5px;
+  /* Label Medium font size */
+  --md-sys-typescale-label-medium-size-value: 12px;
+  --md-sys-typescale-label-medium-size-unit: 2px;
+  --md-sys-typescale-label-medium-size: 12px;
+  /* Label Medium font weight */
+  --md-sys-typescale-label-medium-weight: var(--md-ref-typeface-weight-medium);
+  /* Label Medium font name */
+  --md-sys-typescale-label-medium-font: var(--md-ref-typeface-plain);
+  /* Label Large */
+  --md-sys-typescale-label-large-text-transform: unset;
+  --md-sys-typescale-label-large-axis-value: unset;
+  --md-sys-typescale-label-large-font-style: unset;
+  --md-sys-typescale-label-large-text-decoration: unset;
+  /* Label Large line height */
+  --md-sys-typescale-label-large-line-height-value: 20px;
+  --md-sys-typescale-label-large-line-height-unit: 2px;
+  --md-sys-typescale-label-large-line-height: 20px;
+  /* Label Large font tracking */
+  --md-sys-typescale-label-large-tracking-value: 0.10000000149011612px;
+  --md-sys-typescale-label-large-tracking-unit: 2px;
+  --md-sys-typescale-label-large-tracking: 0.10000000149011612px;
+  /* Label Large font size */
+  --md-sys-typescale-label-large-size-value: 14px;
+  --md-sys-typescale-label-large-size-unit: 2px;
+  --md-sys-typescale-label-large-size: 14px;
+  /* Label Large font weight */
+  --md-sys-typescale-label-large-weight: var(--md-ref-typeface-weight-medium);
+  /* Label Large font name */
+  --md-sys-typescale-label-large-font: var(--md-ref-typeface-plain);
+  /* Body Small */
+  --md-sys-typescale-body-small-text-transform: unset;
+  --md-sys-typescale-body-small-axis-value: unset;
+  --md-sys-typescale-body-small-font-style: unset;
+  --md-sys-typescale-body-small-text-decoration: unset;
+  /* Body Small line height */
+  --md-sys-typescale-body-small-line-height-value: 16px;
+  --md-sys-typescale-body-small-line-height-unit: 2px;
+  --md-sys-typescale-body-small-line-height: 16px;
+  /* Body Small font tracking */
+  --md-sys-typescale-body-small-tracking-value: 0.4000000059604645px;
+  --md-sys-typescale-body-small-tracking-unit: 2px;
+  --md-sys-typescale-body-small-tracking: 0.4000000059604645px;
+  /* Body Small font size */
+  --md-sys-typescale-body-small-size-value: 12px;
+  --md-sys-typescale-body-small-size-unit: 2px;
+  --md-sys-typescale-body-small-size: 12px;
+  /* Body Small font weight */
+  --md-sys-typescale-body-small-weight: var(--md-ref-typeface-weight-regular);
+  /* Body Small font name */
+  --md-sys-typescale-body-small-font: var(--md-ref-typeface-plain);
+  /* Body Medium */
+  --md-sys-typescale-body-medium-text-transform: unset;
+  --md-sys-typescale-body-medium-axis-value: unset;
+  --md-sys-typescale-body-medium-font-style: unset;
+  --md-sys-typescale-body-medium-text-decoration: unset;
+  /* Body Medium line height */
+  --md-sys-typescale-body-medium-line-height-value: 20px;
+  --md-sys-typescale-body-medium-line-height-unit: 2px;
+  --md-sys-typescale-body-medium-line-height: 20px;
+  /* Body Medium font tracking */
+  --md-sys-typescale-body-medium-tracking-value: 0.25px;
+  --md-sys-typescale-body-medium-tracking-unit: 2px;
+  --md-sys-typescale-body-medium-tracking: 0.25px;
+  /* Body Medium font size */
+  --md-sys-typescale-body-medium-size-value: 14px;
+  --md-sys-typescale-body-medium-size-unit: 2px;
+  --md-sys-typescale-body-medium-size: 14px;
+  /* Body Medium font weight */
+  --md-sys-typescale-body-medium-weight: var(--md-ref-typeface-weight-regular);
+  /* Body Medium font name */
+  --md-sys-typescale-body-medium-font: var(--md-ref-typeface-plain);
+  /* Body Large */
+  --md-sys-typescale-body-large-text-transform: unset;
+  --md-sys-typescale-body-large-axis-value: unset;
+  --md-sys-typescale-body-large-font-style: unset;
+  --md-sys-typescale-body-large-text-decoration: unset;
+  /* Body Large line height */
+  --md-sys-typescale-body-large-line-height-value: 24px;
+  --md-sys-typescale-body-large-line-height-unit: 2px;
+  --md-sys-typescale-body-large-line-height: 24px;
+  /* Body Large font tracking */
+  --md-sys-typescale-body-large-tracking-value: 0.5px;
+  --md-sys-typescale-body-large-tracking-unit: 2px;
+  --md-sys-typescale-body-large-tracking: 0.5px;
+  /* Body Large font size */
+  --md-sys-typescale-body-large-size-value: 16px;
+  --md-sys-typescale-body-large-size-unit: 2px;
+  --md-sys-typescale-body-large-size: 16px;
+  /* Body Large font weight */
+  --md-sys-typescale-body-large-weight: var(--md-ref-typeface-weight-regular);
+  /* Body Large font name */
+  --md-sys-typescale-body-large-font: var(--md-ref-typeface-plain);
+  /* Title Small */
+  --md-sys-typescale-title-small-text-transform: unset;
+  --md-sys-typescale-title-small-axis-value: unset;
+  --md-sys-typescale-title-small-font-style: unset;
+  --md-sys-typescale-title-small-text-decoration: unset;
+  /* Title Small line height */
+  --md-sys-typescale-title-small-line-height-value: 20px;
+  --md-sys-typescale-title-small-line-height-unit: 2px;
+  --md-sys-typescale-title-small-line-height: 20px;
+  /* Title Small font tracking */
+  --md-sys-typescale-title-small-tracking-value: 0.10000000149011612px;
+  --md-sys-typescale-title-small-tracking-unit: 2px;
+  --md-sys-typescale-title-small-tracking: 0.10000000149011612px;
+  /* Title Small font size */
+  --md-sys-typescale-title-small-size-value: 14px;
+  --md-sys-typescale-title-small-size-unit: 2px;
+  --md-sys-typescale-title-small-size: 14px;
+  /* Title Small font weight */
+  --md-sys-typescale-title-small-weight: var(--md-ref-typeface-weight-medium);
+  /* Title Small font name */
+  --md-sys-typescale-title-small-font: var(--md-ref-typeface-plain);
+  /* Title Medium */
+  --md-sys-typescale-title-medium-text-transform: unset;
+  --md-sys-typescale-title-medium-axis-value: unset;
+  --md-sys-typescale-title-medium-font-style: unset;
+  --md-sys-typescale-title-medium-text-decoration: unset;
+  /* Title Medium line height */
+  --md-sys-typescale-title-medium-line-height-value: 24px;
+  --md-sys-typescale-title-medium-line-height-unit: 2px;
+  --md-sys-typescale-title-medium-line-height: 24px;
+  /* Title Medium font tracking */
+  --md-sys-typescale-title-medium-tracking-value: 0.15000000596046448px;
+  --md-sys-typescale-title-medium-tracking-unit: 2px;
+  --md-sys-typescale-title-medium-tracking: 0.15000000596046448px;
+  /* Title Medium font size */
+  --md-sys-typescale-title-medium-size-value: 16px;
+  --md-sys-typescale-title-medium-size-unit: 2px;
+  --md-sys-typescale-title-medium-size: 16px;
+  /* Title Medium font weight */
+  --md-sys-typescale-title-medium-weight: var(--md-ref-typeface-weight-medium);
+  /* Title Medium font name */
+  --md-sys-typescale-title-medium-font: var(--md-ref-typeface-plain);
+  /* Title Large */
+  --md-sys-typescale-title-large-text-transform: unset;
+  --md-sys-typescale-title-large-axis-value: unset;
+  --md-sys-typescale-title-large-font-style: unset;
+  --md-sys-typescale-title-large-text-decoration: unset;
+  /* Title Large line height */
+  --md-sys-typescale-title-large-line-height-value: 28px;
+  --md-sys-typescale-title-large-line-height-unit: 2px;
+  --md-sys-typescale-title-large-line-height: 28px;
+  /* Title Large font tracking */
+  --md-sys-typescale-title-large-tracking-value: 0px;
+  --md-sys-typescale-title-large-tracking-unit: 2px;
+  --md-sys-typescale-title-large-tracking: 0px;
+  /* Title Large font size */
+  --md-sys-typescale-title-large-size-value: 22px;
+  --md-sys-typescale-title-large-size-unit: 2px;
+  --md-sys-typescale-title-large-size: 22px;
+  /* Title Large font weight */
+  --md-sys-typescale-title-large-weight: var(--md-ref-typeface-weight-regular);
+  /* Title Large font name */
+  --md-sys-typescale-title-large-font: var(--md-ref-typeface-brand);
+  /* Headline Small */
+  --md-sys-typescale-headline-small-text-transform: unset;
+  --md-sys-typescale-headline-small-axis-value: unset;
+  --md-sys-typescale-headline-small-font-style: unset;
+  --md-sys-typescale-headline-small-text-decoration: unset;
+  /* Headline Small line height */
+  --md-sys-typescale-headline-small-line-height-value: 32px;
+  --md-sys-typescale-headline-small-line-height-unit: 2px;
+  --md-sys-typescale-headline-small-line-height: 32px;
+  /* Headline Small font tracking */
+  --md-sys-typescale-headline-small-tracking-value: 0px;
+  --md-sys-typescale-headline-small-tracking-unit: 2px;
+  --md-sys-typescale-headline-small-tracking: 0px;
+  /* Headline Small font size */
+  --md-sys-typescale-headline-small-size-value: 24px;
+  --md-sys-typescale-headline-small-size-unit: 2px;
+  --md-sys-typescale-headline-small-size: 24px;
+  /* Headline Small font weight */
+  --md-sys-typescale-headline-small-weight: var(
+    --md-ref-typeface-weight-regular
+  );
+  /* Headline Small font name */
+  --md-sys-typescale-headline-small-font: var(--md-ref-typeface-brand);
+  /* Headline Medium */
+  --md-sys-typescale-headline-medium-text-transform: unset;
+  --md-sys-typescale-headline-medium-axis-value: unset;
+  --md-sys-typescale-headline-medium-font-style: unset;
+  --md-sys-typescale-headline-medium-text-decoration: unset;
+  /* Headline Medium line height */
+  --md-sys-typescale-headline-medium-line-height-value: 36px;
+  --md-sys-typescale-headline-medium-line-height-unit: 2px;
+  --md-sys-typescale-headline-medium-line-height: 36px;
+  /* Headline Medium font tracking */
+  --md-sys-typescale-headline-medium-tracking-value: 0px;
+  --md-sys-typescale-headline-medium-tracking-unit: 2px;
+  --md-sys-typescale-headline-medium-tracking: 0px;
+  /* Headline Medium font size */
+  --md-sys-typescale-headline-medium-size-value: 28px;
+  --md-sys-typescale-headline-medium-size-unit: 2px;
+  --md-sys-typescale-headline-medium-size: 28px;
+  /* Headline Medium font weight */
+  --md-sys-typescale-headline-medium-weight: var(
+    --md-ref-typeface-weight-regular
+  );
+  /* Headline Medium font name */
+  --md-sys-typescale-headline-medium-font: var(--md-ref-typeface-brand);
+  /* Headline Large */
+  --md-sys-typescale-headline-large-text-transform: unset;
+  --md-sys-typescale-headline-large-axis-value: unset;
+  --md-sys-typescale-headline-large-font-style: unset;
+  --md-sys-typescale-headline-large-text-decoration: unset;
+  /* Headline Large line height */
+  --md-sys-typescale-headline-large-line-height-value: 40px;
+  --md-sys-typescale-headline-large-line-height-unit: 2px;
+  --md-sys-typescale-headline-large-line-height: 40px;
+  /* Headline Large font tracking */
+  --md-sys-typescale-headline-large-tracking-value: 0px;
+  --md-sys-typescale-headline-large-tracking-unit: 2px;
+  --md-sys-typescale-headline-large-tracking: 0px;
+  /* Headline Large font size */
+  --md-sys-typescale-headline-large-size-value: 32px;
+  --md-sys-typescale-headline-large-size-unit: 2px;
+  --md-sys-typescale-headline-large-size: 32px;
+  /* Headline Large font name */
+  --md-sys-typescale-headline-large-font: var(--md-ref-typeface-brand);
+  /* Headline Large font weight */
+  --md-sys-typescale-headline-large-weight: var(
+    --md-ref-typeface-weight-regular
+  );
+  /* Display Small */
+  --md-sys-typescale-display-small-text-transform: unset;
+  --md-sys-typescale-display-small-axis-value: unset;
+  --md-sys-typescale-display-small-font-style: unset;
+  --md-sys-typescale-display-small-text-decoration: unset;
+  /* Display Small line height */
+  --md-sys-typescale-display-small-line-height-value: 44px;
+  --md-sys-typescale-display-small-line-height-unit: 2px;
+  --md-sys-typescale-display-small-line-height: 44px;
+  /* Display Small font tracking */
+  --md-sys-typescale-display-small-tracking-value: 0px;
+  --md-sys-typescale-display-small-tracking-unit: 2px;
+  --md-sys-typescale-display-small-tracking: 0px;
+  /* Display Small font size */
+  --md-sys-typescale-display-small-size-value: 36px;
+  --md-sys-typescale-display-small-size-unit: 2px;
+  --md-sys-typescale-display-small-size: 36px;
+  /* Display Small font weight */
+  --md-sys-typescale-display-small-weight: var(
+    --md-ref-typeface-weight-regular
+  );
+  /* Display Small font name */
+  --md-sys-typescale-display-small-font: var(--md-ref-typeface-brand);
+  /* Display Medium */
+  --md-sys-typescale-display-medium-text-transform: unset;
+  --md-sys-typescale-display-medium-axis-value: unset;
+  --md-sys-typescale-display-medium-font-style: unset;
+  --md-sys-typescale-display-medium-text-decoration: unset;
+  /* Display Medium line height */
+  --md-sys-typescale-display-medium-line-height-value: 52px;
+  --md-sys-typescale-display-medium-line-height-unit: 2px;
+  --md-sys-typescale-display-medium-line-height: 52px;
+  /* Display Medium font tracking */
+  --md-sys-typescale-display-medium-tracking-value: 0px;
+  --md-sys-typescale-display-medium-tracking-unit: 2px;
+  --md-sys-typescale-display-medium-tracking: 0px;
+  /* Display Medium font size */
+  --md-sys-typescale-display-medium-size-value: 45px;
+  --md-sys-typescale-display-medium-size-unit: 2px;
+  --md-sys-typescale-display-medium-size: 45px;
+  /* Display Medium font weight */
+  --md-sys-typescale-display-medium-weight: var(
+    --md-ref-typeface-weight-regular
+  );
+  /* Display Medium font name */
+  --md-sys-typescale-display-medium-font: var(--md-ref-typeface-brand);
+  /* Display Large */
+  --md-sys-typescale-display-large-text-transform: unset;
+  --md-sys-typescale-display-large-axis-value: unset;
+  --md-sys-typescale-display-large-font-style: unset;
+  --md-sys-typescale-display-large-text-decoration: unset;
+  /* Display Large line height */
+  --md-sys-typescale-display-large-line-height-value: 64px;
+  --md-sys-typescale-display-large-line-height-unit: 2px;
+  --md-sys-typescale-display-large-line-height: 64px;
+  /* Display Large font tracking */
+  --md-sys-typescale-display-large-tracking-value: -0.25px;
+  --md-sys-typescale-display-large-tracking-unit: 2px;
+  --md-sys-typescale-display-large-tracking: -0.25px;
+  /* Display Large font size */
+  --md-sys-typescale-display-large-size-value: 57px;
+  --md-sys-typescale-display-large-size-unit: 2px;
+  --md-sys-typescale-display-large-size: 57px;
+  /* Display Large font weight */
+  --md-sys-typescale-display-large-weight: var(
+    --md-ref-typeface-weight-regular
+  );
+  /* Display Large font name */
+  --md-sys-typescale-display-large-font: var(--md-ref-typeface-brand);
+  /* Plain typeface */
+  --md-ref-typeface-plain: Roboto;
+  /* Brand typeface */
+  --md-ref-typeface-brand: Roboto;
+  /* Bold weight */
+  --md-ref-typeface-weight-bold: 700;
+  /* Medium weight */
+  --md-ref-typeface-weight-medium: 500;
+  /* Regular weight */
+  --md-ref-typeface-weight-regular: 400;
+}
+
+/* Label Small */
+.label-small {
+  font-family: var(--md-sys-typescale-label-small-font);
+  font-weight: var(--md-sys-typescale-label-small-weight);
+  font-size: var(--md-sys-typescale-label-small-size);
+  font-style: var(--md-sys-typescale-label-small-font-style);
+  letter-spacing: var(--md-sys-typescale-label-small-tracking);
+  line-height: var(--md-sys-typescale-label-small-line-height);
+  text-transform: var(--md-sys-typescale-label-small-text-transform);
+  text-decoration: var(--md-sys-typescale-label-small-text-decoration);
+}
+/* Label Medium */
+.label-medium {
+  font-family: var(--md-sys-typescale-label-medium-font);
+  font-weight: var(--md-sys-typescale-label-medium-weight);
+  font-size: var(--md-sys-typescale-label-medium-size);
+  font-style: var(--md-sys-typescale-label-medium-font-style);
+  letter-spacing: var(--md-sys-typescale-label-medium-tracking);
+  line-height: var(--md-sys-typescale-label-medium-line-height);
+  text-transform: var(--md-sys-typescale-label-medium-text-transform);
+  text-decoration: var(--md-sys-typescale-label-medium-text-decoration);
+}
+/* Label Large */
+.label-large {
+  font-family: var(--md-sys-typescale-label-large-font);
+  font-weight: var(--md-sys-typescale-label-large-weight);
+  font-size: var(--md-sys-typescale-label-large-size);
+  font-style: var(--md-sys-typescale-label-large-font-style);
+  letter-spacing: var(--md-sys-typescale-label-large-tracking);
+  line-height: var(--md-sys-typescale-label-large-line-height);
+  text-transform: var(--md-sys-typescale-label-large-text-transform);
+  text-decoration: var(--md-sys-typescale-label-large-text-decoration);
+}
+/* Body Small */
+.body-small {
+  font-family: var(--md-sys-typescale-body-small-font);
+  font-weight: var(--md-sys-typescale-body-small-weight);
+  font-size: var(--md-sys-typescale-body-small-size);
+  font-style: var(--md-sys-typescale-body-small-font-style);
+  letter-spacing: var(--md-sys-typescale-body-small-tracking);
+  line-height: var(--md-sys-typescale-body-small-line-height);
+  text-transform: var(--md-sys-typescale-body-small-text-transform);
+  text-decoration: var(--md-sys-typescale-body-small-text-decoration);
+}
+/* Body Medium */
+.body-medium {
+  font-family: var(--md-sys-typescale-body-medium-font);
+  font-weight: var(--md-sys-typescale-body-medium-weight);
+  font-size: var(--md-sys-typescale-body-medium-size);
+  font-style: var(--md-sys-typescale-body-medium-font-style);
+  letter-spacing: var(--md-sys-typescale-body-medium-tracking);
+  line-height: var(--md-sys-typescale-body-medium-line-height);
+  text-transform: var(--md-sys-typescale-body-medium-text-transform);
+  text-decoration: var(--md-sys-typescale-body-medium-text-decoration);
+}
+/* Body Large */
+.body-large {
+  font-family: var(--md-sys-typescale-body-large-font);
+  font-weight: var(--md-sys-typescale-body-large-weight);
+  font-size: var(--md-sys-typescale-body-large-size);
+  font-style: var(--md-sys-typescale-body-large-font-style);
+  letter-spacing: var(--md-sys-typescale-body-large-tracking);
+  line-height: var(--md-sys-typescale-body-large-line-height);
+  text-transform: var(--md-sys-typescale-body-large-text-transform);
+  text-decoration: var(--md-sys-typescale-body-large-text-decoration);
+}
+/* Title Small */
+.title-small {
+  font-family: var(--md-sys-typescale-title-small-font);
+  font-weight: var(--md-sys-typescale-title-small-weight);
+  font-size: var(--md-sys-typescale-title-small-size);
+  font-style: var(--md-sys-typescale-title-small-font-style);
+  letter-spacing: var(--md-sys-typescale-title-small-tracking);
+  line-height: var(--md-sys-typescale-title-small-line-height);
+  text-transform: var(--md-sys-typescale-title-small-text-transform);
+  text-decoration: var(--md-sys-typescale-title-small-text-decoration);
+}
+/* Title Medium */
+.title-medium {
+  font-family: var(--md-sys-typescale-title-medium-font);
+  font-weight: var(--md-sys-typescale-title-medium-weight);
+  font-size: var(--md-sys-typescale-title-medium-size);
+  font-style: var(--md-sys-typescale-title-medium-font-style);
+  letter-spacing: var(--md-sys-typescale-title-medium-tracking);
+  line-height: var(--md-sys-typescale-title-medium-line-height);
+  text-transform: var(--md-sys-typescale-title-medium-text-transform);
+  text-decoration: var(--md-sys-typescale-title-medium-text-decoration);
+}
+/* Title Large */
+.title-large {
+  font-family: var(--md-sys-typescale-title-large-font);
+  font-weight: var(--md-sys-typescale-title-large-weight);
+  font-size: var(--md-sys-typescale-title-large-size);
+  font-style: var(--md-sys-typescale-title-large-font-style);
+  letter-spacing: var(--md-sys-typescale-title-large-tracking);
+  line-height: var(--md-sys-typescale-title-large-line-height);
+  text-transform: var(--md-sys-typescale-title-large-text-transform);
+  text-decoration: var(--md-sys-typescale-title-large-text-decoration);
+}
+/* Headline Small */
+.headline-small {
+  font-family: var(--md-sys-typescale-headline-small-font);
+  font-weight: var(--md-sys-typescale-headline-small-weight);
+  font-size: var(--md-sys-typescale-headline-small-size);
+  font-style: var(--md-sys-typescale-headline-small-font-style);
+  letter-spacing: var(--md-sys-typescale-headline-small-tracking);
+  line-height: var(--md-sys-typescale-headline-small-line-height);
+  text-transform: var(--md-sys-typescale-headline-small-text-transform);
+  text-decoration: var(--md-sys-typescale-headline-small-text-decoration);
+}
+/* Headline Medium */
+.headline-medium {
+  font-family: var(--md-sys-typescale-headline-medium-font);
+  font-weight: var(--md-sys-typescale-headline-medium-weight);
+  font-size: var(--md-sys-typescale-headline-medium-size);
+  font-style: var(--md-sys-typescale-headline-medium-font-style);
+  letter-spacing: var(--md-sys-typescale-headline-medium-tracking);
+  line-height: var(--md-sys-typescale-headline-medium-line-height);
+  text-transform: var(--md-sys-typescale-headline-medium-text-transform);
+  text-decoration: var(--md-sys-typescale-headline-medium-text-decoration);
+}
+/* Headline Large */
+.headline-large {
+  font-family: var(--md-sys-typescale-headline-large-font);
+  font-weight: var(--md-sys-typescale-headline-large-weight);
+  font-size: var(--md-sys-typescale-headline-large-size);
+  font-style: var(--md-sys-typescale-headline-large-font-style);
+  letter-spacing: var(--md-sys-typescale-headline-large-tracking);
+  line-height: var(--md-sys-typescale-headline-large-line-height);
+  text-transform: var(--md-sys-typescale-headline-large-text-transform);
+  text-decoration: var(--md-sys-typescale-headline-large-text-decoration);
+}
+/* Display Small */
+.display-small {
+  font-family: var(--md-sys-typescale-display-small-font);
+  font-weight: var(--md-sys-typescale-display-small-weight);
+  font-size: var(--md-sys-typescale-display-small-size);
+  font-style: var(--md-sys-typescale-display-small-font-style);
+  letter-spacing: var(--md-sys-typescale-display-small-tracking);
+  line-height: var(--md-sys-typescale-display-small-line-height);
+  text-transform: var(--md-sys-typescale-display-small-text-transform);
+  text-decoration: var(--md-sys-typescale-display-small-text-decoration);
+}
+/* Display Medium */
+.display-medium {
+  font-family: var(--md-sys-typescale-display-medium-font);
+  font-weight: var(--md-sys-typescale-display-medium-weight);
+  font-size: var(--md-sys-typescale-display-medium-size);
+  font-style: var(--md-sys-typescale-display-medium-font-style);
+  letter-spacing: var(--md-sys-typescale-display-medium-tracking);
+  line-height: var(--md-sys-typescale-display-medium-line-height);
+  text-transform: var(--md-sys-typescale-display-medium-text-transform);
+  text-decoration: var(--md-sys-typescale-display-medium-text-decoration);
+}
+/* Display Large */
+.display-large {
+  font-family: var(--md-sys-typescale-display-large-font);
+  font-weight: var(--md-sys-typescale-display-large-weight);
+  font-size: var(--md-sys-typescale-display-large-size);
+  font-style: var(--md-sys-typescale-display-large-font-style);
+  letter-spacing: var(--md-sys-typescale-display-large-tracking);
+  line-height: var(--md-sys-typescale-display-large-line-height);
+  text-transform: var(--md-sys-typescale-display-large-text-transform);
+  text-decoration: var(--md-sys-typescale-display-large-text-decoration);
+}
+/* ===== ..\vendor\material-tokens\css\shape.css ===== */
+/*
+ Copyright 2016 Google Inc. All rights reserved.
+
+ Licensed under the Apache License, Version 2.0 (the "License");
+ you may not use this file except in compliance with the License.
+ You may obtain a copy of the License at
+
+     http://www.apache.org/licenses/LICENSE-2.0
+
+ Unless required by applicable law or agreed to in writing, software
+ distributed under the License is distributed on an "AS IS" BASIS,
+ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ See the License for the specific language governing permissions and
+ limitations under the License.
+*/
+
+:root {
+  /* Fully rounded */
+  --md-sys-shape-corner-full-family: 3px;
+  /* Extra large top rounding */
+  --md-sys-shape-corner-extra-large-top-family: 1px;
+  --md-sys-shape-corner-extra-large-top-default-size: 0px;
+  --md-sys-shape-corner-extra-large-top-top-left: 28px;
+  --md-sys-shape-corner-extra-large-top-top-right-unit: 1px;
+  --md-sys-shape-corner-extra-large-top-top-right: 28px;
+  /* Extra large rounding */
+  --md-sys-shape-corner-extra-large-family: 1px;
+  --md-sys-shape-corner-extra-large-default-size-unit: 1px;
+  --md-sys-shape-corner-extra-large-default-size: 28px;
+  /* Large top rounding */
+  --md-sys-shape-corner-large-top-family: 1px;
+  --md-sys-shape-corner-large-top-default-size-unit: 1px;
+  --md-sys-shape-corner-large-top-default-size: 0px;
+  --md-sys-shape-corner-large-top-top-left-unit: 1px;
+  --md-sys-shape-corner-large-top-top-left: 16px;
+  --md-sys-shape-corner-large-top-top-right-unit: 1px;
+  --md-sys-shape-corner-large-top-top-right: 16px;
+  /* Large end rounding */
+  --md-sys-shape-corner-large-end-family: 1px;
+  --md-sys-shape-corner-large-end-default-size-unit: 1px;
+  --md-sys-shape-corner-large-end-default-size: 0px;
+  --md-sys-shape-corner-large-end-top-right-unit: 1px;
+  --md-sys-shape-corner-large-end-top-right: 16px;
+  --md-sys-shape-corner-large-end-bottom-right-unit: 1px;
+  --md-sys-shape-corner-large-end-bottom-right: 16px;
+  /* Large rounding */
+  --md-sys-shape-corner-large-family: 1px;
+  --md-sys-shape-corner-large-default-size-unit: 1px;
+  --md-sys-shape-corner-large-default-size: 16px;
+  /* Medium rounding */
+  --md-sys-shape-corner-medium-family: 1px;
+  --md-sys-shape-corner-medium-default-size-unit: 1px;
+  --md-sys-shape-corner-medium-default-size: 12px;
+  /* Small rounding */
+  --md-sys-shape-corner-small-family: 1px;
+  --md-sys-shape-corner-small-default-size-unit: 1px;
+  --md-sys-shape-corner-small-default-size: 8px;
+  /* Extra small top rounding */
+  --md-sys-shape-corner-extra-small-top-family: 1px;
+  --md-sys-shape-corner-extra-small-top-default-size-unit: 1px;
+  --md-sys-shape-corner-extra-small-top-default-size: 0px;
+  --md-sys-shape-corner-extra-small-top-top-left-unit: 1px;
+  --md-sys-shape-corner-extra-small-top-top-left: 4px;
+  --md-sys-shape-corner-extra-small-top-top-right-unit: 1px;
+  --md-sys-shape-corner-extra-small-top-top-right: 4px;
+  /* Extra small rounding */
+  --md-sys-shape-corner-extra-small-family: 1px;
+  --md-sys-shape-corner-extra-small-default-size-unit: 1px;
+  --md-sys-shape-corner-extra-small-default-size: 4px;
+  /* No rounding */
+  --md-sys-shape-corner-none-family: 1px;
+  --md-sys-shape-corner-none-default-size-unit: 1px;
+  --md-sys-shape-corner-none-default-size: 0px;
+
+  --md-sys-shape-small: var(--md-sys-shape-corner-small-default-size);
+  --md-sys-shape-medium: var(--md-sys-shape-corner-medium-default-size);
+  --md-sys-shape-large: var(--md-sys-shape-corner-large-default-size);
+}
+
+.shape-none {
+  border-radius: var(--md-sys-shape-corner-none-default-size);
+}
+.shape-extra-small {
+  border-radius: var(--md-sys-shape-corner-extra-small-default-size);
+}
+.shape-small {
+  border-radius: var(--md-sys-shape-corner-small-default-size);
+}
+.shape-medium {
+  border-radius: var(--md-sys-shape-corner-medium-default-size);
+}
+.shape-large {
+  border-radius: var(--md-sys-shape-corner-large-default-size);
+}
+.shape-extra-large {
+  border-radius: var(--md-sys-shape-corner-extra-large-default-size);
+}
+.extra-small-top {
+  border-top-left-radius: var(--md-sys-shape-corner-extra-small-top-top-left);
+  border-top-right-radius: var(--md-sys-shape-corner-extra-small-top-top-right);
+}
+.large-end {
+  border-top-right-radius: var(--md-sys-shape-corner-large-end-top-right);
+  border-bottom-right-radius: var(--md-sys-shape-corner-large-end-bottom-right);
+}
+.large-top {
+  border-top-left-radius: var(--md-sys-shape-corner-large-top-top-left);
+  border-top-right-radius: var(--md-sys-shape-corner-large-top-top-right);
+}
+.extra-large-top {
+  border-top-left-radius: var(--md-sys-shape-corner-extra-large-top-top-left);
+  border-top-right-radius: var(--md-sys-shape-corner-extra-large-top-top-right);
+}
+/* ===== ..\vendor\material-tokens\css\motion.css ===== */
+/*
+ Copyright 2016 Google Inc. All rights reserved.
+
+ Licensed under the Apache License, Version 2.0 (the "License");
+ you may not use this file except in compliance with the License.
+ You may obtain a copy of the License at
+
+     http://www.apache.org/licenses/LICENSE-2.0
+
+ Unless required by applicable law or agreed to in writing, software
+ distributed under the License is distributed on an "AS IS" BASIS,
+ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ See the License for the specific language governing permissions and
+ limitations under the License.
+*/
+
+:root {
+  /* Emphasized decelerate easing (out) */
+  --md-sys-motion-easing-emphasized-decelerate-x0: 0.05000000074505806;
+  --md-sys-motion-easing-emphasized-decelerate-y0: 0.699999988079071;
+  --md-sys-motion-easing-emphasized-decelerate-x1: 0.10000000149011612;
+  --md-sys-motion-easing-emphasized-decelerate-y1: 1;
+  /* Emphasized accelerate easing (in) */
+  --md-sys-motion-easing-emphasized-accelerate-x0: 0.30000001192092896;
+  --md-sys-motion-easing-emphasized-accelerate-y0: 0;
+  --md-sys-motion-easing-emphasized-accelerate-x1: 0.800000011920929;
+  --md-sys-motion-easing-emphasized-accelerate-y1: 0.15000000596046448;
+  /* Standard decelerate easing (out) */
+  --md-sys-motion-easing-standard-decelerate-x0: 0;
+  --md-sys-motion-easing-standard-decelerate-y0: 0;
+  --md-sys-motion-easing-standard-decelerate-x1: 0;
+  --md-sys-motion-easing-standard-decelerate-y1: 1;
+  /* Standard accelerate easing (in) */
+  --md-sys-motion-easing-standard-accelerate-x0: 0.30000001192092896;
+  --md-sys-motion-easing-standard-accelerate-y0: 0;
+  --md-sys-motion-easing-standard-accelerate-x1: 1;
+  --md-sys-motion-easing-standard-accelerate-y1: 1;
+  /* Duration 1000ms */
+  --md-sys-motion-duration-1000: 1000ms;
+  /* Duration 900ms */
+  --md-sys-motion-duration-900: 900ms;
+  /* Duration 800ms */
+  --md-sys-motion-duration-800: 800ms;
+  /* Duration 700ms */
+  --md-sys-motion-duration-700: 700ms;
+  /* Duration 600ms */
+  --md-sys-motion-duration-600: 600ms;
+  /* Duration 550ms */
+  --md-sys-motion-duration-550: 550ms;
+  /* Duration 500ms */
+  --md-sys-motion-duration-500: 500ms;
+  /* Duration 450ms */
+  --md-sys-motion-duration-450: 450ms;
+  /* Duration 400ms */
+  --md-sys-motion-duration-400: 400ms;
+  /* Duration 350ms */
+  --md-sys-motion-duration-350: 350ms;
+  /* Duration 300ms */
+  --md-sys-motion-duration-300: 300ms;
+  /* Duration 250ms */
+  --md-sys-motion-duration-250: 250ms;
+  /* Duration 200ms */
+  --md-sys-motion-duration-200: 200ms;
+  /* Duration 150ms */
+  --md-sys-motion-duration-150: 150ms;
+  /* Duration 100ms */
+  --md-sys-motion-duration-100: 100ms;
+  /* Duration 50ms */
+  --md-sys-motion-duration-50: 50ms;
+  /* Standard easing (in and out) */
+  --md-sys-motion-easing-standard-x0: 0.20000000298023224;
+  --md-sys-motion-easing-standard-y0: 0;
+  --md-sys-motion-easing-standard-x1: 0;
+  --md-sys-motion-easing-standard-y1: 1;
+  /* Linear easing */
+  --md-sys-motion-easing-linear-x0: 0;
+  --md-sys-motion-easing-linear-y0: 0;
+  --md-sys-motion-easing-linear-x1: 1;
+  --md-sys-motion-easing-linear-y1: 1;
+  /* Emphasized */
+  --md-sys-motion-easing-emphasized-x0: 0.20000000298023224;
+  --md-sys-motion-easing-emphasized-y0: 0;
+  --md-sys-motion-easing-emphasized-x1: 0;
+  --md-sys-motion-easing-emphasized-y1: 1;
+  /* Motion path */
+  --md-sys-motion-path-standard-path: 1;
+}
+.duration-50 {
+  transition-duration: var(--md-sys-motion-duration-50);
+}
+.duration-100 {
+  transition-duration: var(--md-sys-motion-duration-100);
+}
+.duration-150 {
+  transition-duration: var(--md-sys-motion-duration-150);
+}
+.duration-200 {
+  transition-duration: var(--md-sys-motion-duration-200);
+}
+.duration-250 {
+  transition-duration: var(--md-sys-motion-duration-250);
+}
+.duration-300 {
+  transition-duration: var(--md-sys-motion-duration-300);
+}
+.duration-350 {
+  transition-duration: var(--md-sys-motion-duration-350);
+}
+.duration-400 {
+  transition-duration: var(--md-sys-motion-duration-400);
+}
+.duration-450 {
+  transition-duration: var(--md-sys-motion-duration-450);
+}
+.duration-500 {
+  transition-duration: var(--md-sys-motion-duration-500);
+}
+.duration-550 {
+  transition-duration: var(--md-sys-motion-duration-550);
+}
+.duration-600 {
+  transition-duration: var(--md-sys-motion-duration-600);
+}
+.duration-700 {
+  transition-duration: var(--md-sys-motion-duration-700);
+}
+.duration-800 {
+  transition-duration: var(--md-sys-motion-duration-800);
+}
+.duration-900 {
+  transition-duration: var(--md-sys-motion-duration-900);
+}
+.duration-1000 {
+  transition-duration: var(--md-sys-motion-duration-1000);
+}
+.easing-standard {
+  transition-timing-function: cubic-bezier(
+    var(--md-sys-motion-easing-standard-x0),
+    var(--md-sys-motion-easing-standard-y0),
+    var(--md-sys-motion-easing-standard-x1),
+    var(--md-sys-motion-easing-standard-y1)
+  );
+}
+.easing-linear {
+  transition-timing-function: cubic-bezier(
+    var(--md-sys-motion-easing-linear-x0),
+    var(--md-sys-motion-easing-linear-y0),
+    var(--md-sys-motion-easing-linear-x1),
+    var(--md-sys-motion-easing-linear-y1)
+  );
+}
+.easing-standard-accelerate {
+  transition-timing-function: cubic-bezier(
+    var(--md-sys-motion-easing-standard-accelerate-x0),
+    var(--md-sys-motion-easing-standard-accelerate-y0),
+    var(--md-sys-motion-easing-standard-accelerate-x1),
+    var(--md-sys-motion-easing-standard-accelerate-y1)
+  );
+}
+.easing-standard-decelerate {
+  transition-timing-function: cubic-bezier(
+    var(--md-sys-motion-easing-standard-decelerate-x0),
+    var(--md-sys-motion-easing-standard-decelerate-y0),
+    var(--md-sys-motion-easing-standard-decelerate-x1),
+    var(--md-sys-motion-easing-standard-decelerate-y1)
+  );
+}
+.easing-emphasized {
+  transition-timing-function: cubic-bezier(
+    var(--md-sys-motion-easing-emphasized-x0),
+    var(--md-sys-motion-easing-emphasized-y0),
+    var(--md-sys-motion-easing-emphasized-x1),
+    var(--md-sys-motion-easing-emphasized-y1)
+  );
+}
+/* ===== ..\vendor\material-tokens\css\state.css ===== */
+/*
+ Copyright 2016 Google Inc. All rights reserved.
+
+ Licensed under the Apache License, Version 2.0 (the "License");
+ you may not use this file except in compliance with the License.
+ You may obtain a copy of the License at
+
+     http://www.apache.org/licenses/LICENSE-2.0
+
+ Unless required by applicable law or agreed to in writing, software
+ distributed under the License is distributed on an "AS IS" BASIS,
+ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ See the License for the specific language governing permissions and
+ limitations under the License.
+*/
+
+:root {
+  /* Dragged state layer opacity */
+  --md-sys-state-dragged-state-layer-opacity: 0.1599999964237213;
+  /* Pressed state layer opacity */
+  --md-sys-state-pressed-state-layer-opacity: 0.11999999731779099;
+  /* Focus state layer opacity */
+  --md-sys-state-focus-state-layer-opacity: 0.11999999731779099;
+  /* Hover state layer opacity */
+  --md-sys-state-hover-state-layer-opacity: 0.07999999821186066;
+}
+.hover-state-layer {
+  opacity: var(--md-sys-state-hover-state-layer-opacity);
+}
+.pressed-state-layer {
+  opacity: var(--md-sys-state-pressed-state-layer-opacity);
+}
+.dragged-state-layer {
+  opacity: var(--md-sys-state-dragged-state-layer-opacity);
+}
+.focus-state-layer {
+  opacity: var(--md-sys-state-focus-state-layer-opacity);
+}
+/* ===== ..\vendor\material-tokens\css\elevation.css ===== */
+/*
+ Copyright 2016 Google Inc. All rights reserved.
+
+ Licensed under the Apache License, Version 2.0 (the "License");
+ you may not use this file except in compliance with the License.
+ You may obtain a copy of the License at
+
+     http://www.apache.org/licenses/LICENSE-2.0
+
+ Unless required by applicable law or agreed to in writing, software
+ distributed under the License is distributed on an "AS IS" BASIS,
+ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ See the License for the specific language governing permissions and
+ limitations under the License.
+*/
+
+:root {
+  /* Surface tint color */
+  --md-sys-elevation-surface-tint-color: var(--md-sys-color-primary);
+  /* +5 */
+  --md-sys-elevation-level5-value: 12px;
+  --md-sys-elevation-level5-unit: 1px;
+  --md-sys-elevation-level5: 12px;
+  /* +4 */
+  --md-sys-elevation-level4-value: 8px;
+  --md-sys-elevation-level4-unit: 1px;
+  --md-sys-elevation-level4: 8px;
+  /* +3 */
+  --md-sys-elevation-level3-value: 6px;
+  --md-sys-elevation-level3-unit: 1px;
+  --md-sys-elevation-level3: 6px;
+  /* +2 */
+  --md-sys-elevation-level2-value: 3px;
+  --md-sys-elevation-level2-unit: 1px;
+  --md-sys-elevation-level2: 3px;
+  /* +1 */
+  --md-sys-elevation-level1-value: 1px;
+  --md-sys-elevation-level1-unit: 1px;
+  --md-sys-elevation-level1: 1px;
+  /* 0 */
+  --md-sys-elevation-level0-value: 0px;
+  --md-sys-elevation-level0-unit: 1px;
+  --md-sys-elevation-level0: 0px;
+}
+.elevation-0 {
+  box-shadow: var(--md-sys-elevation-level0);
+}
+.elevation-1 {
+  box-shadow: var(--md-sys-elevation-level1);
+}
+.elevation-2 {
+  box-shadow: var(--md-sys-elevation-level2);
+}
+.elevation-3 {
+  box-shadow: var(--md-sys-elevation-level3);
+}
+.elevation-4 {
+  box-shadow: var(--md-sys-elevation-level4);
+}
+.elevation-5 {
+  box-shadow: var(--md-sys-elevation-level5);
+}
+@media screen and (prefers-color-scheme: light) {
+/* ===== ..\vendor\material-tokens\css\theme\light.css ===== */
+/*
+ Copyright 2016 Google Inc. All rights reserved.
+
+ Licensed under the Apache License, Version 2.0 (the "License");
+ you may not use this file except in compliance with the License.
+ You may obtain a copy of the License at
+
+     http://www.apache.org/licenses/LICENSE-2.0
+
+ Unless required by applicable law or agreed to in writing, software
+ distributed under the License is distributed on an "AS IS" BASIS,
+ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ See the License for the specific language governing permissions and
+ limitations under the License.
+*/
+
+:root {
+  color-scheme: light;
+  /* Surface tint */
+  --md-sys-color-surface-tint: var(--md-sys-color-primary);
+  /* Surface tint color */
+  --md-sys-color-surface-tint-color: var(--md-sys-color-primary);
+  /* On error container */
+  --md-sys-color-on-error-container: var(--md-ref-palette-error10);
+  /* On error */
+  --md-sys-color-on-error: var(--md-ref-palette-error100);
+  /* Error container */
+  --md-sys-color-error-container: var(--md-ref-palette-error90);
+  /* On tertiary container */
+  --md-sys-color-on-tertiary-container: var(--md-ref-palette-tertiary10);
+  /* On tertiary */
+  --md-sys-color-on-tertiary: var(--md-ref-palette-tertiary100);
+  /* Tertiary container */
+  --md-sys-color-tertiary-container: var(--md-ref-palette-tertiary90);
+  /* Tertiary */
+  --md-sys-color-tertiary: var(--md-ref-palette-tertiary40);
+  /* Shadow */
+  --md-sys-color-shadow: var(--md-ref-palette-neutral0);
+  /* Error */
+  --md-sys-color-error: var(--md-ref-palette-error40);
+  /* Outline */
+  --md-sys-color-outline: var(--md-ref-palette-neutral-variant50);
+  /* On background */
+  --md-sys-color-on-background: var(--md-ref-palette-neutral10);
+  /* Background */
+  --md-sys-color-background: var(--md-ref-palette-neutral99);
+  /* Inverse on surface */
+  --md-sys-color-inverse-on-surface: var(--md-ref-palette-neutral95);
+  /* Inverse surface */
+  --md-sys-color-inverse-surface: var(--md-ref-palette-neutral20);
+  /* On surface variant */
+  --md-sys-color-on-surface-variant: var(--md-ref-palette-neutral-variant30);
+  /* On surface */
+  --md-sys-color-on-surface: var(--md-ref-palette-neutral10);
+  /* Surface Variant */
+  --md-sys-color-surface-variant: var(--md-ref-palette-neutral-variant90);
+  /* Surface */
+  --md-sys-color-surface: var(--md-ref-palette-neutral99);
+  /* On secondary container */
+  --md-sys-color-on-secondary-container: var(--md-ref-palette-secondary10);
+  /* On secondary */
+  --md-sys-color-on-secondary: var(--md-ref-palette-secondary100);
+  /* Secondary container */
+  --md-sys-color-secondary-container: var(--md-ref-palette-secondary90);
+  /* Secondary */
+  --md-sys-color-secondary: var(--md-ref-palette-secondary40);
+  /* Inverse primary */
+  --md-sys-color-inverse-primary: var(--md-ref-palette-primary80);
+  /* On primary container */
+  --md-sys-color-on-primary-container: var(--md-ref-palette-primary10);
+  /* On primary */
+  --md-sys-color-on-primary: var(--md-ref-palette-primary100);
+  /* Primary container */
+  --md-sys-color-primary-container: var(--md-ref-palette-primary90);
+  /* Primary */
+  --md-sys-color-primary: var(--md-ref-palette-primary40);
+}
+}
+@media screen and (prefers-color-scheme: dark) {
+/* ===== ..\vendor\material-tokens\css\theme\dark.css ===== */
+/*
+ Copyright 2016 Google Inc. All rights reserved.
+
+ Licensed under the Apache License, Version 2.0 (the "License");
+ you may not use this file except in compliance with the License.
+ You may obtain a copy of the License at
+
+     http://www.apache.org/licenses/LICENSE-2.0
+
+ Unless required by applicable law or agreed to in writing, software
+ distributed under the License is distributed on an "AS IS" BASIS,
+ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ See the License for the specific language governing permissions and
+ limitations under the License.
+*/
+
+:root {
+  color-scheme: dark;
+  /* Surface tint */
+  --md-sys-color-surface-tint: var(--md-sys-color-primary);
+  /* Surface tint color */
+  --md-sys-color-surface-tint-color: var(--md-sys-color-primary);
+  /* On error container */
+  --md-sys-color-on-error-container: var(--md-ref-palette-error80);
+  /* On error */
+  --md-sys-color-on-error: var(--md-ref-palette-error20);
+  /* Error container */
+  --md-sys-color-error-container: var(--md-ref-palette-error30);
+  /* On tertiary container */
+  --md-sys-color-on-tertiary-container: var(--md-ref-palette-tertiary90);
+  /* On tertiary */
+  --md-sys-color-on-tertiary: var(--md-ref-palette-tertiary20);
+  /* Tertiary container */
+  --md-sys-color-tertiary-container: var(--md-ref-palette-tertiary30);
+  /* Tertiary */
+  --md-sys-color-tertiary: var(--md-ref-palette-tertiary80);
+  /* Shadow */
+  --md-sys-color-shadow: var(--md-ref-palette-neutral0);
+  /* Error */
+  --md-sys-color-error: var(--md-ref-palette-error80);
+  /* Outline */
+  --md-sys-color-outline: var(--md-ref-palette-neutral-variant60);
+  /* On background */
+  --md-sys-color-on-background: var(--md-ref-palette-neutral90);
+  /* Background */
+  --md-sys-color-background: var(--md-ref-palette-neutral10);
+  /* Inverse on surface */
+  --md-sys-color-inverse-on-surface: var(--md-ref-palette-neutral20);
+  /* Inverse surface */
+  --md-sys-color-inverse-surface: var(--md-ref-palette-neutral90);
+  /* On surface variant */
+  --md-sys-color-on-surface-variant: var(--md-ref-palette-neutral-variant80);
+  /* On surface */
+  --md-sys-color-on-surface: var(--md-ref-palette-neutral90);
+  /* Surface Variant */
+  --md-sys-color-surface-variant: var(--md-ref-palette-neutral-variant30);
+  /* Surface */
+  --md-sys-color-surface: var(--md-ref-palette-neutral10);
+  /* On secondary container */
+  --md-sys-color-on-secondary-container: var(--md-ref-palette-secondary90);
+  /* On secondary */
+  --md-sys-color-on-secondary: var(--md-ref-palette-secondary20);
+  /* Secondary container */
+  --md-sys-color-secondary-container: var(--md-ref-palette-secondary30);
+  /* Secondary */
+  --md-sys-color-secondary: var(--md-ref-palette-secondary80);
+  /* Inverse primary */
+  --md-sys-color-inverse-primary: var(--md-ref-palette-primary40);
+  /* On primary container */
+  --md-sys-color-on-primary-container: var(--md-ref-palette-primary90);
+  /* On primary */
+  --md-sys-color-on-primary: var(--md-ref-palette-primary20);
+  /* Primary container */
+  --md-sys-color-primary-container: var(--md-ref-palette-primary30);
+  /* Primary */
+  --md-sys-color-primary: var(--md-ref-palette-primary80);
+}
+}
+
+/* Adiciones propias a sys (familia surface-container, posterior a 2023) */
+/* ===== md\additions.css ===== */
+/*
+  RDM Next - Adiciones a la capa sys de M3
+  Autor: Danny Estrada + asistente
+
+  El repo vendor (material-tokens, baseline anterior a marzo 2023) no trae
+  la familia surface-container: en esa epoca M3 usaba overlays de opacidad
+  sobre surface en vez de superficies por tono. Estos 9 roles son el sistema
+  tonal actual de M3 (5 contenedores + base y modificadores).
+
+  Valores: verificados contra la libreria anterior (5/5 contenedores light
+  y dark identicos) y contra la paleta del vendor. Donde el tono existe en
+  --md-ref-palette-* se referencia (capa sys lee ref); donde no existe
+  (la paleta del vendor solo tiene 13 tonos neutral) va el hexadecimal
+  literal del baseline M3 con el tono anotado.
+
+  Nota de baseline: surface es #FFFBFE (= neutral99), no #FEF7FF. El vendor
+  define surface como var(--md-ref-palette-neutral99) y neutral99 es
+  #FFFBFE, asi que este archivo es consistente con el vendor. #FEF7FF
+  pertenece a un baseline mas nuevo con otro seed. La tabla de tokens
+  de Card (v0.34) lista el container outlined en #FEF7FF: mismo delta
+  de baseline, no se persigue.
+
+  Tipografia (v0.8): el vendor declara --md-ref-typeface-plain y -brand
+  como Roboto. Se sobreescriben a Google Sans (variable, via <link> en
+  los HTML). Este archivo se importa despues de typography.css, asi que
+  el override gana por cascada. Los 15 roles siguen la cadena solos:
+  15 consumidores, 2 origenes. Pesos sin tocar: 400/500 segun M3.
+
+  Shape (v0.9, ampliado v0.39): al vendor le falta
+  --md-sys-shape-corner-full-default-size. Solo declara -family: 3px,
+  que es basura DSP. M3 lo define en 9999dp, asi que se agrega aqui.
+  Misma clase de hueco que surface-container: token que la spec exige
+  y el export de Figma no emitio. En v0.39 se agregan los 3 niveles
+  post-2023 (large-increased 20, extra-large-increased 32,
+  extra-extra-large 48): la spec tiene 10, el vendor 7. Shape es la
+  segunda familia incompleta del vendor (con color y state).
+
+  State (v0.15, corregido v0.37): el vendor trae las 4 opacidades con
+  ruido binario de Figma (0.07999999821186066...) y ademas arrastra el
+  0.12 de M2 en focus/pressed. Se sobreescriben con los valores de la
+  pagina de fundamentos (state-layers): hover 0.08, focus 0.10, pressed
+  0.10, dragged 0.16. Iguales en light y dark, asi que van solo en
+  :root.
+
+  Motion (v0.16): el vendor explota cada curva en 4 puntos de control sueltos
+  (28 tokens, 16 con ruido Figma) y nunca emite la curva compuesta, asi que
+  cada componente tendria que escribir el wrapper cubic-bezier() a mano.
+  Aca se agregan las 7 curvas como valor completo. Los puntos de control NO
+  se sobreescriben: dejan de consumirse, y limpiar 16 tokens que nadie lee
+  seria ruido puro.
+
+  Las 16 duraciones del vendor tienen los valores correctos (verificados
+  contra material-web tokens/versions/v0_192/_md-sys-motion.scss) pero perdieron
+  los nombres semanticos: duration-400 en vez de duration-medium4. El numero
+  no dice cuando usarlo; el nombre si. Se agregan los 16 alias.
+
+  Faltan los 3 easings legacy de M2 (legacy, legacy-accelerate,
+  legacy-decelerate). No se agregan: estan deprecados en M3 y no se construye
+  ningun componente con easing de M2. Queda documentado.
+
+  Nota: emphasized y standard tienen la MISMA curva, cubic-bezier(0.2,0,0,1).
+  No es un error del vendor, lo define asi el spec. No tocar.
+
+  --md-sys-motion-path-standard-path: 1 es basura: el generador de Material
+  Web dice 'Type motion_path is not supported'. Springs de M3 Expressive
+  (v0.18): existen para Web por conversion desde los valores de Compose
+  ("Compatible with Compose springs"), pero ninguna exportacion CSS los
+  emite (ni el vendor pre-2023 ni material-web v0_192, verificado en main).
+  Ademas son device-relativos: el mismo token corre distinto en wearable
+  que en tablet, asi que un token CSS de valor fijo no los puede expresar.
+  Estructura en SKILL pendientes (2 esquemas x 2 tipos x 3 velocidades).
+  No simulado con easing.
+
+  Outline-variant (v0.20): el vendor solo trae outline. El variant es
+  post-2023 como los containers. Valores verificados contra la libreria
+  anterior (v1.18, ambos temas): light neutral-variant80, dark
+  neutral-variant30.
+*/
+
+:root {
+  /* --- Typeface (override del vendor: Roboto -> Google Sans) --- */
+  --md-ref-typeface-plain: "Google Sans";
+  --md-ref-typeface-brand: "Google Sans";
+
+  /* --- Shape: full (ausente en el vendor, valor de la spec M3) --- */
+  --md-sys-shape-corner-full-default-size: 9999px;
+
+  /* --- Shape post-2023 (v0.39): la spec actual tiene 10 niveles, el
+     vendor trae 7. large-increased 20, extra-large-increased 32 y
+     extra-extra-large 48 con el patron de nombre del vendor. --- */
+  --md-sys-shape-corner-large-increased-default-size: 20px;
+  --md-sys-shape-corner-extra-large-increased-default-size: 32px;
+  --md-sys-shape-corner-extra-extra-large-default-size: 48px;
+
+  /* --- State: opacidades limpias (override del ruido Figma del vendor) --- */
+  --md-sys-state-hover-state-layer-opacity: 0.08;
+  --md-sys-state-focus-state-layer-opacity: 0.10;
+  --md-sys-state-pressed-state-layer-opacity: 0.10;
+  --md-sys-state-dragged-state-layer-opacity: 0.16;
+
+  /* --- Motion: curvas compuestas (el vendor solo trae puntos sueltos) --- */
+  --md-sys-motion-easing-emphasized: cubic-bezier(0.2, 0, 0, 1);
+  --md-sys-motion-easing-emphasized-decelerate: cubic-bezier(0.05, 0.7, 0.1, 1);
+  --md-sys-motion-easing-emphasized-accelerate: cubic-bezier(0.3, 0, 0.8, 0.15);
+  --md-sys-motion-easing-standard: cubic-bezier(0.2, 0, 0, 1);
+  --md-sys-motion-easing-standard-decelerate: cubic-bezier(0, 0, 0, 1);
+  --md-sys-motion-easing-standard-accelerate: cubic-bezier(0.3, 0, 1, 1);
+  --md-sys-motion-easing-linear: cubic-bezier(0, 0, 1, 1);
+
+  /* --- Motion: alias semanticos (el vendor solo trae duration-NNN) --- */
+  --md-sys-motion-duration-short1: var(--md-sys-motion-duration-50);
+  --md-sys-motion-duration-short2: var(--md-sys-motion-duration-100);
+  --md-sys-motion-duration-short3: var(--md-sys-motion-duration-150);
+  --md-sys-motion-duration-short4: var(--md-sys-motion-duration-200);
+  --md-sys-motion-duration-medium1: var(--md-sys-motion-duration-250);
+  --md-sys-motion-duration-medium2: var(--md-sys-motion-duration-300);
+  --md-sys-motion-duration-medium3: var(--md-sys-motion-duration-350);
+  --md-sys-motion-duration-medium4: var(--md-sys-motion-duration-400);
+  --md-sys-motion-duration-long1: var(--md-sys-motion-duration-450);
+  --md-sys-motion-duration-long2: var(--md-sys-motion-duration-500);
+  --md-sys-motion-duration-long3: var(--md-sys-motion-duration-550);
+  --md-sys-motion-duration-long4: var(--md-sys-motion-duration-600);
+  --md-sys-motion-duration-extra-long1: var(--md-sys-motion-duration-700);
+  --md-sys-motion-duration-extra-long2: var(--md-sys-motion-duration-800);
+  --md-sys-motion-duration-extra-long3: var(--md-sys-motion-duration-900);
+  --md-sys-motion-duration-extra-long4: var(--md-sys-motion-duration-1000);
+
+  /* --- Base / canvas --- */
+  /* surface (neutral99) y surface-variant ya vienen del vendor. Solo dim: */
+  --md-sys-color-surface-dim: #DED8E1; /* neutral87 */
+
+  /* --- Los 5 surface containers oficiales --- */
+  --md-sys-color-surface-container-lowest: var(--md-ref-palette-neutral100); /* #FFFFFF */
+  --md-sys-color-surface-container-low: #F7F2FA;
+  --md-sys-color-surface-container: #F3EDF7;
+  --md-sys-color-surface-container-high: #ECE6F0;
+  --md-sys-color-surface-container-highest: #E6E0E9;
+
+  /* --- Superficie brillante --- */
+  --md-sys-color-surface-bright: var(--md-ref-palette-neutral100); /* #FFFFFF */
+
+  /* --- Outline variant (ausente en el vendor, verificado v1.18) --- */
+  --md-sys-color-outline-variant: var(--md-ref-palette-neutral-variant80); /* #CAC4D0 */
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --md-sys-color-surface-dim: #141218; /* neutral6 */
+
+    --md-sys-color-surface-container-lowest: #0F0D13;
+    --md-sys-color-surface-container-low: #1D1B20;
+    --md-sys-color-surface-container: #211F26;
+    --md-sys-color-surface-container-high: #2B2930;
+    --md-sys-color-surface-container-highest: #36343B;
+
+    /* Estandar M3 (no esta en la paleta del vendor, que no tiene neutral25) */
+    --md-sys-color-surface-bright: #3B383E;
+
+    --md-sys-color-outline-variant: var(--md-ref-palette-neutral-variant30); /* #49454F */
+  }
+}
+
+/* ===== primitives\typography.css ===== */
+/*
+  RDM Next - Primitiva Typography
+  15 clases, una por rol M3. Cada clase lee 5 tokens sys (font, size,
+  weight, line-height, tracking) y nada mas.
+
+  NO se consumen: -value / -unit (ruido DSP para aritmetica de Figma),
+  axis-value, ni font-style / text-transform / text-decoration (unset en
+  los 15 roles = valor inicial CSS). Excepcion documentada:
+  label-medium-text-transform vale 1 (enum crudo de Figma, no CSS valido)
+  y tambien se omite. El script verify-tokens.ps1 vigila que ningun token
+  DSP entre a las clases.
+*/
+
+/*Display large*/
+.rdm-typography--display-large {
+  font-family: var(--md-sys-typescale-display-large-font);
+  font-size: var(--md-sys-typescale-display-large-size);
+  font-weight: var(--md-sys-typescale-display-large-weight);
+  line-height: var(--md-sys-typescale-display-large-line-height);
+  letter-spacing: var(--md-sys-typescale-display-large-tracking);
+}
+
+/*Display medium*/
+.rdm-typography--display-medium {
+  font-family: var(--md-sys-typescale-display-medium-font);
+  font-size: var(--md-sys-typescale-display-medium-size);
+  font-weight: var(--md-sys-typescale-display-medium-weight);
+  line-height: var(--md-sys-typescale-display-medium-line-height);
+  letter-spacing: var(--md-sys-typescale-display-medium-tracking);
+}
+
+/*Display small*/
+.rdm-typography--display-small {
+  font-family: var(--md-sys-typescale-display-small-font);
+  font-size: var(--md-sys-typescale-display-small-size);
+  font-weight: var(--md-sys-typescale-display-small-weight);
+  line-height: var(--md-sys-typescale-display-small-line-height);
+  letter-spacing: var(--md-sys-typescale-display-small-tracking);
+}
+
+/*Headline large*/
+.rdm-typography--headline-large {
+  font-family: var(--md-sys-typescale-headline-large-font);
+  font-size: var(--md-sys-typescale-headline-large-size);
+  font-weight: var(--md-sys-typescale-headline-large-weight);
+  line-height: var(--md-sys-typescale-headline-large-line-height);
+  letter-spacing: var(--md-sys-typescale-headline-large-tracking);
+}
+
+/*Headline medium*/
+.rdm-typography--headline-medium {
+  font-family: var(--md-sys-typescale-headline-medium-font);
+  font-size: var(--md-sys-typescale-headline-medium-size);
+  font-weight: var(--md-sys-typescale-headline-medium-weight);
+  line-height: var(--md-sys-typescale-headline-medium-line-height);
+  letter-spacing: var(--md-sys-typescale-headline-medium-tracking);
+}
+
+/*Headline small*/
+.rdm-typography--headline-small {
+  font-family: var(--md-sys-typescale-headline-small-font);
+  font-size: var(--md-sys-typescale-headline-small-size);
+  font-weight: var(--md-sys-typescale-headline-small-weight);
+  line-height: var(--md-sys-typescale-headline-small-line-height);
+  letter-spacing: var(--md-sys-typescale-headline-small-tracking);
+}
+
+/*Title large*/
+.rdm-typography--title-large {
+  font-family: var(--md-sys-typescale-title-large-font);
+  font-size: var(--md-sys-typescale-title-large-size);
+  font-weight: var(--md-sys-typescale-title-large-weight);
+  line-height: var(--md-sys-typescale-title-large-line-height);
+  letter-spacing: var(--md-sys-typescale-title-large-tracking);
+}
+
+/*Title medium*/
+.rdm-typography--title-medium {
+  font-family: var(--md-sys-typescale-title-medium-font);
+  font-size: var(--md-sys-typescale-title-medium-size);
+  font-weight: var(--md-sys-typescale-title-medium-weight);
+  line-height: var(--md-sys-typescale-title-medium-line-height);
+  letter-spacing: var(--md-sys-typescale-title-medium-tracking);
+}
+
+/*Title small*/
+.rdm-typography--title-small {
+  font-family: var(--md-sys-typescale-title-small-font);
+  font-size: var(--md-sys-typescale-title-small-size);
+  font-weight: var(--md-sys-typescale-title-small-weight);
+  line-height: var(--md-sys-typescale-title-small-line-height);
+  letter-spacing: var(--md-sys-typescale-title-small-tracking);
+}
+
+/*Body large*/
+.rdm-typography--body-large {
+  font-family: var(--md-sys-typescale-body-large-font);
+  font-size: var(--md-sys-typescale-body-large-size);
+  font-weight: var(--md-sys-typescale-body-large-weight);
+  line-height: var(--md-sys-typescale-body-large-line-height);
+  letter-spacing: var(--md-sys-typescale-body-large-tracking);
+}
+
+/*Body medium*/
+.rdm-typography--body-medium {
+  font-family: var(--md-sys-typescale-body-medium-font);
+  font-size: var(--md-sys-typescale-body-medium-size);
+  font-weight: var(--md-sys-typescale-body-medium-weight);
+  line-height: var(--md-sys-typescale-body-medium-line-height);
+  letter-spacing: var(--md-sys-typescale-body-medium-tracking);
+}
+
+/*Body small*/
+.rdm-typography--body-small {
+  font-family: var(--md-sys-typescale-body-small-font);
+  font-size: var(--md-sys-typescale-body-small-size);
+  font-weight: var(--md-sys-typescale-body-small-weight);
+  line-height: var(--md-sys-typescale-body-small-line-height);
+  letter-spacing: var(--md-sys-typescale-body-small-tracking);
+}
+
+/*Label large*/
+.rdm-typography--label-large {
+  font-family: var(--md-sys-typescale-label-large-font);
+  font-size: var(--md-sys-typescale-label-large-size);
+  font-weight: var(--md-sys-typescale-label-large-weight);
+  line-height: var(--md-sys-typescale-label-large-line-height);
+  letter-spacing: var(--md-sys-typescale-label-large-tracking);
+}
+
+/*Label medium*/
+.rdm-typography--label-medium {
+  font-family: var(--md-sys-typescale-label-medium-font);
+  font-size: var(--md-sys-typescale-label-medium-size);
+  font-weight: var(--md-sys-typescale-label-medium-weight);
+  line-height: var(--md-sys-typescale-label-medium-line-height);
+  letter-spacing: var(--md-sys-typescale-label-medium-tracking);
+}
+
+/*Label small*/
+.rdm-typography--label-small {
+  font-family: var(--md-sys-typescale-label-small-font);
+  font-size: var(--md-sys-typescale-label-small-size);
+  font-weight: var(--md-sys-typescale-label-small-weight);
+  line-height: var(--md-sys-typescale-label-small-line-height);
+  letter-spacing: var(--md-sys-typescale-label-small-tracking);
+}
+/* ===== primitives\state-layer.css ===== */
+/*
+  RDM Next - Primitiva de state layer M3
+  Los estados de interaccion nunca cambian el color base: sobreponen una
+  capa del color de contraste con la opacidad del token sys. La capa vive
+  en ::after para no interferir con el contenido.
+
+  El componente solo declara --layer (su color de contraste); esta
+  primitiva aporta posicion, forma y los 4 estados. El fallback a
+  on-surface no es decorativo: sin el, una variante sin --layer haria
+  invalida la declaracion y el hover desapareceria en silencio.
+
+  Las opacidades se leen del token (calc * 100% porque color-mix pide
+  porcentaje), no se hardcodean: un solo origen para cada valor.
+
+  Dragged no tiene pseudo-clase en CSS, asi que es modificador
+  (.rdm-state-layer--dragged) para estados manejados por JS o demo.
+
+  Transicion con tokens de motion (v0.16): short3 por continuidad con el
+  160ms heredado de la libreria anterior, documentado como decision de
+  proyecto pendiente de confirmar contra Material Web al construir Button.
+*/
+.rdm-state-layer {
+  position: relative;
+}
+
+.rdm-state-layer::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity var(--md-sys-motion-duration-short3) var(--md-sys-motion-easing-standard), background-color var(--md-sys-motion-duration-short3) var(--md-sys-motion-easing-standard);
+}
+
+.rdm-state-layer:hover::after {
+  background-color: color-mix(in srgb, var(--layer, var(--md-sys-color-on-surface)) calc(var(--md-sys-state-hover-state-layer-opacity) * 100%), transparent);
+  opacity: 1;
+}
+
+.rdm-state-layer:focus-visible::after {
+  background-color: color-mix(in srgb, var(--layer, var(--md-sys-color-on-surface)) calc(var(--md-sys-state-focus-state-layer-opacity) * 100%), transparent);
+  opacity: 1;
+}
+
+.rdm-state-layer:active::after {
+  background-color: color-mix(in srgb, var(--layer, var(--md-sys-color-on-surface)) calc(var(--md-sys-state-pressed-state-layer-opacity) * 100%), transparent);
+  opacity: 1;
+}
+
+.rdm-state-layer--dragged::after {
+  background-color: color-mix(in srgb, var(--layer, var(--md-sys-color-on-surface)) calc(var(--md-sys-state-dragged-state-layer-opacity) * 100%), transparent);
+  opacity: 1;
+}
+
+/* Focus indicator M3 (v0.38): anillo secondary 3px con offset 2px en
+   :focus-visible. Vive en la primitiva: los 4 componentes lo heredan y
+   el outline sigue el border-radius de cada uno. Sin hit-slop de 48dp
+   (decision de proyecto): el anillo va al borde visible + 2px. */
+.rdm-state-layer:focus-visible {
+  outline: solid 3px var(--md-sys-color-secondary);
+  outline-offset: 2px;
+}
+
+/* ===== primitives\icon.css ===== */
+/*
+  RDM Next - Primitiva de iconos M3 (Material Symbols Rounded)
+  Rounded es el estilo de M3 para marcas con botones redondeados
+  ("rounded buttons and round icons", spec). Outlined y sharp NO son
+  ejes: son familias de fuente distintas y no se cambian con
+  font-variation-settings.
+
+  Tamano desde --rdm-icon-size (24px, medio del sistema 20/24/40/48),
+  nunca desde un rol tipografico: body-large-size vale 16px y el icono
+  saldria mal. El eje opsz NO se fija: font-optical-sizing: auto lo
+  deriva del font-size renderizado. Fijarlo en 24 desactivaria el
+  tamano optico, que es la razon de la fuente variable.
+
+  GRAD cambia con el tema (spec: 0 en light, -25 en dark para compensar
+  el visual bleed del icono claro sobre fondo oscuro). FILL va por
+  variable para que el modificador --filled no tenga que repetir toda
+  la declaracion ni pelear con el override de dark.
+
+  Accesibilidad (spec, seccion Accessibility):
+  - Icono decorativo junto a etiqueta: aria-hidden="true" en el icono.
+  - Icono solo (icon button): aria-label en el control, aria-hidden
+    en el icono. Sin esto el lector anuncia la ligadura ("home").
+  - Bajo 20px casi siempre exige label visible; iconos de navegacion
+    SIEMPRE llevan label.
+*/
+.rdm-icon {
+  font-family: "Material Symbols Rounded";
+  font-weight: normal;
+  font-style: normal;
+  font-size: var(--rdm-icon-size, 24px);
+  line-height: 1;
+  letter-spacing: normal;
+  text-transform: none;
+  display: inline-block;
+  white-space: nowrap;
+  direction: ltr;
+  -webkit-font-smoothing: antialiased;
+  font-optical-sizing: auto;
+  font-variation-settings:
+    "FILL" var(--rdm-icon-fill, 0),
+    "wght" 400,
+    "GRAD" 0;
+}
+
+@media (prefers-color-scheme: dark) {
+  .rdm-icon {
+    font-variation-settings:
+      "FILL" var(--rdm-icon-fill, 0),
+      "wght" 400,
+      "GRAD" -25;
+  }
+}
+
+.rdm-icon--filled {
+  --rdm-icon-fill: 1;
+}
+/* ===== rdm\project.css ===== */
+/*
+  RDM Next - Extensiones propias del proyecto (namespace --rdm-*)
+  Todo lo que NO es spec M3 vive aqui, nunca mezclado con --md-sys-*.
+
+  z-index: M3 no define tokens de apilamiento, asi que van en namespace
+  propio. 4 niveles semanticos que reemplazan los numeros magicos
+  (0, 1, 10, 200, 999, 1100) de la libreria anterior.
+
+  Sombras (v0.10): M3 define la elevacion como DISTANCIA dp
+  (--md-sys-elevation-levelN = 1px, 3px, 6px, 8px, 12px), no como receta
+  de box-shadow. En web, box-shadow: 1px dibuja un borde duro, no una
+  elevacion. Estas 6 recetas son extension del proyecto: sombras
+  compuestas key + ambient del set tardio de MD2 (0.3 / 0.15), el mismo
+  que usaba rdm/tokens.css. Un componente elige sombra
+  (var(--rdm-shadow-level3)) o tonal
+  (var(--md-sys-color-surface-container-low)); nunca se mezclan.
+
+  Layout (v0.14, spec actualizada en v0.58): M3 no exporta tokens de
+  layout ni spacing en el vendor (verificado con grep: cero matches).
+  El container es extension del proyecto: max-width 1024px (decision
+  propia: dentro de expanded 840-1199, no token M3) y margen lateral
+  16px que pasa a 24px en 600px (breakpoints M3 mayo 2026: Compact,
+  Medium, Expanded, Large, Extra-large; grid de 8 columnas). Scaffold
+  (bar/rail/pane) publicado sin CSS y app frame difieren hasta que un
+  componente los necesite (YAGNI).
+*/
+:root {
+  --rdm-z-base: 0;
+  --rdm-z-dropdown: 10;
+  --rdm-z-sticky: 100;
+  --rdm-z-modal: 1000;
+
+  --rdm-shadow-level0: none;
+  --rdm-shadow-level1: 0px 1px 2px 0px rgba(0, 0, 0, 0.3), 0px 1px 3px 1px rgba(0, 0, 0, 0.15);
+  --rdm-shadow-level2: 0px 1px 2px 0px rgba(0, 0, 0, 0.3), 0px 2px 6px 2px rgba(0, 0, 0, 0.15);
+  --rdm-shadow-level3: 0px 1px 3px 0px rgba(0, 0, 0, 0.3), 0px 4px 8px 3px rgba(0, 0, 0, 0.15);
+  --rdm-shadow-level4: 0px 2px 4px 0px rgba(0, 0, 0, 0.3), 0px 6px 10px 4px rgba(0, 0, 0, 0.15);
+  --rdm-shadow-level5: 0px 4px 8px 3px rgba(0, 0, 0, 0.15), 0px 8px 12px 6px rgba(0, 0, 0, 0.15);
+
+  --rdm-layout-max-width: 1024px;
+  --rdm-layout-margin: 16px;
+  /* Breakpoints M3 (v0.58, spec mayo 2026): limites inferiores para
+  mapear con min-width. Compact arranca en 0 y no pide token. El
+  max-width 1024 cae dentro de expanded (840-1199), no en large.
+  Ojo: var() no vale en la condicion del @media, asi que el 600 de
+  abajo es literal con este comentario como referencia. */
+  --rdm-layout-breakpoint-medium: 600px;
+  --rdm-layout-breakpoint-expanded: 840px;
+  --rdm-layout-breakpoint-large: 1200px;
+  --rdm-layout-breakpoint-extra-large: 1600px;
+  --rdm-icon-size: 24px;
+
+  /* Espaciado (v0.19, rango completado en v0.54): el sistema es spec M3
+  (baseline 8dp = measurement100; la spec escribe space225 = 18dp
+  como ejemplo oficial del multiplicador), pero los tokens son
+  (Web: Unavailable). Se espeja la nomenclatura para migracion 1:1.
+  La spec publica el rango 0x a 9x (alt del diagrama de tokens) y
+  exactamente 4 nested (0.25x, 0.5x, 0.75x, 1.25x: los que usa
+  activamente). measurement150 y measurement250 son extension del proyecto con
+  la regla del multiplicador. El resto se agrega a demanda con la
+  misma regla. 1dp = 1px en web. */
+  --rdm-measurement-0: 0;
+  --rdm-measurement-25: 2px;
+  --rdm-measurement-50: 4px;
+  --rdm-measurement-75: 6px;
+  --rdm-measurement-100: 8px;
+  --rdm-measurement-125: 10px;
+  --rdm-measurement-150: 12px; /* extension del proyecto (extended FAB gap) */
+  --rdm-measurement-200: 16px;
+  --rdm-measurement-225: 18px;
+  --rdm-measurement-250: 20px; /* extension del proyecto (extended FAB padding) */
+  --rdm-measurement-300: 24px;
+  --rdm-measurement-400: 32px;
+  --rdm-measurement-500: 40px;
+  --rdm-measurement-600: 48px;
+  --rdm-measurement-700: 56px;
+  --rdm-measurement-800: 64px;
+  --rdm-measurement-900: 72px;
+}
+
+@media (min-width: 600px) {
+  :root {
+    --rdm-layout-margin: 24px;
+  }
+}
+
+.rdm-container {
+  width: 100%;
+  max-width: var(--rdm-layout-max-width);
+  margin-inline: auto;
+  padding-inline: var(--rdm-layout-margin);
+}
+/* ===== rdm\base.css ===== */
+/*
+  RDM Next - Regla base de pagina
+  Rompe el ciclo superficie/typography: el body necesita UN token de cada
+  familia (color + fuente), no las primitivas completas. Con esto, las 6
+  paginas de showroom de Foundations funcionan.
+
+  El default es body-medium (14/20), no body-large: es el estilo de texto
+  base de UI en M3 y lo que usa Material Web. El copy de lectura opta
+  explicitamente por body-large con su clase. Asi cada elemento declara su
+  rol y ninguna clase es redundante.
+
+  Reset box-sizing global (v0.14): el container usa width 100% + padding,
+  sin border-box desbordaria. Reset de margenes (v0.50): ver regla.
+  Reset propio ampliado (v0.55, decision 17): la sonda encontro ~20
+  elementos con defaults del UA vivos (button en Arial 13.33px, td con
+  padding 1px y th centrado, blockquote/figure/pre con margin 14px,
+  h1 en 28px/700). Sin normalize ni dependencias: cada regla con su
+  motivo, verificada por el check 50.
+
+  Accesibilidad (v0.16): el motion de M3 es el unico fundamento con
+  requisito de accesibilidad. Sin esto, un usuario con
+  prefers-reduced-motion sigue viendo todas las animaciones.
+*/
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+/* Reset de margenes UA (v0.50): p, h1-h6, ul y ol traen margin del
+   navegador (1em en p) y el ritmo quedaba mitad nuestro mitad del UA.
+   Con esto el espaciado vertical es 100% de tokens; los bloques de
+   texto se separan con gap donde corresponde (ver .rdm-card-content). */
+p,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+ul,
+ol {
+  margin: 0;
+}
+
+/* Headings sin geometria (v0.55): el UA impone font-size (28px en h1,
+   16.38px en h3) y font-weight 700. La tipografia la decide la clase
+   de rol (.rdm-typography--*), nunca la etiqueta. */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-size: inherit;
+  font-weight: inherit;
+}
+
+/* Bloques con margen lateral del UA (v0.55): 14px 40px en blockquote
+   y figure, 14px 0 en pre. No hay rol M3 para ellos: margen 0. */
+blockquote,
+figure,
+pre,
+dd {
+  margin: 0;
+}
+
+/* Listas sin sangrado del UA (v0.55): 40px de padding-left. El
+   sangrado es layout de pagina, no del elemento. */
+ul,
+ol {
+  padding-left: 0;
+}
+
+/* Enfasis sin peso fijo (v0.55): el UA impone 700. bolder respeta la
+   jerarquia del peso heredado en vez de fijar uno. */
+b,
+strong {
+  font-weight: bolder;
+}
+
+/* small sin tamano del UA (v0.55): 11.67px compite con label-small.
+   El tamano lo decide la clase de rol. */
+small {
+  font-size: inherit;
+}
+
+/* Monoespaciada explicita (v0.55): el UA la impone en code/pre/kbd/
+   samp. Se declara para que sea decision, no accidente. */
+code,
+pre,
+kbd,
+samp {
+  font-family: monospace;
+}
+
+/* Tablas sin geometria del UA (v0.55): border-spacing 2px separa las
+   celdas de forma invisible, padding 1px y th centrado. El showroom
+   les da su patron (.demo-table); sin clase quedan planas. */
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+th,
+td {
+  padding: 0;
+  text-align: start;
+  font-weight: inherit;
+}
+
+/* Formularios con fuente propia (v0.55): el UA impone Arial 13.33px
+   (monospace en textarea). Heredan body-medium como todo lo demas. */
+button,
+input,
+select,
+textarea {
+  font: inherit;
+  color: inherit;
+}
+
+/* Boton sin chrome del UA (v0.55): border 2px outset y fondo gris.
+   Con esto button.demo-state-layer pierde su font/border: el reset
+   ya lo cubre (se elimina de demo/state-layer.css). */
+button {
+  background: none;
+  border: none;
+  padding: 0;
+}
+
+/* Links sin color del UA (v0.55): azul con subrayado. El color lo
+   decide el contexto (on-surface por herencia). */
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+body {
+  background-color: var(--md-sys-color-surface);
+  color: var(--md-sys-color-on-surface);
+  font-family: var(--md-sys-typescale-body-medium-font);
+  font-size: var(--md-sys-typescale-body-medium-size);
+  margin: 0;
+}
+
+/* ===== rdm\spacer.css ===== */
+/*
+  RDM Next - Spacer de layout (v0.57)
+  El aire entre bloques como elemento, no como efecto lateral de un
+  margin (spec: en layouts el aire se hace con spacers; en componentes
+  con gap; los hijos nunca llevan margin). Base 400 con modificadores
+  600 y 900 para los saltos grandes de layout.
+*/
+.rdm-spacer {
+  display: block;
+  block-size: var(--rdm-measurement-400);
+}
+
+.rdm-spacer--600 {
+  block-size: var(--rdm-measurement-600);
+}
+
+.rdm-spacer--900 {
+  block-size: var(--rdm-measurement-900);
+}
+/* ===== comp\button.css ===== */
+/*
+  RDM Next - Button (v0.22): primer componente, consume las 7 fundaciones.
+  Base + 5 variantes con el mapeo de color de la spec (no el de Material
+  Web): elevated en surface-container-low + primary; outlined con borde
+  outline-variant. Outlined label = primary (codigo de Material Web y
+  coherencia con text; la tabla de la spec es ambigua en ese punto).
+
+  Composicion, no duplicacion: la tipografia viene de
+  rdm-typography--label-large y el state layer de .rdm-state-layer, ambos
+  en el HTML. Esta hoja solo trae geometria, color, borde y elevacion.
+  Geometria en em (decision 7); espaciado con tokens (check 17).
+
+  Disabled por spec via color-mix: container 12% + label 38% de
+  on-surface (la libreria anterior usaba 38% plano). Solo las contenidas
+  llevan wash; outlined/text quedan transparentes. Sin sombra y sin layer.
+  Focus con anillo M3 (secondary 3px, offset 2px) + layer, ambos de
+  la primitiva.
+
+  En M3 la elevacion es estatica: solo elevated la tiene y no cambia con
+  hover ni pressed. El feedback lo da el state layer.
+*/
+.rdm-button {
+  display: inline-flex;
+  /* middle, no baseline: la linea base deriva con contenido mixto
+     (glifo vs texto, drift de 8px medido en card); middle alinea
+     por caja y es inmune al contenido interno. */
+  vertical-align: middle;
+  align-items: center;
+  justify-content: center;
+  gap: var(--rdm-measurement-100);
+  height: 2.5rem;
+  padding-inline: var(--rdm-measurement-300);
+  border: none;
+  border-radius: var(--md-sys-shape-corner-full-default-size);
+  background-color: transparent;
+  cursor: pointer;
+  user-select: none;
+  transition: background-color var(--md-sys-motion-duration-short3) var(--md-sys-motion-easing-standard), color var(--md-sys-motion-duration-short3) var(--md-sys-motion-easing-standard), border-color var(--md-sys-motion-duration-short3) var(--md-sys-motion-easing-standard), box-shadow var(--md-sys-motion-duration-short3) var(--md-sys-motion-easing-standard);
+}
+
+/* Icono leading 20px por spec (el 18dp anterior era herencia M2).
+   20px no tiene token sys: va en em como resto de la geometria. */
+.rdm-button .rdm-icon {
+  font-size: 1.25rem;
+}
+
+/* Padding asimetrico con icono: 16px del lado leading, 24px trailing. */
+.rdm-button--with-icon {
+  padding-inline-start: var(--rdm-measurement-200);
+}
+
+/* Elevated: surface-container-low + primary + sombra nivel 1. */
+.rdm-button--elevated {
+  background-color: var(--md-sys-color-surface-container-low);
+  color: var(--md-sys-color-primary);
+  --layer: var(--md-sys-color-on-surface);
+  box-shadow: var(--rdm-shadow-level1);
+}
+
+/* Filled: primary + on-primary. */
+.rdm-button--filled {
+  background-color: var(--md-sys-color-primary);
+  color: var(--md-sys-color-on-primary);
+  --layer: var(--md-sys-color-on-primary);
+}
+
+/* Tonal: secondary-container + on-secondary-container. */
+.rdm-button--tonal {
+  background-color: var(--md-sys-color-secondary-container);
+  color: var(--md-sys-color-on-secondary-container);
+  --layer: var(--md-sys-color-on-secondary-container);
+}
+
+/* Outlined: transparente + primary + borde outline-variant. */
+.rdm-button--outlined {
+  color: var(--md-sys-color-primary);
+  --layer: var(--md-sys-color-primary);
+  border: solid 0.0625rem var(--md-sys-color-outline-variant);
+}
+
+/* Text: transparente + primary, sin borde. */
+.rdm-button--text {
+  color: var(--md-sys-color-primary);
+  --layer: var(--md-sys-color-primary);
+}
+
+/* Disabled: wash 12% solo en contenidas, label 38% en todas,
+   borde 12% en outlined, sin sombra. pointer-events evita el hover. */
+.rdm-button--elevated:disabled,
+.rdm-button--filled:disabled,
+.rdm-button--tonal:disabled {
+  background-color: color-mix(in srgb, var(--md-sys-color-on-surface) 12%, transparent);
+}
+
+.rdm-button:disabled {
+  color: color-mix(in srgb, var(--md-sys-color-on-surface) 38%, transparent);
+  border-color: color-mix(in srgb, var(--md-sys-color-on-surface) 12%, transparent);
+  box-shadow: none;
+  pointer-events: none;
+  cursor: not-allowed;
+}
+
+.rdm-button:disabled::after {
+  opacity: 0;
+}
+
+/* ===== Rol destructivo: modificador, no variante =====
+   M3 no lo define como tipo (no esta entre los 10) pero define el rol
+   error para urgencia en fills/icons/text, y permite otros roles con
+   3:1 de contraste. Esto aplica error a 4 variantes. Exclusiones: FAB
+   y elevated (la destructive nunca es la accion flotante principal).
+   La etiqueta nombra la accion (WCAG 1.4.1: el color nunca es el unico
+   portador del significado). */
+.rdm-button--text.rdm-button--destructive {
+  color: var(--md-sys-color-error);
+  --layer: var(--md-sys-color-error);
+}
+
+.rdm-button--outlined.rdm-button--destructive {
+  color: var(--md-sys-color-error);
+  --layer: var(--md-sys-color-error);
+  border-color: var(--md-sys-color-error);
+}
+
+.rdm-button--tonal.rdm-button--destructive {
+  background-color: var(--md-sys-color-error-container);
+  color: var(--md-sys-color-on-error-container);
+  --layer: var(--md-sys-color-on-error-container);
+}
+
+.rdm-button--filled.rdm-button--destructive {
+  background-color: var(--md-sys-color-error);
+  color: var(--md-sys-color-on-error);
+  --layer: var(--md-sys-color-on-error);
+}
+/* ===== comp\fab.css ===== */
+/*
+  RDM Next - FAB (v0.23, extended extraido en v0.28): primary-container + on-primary-container, que es
+  el default de la spec (surface quedo como baseline no recomendado; los
+  tokens v0_192 son de esa generacion). Medium 56 + large 96;
+  small es baseline y no se construye.
+
+  Elevacion 3 con hover en 4 (token explicito de Material Web): el unico
+  componente que levanta. Focus/pressed vuelven a 3, sin reglas. Los
+  state layers van por sys (10% en focus/pressed) via la primitiva.
+
+  Extended: alto 56, radio large, icono 24 + label, padding 16/20 y gap
+  12 por implementacion de Material Web (sin tokens comp para eso).
+  Disabled heredado de button (12%/38%), pendiente de valores propios.
+*/
+.rdm-fab {
+  display: inline-flex;
+  /* middle: ver .rdm-button (drift de 8px con baseline mixto). */
+  vertical-align: middle;
+  align-items: center;
+  justify-content: center;
+  width: 3.5rem;
+  height: 3.5rem;
+  padding: 0;
+  border: none;
+  border-radius: var(--md-sys-shape-corner-large-default-size);
+  background-color: var(--md-sys-color-primary-container);
+  color: var(--md-sys-color-on-primary-container);
+  --layer: var(--md-sys-color-on-primary-container);
+  box-shadow: var(--rdm-shadow-level3);
+  cursor: pointer;
+  user-select: none;
+  white-space: nowrap;
+  transition: background-color var(--md-sys-motion-duration-short3) var(--md-sys-motion-easing-standard), color var(--md-sys-motion-duration-short3) var(--md-sys-motion-easing-standard), box-shadow var(--md-sys-motion-duration-short3) var(--md-sys-motion-easing-standard);
+}
+
+.rdm-fab:hover {
+  box-shadow: var(--rdm-shadow-level4);
+}
+
+.rdm-fab .rdm-icon {
+  font-size: 1.5rem;
+}
+
+.rdm-fab--large {
+  width: 6rem;
+  height: 6rem;
+  border-radius: var(--md-sys-shape-corner-extra-large-default-size);
+}
+
+.rdm-fab--large .rdm-icon {
+  font-size: 2.25rem;
+}
+
+.rdm-fab:disabled {
+  background-color: color-mix(in srgb, var(--md-sys-color-on-surface) 12%, transparent);
+  color: color-mix(in srgb, var(--md-sys-color-on-surface) 38%, transparent);
+  box-shadow: none;
+  pointer-events: none;
+  cursor: not-allowed;
+}
+
+.rdm-fab:disabled::after {
+  opacity: 0;
+}
+/* ===== comp\extended-fab.css ===== */
+/*
+  RDM Next - Extended FAB (v0.28): el unico extended core es el baseline
+  de 56px (small/medium/large 56/80/96 son Expressive). Compone .rdm-fab
+  en el HTML: esta hoja solo trae lo propio (ancho auto, padding 16/20,
+  gap 12). Icono opcional por spec, pero nunca icono sin label.
+*/
+.rdm-extended-fab {
+  width: auto;
+  gap: var(--rdm-measurement-150);
+  padding-inline-start: var(--rdm-measurement-200);
+  padding-inline-end: var(--rdm-measurement-250);
+}
+/* ===== comp\button-group.css ===== */
+/*
+  RDM Next - Button group container (v0.24): solo la parte M3-core.
+  La spec define al grupo como container invisible sin color propio:
+  agrega padding entre botones, nada mas. El morph de forma, el cambio
+  de ancho y la seleccion son Expressive (Web Unavailable) y no se
+  construyen. Medidas guardadas en SKILL (standard 18/12/8, connected
+  2dp, radios internos, min-width 48).
+*/
+.rdm-button-group {
+  display: inline-flex;
+  /* middle: ver .rdm-button (drift de 8px con baseline mixto). */
+  vertical-align: middle;
+  gap: var(--rdm-measurement-25);
+}
+/* ===== comp\divider.css ===== */
+/*
+  RDM Next - Divider (v0.26): linea de 1px con fondo, no un borde.
+  Asi la variante vertical es solo cambiar de eje. outline-variant es
+  el rol de la spec ("visible but not bold"); color y thickness 1px
+  vienen del vendor (v0.64, sin geometria: los margenes salen solo
+  de la tabla de medidas de la spec).
+
+  Inset 16dp solo a la izquierda, middle-inset 16dp ambos lados (tabla
+  de medidas de la spec). Los margenes van en la variante porque son
+  medida de la variante. margin-block 8 simetrico por decision
+  propia: la spec publica bottom 8 y el top iguala para que el
+  separador lea igual hacia ambos lados. Vertical con aire lateral
+  8 espejando el vertical del horizontal, tambien decision propia.
+  Sin inline-size en la base (v0.69): 100% + margin = overflow (el
+  100% se calcula contra el content-box y el margen se suma; el
+  middle-inset sobresalia 16 a la derecha). Con ancho auto el bloque
+  llena el espacio entre los margenes: full 0/0, inset 16/0,
+  middle 16/16.
+*/
+.rdm-divider {
+  display: block;
+  block-size: 1px;
+  border: 0;
+  margin-block: var(--rdm-measurement-100);
+  margin-inline: 0;
+  padding: 0;
+  background-color: var(--md-sys-color-outline-variant);
+}
+
+.rdm-divider--inset {
+  margin-inline-start: var(--rdm-measurement-200);
+}
+
+.rdm-divider--middle-inset {
+  margin-inline: var(--rdm-measurement-200);
+}
+
+.rdm-divider--vertical {
+  block-size: 100%;
+  inline-size: 1px;
+  margin-block: 0;
+  margin-inline: var(--rdm-measurement-100);
+}
+/* ===== comp\icon-button.css ===== */
+/*
+  RDM Next - Icon button (v0.27): 40px, round, 4 estilos + toggle.
+  Valores de los tokens generados v0_192 (codigo, no prosa). Sin etiqueta
+  visible: aria-label obligatorio en el HTML, el icono va aria-hidden.
+
+  Toggle sin JS: los estados selected/unselected son CSS puro sobre
+  [aria-pressed]; el producto alterna el atributo (y el label) con JS.
+  Sin checkbox-hack: no es M3. Selected de outlined = inverse-surface
+  (token explicito, no adivinanza).
+
+  Icono 24px = 1.5rem (decision 7: rem, el button no hereda font-size).
+  Disabled 12%/38% como button.
+*/
+.rdm-icon-button {
+  display: inline-flex;
+  /* middle: ver .rdm-button (drift de 8px con baseline mixto). */
+  vertical-align: middle;
+  align-items: center;
+  justify-content: center;
+  width: 2.5rem;
+  height: 2.5rem;
+  border: none;
+  border-radius: var(--md-sys-shape-corner-full-default-size);
+  background-color: transparent;
+  color: var(--md-sys-color-on-surface-variant);
+  --layer: var(--md-sys-color-on-surface-variant);
+  cursor: pointer;
+  user-select: none;
+  transition: background-color var(--md-sys-motion-duration-short3) var(--md-sys-motion-easing-standard), color var(--md-sys-motion-duration-short3) var(--md-sys-motion-easing-standard), border-color var(--md-sys-motion-duration-short3) var(--md-sys-motion-easing-standard);
+}
+
+.rdm-icon-button .rdm-icon {
+  font-size: 1.5rem;
+}
+
+.rdm-icon-button--filled {
+  background-color: var(--md-sys-color-primary);
+  color: var(--md-sys-color-on-primary);
+  --layer: var(--md-sys-color-on-primary);
+}
+
+.rdm-icon-button--tonal {
+  background-color: var(--md-sys-color-secondary-container);
+  color: var(--md-sys-color-on-secondary-container);
+  --layer: var(--md-sys-color-on-secondary-container);
+}
+
+.rdm-icon-button--outlined {
+  border: solid 0.0625rem var(--md-sys-color-outline);
+  color: var(--md-sys-color-on-surface-variant);
+  --layer: var(--md-sys-color-on-surface-variant);
+}
+
+/* Toggle apagado: filled y tonal usan highest, outlined su borde. */
+.rdm-icon-button--toggle.rdm-icon-button--filled {
+  background-color: var(--md-sys-color-surface-container-highest);
+  color: var(--md-sys-color-primary);
+  --layer: var(--md-sys-color-primary);
+}
+
+.rdm-icon-button--toggle.rdm-icon-button--tonal {
+  background-color: var(--md-sys-color-surface-container-highest);
+  color: var(--md-sys-color-on-surface-variant);
+  --layer: var(--md-sys-color-on-surface-variant);
+}
+
+/* Toggle prendido: filled, tonal lleno, outlined inverso, standard primario. */
+/* Toggle prendido generico: icono primario. Las variantes con container
+   lo pisan con reglas mas especificas. */
+.rdm-icon-button--toggle[aria-pressed="true"] {
+  color: var(--md-sys-color-primary);
+  --layer: var(--md-sys-color-primary);
+}
+
+.rdm-icon-button--toggle.rdm-icon-button--filled[aria-pressed="true"] {
+  background-color: var(--md-sys-color-primary);
+  color: var(--md-sys-color-on-primary);
+  --layer: var(--md-sys-color-on-primary);
+}
+
+.rdm-icon-button--toggle.rdm-icon-button--tonal[aria-pressed="true"] {
+  background-color: var(--md-sys-color-secondary-container);
+  color: var(--md-sys-color-on-secondary-container);
+  --layer: var(--md-sys-color-on-secondary-container);
+}
+
+.rdm-icon-button--toggle.rdm-icon-button--outlined[aria-pressed="true"] {
+  background-color: var(--md-sys-color-inverse-surface);
+  color: var(--md-sys-color-inverse-on-surface);
+  --layer: var(--md-sys-color-inverse-on-surface);
+  border-color: transparent;
+}
+
+/* Disabled: icono 38% en todas, wash 12% donde hay container, borde
+   12% en outlined. Sin layer. */
+.rdm-icon-button:disabled {
+  color: color-mix(in srgb, var(--md-sys-color-on-surface) 38%, transparent);
+  pointer-events: none;
+  cursor: not-allowed;
+}
+
+.rdm-icon-button--filled:disabled,
+.rdm-icon-button--tonal:disabled,
+.rdm-icon-button--toggle.rdm-icon-button--filled[aria-pressed="true"]:disabled,
+.rdm-icon-button--toggle.rdm-icon-button--tonal[aria-pressed="true"]:disabled,
+.rdm-icon-button--toggle.rdm-icon-button--outlined[aria-pressed="true"]:disabled {
+  background-color: color-mix(in srgb, var(--md-sys-color-on-surface) 12%, transparent);
+  border-color: transparent;
+}
+
+.rdm-icon-button--outlined:disabled {
+  border-color: color-mix(in srgb, var(--md-sys-color-on-surface) 12%, transparent);
+}
+
+.rdm-icon-button:disabled::after {
+  opacity: 0;
+}
+/* ===== comp\card.css ===== */
+/*
+  RDM Next - Card (v0.30): 3 variantes M3 core, contenido sobre un subject.
+  No-actionable por defecto (contiene botones); .rdm-card--interactive
+  para target unico SIN botones ni links dentro (HTML invalido si se
+  anidan). Tipografia por composicion, state layer por primitiva.
+
+  Elevacion dinamica por tokens de material-web (labs/card v0_192 en
+  vendor/material-web-tokens): elevated 1-2-1-1-4, filled y outlined
+  0-1-0-0-3 (reposo-hover-focus-pressed-dragged). Solo interactive
+  levanta; la base no tiene hover (spec). Corrige v0.30/v0.35, donde
+  se documento estatica por falta de fuente. Shape medium 12dp,
+  padding en content 16dp, enfasis real: outlined > elevated > filled.
+*/
+.rdm-card {
+  /* block: la card es contenedor de contenido; sin esto un <a> queda
+     inline y se fragmenta por line box (fondo y radio partidos, layer
+     del hover cortado). En <div> es no-op. */
+  display: block;
+  border-radius: var(--md-sys-shape-corner-medium-default-size);
+  /* hidden (v0.43): el radio solo recorta con overflow. La media y los
+     dividers full-bleed heredan el recorte del container; el outline
+     del propio elemento (focus indicator) no se ve afectado. */
+  overflow: hidden;
+}
+
+/* Contenido (opcion A): lleva el padding 16. La media queda fuera del
+   wrapper para sangrar al borde; el container no lleva padding propio
+   ("size is determined by the elements it contains"). Flex column con
+   gap 16 entre bloques (stories.ts: .content con gap 16); sin esto el
+   reset de margenes pegaria los bloques de texto. */
+.rdm-card-content {
+  display: flex;
+  flex-direction: column;
+  gap: var(--rdm-measurement-200);
+  padding: var(--rdm-measurement-200);
+}
+
+.rdm-card--elevated {
+  background-color: var(--md-sys-color-surface-container-low);
+  color: var(--md-sys-color-on-surface);
+  --layer: var(--md-sys-color-on-surface);
+  box-shadow: var(--rdm-shadow-level1);
+}
+
+.rdm-card--filled {
+  background-color: var(--md-sys-color-surface-container-highest);
+  color: var(--md-sys-color-on-surface);
+  --layer: var(--md-sys-color-on-surface);
+}
+
+.rdm-card--outlined {
+  background-color: var(--md-sys-color-surface);
+  color: var(--md-sys-color-on-surface);
+  --layer: var(--md-sys-color-on-surface);
+  border: solid 0.0625rem var(--md-sys-color-outline-variant);
+}
+
+/* Elevacion dinamica (v0.44, tokens labs/card v0_192): la sombra
+   transiciona con short3 + standard. Orden hover, focus, active,
+   dragged: focus/pressed vuelven al reposo y dragged gana por
+   especificidad (0,4,0). Solo interactive levanta. */
+.rdm-card--elevated,
+.rdm-card--filled,
+.rdm-card--outlined {
+  transition: box-shadow var(--md-sys-motion-duration-short3) var(--md-sys-motion-easing-standard);
+}
+
+.rdm-card--elevated.rdm-card--interactive:hover {
+  box-shadow: var(--rdm-shadow-level2);
+}
+
+.rdm-card--filled.rdm-card--interactive:hover,
+.rdm-card--outlined.rdm-card--interactive:hover {
+  box-shadow: var(--rdm-shadow-level1);
+}
+
+.rdm-card--elevated.rdm-card--interactive:focus-visible,
+.rdm-card--elevated.rdm-card--interactive:active {
+  box-shadow: var(--rdm-shadow-level1);
+}
+
+.rdm-card--filled.rdm-card--interactive:focus-visible,
+.rdm-card--filled.rdm-card--interactive:active,
+.rdm-card--outlined.rdm-card--interactive:focus-visible,
+.rdm-card--outlined.rdm-card--interactive:active {
+  box-shadow: none;
+}
+
+.rdm-card--elevated.rdm-card--interactive.rdm-state-layer--dragged {
+  box-shadow: var(--rdm-shadow-level4);
+}
+
+.rdm-card--filled.rdm-card--interactive.rdm-state-layer--dragged,
+.rdm-card--outlined.rdm-card--interactive.rdm-state-layer--dragged {
+  box-shadow: var(--rdm-shadow-level3);
+}
+
+/* Interactive: target unico con cursor y layer. Sin botones dentro. */
+.rdm-card--interactive {
+  cursor: pointer;
+}
+
+/* Links como card: sin subrayado y con on-surface (las 3 variantes lo
+   usan; si alguna difiere, revisar). Especificidad (0,1,1) para ganarle
+   al color del UA. */
+a.rdm-card {
+  text-decoration: none;
+  color: var(--md-sys-color-on-surface);
+}
+
+/* Disabled por material-web (labs/card v0_192): container 0.38 con
+   color real por variante (elevated surface, filled surface-variant;
+   el #FEF7FF del generador era en realidad surface). En outlined el
+   borde pasa a outline 12%. Sin layer ni interaccion. */
+.rdm-card--disabled {
+  opacity: 0.38;
+  cursor: not-allowed;
+}
+
+.rdm-card--elevated.rdm-card--disabled {
+  background-color: var(--md-sys-color-surface);
+}
+
+.rdm-card--filled.rdm-card--disabled {
+  background-color: var(--md-sys-color-surface-variant);
+}
+
+.rdm-card--outlined.rdm-card--disabled {
+  border-color: color-mix(in srgb, var(--md-sys-color-outline) 12%, transparent);
+}
+
+.rdm-card--interactive.rdm-card--disabled {
+  pointer-events: none;
+}
+
+.rdm-card--disabled.rdm-state-layer:hover::after,
+.rdm-card--disabled.rdm-state-layer:focus-visible::after,
+.rdm-card--disabled.rdm-state-layer:active::after {
+  opacity: 0;
+}
+
+/* Focus en outlined interactive: el borde pasa a on-surface por spec
+   (el unico estado donde el outline se mueve). Solo interactive puede
+   recibir foco (check 34); el anillo exterior lo pone la primitiva. */
+.rdm-card--outlined.rdm-card--interactive:focus-visible {
+  border-color: var(--md-sys-color-on-surface);
+}
+
+
+
+
+
+/* ===== comp\menu.css ===== */
+/*
+  RDM Next - Menu baseline (v0.61, paso 1: container)
+  Tokens del vendor (material-web v0_192, misma generacion que card):
+  container surface-container, elevation level2, shape
+  corner-extra-small (4dp). Ancho 112dp min / 280dp max, padding-block
+  8dp (top-space y bottom-space). El padding lateral vive en el item
+  (paso 2), no en el container. Geometria en rem (decision 7);
+  espaciado con tokens (check 17).
+*/
+.rdm-menu {
+  display: block;
+  min-width: 7rem;
+  max-width: 17.5rem;
+  padding-block: var(--rdm-measurement-100);
+  border-radius: var(--md-sys-shape-corner-extra-small-default-size);
+  background-color: var(--md-sys-color-surface-container);
+  box-shadow: var(--rdm-shadow-level2);
+}
+
+/*
+  RDM Next - Menu item (v0.67, paso 2)
+  El item es un list-item renombrado: el wrapper de Google toma los
+  valores de md-comp-list-item (`_get-renamed-tokens` quita el prefijo
+  `list-item-`) y el container propio va a transparent para heredar el
+  menu. Geometria: una linea 56 con padding-block 12 (12+24+12 = 48, el
+  min-block-size manda siempre); dos lineas 72. Laterales 16, gap 16,
+  icono 24. Label on-surface con body-large, resto on-surface-variant.
+  Sin radio por item (container-shape unsupported). Tipografia y state
+  layer por composicion en el HTML (decision 8); disabled con la
+  opacidad 0.3 del vendor.
+*/
+.rdm-menu-item {
+  display: flex;
+  align-items: center;
+  gap: var(--rdm-measurement-200);
+  min-block-size: var(--rdm-measurement-700);
+  padding-block: var(--rdm-measurement-150);
+  padding-inline: var(--rdm-measurement-200);
+  background-color: transparent;
+  color: var(--md-sys-color-on-surface);
+}
+
+.rdm-menu-item-text {
+  display: flex;
+  flex-direction: column;
+}
+
+.rdm-menu-item-leading,
+.rdm-menu-item-trailing {
+  color: var(--md-sys-color-on-surface-variant);
+}
+
+.rdm-menu-item-supporting,
+.rdm-menu-item-trailing-supporting {
+  color: var(--md-sys-color-on-surface-variant);
+}
+
+.rdm-menu-item--two-line {
+  min-block-size: var(--rdm-measurement-900);
+}
+
+.rdm-menu-item--selected {
+  background-color: var(--md-sys-color-secondary-container);
+  color: var(--md-sys-color-on-secondary-container);
+}
+
+.rdm-menu-item--disabled {
+  opacity: 0.3;
+  pointer-events: none;
+}
