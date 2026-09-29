@@ -1475,6 +1475,9 @@ else {
   if ($t -notmatch '(?m)^\.demo-table th,\s*\n\.demo-table td\s*\{[^}]*border-right\s*:\s*1px solid var\(--md-sys-color-outline-variant\)') { Write-Output "  SIN-REJILLA"; $tf++ }
   if ($t -notmatch '(?m)^\.demo-table th,\s*\n\.demo-table td\s*\{[^}]*padding\s*:\s*var\(--rdm-measurement-200\)\s+var\(--rdm-measurement-300\)') { Write-Output "  SIN-PADDING-TOKEN"; $tf++ }
   if ($t -match 'border-bottom-color\s*:\s*var\(--md-sys-color-outline\)') { Write-Output "  TH-CON-OUTLINE (grid debe ser uniforme)"; $tf++ }
+  if ($t -notmatch '(?m)^\.demo-table thead th\s*\{[^}]*font-family\s*:\s*var\(--md-sys-typescale-title-medium-font\)') { Write-Output "  SIN-TITLE-MEDIUM"; $tf++ }
+  if ($t -notmatch '(?m)^\.demo-table td\s*\{[^}]*font-family\s*:\s*var\(--md-sys-typescale-body-medium-font\)') { Write-Output "  SIN-BODY-MEDIUM"; $tf++ }
+  if ($t -notmatch '(?m)^\.demo-table code\s*\{[^}]*font-family\s*:\s*monospace') { Write-Output "  SIN-MONOSPACE"; $tf++ }
 }
 if ($tf -eq 0) { Write-Output "  formato con tokens" } else { $fail++ }
 

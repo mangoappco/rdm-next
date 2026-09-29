@@ -26,6 +26,17 @@
   diferenciaba como una linea mas oscura. El header se distingue por
   su tinte, no por un borde de otro rol.
 
+  Tipografia (v0.87): encabezado a `title-medium` (16/24, peso 500,
+  on-surface) y celdas a `body-medium` (14/20, peso 400), que es el
+  default del body y por eso se declara solo en el td. Antes era
+  `title-small` (14/20): el th se confundia con el contenido.
+
+  El `<code>` de la tabla queda en monospace explicito: el reset de
+  v0.55 ya lo declara para code/pre/kbd/samp, y se re-declara aca
+  porque el selector de la celda lo sobreescribiria. M3 no publica un
+  token de fuente monospace (verificado: 0 matches en el vendor), asi
+  que queda el generico del reset, sin inventar token.
+
   Nota sobre el medio pixel: con viewport impar, .rdm-container
   centrado cae en left 192.5 y las verticales se antialisean. Es del
   viewport, no de la tabla: el divider (.rdm-divider, fondo de 1px)
@@ -60,11 +71,26 @@
 }
 
 .demo-table thead th {
-  font-family: var(--md-sys-typescale-title-small-font);
-  font-size: var(--md-sys-typescale-title-small-size);
-  font-weight: var(--md-sys-typescale-title-small-weight);
-  line-height: var(--md-sys-typescale-title-small-line-height);
-  letter-spacing: var(--md-sys-typescale-title-small-tracking);
-  color: var(--md-sys-color-on-surface-variant);
+  font-family: var(--md-sys-typescale-title-medium-font);
+  font-size: var(--md-sys-typescale-title-medium-size);
+  font-weight: var(--md-sys-typescale-title-medium-weight);
+  line-height: var(--md-sys-typescale-title-medium-line-height);
+  letter-spacing: var(--md-sys-typescale-title-medium-tracking);
+  color: var(--md-sys-color-on-surface);
   background-color: var(--md-sys-color-surface-container-low);
+}
+
+.demo-table td {
+  font-family: var(--md-sys-typescale-body-medium-font);
+  font-size: var(--md-sys-typescale-body-medium-size);
+  font-weight: var(--md-sys-typescale-body-medium-weight);
+  line-height: var(--md-sys-typescale-body-medium-line-height);
+  letter-spacing: var(--md-sys-typescale-body-medium-tracking);
+}
+
+/* El <code> conserva monospace explicito: el reset de v0.55 ya lo
+   declara para code/pre/kbd/samp y se re-declara aca porque el
+   selector de la celda lo sobreescribiria. */
+.demo-table code {
+  font-family: monospace;
 }
