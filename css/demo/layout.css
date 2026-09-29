@@ -7,11 +7,11 @@
 */
 
 /* Container anidado: es el componente real (.rdm-container), el demo
-   CSS solo le da fondo para que el aire lateral se vea y ritmo sobre
-   el bloque. Dentro de la pagina el padding-inline se duplica (16+16),
-   y eso es lo que demuestra: el margen lateral en accion. */
+   CSS solo le da fondo para que el aire lateral se vea. Ritmo en
+   cero (v0.56). Dentro de la pagina el padding-inline se duplica
+   (16+16), y eso es lo que demuestra: el margen lateral en accion. */
 .demo-layout-container {
   background-color: var(--md-sys-color-surface-container-high);
   border-radius: var(--md-sys-shape-corner-medium-default-size);
-  margin-top: var(--rdm-measurement-200);
+  margin-top: 0;
 }

@@ -900,7 +900,8 @@ if ($rem -eq 0) { Write-Output "  todo con token" } else { $fail++ }
 
 # 46. Specimens tipograficos agrupados: typography.html enlaza su
 # demo/typography.css y cada rol vive en un .demo-type (par nombre +
-# spec). Sin el wrapper los 15 roles colapsan a 0 tras el reset.
+# spec). Ritmo en cero (v0.56): las reglas existen con margin 0, el
+# aire se define despues con reglas de spacing explicitas.
 Write-Output ""
 Write-Output "=== Specimens tipograficos ==="
 $typ = 0
@@ -912,8 +913,8 @@ if (-not (Test-Path $td)) { Write-Output "  SIN-DEMO demo/typography.css"; $typ+
 else {
   $t = (Read-Css $td).TrimStart([char]0xFEFF)
   $t = [regex]::Replace($t, '/\*.*?\*/', '', 'Singleline')
-  if ($t -notmatch '(?m)^\.demo-type \+ \.demo-type\s*\{[^}]*margin-top\s*:\s*var\(--rdm-measurement-200\)') { Write-Output "  SIN-RITMO demo/typography.css"; $typ++ }
-  if ($t -notmatch '(?m)^\.demo-type > p \+ p\s*\{[^}]*margin-top\s*:\s*var\(--rdm-measurement-100\)') { Write-Output "  SIN-PAR demo/typography.css"; $typ++ }
+  if ($t -notmatch '(?m)^\.demo-type \+ \.demo-type\s*\{[^}]*margin-top\s*:\s*0') { Write-Output "  SIN-RITMO demo/typography.css"; $typ++ }
+  if ($t -notmatch '(?m)^\.demo-type > p \+ p\s*\{[^}]*margin-top\s*:\s*0') { Write-Output "  SIN-PAR demo/typography.css"; $typ++ }
 }
 if ($typ -eq 0) { Write-Output "  15 roles agrupados" } else { $fail++ }
 
@@ -1035,9 +1036,48 @@ if (-not (Test-Path $td2)) { Write-Output "  SIN-DEMO demo/table.css"; $tab++ }
 else {
   $t = (Read-Css $td2).TrimStart([char]0xFEFF)
   $t = [regex]::Replace($t, '/\*.*?\*/', '', 'Singleline')
-  if ($t -notmatch '(?m)^\.demo-table\s*\{[^}]*margin-top\s*:\s*var\(--rdm-measurement-200\)') { Write-Output "  SIN-RITMO demo/table.css"; $tab++ }
+  if ($t -notmatch '(?m)^\.demo-table\s*\{[^}]*margin-top\s*:\s*0') { Write-Output "  SIN-RITMO demo/table.css"; $tab++ }
 }
 if ($tab -eq 0) { Write-Output "  18 tablas con patron" } else { $fail++ }
+
+# 52. Ritmo en cero (v0.56, decision 18): ninguna regla de css/demo/
+# declara un margin distinto de 0, y showroom.css resetea los 5
+# niveles de pagina. El aire se define despues con reglas de spacing
+# explicitas; el divider conserva sus 8/8 (es del componente).
+Write-Output ""
+Write-Output "=== Ritmo en cero ==="
+$cer = 0
+foreach ($f in (Get-ChildItem "$root\css\demo" -Filter *.css)) {
+  $t = (Read-Css $f.FullName).TrimStart([char]0xFEFF)
+  $t = [regex]::Replace($t, '/\*.*?\*/', '', 'Singleline')
+  foreach ($m in ([regex]::Matches($t, '(?i)margin[a-z-]*\s*:\s*([^;{}]+)'))) {
+    if ($m.Groups[1].Value.Trim() -ne '0') { Write-Output ("  CON-RITMO " + $f.Name + ": " + $m.Groups[0].Value.Trim()); $cer++ }
+  }
+}
+foreach ($sel in @('section', 'section > h2', 'section > p \+ p', 'header > \* \+ \*', 'header')) {
+  $t = (Read-Css "$root\css\demo\showroom.css").TrimStart([char]0xFEFF)
+  $t = [regex]::Replace($t, '/\*.*?\*/', '', 'Singleline')
+  if ($t -notmatch ('(?m)' + $sel + '\s*\{[^}]*margin[a-z-]*\s*:\s*0')) { Write-Output ("  SIN-RESET showroom " + $sel); $cer++ }
+}
+if ($cer -eq 0) { Write-Output "  23 reglas en cero" } else { $fail++ }
+
+# 53. El divider es el unico que separa: ninguna section lleva margen
+# (el gap entre secciones lo da el hr con sus 8/8 del componente).
+# Sin esto el 32 de section y el 8 del hr se acumulaban a 41px.
+Write-Output ""
+Write-Output "=== Divider unico ==="
+$dv = 0
+$sb = "$root\css\demo\showroom.css"
+$t = (Read-Css $sb).TrimStart([char]0xFEFF)
+$t = [regex]::Replace($t, '/\*.*?\*/', '', 'Singleline')
+$m = [regex]::Match($t, '(?m)^\.rdm-container section\s*\{([^}]*)\}')
+if (-not $m.Success) { Write-Output "  SIN-REGLA showroom section"; $dv++ }
+elseif ($m.Groups[1].Value -match '(?i)margin[a-z-]*\s*:\s*([^;]+)' -and $Matches[1].Trim() -ne '0') { Write-Output "  SECTION-CON-MARGEN"; $dv++ }
+$dc = "$root\css\comp\divider.css"
+$t = (Read-Css $dc).TrimStart([char]0xFEFF)
+$t = [regex]::Replace($t, '/\*.*?\*/', '', 'Singleline')
+if ($t -notmatch '(?m)^\.rdm-divider\s*\{[^}]*margin-block\s*:\s*var\(--rdm-measurement-100\)') { Write-Output "  HR-SIN-AIRE divider.css"; $dv++ }
+if ($dv -eq 0) { Write-Output "  section en 0, hr en 8/8" } else { $fail++ }
 
 Write-Output ""
 if ($fail -eq 0) { Write-Output "OK: capa de tokens integra" } else { Write-Output ("FALLA: " + $fail + " chequeo(s)") }

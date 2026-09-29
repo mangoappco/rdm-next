@@ -7,7 +7,7 @@
 .demo-color {
   padding: var(--rdm-measurement-200);
   border-radius: var(--md-sys-shape-corner-medium-default-size);
-  margin-bottom: var(--rdm-measurement-200);
+  margin-bottom: 0;
 }
 
 .demo-color--primary {

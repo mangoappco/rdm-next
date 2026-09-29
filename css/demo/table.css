@@ -1,13 +1,14 @@
 /*
   RDM Next - Patron de tabla del showroom (v0.55)
   No forma parte de la libreria. Ningun componente lo importa.
-  18 tablas en 11 paginas con la misma receta: ritmo de token sobre
-  la tabla, celdas con padding de token alineadas a start y filas con
-  outline-variant. Con esto ninguna tabla depende del default del UA
-  (border-spacing 2px, padding 1px, th centrado).
+  18 tablas en 11 paginas con la misma receta: celdas con padding
+  de token alineadas a start y filas con outline-variant. Ritmo en
+  cero (v0.56): el margen sobre la tabla se define despues con reglas
+  de spacing explicitas. Con esto ninguna tabla depende del default
+  del UA (border-spacing 2px, padding 1px, th centrado).
 */
 .demo-table {
-  margin-top: var(--rdm-measurement-200);
+  margin-top: 0;
   border-collapse: collapse;
 }
 

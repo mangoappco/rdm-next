@@ -11,7 +11,7 @@
   color: var(--md-sys-color-on-surface);
   border-radius: var(--md-sys-shape-corner-medium-default-size);
   padding: var(--rdm-measurement-200);
-  margin-bottom: var(--rdm-measurement-200);
+  margin-bottom: 0;
   --layer: var(--md-sys-color-primary);
 }
 

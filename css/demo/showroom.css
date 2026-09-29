@@ -1,28 +1,27 @@
 /*
   RDM Next - Chrome compartido del showroom (v0.25, migrado en v0.26)
-  Solo ritmo vertical con tokens. Los divisores son el componente
-  .rdm-divider (elementos <hr> entre secciones), no un borde ad-hoc.
+  Ritmo en cero (v0.56, decision 18): los 5 niveles de pagina llevaban
+  medidas que se acumulaban sin querer (section 32 + hr 8 = 41px entre
+  secciones). Todo margin a 0; el aire se define despues con reglas de
+  spacing explicitas. Los divisores son el componente .rdm-divider
+  (elementos <hr> entre secciones), no un borde ad-hoc.
 */
 .rdm-container section {
-  margin-bottom: var(--rdm-measurement-400);
+  margin-bottom: 0;
 }
 
-/* Ritmo de showroom (v0.51): con el reset de margenes UA, el aire entre
-   bloques de texto sale de tokens. h2 separa 16 de su primer hijo; los
-   p apilados, 8; el header, 8 entre bloques. Los specimens se separan
-   en su demo CSS. */
 .rdm-container section > h2 {
-  margin-bottom: var(--rdm-measurement-200);
+  margin-bottom: 0;
 }
 
 .rdm-container section > p + p {
-  margin-top: var(--rdm-measurement-100);
+  margin-top: 0;
 }
 
 .rdm-container > header > * + * {
-  margin-top: var(--rdm-measurement-100);
+  margin-top: 0;
 }
 
 .rdm-container > header {
-  margin-bottom: var(--rdm-measurement-400);
+  margin-bottom: 0;
 }
