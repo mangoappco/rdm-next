@@ -1040,26 +1040,20 @@ else {
 }
 if ($tab -eq 0) { Write-Output "  18 tablas con patron" } else { $fail++ }
 
-# 52. Ritmo en cero (v0.56, decision 18): ninguna regla de css/demo/
-# declara un margin distinto de 0, y showroom.css resetea los 5
-# niveles de pagina. El aire se define despues con reglas de spacing
-# explicitas; el divider conserva sus 8/8 (es del componente).
+# 52. Ritmo en cero (v0.56, decision 18; showroom exento desde v0.62):
+# ningun css/demo/ salvo showroom.css declara un margin distinto de
+# 0. El ritmo de pagina vive en showroom.css y lo custodia el check 62.
 Write-Output ""
 Write-Output "=== Ritmo en cero ==="
 $cer = 0
-foreach ($f in (Get-ChildItem "$root\css\demo" -Filter *.css)) {
+foreach ($f in (Get-ChildItem "$root\css\demo" -Filter *.css | Where-Object { $_.Name -ne 'showroom.css' })) {
   $t = (Read-Css $f.FullName).TrimStart([char]0xFEFF)
   $t = [regex]::Replace($t, '/\*.*?\*/', '', 'Singleline')
   foreach ($m in ([regex]::Matches($t, '(?i)margin[a-z-]*\s*:\s*([^;{}]+)'))) {
     if ($m.Groups[1].Value.Trim() -ne '0') { Write-Output ("  CON-RITMO " + $f.Name + ": " + $m.Groups[0].Value.Trim()); $cer++ }
   }
 }
-foreach ($sel in @('section', 'section > h2', 'section > p \+ p', 'header > \* \+ \*', 'header')) {
-  $t = (Read-Css "$root\css\demo\showroom.css").TrimStart([char]0xFEFF)
-  $t = [regex]::Replace($t, '/\*.*?\*/', '', 'Singleline')
-  if ($t -notmatch ('(?m)' + $sel + '\s*\{[^}]*margin[a-z-]*\s*:\s*0')) { Write-Output ("  SIN-RESET showroom " + $sel); $cer++ }
-}
-if ($cer -eq 0) { Write-Output "  23 reglas en cero" } else { $fail++ }
+if ($cer -eq 0) { Write-Output "  18 reglas en cero" } else { $fail++ }
 
 # 53. El divider es el unico que separa: ninguna section lleva margen
 # (el gap entre secciones lo da el hr con sus 8/8 del componente).
@@ -1227,6 +1221,42 @@ else {
   }
 }
 if ($mc -eq 0) { Write-Output "  container con medidas" } else { $fail++ }
+
+# 62. Ritmo con token (v0.62, decision 24): toda declaracion
+# margin/padding en showroom.css usa var(--rdm-measurement-*).
+# Sin literales: lo que impide volver a la acumulacion de v0.56.
+Write-Output ""
+Write-Output "=== Ritmo con token ==="
+$rit = 0
+$t = (Read-Css "$root\css\demo\showroom.css").TrimStart([char]0xFEFF)
+$t = [regex]::Replace($t, '/\*.*?\*/', '', 'Singleline')
+foreach ($m in ([regex]::Matches($t, '(?i)(margin|padding)[a-z-]*\s*:\s*([^;{}]+)'))) {
+  $v = $m.Groups[2].Value.Trim()
+  if ($v -ne '0' -and $v -notmatch 'var\(--rdm-measurement-') { Write-Output ("  LITERAL " + $m.Groups[0].Value.Trim()); $rit++ }
+}
+foreach ($sel in @('rdm-showroom-bar', 'rdm-showroom-intro')) {
+  if ($t -notmatch ('(?m)\.' + $sel + '\s*\{')) { Write-Output ("  SIN-REGLA " + $sel); $rit++ }
+}
+if ($rit -eq 0) { Write-Output "  ritmo con token" } else { $fail++ }
+
+# 63. Estructura (v0.62, decision 24): 1 barra y 1 intro por pagina,
+# h1 dentro de main y fuera de la barra.
+Write-Output ""
+Write-Output "=== Estructura ==="
+$est = 0
+foreach ($h in (Get-ChildItem "$root\*.html" -ErrorAction SilentlyContinue)) {
+  $t = Read-Css $h.FullName
+  $bar = ([regex]::Matches($t, '<header class="rdm-showroom-bar">')).Count
+  $intro = ([regex]::Matches($t, '<header class="rdm-showroom-intro">')).Count
+  if ($bar -ne 1) { Write-Output ("  SIN-BARRA " + $h.Name); $est++ }
+  if ($intro -ne 1) { Write-Output ("  SIN-INTRO " + $h.Name); $est++ }
+  $iMain = $t.IndexOf('<main>')
+  $iH1 = $t.IndexOf('<h1')
+  if ($iH1 -lt 0 -or $iH1 -lt $iMain) { Write-Output ("  H1-FUERA-MAIN " + $h.Name); $est++ }
+  $m = [regex]::Match($t, '<header class="rdm-showroom-bar">(.*?)</header>', 'Singleline')
+  if ($m.Success -and $m.Groups[1].Value -match '<h1') { Write-Output ("  H1-EN-BARRA " + $h.Name); $est++ }
+}
+if ($est -eq 0) { Write-Output "  18 paginas con barra e intro" } else { $fail++ }
 
 Write-Output ""
 if ($fail -eq 0) { Write-Output "OK: capa de tokens integra" } else { Write-Output ("FALLA: " + $fail + " chequeo(s)") }

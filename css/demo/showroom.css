@@ -1,27 +1,33 @@
 /*
   RDM Next - Chrome compartido del showroom (v0.25, migrado en v0.26)
-  Ritmo en cero (v0.56, decision 18): los 5 niveles de pagina llevaban
-  medidas que se acumulaban sin querer (section 32 + hr 8 = 41px entre
-  secciones). Todo margin a 0; el aire se define despues con reglas de
-  spacing explicitas. Los divisores son el componente .rdm-divider
+  Estructura de scaffold temporal (v0.62, decision 24): barra minima
+  (marca + link a index, sin nav rail todavia) e intro de pagina en
+  main. Ritmo con token y bordes opuestos en 0: cada nivel pega con
+  un solo borde para que nada se acumule (leccion v0.56: 41px entre
+  secciones). Los divisores son el componente .rdm-divider
   (elementos <hr> entre secciones), no un borde ad-hoc.
 */
+.rdm-showroom-bar {
+  margin-bottom: var(--rdm-measurement-400);
+  padding-block: var(--rdm-measurement-200);
+}
+
+.rdm-showroom-intro {
+  margin-bottom: var(--rdm-measurement-200);
+}
+
+.rdm-showroom-intro > * + * {
+  margin-top: var(--rdm-measurement-100);
+}
+
 .rdm-container section {
   margin-bottom: 0;
 }
 
 .rdm-container section > h2 {
-  margin-bottom: 0;
+  margin-bottom: var(--rdm-measurement-200);
 }
 
 .rdm-container section > p + p {
-  margin-top: 0;
-}
-
-.rdm-container > header > * + * {
-  margin-top: 0;
-}
-
-.rdm-container > header {
-  margin-bottom: 0;
+  margin-top: var(--rdm-measurement-100);
 }
