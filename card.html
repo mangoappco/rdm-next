@@ -236,6 +236,17 @@
        en los pares intended. Fondo del boton contra fondo de la card
        (medido del arbol real de tokens):</p>
 
+    <!-- INICIO: card contrast demo -->
+    <div class="demo-card-spacing">
+      <div class="rdm-card rdm-card--filled">
+        <div class="rdm-card-content">
+          <p class="rdm-typography--title-large">Filled</p>
+          <p class="rdm-typography--body-medium">La tabla mide botones sobre esta superficie.</p>
+        </div>
+      </div>
+    </div>
+    <!-- FIN: card contrast demo -->
+
     <!-- INICIO: card contrast table -->
     <table class="demo-table">
       <thead>
@@ -262,6 +273,29 @@
     <p class="rdm-typography--body-large">Valores oficiales de material-web
        (labs/card v0_192 en vendor). Roles, no hex: el valor resuelve
        por tema.</p>
+
+    <!-- INICIO: card tokens demo -->
+    <div class="demo-card-spacing">
+      <div class="rdm-card rdm-card--filled">
+        <div class="rdm-card-content">
+          <p class="rdm-typography--title-large">Filled</p>
+          <p class="rdm-typography--body-medium">Container surface-container-highest.</p>
+        </div>
+      </div>
+      <div class="rdm-card rdm-card--elevated">
+        <div class="rdm-card-content">
+          <p class="rdm-typography--title-large">Elevated</p>
+          <p class="rdm-typography--body-medium">Container surface-container-low, sombra 1.</p>
+        </div>
+      </div>
+      <div class="rdm-card rdm-card--outlined">
+        <div class="rdm-card-content">
+          <p class="rdm-typography--title-large">Outlined</p>
+          <p class="rdm-typography--body-medium">Container surface, borde outline-variant.</p>
+        </div>
+      </div>
+    </div>
+    <!-- FIN: card tokens demo -->
 
     <!-- INICIO: card tokens enabled -->
     <table class="demo-table">
@@ -317,19 +351,23 @@
     </table>
     <!-- FIN: card specs table -->
 
+    <!-- INICIO: card specs demo -->
+    <div class="demo-card-spacing">
+      <div class="rdm-card rdm-card--elevated">
+        <div class="rdm-card-content">
+          <p class="rdm-typography--title-large">Specs</p>
+          <p class="rdm-typography--body-medium">Shape 12, padding 16, texto start-aligned.</p>
+        </div>
+      </div>
+    </div>
+    <!-- FIN: card specs demo -->
+
     <p class="rdm-typography--body-medium">Son las 4 filas que publica `cards/specs`, ni una mas: M3 prescribe medidas solo del container. La media no tiene medida porque el componente es slot-based ("Card size is determined by the elements it contains").</p>
 
   </section>
   <!-- FIN: card specs -->
 
-  <hr class="rdm-divider">
 
-  <!-- INICIO: card rules -->
-  <section>
-    <h2 class="rdm-typography--title-large">Rules</h2>
-    <p class="rdm-typography--body-medium">un subject por card · el container es lo unico obligatorio, el resto opcional · el tamano lo da el contenido · no forzar contenido en cards (espaciado o divisores si es mas simple) · jamas accion sobre superficie accionable · actions y media se construyen en sus pasos (ver Anatomy) · cuidado con large/full en cards densas (spec): medium 12 alcanza · dividers full para expandir, inset 16 para separar · media edge-to-edge o contenida, sin sombra, alto libre · actions: botones a la derecha con gap 8 (decision 15) · mismo action area en las 3 (tonal y elevated fuera por contraste)</p>
-  </section>
-  <!-- FIN: card rules -->
 
   <hr class="rdm-divider">
 

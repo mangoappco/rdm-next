@@ -1164,6 +1164,24 @@ else {
 }
 if ($mw -eq 0) { Write-Output "  max-width en expanded" } else { $fail++ }
 
+# 59. Tablas con ejemplo (v0.59, decision 21): toda seccion de un
+# showroom de componente con <table> tiene >=1 specimen del propio
+# componente. Las medidas se muestran, no solo se listan.
+Write-Output ""
+Write-Output "=== Tablas con ejemplo ==="
+$ej = 0
+$comps = @(@("button","rdm-button"), @("card","rdm-card"), @("fab","rdm-fab"), @("extended-fab","rdm-extended-fab"), @("icon-button","rdm-icon-button"), @("button-group","rdm-button-group"))
+foreach ($c in $comps) {
+  $h = "$root\" + $c[0] + ".html"
+  if (-not (Test-Path $h)) { continue }
+  $t = Read-Css $h
+  foreach ($s in ([regex]::Matches($t, '<section[^>]*>(.*?)</section>', 'Singleline'))) {
+    $b = $s.Groups[1].Value
+    if ($b -match '<table[ >]' -and $b -notmatch ('class="' + $c[1] + '[\s"]')) { Write-Output ("  SIN-SPECIMEN " + $c[0] + ".html"); $ej++; break }
+  }
+}
+if ($ej -eq 0) { Write-Output "  tablas con ejemplo" } else { $fail++ }
+
 Write-Output ""
 if ($fail -eq 0) { Write-Output "OK: capa de tokens integra" } else { Write-Output ("FALLA: " + $fail + " chequeo(s)") }
 exit $fail

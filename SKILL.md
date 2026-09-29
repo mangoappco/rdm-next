@@ -110,6 +110,7 @@ que `--icon-only`.
 | 18 | Ritmo en cero | **Todo `margin` de `css/demo/` a 0**; el aire se define despues con reglas de spacing explicitas | Los 5 niveles de pagina se acumulaban sin querer (section 32 + hr 8 = 41px medidos entre secciones). El `hr` conserva sus 8/8 porque son del componente divider. Check 52 (ritmo en cero) y 53 (el divider es el unico que separa) |
 | 19 | Contrato de spacing | **Componentes = padding + gap del padre; layouts = margin + spacer. Hijos sin margin jamas** | Spec Do/Don't textual: el padre organiza, los hijos no llevan margin porque no son uniformes y piden mas tokens. El margin no aparece en la lista de conceptos de componentes. divider.css exento: separar es su funcion |
 | 20 | Layout contra la spec actual | **Breakpoints (no window size classes), grid de 8, max-width dentro de expanded** | La spec renombro en mayo 2026 y nuestro layout.html publicaba el vocabulario viejo (3 clases, 12 columnas) con fecha para saber que es spec actual. El 1200 caia en Large; el 1024 vive en expanded. Tokens de breakpoint como limites inferiores (var() no vale en @media) |
+| 21 | Showroom = ejemplos + medidas | **Cada showroom muestra ejemplos de SU componente y sus medidas publicadas. La guia del sistema vive en SKILL.md** | Las secciones de documentacion se cuelan version tras version (Emphasis y Placement tenian 0 specimens). La tabla de medidas se queda porque hace falta para consumir el componente; Audit, Tokens narrados, Rules y notas de derivacion salen al apendice (seccion 11). Check 59 lo custodia |
 
 ## 6. Capa de tokens
 
@@ -247,8 +248,9 @@ powershell -ExecutionPolicy Bypass -File tools/verify-tokens.ps1
 | Breakpoints | `layout.html` publica los 5 con sus anchos exactos, sin el nombre viejo |
 | Grid de 8 | `layout.html` publica 8 columnas; el 12 no aparece |
 | Max-width en expanded | `--rdm-layout-max-width` entre 840 y 1199px |
+| Tablas con ejemplo | Toda seccion de showroom de componente con `<table>` tiene >=1 specimen del propio componente (las medidas se muestran, no solo se listan) |
 
-Corre en cada commit de la capa de tokens. Estado actual: 58/58 en verde.
+Corre en cada commit de la capa de tokens. Estado actual: 59/59 en verde.
 
 **Leccion v0.5:** el import de `primitives/typography.css` se escribio como
 `../primitives/` (sube un nivel de mas) y la hoja nunca llego al navegador:
@@ -465,6 +467,7 @@ cualquier `@import` relativo roto, probado con archivo temporal.
 - **v0.56** - Reset total del ritmo a cero (decision 18): los 5 niveles de pagina (header 32/8, h2 16, p apilados 8, section 32) y las 18 reglas de specimens a margin 0 en 14 archivos demo. El caso que lo motivo: 41px medidos entre secciones (32 de section + 8 del hr, escritos en v0.25 y v0.26 sin cruzarse). El hr conserva sus 8/8 (son del componente). Check 52: ritmo en cero (23 reglas), probado con margin trampa. Check 53: section sin margen y hr con aire, probado con section con margen.
 - **v0.57** - Contrato de spacing (decision 19): componentes = padding + gap del padre, layouts = margin + spacer, hijos sin margin jamas (Do/Don't textual de la spec). spacing.html con Model ampliado (listas componente vs layout), seccion Rules, extremos de escala verificados contra el alt (2/4/6/8 y 48/56/64/72 calzan), seccion Spacer con 3 specimens y Audit del boton en button.html (su showroom: cada showroom solo muestra su componente). Conclusion del audit: horizontal coincide, vertical derivado, small falta; se documenta, no se corrige. Nuevo .rdm-spacer en css/rdm/ (400 + 600/900). Check 54: comp sin margin (divider exento), probado con margin trampa. Check 55: spacer con token e import, probado sin import.
 - **v0.58** - Layout contra la spec actual (decision 20): la spec renombro window size classes a breakpoints en mayo 2026. layout.html con 5 breakpoints (tabla oficial con panes), Scaffold (bar/rail/pane sin CSS), Grid de 8 (dato, sin CSS), Margin (definicion + mapeo) y Measure (regla 40-60 + tabla medida: 147 chars a 1200 en body-large). max-width 1200 a 1024 (dentro de expanded) + 4 tokens de breakpoint como limites inferiores. Check 56: 5 breakpoints con anchos, probado sin Large. Check 57: 8 columnas sin 12, probado con 12. Check 58: max-width en expanded, probado con 1300.
+- **v0.59** - Showrooms sin documentacion (decision 21): salen 6 secciones de guia (button Emphasis/Placement/Audit con 0/0/1 specimens, card Rules, button-group Expressive, extended-fab Rules). El contenido se preserva en el apendice (seccion 11). Specimens agregados a las 4 secciones de medidas que no tenian (card Contrast/Tokens/Specs, button-group Measures). Check 59: tabla con ejemplo, probado con seccion sin specimen.
 - **v0.57a** - Fix: el Audit del boton estaba en spacing.html y viola la regla de showroom (cada pagina solo muestra su componente). Movido a button.html como seccion Audit; spacing.html queda con 6 secciones de spacing puro.
 - **v0.48** - Anatomia en las 3 variantes: misma composicion (media + texto + linked text + icon + outlined + filled), solo cambia el modificador. El action area es identico porque los 3 botones pasan 4.5:1 en las 3 superficies; tonal y elevated fuera por regla. Sin CSS ni checks nuevos: el check 30 ya valida los 9 botones. 43/43.
 - **v0.26** - Divider: `css/comp/divider.css` (full/inset/middle-inset/vertical, 1px outline-variant) y `divider.html`. Inset 16 solo izquierda (la tabla dice 16/0, middle 16/16). Chrome migrado: 45 `<hr>` entre secciones (+1 escrito a mano), border-top fuera de showroom.css. Check 23: sin border-top en demo, probado contra borde agregado.
@@ -494,3 +497,50 @@ cualquier `@import` relativo roto, probado con archivo temporal.
 - [x] Button (resuelto en v0.22 con mapeo de la spec; label outlined = primary por codigo de Material Web).
 - [ ] Botones restantes (6 de 10 tipos): icon button, toggle icon button, split button, standard/connected groups, FAB menu. Toggle button es Expressive (fuera de scope). FAB hecho en v0.23.
 - [x] Divider (resuelto en v0.26).
+- [ ] Anatomia inconsistente: la de `card.html` es visual (35 specimens en 3 variantes) pero las de `button`, `extended-fab` e `icon-button` son parrafos de texto. Mismo nombre, dos cosas distintas. Unificar en otro commit, no mezclado con v0.59.
+
+## 11. Apendice: guia movida de showrooms (v0.59)
+
+Contenido que vivia en showrooms de componentes y viola la decision 21. Se preserva aca con su motivo; los showrooms muestran ejemplos y medidas.
+
+### Niveles de enfasis (ex `button.html`, seccion Emphasis)
+
+M3 ordena los 10 tipos por enfasis. Filled, tonal y elevated comparten funcion (Save, Confirm, Done): se elige por cuanto deben atraer la atencion, no por que hacen.
+
+| Enfasis | Componentes | Ejemplo |
+|---|---|---|
+| Alto | Extended FAB, FAB, FAB menu, filled, split button, standard button group | Create, Save, Confirm |
+| Medio | tonal, elevated, outlined | Reply, View all, Add to cart |
+| Bajo | text, connected button group, icon button | Learn more, Bookmark, Star |
+
+### Placement (ex `button.html`, seccion Placement)
+
+Una sola accion de alto enfasis por pantalla. En linea, de mayor a menor enfasis; nunca un boton debajo de otro si entran lado a lado. Pares correctos: filled + text, outlined + filled, text + outlined.
+
+### Audit del boton (ex `button.html`, seccion Audit)
+
+Contra el alt oficial de la spec (bottom padding space200/space400, leading space300/space600):
+
+| Concepto | Spec | Nuestro | Estado |
+|---|---|---|---|
+| Leading padding (base) | space300 = 24px | measurement-300 = 24px | coincide |
+| Leading padding (con icono) | space200 = 16px | measurement-200 = 16px | coincide |
+| Trailing (con icono) | no dice | 24px | decision nuestra |
+| Bottom padding | space200/space400 = 16/32px | 0 (height 2.5rem) | derivado, no spacing |
+| Height | no dice | 40px | derivado del line-height |
+| Small button | existe | no existe | falta |
+| Gap icono-texto | no dice | measurement-100 = 8px | decision nuestra |
+
+Se documenta, no se corrige: pasar a padding-block cambia la caja de 40px a 36px y eso es API visual. Ademas el target de 40px queda bajo el minimo de 48x48 de la pagina Density.
+
+### Reglas de card (ex `card.html`, seccion Rules)
+
+Un subject por card. El container es lo unico obligatorio, el resto opcional. El tamano lo da el contenido. No forzar contenido en cards (espaciado o divisores si es mas simple). Jamas accion sobre superficie accionable. Actions y media se construyen en sus pasos. Cuidado con large/full en cards densas (spec): medium 12 alcanza. Dividers full para expandir, inset 16 para separar. Media edge-to-edge o contenida, sin sombra, alto libre. Actions: botones a la derecha con gap 8 (decision 15). Mismo action area en las 3 (tonal y elevated fuera por contraste).
+
+### Reglas de extended-fab (ex `extended-fab.html`, seccion Rules)
+
+Uno por pantalla. No como opcion en un set (ahi van filled buttons). Margenes de 16dp. Mejor en pantallas grandes y vistas con scroll largo.
+
+### Nota de Expressive (ex `button-group.html`, seccion Expressive)
+
+Standard no existe en M3 core. Connected existe como segmented button, pero la spec lo marca no recomendado. Evitar icon buttons estandar y text buttons: no tienen container treatment.

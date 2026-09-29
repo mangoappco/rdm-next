@@ -14,7 +14,6 @@
   <link rel="stylesheet" href="css/rdm-next.css">
   <link rel="stylesheet" href="css/demo/showroom.css">
   <link rel="stylesheet" href="css/demo/button.css">
-  <link rel="stylesheet" href="css/demo/table.css">
 </head>
 <body>
 
@@ -95,55 +94,9 @@
   </section>
   <!-- FIN: button states -->
 
-  <hr class="rdm-divider">
 
-  <!-- INICIO: button emphasis -->
-  <section>
-    <h2 class="rdm-typography--title-large">Emphasis</h2>
-    <p class="rdm-typography--body-large">M3 ordena los 10 tipos por enfasis.
-       Filled, tonal y elevated comparten funcion (Save, Confirm, Done):
-       se elige por cuanto deben atraer la atencion, no por que hacen.</p>
 
-    <!-- INICIO: button emphasis table -->
-    <table class="demo-table">
-      <thead>
-        <tr><th>Enfasis</th><th>Componentes</th><th>Ejemplo</th></tr>
-      </thead>
-      <tbody>
-        <tr><td>Alto</td><td>Extended FAB, FAB, FAB menu, filled, split button, standard button group</td><td>Create, Save, Confirm</td></tr>
-        <tr><td>Medio</td><td>tonal, elevated, outlined</td><td>Reply, View all, Add to cart</td></tr>
-        <tr><td>Bajo</td><td>text, connected button group, icon button</td><td>Learn more, Bookmark, Star</td></tr>
-      </tbody>
-    </table>
-    <!-- FIN: button emphasis table -->
 
-  </section>
-  <!-- FIN: button emphasis -->
-
-  <hr class="rdm-divider">
-
-  <!-- INICIO: button placement -->
-  <section>
-    <h2 class="rdm-typography--title-large">Placement</h2>
-    <p class="rdm-typography--body-large">Una sola accion de alto enfasis
-       por pantalla. En linea, de mayor a menor enfasis; nunca un boton
-       debajo de otro si entran lado a lado.</p>
-
-    <!-- INICIO: button placement table -->
-    <table class="demo-table">
-      <thead>
-        <tr><th>Correcto</th><th>Incorrecto</th></tr>
-      </thead>
-      <tbody>
-        <tr><td>filled + text</td><td rowspan="3">boton debajo de boton</td></tr>
-        <tr><td>outlined + filled</td></tr>
-        <tr><td>text + outlined</td></tr>
-      </tbody>
-    </table>
-    <!-- FIN: button placement table -->
-
-  </section>
-  <!-- FIN: button placement -->
 
   <hr class="rdm-divider">
 
@@ -178,36 +131,7 @@
   </section>
   <!-- FIN: button anatomy -->
 
-  <hr class="rdm-divider">
 
-  <!-- INICIO: button audit -->
-  <section>
-    <h2 class="rdm-typography--title-large">Audit</h2>
-    <p class="rdm-typography--body-large">El boton contra el alt oficial
-       de la spec (bottom padding space200/space400, leading
-       space300/space600). El horizontal coincide; el vertical es
-       geometria derivada (height 2.5rem), no spacing M3; el small no
-       existe. Se documenta, no se corrige: cambiarlo es API visual.</p>
-
-    <!-- INICIO: button audit table -->
-    <table class="demo-table">
-      <thead>
-        <tr><th>Concepto</th><th>Spec</th><th>Nuestro</th><th>Estado</th></tr>
-      </thead>
-      <tbody>
-        <tr><td>Leading padding (base)</td><td>space300 = 24px</td><td>measurement-300 = 24px</td><td>coincide</td></tr>
-        <tr><td>Leading padding (con icono)</td><td>space200 = 16px</td><td>measurement-200 = 16px</td><td>coincide</td></tr>
-        <tr><td>Trailing (con icono)</td><td>no dice</td><td>24px</td><td>decision nuestra</td></tr>
-        <tr><td>Bottom padding</td><td>space200/space400 = 16/32px</td><td>0 (height 2.5rem)</td><td>derivado, no spacing</td></tr>
-        <tr><td>Height</td><td>no dice</td><td>40px</td><td>derivado del line-height</td></tr>
-        <tr><td>Small button</td><td>existe</td><td>no existe</td><td>falta</td></tr>
-        <tr><td>Gap icono-texto</td><td>no dice</td><td>measurement-100 = 8px</td><td>decision nuestra</td></tr>
-      </tbody>
-    </table>
-    <!-- FIN: button audit table -->
-
-  </section>
-  <!-- FIN: button audit -->
 
 </main>
 
