@@ -7,8 +7,8 @@
   propiedades por rol (font, size, weight, line-height, tracking) y
   cero spacing; su half-leading es absoluto-plano (2-4px) con ratio
   decreciente (1.5 a 1.123). Un margen proporcional al tamano iria
-  contra M3. La tabla de ratios lleva el mismo tratamiento que las
-  tablas de card.html: ritmo de token y filas con outline-variant.
+  contra M3. La tabla de ratios usa el patron compartido
+  (css/demo/table.css).
 */
 .demo-type + .demo-type {
   margin-top: var(--rdm-measurement-200);
@@ -16,16 +16,4 @@
 
 .demo-type > p + p {
   margin-top: var(--rdm-measurement-100);
-}
-
-.demo-type-table {
-  margin-top: var(--rdm-measurement-200);
-  border-collapse: collapse;
-}
-
-.demo-type-table th,
-.demo-type-table td {
-  padding: var(--rdm-measurement-100) var(--rdm-measurement-200);
-  text-align: start;
-  border-bottom: 1px solid var(--md-sys-color-outline-variant);
 }

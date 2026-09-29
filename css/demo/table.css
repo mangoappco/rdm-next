@@ -1,0 +1,19 @@
+/*
+  RDM Next - Patron de tabla del showroom (v0.55)
+  No forma parte de la libreria. Ningun componente lo importa.
+  18 tablas en 11 paginas con la misma receta: ritmo de token sobre
+  la tabla, celdas con padding de token alineadas a start y filas con
+  outline-variant. Con esto ninguna tabla depende del default del UA
+  (border-spacing 2px, padding 1px, th centrado).
+*/
+.demo-table {
+  margin-top: var(--rdm-measurement-200);
+  border-collapse: collapse;
+}
+
+.demo-table th,
+.demo-table td {
+  padding: var(--rdm-measurement-100) var(--rdm-measurement-200);
+  text-align: start;
+  border-bottom: 1px solid var(--md-sys-color-outline-variant);
+}

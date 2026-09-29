@@ -11,6 +11,11 @@
 
   Reset box-sizing global (v0.14): el container usa width 100% + padding,
   sin border-box desbordaria. Reset de margenes (v0.50): ver regla.
+  Reset propio ampliado (v0.55, decision 17): la sonda encontro ~20
+  elementos con defaults del UA vivos (button en Arial 13.33px, td con
+  padding 1px y th centrado, blockquote/figure/pre con margin 14px,
+  h1 en 28px/700). Sin normalize ni dependencias: cada regla con su
+  motivo, verificada por el check 50.
 
   Accesibilidad (v0.16): el motion de M3 es el unico fundamento con
   requisito de accesibilidad. Sin esto, un usuario con
@@ -36,6 +41,98 @@ h6,
 ul,
 ol {
   margin: 0;
+}
+
+/* Headings sin geometria (v0.55): el UA impone font-size (28px en h1,
+   16.38px en h3) y font-weight 700. La tipografia la decide la clase
+   de rol (.rdm-typography--*), nunca la etiqueta. */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-size: inherit;
+  font-weight: inherit;
+}
+
+/* Bloques con margen lateral del UA (v0.55): 14px 40px en blockquote
+   y figure, 14px 0 en pre. No hay rol M3 para ellos: margen 0. */
+blockquote,
+figure,
+pre,
+dd {
+  margin: 0;
+}
+
+/* Listas sin sangrado del UA (v0.55): 40px de padding-left. El
+   sangrado es layout de pagina, no del elemento. */
+ul,
+ol {
+  padding-left: 0;
+}
+
+/* Enfasis sin peso fijo (v0.55): el UA impone 700. bolder respeta la
+   jerarquia del peso heredado en vez de fijar uno. */
+b,
+strong {
+  font-weight: bolder;
+}
+
+/* small sin tamano del UA (v0.55): 11.67px compite con label-small.
+   El tamano lo decide la clase de rol. */
+small {
+  font-size: inherit;
+}
+
+/* Monoespaciada explicita (v0.55): el UA la impone en code/pre/kbd/
+   samp. Se declara para que sea decision, no accidente. */
+code,
+pre,
+kbd,
+samp {
+  font-family: monospace;
+}
+
+/* Tablas sin geometria del UA (v0.55): border-spacing 2px separa las
+   celdas de forma invisible, padding 1px y th centrado. El showroom
+   les da su patron (.demo-table); sin clase quedan planas. */
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+th,
+td {
+  padding: 0;
+  text-align: start;
+  font-weight: inherit;
+}
+
+/* Formularios con fuente propia (v0.55): el UA impone Arial 13.33px
+   (monospace en textarea). Heredan body-medium como todo lo demas. */
+button,
+input,
+select,
+textarea {
+  font: inherit;
+  color: inherit;
+}
+
+/* Boton sin chrome del UA (v0.55): border 2px outset y fondo gris.
+   Con esto button.demo-state-layer pierde su font/border: el reset
+   ya lo cubre (se elimina de demo/state-layer.css). */
+button {
+  background: none;
+  border: none;
+  padding: 0;
+}
+
+/* Links sin color del UA (v0.55): azul con subrayado. El color lo
+   decide el contexto (on-surface por herencia). */
+a {
+  color: inherit;
+  text-decoration: none;
 }
 
 @media (prefers-reduced-motion: reduce) {

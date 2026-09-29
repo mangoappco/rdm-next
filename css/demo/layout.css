@@ -1,21 +1,10 @@
 /*
   RDM Next - Estilos SOLO del showroom de layout.html
   No forman parte de la libreria. Ningun componente los importa.
-  La tabla de window size classes y el container anidado son specimens:
-  llevan ritmo de token (16 sobre la tabla y el bloque) y fondo de
-  superficie para leerse, igual que las cajas de divider.html.
+  El container anidado es specimen con fondo de superficie para que
+  el aire lateral se vea. Las tablas usan el patron compartido
+  (css/demo/table.css).
 */
-.demo-layout-table {
-  margin-top: var(--rdm-measurement-200);
-  border-collapse: collapse;
-}
-
-.demo-layout-table th,
-.demo-layout-table td {
-  padding: var(--rdm-measurement-100) var(--rdm-measurement-200);
-  text-align: start;
-  border-bottom: 1px solid var(--md-sys-color-outline-variant);
-}
 
 /* Container anidado: es el componente real (.rdm-container), el demo
    CSS solo le da fondo para que el aire lateral se vea y ritmo sobre

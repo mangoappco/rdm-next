@@ -979,6 +979,66 @@ else {
 }
 if ($ori -eq 0) { Write-Output "  150 y 250 marcados" } else { $fail++ }
 
+# 50. Reset propio ampliado (v0.55, decision 17): base.css resetea los
+# ~20 elementos con defaults del UA vivos (headings sin geometria,
+# bloques con margen lateral, listas sin sangrado, tablas planas,
+# formularios con font propia, links sin azul). Sin normalize.
+Write-Output ""
+Write-Output "=== Reset propio ==="
+$rst = 0
+$bb2 = "$root\css\rdm\base.css"
+if (-not (Test-Path $bb2)) { Write-Output "  SIN-ARCHIVO base.css"; $rst++ }
+else {
+  $t = (Read-Css $bb2).TrimStart([char]0xFEFF)
+  $t = [regex]::Replace($t, '/\*.*?\*/', '', 'Singleline')
+  $rules = [regex]::Matches($t, '([^{}]+)\{([^{}]*)\}')
+  $tiene = {
+    param($sel, $prop)
+    foreach ($m in $rules) {
+      if ($m.Groups[1].Value -match ('(?i)(^|[\s,])' + $sel + '(?![\w-])') -and $m.Groups[2].Value -match ('(?i)' + $prop)) { return $true }
+    }
+    return $false
+  }
+  $pares = @(
+    @("h1","font-size\s*:\s*inherit"), @("h2","font-size\s*:\s*inherit"),
+    @("h3","font-size\s*:\s*inherit"), @("blockquote","margin\s*:\s*0"),
+    @("figure","margin\s*:\s*0"), @("pre","margin\s*:\s*0"),
+    @("ul","padding-left\s*:\s*0"), @("small","font-size\s*:\s*inherit"),
+    @("code","font-family\s*:\s*monospace"),
+    @("table","border-collapse\s*:\s*collapse"),
+    @("th","text-align\s*:\s*start"), @("td","text-align\s*:\s*start"),
+    @("button","font\s*:\s*inherit"), @("input","font\s*:\s*inherit"),
+    @("select","font\s*:\s*inherit"), @("textarea","font\s*:\s*inherit"),
+    @("a","color\s*:\s*inherit")
+  )
+  foreach ($p in $pares) {
+    if (-not (& $tiene $p[0] $p[1])) { Write-Output ("  SIN-RESET " + $p[0]); $rst++ }
+  }
+}
+if ($rst -eq 0) { Write-Output "  17 elementos reseteados" } else { $fail++ }
+
+# 51. Tablas con patron: toda <table> del showroom lleva demo-table
+# (css/demo/table.css). Ninguna depende del default del UA
+# (border-spacing 2px, padding 1px, th centrado).
+Write-Output ""
+Write-Output "=== Tablas con patron ==="
+$tab = 0
+foreach ($h in (Get-ChildItem "$root\*.html" -ErrorAction SilentlyContinue)) {
+  $t = Read-Css $h.FullName
+  $tot = ([regex]::Matches($t, '<table[ >]')).Count
+  $cls = ([regex]::Matches($t, '<table class="demo-table"')).Count
+  if ($tot -gt $cls) { Write-Output ("  SIN-CLASE " + $h.Name + ": " + $tot + " tablas, " + $cls + " con clase"); $tab++ }
+  if ($t -match 'css/demo/table\.css' -and $tot -eq 0) { Write-Output ("  LINK-SIN-TABLA " + $h.Name); $tab++ }
+}
+$td2 = "$root\css\demo\table.css"
+if (-not (Test-Path $td2)) { Write-Output "  SIN-DEMO demo/table.css"; $tab++ }
+else {
+  $t = (Read-Css $td2).TrimStart([char]0xFEFF)
+  $t = [regex]::Replace($t, '/\*.*?\*/', '', 'Singleline')
+  if ($t -notmatch '(?m)^\.demo-table\s*\{[^}]*margin-top\s*:\s*var\(--rdm-measurement-200\)') { Write-Output "  SIN-RITMO demo/table.css"; $tab++ }
+}
+if ($tab -eq 0) { Write-Output "  18 tablas con patron" } else { $fail++ }
+
 Write-Output ""
 if ($fail -eq 0) { Write-Output "OK: capa de tokens integra" } else { Write-Output ("FALLA: " + $fail + " chequeo(s)") }
 exit $fail
