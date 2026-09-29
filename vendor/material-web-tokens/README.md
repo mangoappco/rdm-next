@@ -20,5 +20,9 @@ Origen: https://github.com/material-components/material-web
   bottom-space 8px hardcoded, 4 list-item-* unsupported) +
   `versions/v0_192/_md-comp-menu.scss` (container surface-container,
   level2, corner-extra-small).
+  Divider (v0.64): `_md-comp-divider.scss` (wrapper: supported color +
+  thickness) + `versions/v0_192/_md-comp-divider.scss` (color
+  outline-variant, thickness 1px). Sin geometria: los margenes vienen
+  solo de la tabla de la spec.
 - Licencia: Apache 2.0 (`LICENSE` en esta carpeta; cada archivo trae su
   cabecera SPDX).

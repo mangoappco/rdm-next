@@ -1282,6 +1282,38 @@ foreach ($f in (Get-ChildItem "$root\css\demo" -Filter *.css)) {
 }
 if ($pad -eq 0) { Write-Output "  padres con gap, hijos sin reglas" } else { $fail++ }
 
+# 65. Medidas del divider (v0.64): inset 16/0, middle 16/16, thickness
+# 1px, color outline-variant, block 8. Tabla de la spec; el 4dp y el
+# right-8 son contexto de Lists y no van en la base.
+Write-Output ""
+Write-Output "=== Medidas del divider ==="
+$dv2 = 0
+$df = "$root\css\comp\divider.css"
+if (-not (Test-Path $df)) { Write-Output "  SIN-ARCHIVO comp/divider.css"; $dv2++ }
+else {
+  $t = (Read-Css $df).TrimStart([char]0xFEFF)
+  $t = [regex]::Replace($t, '/\*.*?\*/', '', 'Singleline')
+  $regla = {
+    param($sel, $prop)
+    $m = [regex]::Match($t, ('(?m)^' + $sel + '\s*\{([^}]*)\}'))
+    if (-not $m.Success) { return $false }
+    return ($m.Groups[1].Value -match ('(?i)' + $prop))
+  }
+  $pares65 = @(
+    @("\.rdm-divider","block-size\s*:\s*1px","SIN-GROSOR"),
+    @("\.rdm-divider","inline-size\s*:\s*100%","SIN-ANCHO"),
+    @("\.rdm-divider","background-color\s*:\s*var\(--md-sys-color-outline-variant\)","SIN-COLOR"),
+    @("\.rdm-divider","margin-block\s*:\s*var\(--rdm-measurement-100\)","SIN-BLOCK"),
+    @("\.rdm-divider--inset","margin-inline-start\s*:\s*var\(--rdm-measurement-200\)","SIN-INSET"),
+    @("\.rdm-divider--middle-inset","margin-inline\s*:\s*var\(--rdm-measurement-200\)","SIN-MIDDLE"),
+    @("\.rdm-divider--vertical","inline-size\s*:\s*1px","SIN-VERTICAL")
+  )
+  foreach ($p in $pares65) {
+    if (-not (& $regla $p[0] $p[1])) { Write-Output ("  " + $p[2] + " comp/divider.css"); $dv2++ }
+  }
+}
+if ($dv2 -eq 0) { Write-Output "  divider con medidas" } else { $fail++ }
+
 Write-Output ""
 if ($fail -eq 0) { Write-Output "OK: capa de tokens integra" } else { Write-Output ("FALLA: " + $fail + " chequeo(s)") }
 exit $fail

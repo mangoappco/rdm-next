@@ -115,6 +115,7 @@ que `--icon-only`.
 | 23 | Menu baseline por pasos | **Baseline (core) por decision 9; menu-item dentro de menu; showroom estatico sin JS** | El vertical es Expressive y no se construye. Lists viene despues: el item del menu no es el item de lista. Apertura y reposicion son comportamiento del producto; el showroom muestra el surface abierto con roles ARIA |
 | 24 | Scaffold temporal del showroom | **Barra minima (marca + index) porque no hay nav rail; el ritmo se define en `showroom.css` con token y bordes opuestos en 0** | Sin rail ni navigation bar no hay navegacion M3 que poner; 16 links en horizontal no son M3. El rail entra cuando exista el componente y la barra se ajusta. El ritmo vuelve con criterio unico y explicito (leccion v0.56: 41px por acumulacion) |
 | 25 | El padre declara el ritmo | **`section` e `intro` con flex + gap con token; ningun hijo declara `margin`** | Do/Don't textual de M3 + precedente del vendor (gap 16 uniforme en stories.ts). Los wrappers no se crean: section, intro, .demo-type y .demo-card-spacing ya existian, solo les faltaba layout. Con gap en el padre, un margin en el hijo sumaria (16+16=32): por eso salen, no por limpieza |
+| 26 | Divider con medidas de spec | **Vendor (color + thickness) + tabla de medidas; top-8 simetrico y vertical inline-8 como decisiones; 4dp y right-8 pendientes de Lists** | El vendor no trae geometria: todo margen sale de la tabla. La spec publica bottom 8; el top iguala por lectura simetrica. El 4dp a supporting-text y el right 8dp son del diagrama en contexto de lista, no de la base: forzarlos romperia inset (right 0) y full-width |
 
 ## 6. Capa de tokens
 
@@ -258,8 +259,9 @@ powershell -ExecutionPolicy Bypass -File tools/verify-tokens.ps1
 | Ritmo con token | Toda declaracion `margin`/`padding` en `showroom.css` usa `var(--rdm-measurement-*)`, sin literales |
 | Estructura | 1 barra y 1 intro por pagina, `h1` dentro de `main` y fuera de la barra |
 | El padre declara | `section` e `intro` con flex + gap con token; ningun hijo declara `margin` en `showroom.css` ni en `demo/` |
+| Medidas del divider | Inset 16/0, middle 16/16, thickness 1px, outline-variant, block 8 (4dp y right-8 pendientes de Lists) |
 
-Corre en cada commit de la capa de tokens. Estado actual: 64/64 en verde.
+Corre en cada commit de la capa de tokens. Estado actual: 65/65 en verde.
 
 **Leccion v0.5:** el import de `primitives/typography.css` se escribio como
 `../primitives/` (sube un nivel de mas) y la hoja nunca llego al navegador:
@@ -481,6 +483,7 @@ cualquier `@import` relativo roto, probado con archivo temporal.
 - **v0.61** - Menu paso 1, container (decision 23): vendor con los 2 archivos byte-exactos (wrapper + values v0_192). `.rdm-menu` con surface-container, level2, extra-small, min 7rem, max 17.5rem y padding-block con token. menu.html con seccion Container (vacio=min 112, texto largo=max 280) e index enlazado. Check 61: container con medidas, probado sin max-width.
 - **v0.62** - Estructura de showroom (decision 24): barra minima (marca + link a index, sin nav rail) e intro de pagina en main en las 18 paginas. Ritmo con token en showroom.css (barra 32, intro 16, h2 16, p 8, bordes opuestos en 0). Check 52 exime a showroom; nuevos 62 (ritmo con token) y 63 (1 barra + 1 intro, h1 en main), probados sin token y sin intro.
 - **v0.63** - El padre declara el ritmo (decision 25): section con flex + gap 16 e intro con flex + gap 8 en showroom.css; .demo-type y .demo-card-spacing con flex + gap 8. Se borran las 3 reglas de margin en hijos (con gap sumarian). p+p pasa de 8 a 16 (era nuestro, no spec); tablas a ancho completo por stretch. Check 46 al gap del padre; nuevo 64 (padres con gap, hijos sin reglas), probado en ambas direcciones.
+- **v0.64** - Divider con medidas de spec (decision 26): vendor con wrapper (878b) + values (720b) byte-exactos; cero cambios de valores (ya coincidian). Comentario documentando top-8 simetrico y vertical inline-8 como decisiones. Tabla Measures con Estado (4 coinciden, 2 pendientes Lists). Check 65: 7 pares medida/flag, probado sin inset.
 - **v0.57a** - Fix: el Audit del boton estaba en spacing.html y viola la regla de showroom (cada pagina solo muestra su componente). Movido a button.html como seccion Audit; spacing.html queda con 6 secciones de spacing puro.
 - **v0.48** - Anatomia en las 3 variantes: misma composicion (media + texto + linked text + icon + outlined + filled), solo cambia el modificador. El action area es identico porque los 3 botones pasan 4.5:1 en las 3 superficies; tonal y elevated fuera por regla. Sin CSS ni checks nuevos: el check 30 ya valida los 9 botones. 43/43.
 - **v0.26** - Divider: `css/comp/divider.css` (full/inset/middle-inset/vertical, 1px outline-variant) y `divider.html`. Inset 16 solo izquierda (la tabla dice 16/0, middle 16/16). Chrome migrado: 45 `<hr>` entre secciones (+1 escrito a mano), border-top fuera de showroom.css. Check 23: sin border-top en demo, probado contra borde agregado.
