@@ -17,6 +17,11 @@
   reemplaza al border de la tabla para que el radio medium recorte
   igual. Con esto los bordes horizontales caen en pixeles enteros.
 
+  Borde del encabezado en `outline`, no en `outline-variant`
+  (v0.84): sobre el tinte surface-container-low el outline-variant
+  da 1.55:1 y se apaga; `outline` da 3.13:1 y pasa el minimo de UI
+  de WCAG 3:1. Mismo rol que usa el borde disabled de card.
+
   Nota sobre el medio pixel: con viewport impar, .rdm-container
   centrado cae en left 192.5 y las verticales se antialisean. Es del
   viewport, no de la tabla: el divider (.rdm-divider, fondo de 1px)
@@ -58,4 +63,5 @@
   letter-spacing: var(--md-sys-typescale-title-small-tracking);
   color: var(--md-sys-color-on-surface-variant);
   background-color: var(--md-sys-color-surface-container-low);
+  border-bottom-color: var(--md-sys-color-outline);
 }
