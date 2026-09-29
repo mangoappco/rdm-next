@@ -1142,11 +1142,12 @@ else {
 }
 if ($gr -eq 0) { Write-Output "  8 columnas, sin 12" } else { $fail++ }
 
-# 58. Max-width dentro de expanded (v0.58): 840-1199 de la spec. El
-# 1200 caia justo en Large; el valor es decision del proyecto pero no
-# puede salirse del rango donde vive el container.
+# 58. Max-width en piso publicado (v0.58, revisado v0.74): el valor es
+# decision del proyecto pero debe ser un limite inferior de breakpoint
+# M3 (600 medium, 840 expanded), nunca un numero arbitrario. El 1200
+# caia justo en Large.
 Write-Output ""
-Write-Output "=== Max-width en expanded ==="
+Write-Output "=== Max-width en piso publicado ==="
 $mw = 0
 $pc2 = "$root\css\rdm\project.css"
 if (-not (Test-Path $pc2)) { Write-Output "  SIN-ARCHIVO project.css"; $mw++ }
@@ -1155,9 +1156,9 @@ else {
   $t = [regex]::Replace($t, '/\*.*?\*/', '', 'Singleline')
   $m = [regex]::Match($t, '--rdm-layout-max-width\s*:\s*([\d.]+)px')
   if (-not $m.Success) { Write-Output "  SIN-TOKEN max-width"; $mw++ }
-  elseif ([double]$m.Groups[1].Value -lt 840 -or [double]$m.Groups[1].Value -gt 1199) { Write-Output ("  FUERA-DE-EXPANDED " + $m.Groups[1].Value + "px"); $mw++ }
+  elseif ($m.Groups[1].Value -ne '600' -and $m.Groups[1].Value -ne '840') { Write-Output ("  PISO-INVALIDO " + $m.Groups[1].Value + "px (solo 600 o 840)"); $mw++ }
 }
-if ($mw -eq 0) { Write-Output "  max-width en expanded" } else { $fail++ }
+if ($mw -eq 0) { Write-Output "  max-width en piso publicado" } else { $fail++ }
 
 # 59. Tablas con ejemplo (v0.59, decision 21): toda seccion de un
 # showroom de componente con <table> tiene >=1 specimen del propio

@@ -1732,8 +1732,8 @@
 
   Layout (v0.14, spec actualizada en v0.58): M3 no exporta tokens de
   layout ni spacing en el vendor (verificado con grep: cero matches).
-  El container es extension del proyecto: max-width 840px (decision
-  propia v0.73: piso de expanded, numero publicado, no token M3) y
+  El container es extension del proyecto: max-width 600px (decision
+  propia v0.74: piso de medium, numero publicado, no token M3) y
   margen lateral
   16px que pasa a 24px en 600px (breakpoints M3 mayo 2026: Compact,
   Medium, Expanded, Large, Extra-large; grid de 8 columnas). Scaffold
@@ -1753,12 +1753,11 @@
   --rdm-shadow-level4: 0px 2px 4px 0px rgba(0, 0, 0, 0.3), 0px 6px 10px 4px rgba(0, 0, 0, 0.15);
   --rdm-shadow-level5: 0px 4px 8px 3px rgba(0, 0, 0, 0.15), 0px 8px 12px 6px rgba(0, 0, 0, 0.15);
 
-  --rdm-layout-max-width: 840px;
+  --rdm-layout-max-width: 600px;
   --rdm-layout-margin: 16px;
   /* Breakpoints M3 (v0.58, spec mayo 2026): limites inferiores para
   mapear con min-width. Compact arranca en 0 y no pide token. El
-  max-width 840 es el piso de expanded (840-1199), no un numero
-  arbitrario.
+  max-width 600 es el piso de medium (600-839).
   Ojo: var() no vale en la condicion del @media, asi que el 600 de
   abajo es literal con este comentario como referencia. */
   --rdm-layout-breakpoint-medium: 600px;

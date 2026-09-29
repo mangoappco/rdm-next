@@ -125,6 +125,7 @@ que `--icon-only`.
 | 33 | Encabezado de tabla demo | **`th` con rol title-small en on-surface-variant; `td` hereda body-medium** | M3 no publica tabla: el rol se elige por ser el encabezado mas chico del sistema (decision de proyecto). Un archivo, las 18 heredan; cero clases en celdas. Demo-only, no toca la libreria ni el bundle |
 | 34 | Prosa con tokens reales | **El texto del showroom cita valores vigentes; el check 70 lo custodia** | El check 14 verificaba el token en CSS pero la prosa decia 12% (M2) contra 0.10 desde v0.37. El showroom es fuente para mango-next: si miente, se consume mal. Patron: 12% junto a pressed/focus/capa; wash y outline 12% son legitimos y quedan fuera |
 | 35 | Container a 840 | **Max-width en el piso de expanded, no a mitad de rango** | M3 no publica max-width; 1024 era arbitrario dentro del rango. 840 es numero publicado (limite inferior de expanded) y mejora la lectura (108 chars vs 129 en body-large). La prosa de layout.html cita el valor: se actualiza con el token (D34) |
+| 36 | Container a 600 | **Piso de medium a pedido; la regla pasa de rango a pisos publicados** | El showroom se quiere mas estrecho. 600 es numero publicado pero el check 58 prohibia salir de expanded: se reescribe (solo 600 u 840, nunca arbitrario). Superada por diseno: v0.73 duro una version |
 
 ## 6. Capa de tokens
 
@@ -272,7 +273,7 @@ powershell -ExecutionPolicy Bypass -File tools/verify-tokens.ps1
 | Spacer de layout | `.rdm-spacer` existe en `css/rdm/` con token e import, base 400 + modificadores 600/900 |
 | Breakpoints | `layout.html` publica los 5 con sus anchos exactos, sin el nombre viejo |
 | Grid de 8 | `layout.html` publica 8 columnas; el 12 no aparece |
-| Max-width en expanded | `--rdm-layout-max-width` entre 840 y 1199px |
+| Max-width en expanded | `--rdm-layout-max-width` en piso publicado (600 o 840) |
 | Tablas con ejemplo | Toda seccion de showroom de componente con `<table>` tiene >=1 specimen del propio componente (las medidas se muestran, no solo se listan) |
 | Anatomy con specimen | Toda seccion Anatomy tiene >=1 specimen del componente (referencia visual, no parrafo) |
 | Container del menu | `.rdm-menu` con min 112, max 280, radio extra-small, surface-container, level2 y padding-block con token |
@@ -518,6 +519,7 @@ cualquier `@import` relativo roto, probado con archivo temporal.
 - **v0.71** - Encabezado de tabla demo (decision 33): `th` con title-small en on-surface-variant en `demo/table.css`; las 18 tablas heredan sin tocar HTML. M3 no publica tabla: rol elegido como decision de proyecto. Sin check nuevo (el estilo es automatico por clase) y sin bundle (demo no se empaqueta). 69/69 en verde.
 - **v0.72** - Prosa con tokens reales (decision 34): 12% a 10% en 7 claims de state-layer (state-layer 4, fab 2, button 1); wash y outline 12% intactos. Boton demo a `text-align: start` (el centrado es default UA, no se toca base.css: M3 centra botones). Check 70: sin 12% junto a pressed/focus/capa. 70/70 en verde.
 - **v0.73** - Container a 840 (decision 35): max-width 1024 a 840 (piso de expanded, numero publicado). Prosa de layout.html actualizada con el token. Sin check nuevo (el 58 admite el piso); bundle a ?v=0.73. 70/70 en verde.
+- **v0.74** - Container a 600 (decision 36): max-width a piso de medium a pedido; check 58 reescrito (solo pisos 600/840). Prosa actualizada. Bundle a ?v=0.74. 70/70 en verde.
 - **v0.57a** - Fix: el Audit del boton estaba en spacing.html y viola la regla de showroom (cada pagina solo muestra su componente). Movido a button.html como seccion Audit; spacing.html queda con 6 secciones de spacing puro.
 - **v0.48** - Anatomia en las 3 variantes: misma composicion (media + texto + linked text + icon + outlined + filled), solo cambia el modificador. El action area es identico porque los 3 botones pasan 4.5:1 en las 3 superficies; tonal y elevated fuera por regla. Sin CSS ni checks nuevos: el check 30 ya valida los 9 botones. 43/43.
 - **v0.26** - Divider: `css/comp/divider.css` (full/inset/middle-inset/vertical, 1px outline-variant) y `divider.html`. Inset 16 solo izquierda (la tabla dice 16/0, middle 16/16). Chrome migrado: 45 `<hr>` entre secciones (+1 escrito a mano), border-top fuera de showroom.css. Check 23: sin border-top en demo, probado contra borde agregado.
