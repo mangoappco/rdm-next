@@ -1,21 +1,12 @@
 /*
   RDM Next - Estilos SOLO del showroom de divider.html
   No forman parte de la libreria. Ningun componente los importa.
-  Solo cajas de contexto: el inset necesita un contenedor para que el
-  margen se vea, el vertical necesita alto. Sin fondo sobre
-  section/header (check 19).
+  Cajas de contexto sin padding (v0.77): el aire que se ve es solo
+  el margen del divider (8 block, 16 inline); con padding la caja
+  sumaba 16 propios y el specimen mentia. El fondo distingue del
+  separador de seccion. Sin fondo sobre section/header (check 19).
 */
 .demo-divider-box {
-  background-color: var(--md-sys-color-surface-container-high);
-  border-radius: var(--md-sys-shape-corner-medium-default-size);
-  padding: var(--rdm-measurement-200);
-  margin-bottom: 0;
-}
-
-/* Caja sin padding solo para full-width (v0.76): con padding la linea
-   dejaria de leerse de borde a borde. El fondo la distingue de los
-   hr separadores de seccion, que van sobre el fondo de pagina. */
-.demo-divider-flush {
   background-color: var(--md-sys-color-surface-container-high);
   border-radius: var(--md-sys-shape-corner-medium-default-size);
   padding: 0;
@@ -27,6 +18,6 @@
   block-size: 6em;
   background-color: var(--md-sys-color-surface-container-high);
   border-radius: var(--md-sys-shape-corner-medium-default-size);
-  padding: var(--rdm-measurement-200);
+  padding: 0;
   margin-bottom: 0;
 }
