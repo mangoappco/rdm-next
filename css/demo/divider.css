@@ -12,6 +12,16 @@
   margin-bottom: 0;
 }
 
+/* Caja sin padding solo para full-width (v0.76): con padding la linea
+   dejaria de leerse de borde a borde. El fondo la distingue de los
+   hr separadores de seccion, que van sobre el fondo de pagina. */
+.demo-divider-flush {
+  background-color: var(--md-sys-color-surface-container-high);
+  border-radius: var(--md-sys-shape-corner-medium-default-size);
+  padding: 0;
+  margin-bottom: 0;
+}
+
 .demo-divider-tall {
   display: flex;
   block-size: 6em;
