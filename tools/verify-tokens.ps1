@@ -1492,6 +1492,36 @@ foreach ($h in (Get-ChildItem "$root\*.html" -ErrorAction SilentlyContinue)) {
 }
 if ($tp -eq 0) { Write-Output "  todas enlazan" } else { $fail++ }
 
+# 75. Huerfanos conocidos (v0.89): hay tokens declarados que ningun
+# CSS consume a proposito. Este check los lista y verifica que sean
+# los esperados, para que una auditoria futura no los reporte como
+# error ni los borre por error.
+#   - motion-duration (16): se mapean por componente (decision pendiente
+#     de 10, no global).
+#   - rdm-layout-breakpoint (4): var() no vale en la condicion de
+#     @media, asi que son documentacion.
+#   - rdm-z (4): M3 no define apilamiento; se usan cuando aparezca
+#     el primer componente con capas.
+Write-Output ""
+Write-Output "=== Huerfanos conocidos ==="
+$ho = 0
+$prop = Get-ChildItem "$root\css" -Recurse -Filter *.css | Where-Object { $_.Name -ne 'rdm-next.bundle.css' }
+$decl = @{}
+$usa = @{}
+foreach ($f in $prop) {
+  $tt = Read-Css $f.FullName
+  foreach ($m in ([regex]::Matches($tt, '(?m)^\s*(--[\w-]+)\s*:'))) { $decl[$m.Groups[1].Value] = $true }
+  foreach ($m in ([regex]::Matches($tt, 'var\(\s*(--[\w-]+)'))) { $usa[$m.Groups[1].Value] = $true }
+}
+$esperados = @('--md-ref-typeface-brand','--md-ref-typeface-plain','--md-sys-motion-duration-extra-long1','--md-sys-motion-duration-extra-long2','--md-sys-motion-duration-extra-long3','--md-sys-motion-duration-long1','--md-sys-motion-duration-long2','--md-sys-motion-duration-long3','--md-sys-motion-duration-long4','--md-sys-motion-duration-medium1','--md-sys-motion-duration-medium2','--md-sys-motion-duration-medium3','--md-sys-motion-duration-medium4','--md-sys-motion-duration-short1','--md-sys-motion-duration-short2','--md-sys-motion-duration-short4','--md-sys-motion-path-standard-path','--rdm-layout-breakpoint-expanded','--rdm-layout-breakpoint-extra-large','--rdm-layout-breakpoint-large','--rdm-layout-breakpoint-medium','--rdm-measurement-0','--rdm-z-base','--rdm-z-dropdown','--rdm-z-modal','--rdm-z-sticky')
+$huerf = @()
+foreach ($k in $decl.Keys) { if (-not $usa.ContainsKey($k)) { $huerf += $k } }
+$nuevo = @($huerf | Where-Object { $esperados -notcontains $_ })
+$ausente = @($esperados | Where-Object { $huerf -notcontains $_ })
+foreach ($n in $nuevo) { Write-Output ("  NUEVO-HUERFANO " + $n); $ho++ }
+foreach ($a in $ausente) { Write-Output ("  YA-CONSUMIDO " + $a + " (sacar de la lista)"); $ho++ }
+if ($ho -eq 0) { Write-Output ("  " + $huerf.Count + " huerfanos, todos conocidos") } else { $fail++ }
+
 Write-Output ""
 if ($fail -eq 0) { Write-Output "OK: capa de tokens integra" } else { Write-Output ("FALLA: " + $fail + " chequeo(s)") }
 exit $fail
