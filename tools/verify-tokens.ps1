@@ -1301,7 +1301,6 @@ else {
   }
   $pares65 = @(
     @("\.rdm-divider","block-size\s*:\s*1px","SIN-GROSOR"),
-    @("\.rdm-divider","inline-size\s*:\s*100%","SIN-ANCHO"),
     @("\.rdm-divider","background-color\s*:\s*var\(--md-sys-color-outline-variant\)","SIN-COLOR"),
     @("\.rdm-divider","margin-block\s*:\s*var\(--rdm-measurement-100\)","SIN-BLOCK"),
     @("\.rdm-divider--inset","margin-inline-start\s*:\s*var\(--rdm-measurement-200\)","SIN-INSET"),
@@ -1311,6 +1310,8 @@ else {
   foreach ($p in $pares65) {
     if (-not (& $regla $p[0] $p[1])) { Write-Output ("  " + $p[2] + " comp/divider.css"); $dv2++ }
   }
+  $mbase = [regex]::Match($t, '(?m)^\.rdm-divider\s*\{([^}]*)\}')
+  if ($mbase.Success -and ($mbase.Groups[1].Value -match '(?i)inline-size')) { Write-Output "  ANCHO-FIJO comp/divider.css (100% + margin = overflow)"; $dv2++ }
 }
 if ($dv2 -eq 0) { Write-Output "  divider con medidas" } else { $fail++ }
 

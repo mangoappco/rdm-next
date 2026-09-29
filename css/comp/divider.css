@@ -11,11 +11,15 @@
   propia: la spec publica bottom 8 y el top iguala para que el
   separador lea igual hacia ambos lados. Vertical con aire lateral
   8 espejando el vertical del horizontal, tambien decision propia.
+  Sin inline-size en la base (v0.69): 100% + margin = overflow (el
+  100% se calcula contra el content-box y el margen se suma; el
+  middle-inset sobresalia 16 a la derecha). Con ancho auto el bloque
+  llena el espacio entre los margenes: full 0/0, inset 16/0,
+  middle 16/16.
 */
 .rdm-divider {
   display: block;
   block-size: 1px;
-  inline-size: 100%;
   border: 0;
   margin-block: var(--rdm-measurement-100);
   margin-inline: 0;
