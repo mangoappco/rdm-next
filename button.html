@@ -11,7 +11,7 @@
   <!-- Material Symbols recortado: peso 400, sin ejes variables sin uso -->
   <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@24,400,0,0" rel="stylesheet">
 
-  <link rel="stylesheet" href="css/rdm-next.bundle.css?v=0.80">
+  <link rel="stylesheet" href="css/rdm-next.bundle.css?v=0.81">
   <link rel="stylesheet" href="css/demo/showroom.css">
   <link rel="stylesheet" href="css/demo/button.css">
 </head>
@@ -37,6 +37,67 @@
     <p class="rdm-typography--body-small">Actions · baseline (M3 core)</p>
   </header>
   <!-- FIN: button intro -->
+
+  <hr class="rdm-divider">
+
+  <hr class="rdm-divider">
+
+  <!-- INICIO: button anatomy -->
+  <section>
+    <h2 class="rdm-typography--title-large">Anatomy</h2>
+    <p class="rdm-typography--body-large">Referencia compuesta: el filled
+       completo, y debajo cada parte por separado. El contenedor lleva
+       la geometria, la variante el color, el icono su padding propio y
+       la etiqueta su rol tipografico.</p>
+
+    <!-- INICIO: button anatomy demo -->
+    <div class="demo-button-row demo-button-row--icons">
+      <button type="button" class="rdm-button rdm-button--filled rdm-button--with-icon rdm-state-layer rdm-typography--label-large"><span class="rdm-icon" aria-hidden="true">add</span>Create</button>
+    </div>
+    <!-- FIN: button anatomy demo -->
+
+    <!-- INICIO: button anatomy parts -->
+    <ul class="demo-button-parts">
+      <li>
+        <p class="rdm-typography--title-medium">Contenedor</p>
+        <div class="demo-button-row demo-button-row--container">
+          <button type="button" class="rdm-button rdm-button--filled rdm-state-layer rdm-typography--label-large">Filled</button>
+        </div>
+        <p class="rdm-typography--body-small"><code>height 2.5rem</code> (40px),
+           <code>padding-inline measurement-300</code> (24px),
+           <code>corner-full</code>, centrado con <code>align-items</code> +
+           <code>justify-content</code>. Filled = primary sobre on-primary.</p>
+      </li>
+      <li>
+        <p class="rdm-typography--title-medium">Icono (opcional)</p>
+        <div class="demo-button-row demo-button-row--icons">
+          <button type="button" class="rdm-button rdm-button--filled rdm-button--with-icon rdm-state-layer rdm-typography--label-large"><span class="rdm-icon" aria-hidden="true">add</span>Create</button>
+        </div>
+        <p class="rdm-typography--body-small"><code>1.25rem</code> (20px) por
+           spec; el padding leading baja a
+           <code>measurement-200</code> (16px) con
+           <code>--with-icon</code>. Gap <code>measurement-100</code> (8px).</p>
+      </li>
+      <li>
+        <p class="rdm-typography--title-medium">Etiqueta</p>
+        <div class="demo-button-row demo-button-row--label">
+          <button type="button" class="rdm-button rdm-button--filled rdm-state-layer rdm-typography--label-large">Filled</button>
+        </div>
+        <p class="rdm-typography--body-small">Rol <code>label-large</code>:
+           14/20, peso 500, tracking +0.1. Viene por composicion en el HTML,
+           no se redeclara en el componente.</p>
+      </li>
+    </ul>
+    <!-- FIN: button anatomy parts -->
+
+    <p class="rdm-typography--body-small">Alcance conocido: los 40px quedan
+       bajo el minimo 48x48 de la pagina Density. Se documenta, no se
+       corrige (ver SKILL 11, Audit del boton).</p>
+
+  </section>
+  <!-- FIN: button anatomy -->
+
+  <hr class="rdm-divider">
 
   <!-- INICIO: button variants -->
   <section>
@@ -127,22 +188,6 @@
 
   </section>
   <!-- FIN: button semantics -->
-
-  <hr class="rdm-divider">
-
-  <!-- INICIO: button anatomy -->
-  <section>
-    <h2 class="rdm-typography--title-large">Anatomy</h2>
-    <p class="rdm-typography--body-large">Referencia visual: base con geometria y state layer, variante con color, icono con padding propio y etiqueta con su rol. Todo compuesto en un solo specimen.</p>
-
-    <!-- INICIO: button anatomy demo -->
-    <div class="demo-button-row demo-button-row--icons">
-      <button type="button" class="rdm-button rdm-button--filled rdm-button--with-icon rdm-state-layer rdm-typography--label-large"><span class="rdm-icon" aria-hidden="true">add</span>Create</button>
-    </div>
-    <!-- FIN: button anatomy demo -->
-
-  </section>
-  <!-- FIN: button anatomy -->
 
 
 

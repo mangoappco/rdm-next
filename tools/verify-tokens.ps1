@@ -1432,6 +1432,30 @@ foreach ($h in (Get-ChildItem "$root\*.html" -ErrorAction SilentlyContinue)) {
 }
 if ($ti -eq 0) { Write-Output "  h1 en display-large" } else { $fail++ }
 
+# 72. Anatomia desglosada (v0.81): la seccion Anatomy de button nombra
+# sus partes (>=3 li) y cada parte lleva su specimen. Extiende el 60
+# (anatomy con specimen) sin contradecirlo: el specimen compuesto sigue
+# arriba, el desglose va debajo.
+Write-Output ""
+Write-Output "=== Anatomia desglosada ==="
+$ad = 0
+$bp = "$root\button.html"
+if (-not (Test-Path $bp)) { Write-Output "  SIN-PAGINA button.html"; $ad++ }
+else {
+  $t = Read-Css $bp
+  $m = [regex]::Match($t, '(?s)<!-- INICIO: button anatomy -->(.*?)<!-- FIN: button anatomy -->')
+  if (-not $m.Success) { Write-Output "  SIN-ANATOMIA button.html"; $ad++ }
+  else {
+    $cuerpo = $m.Groups[1].Value
+    $lis = [regex]::Matches($cuerpo, '(?s)<li>(.*?)</li>')
+    if ($lis.Count -lt 3) { Write-Output ("  PARTES " + $lis.Count + " (minimo 3)"); $ad++ }
+    foreach ($li in $lis) {
+      if ($li.Groups[1].Value -notmatch '<button') { Write-Output "  PARTE-SIN-SPECIMEN"; $ad++ }
+    }
+  }
+}
+if ($ad -eq 0) { Write-Output "  anatomia con partes y specimens" } else { $fail++ }
+
 Write-Output ""
 if ($fail -eq 0) { Write-Output "OK: capa de tokens integra" } else { Write-Output ("FALLA: " + $fail + " chequeo(s)") }
 exit $fail
