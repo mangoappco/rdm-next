@@ -119,6 +119,7 @@ que `--icon-only`.
 | 27 | Aire de layout vs respiracion del componente | **`main > hr` con margin de layout; el 8/8 del componente intacto** | El hr entre secciones juega dos roles: linea (componente) y separacion (layout). Envolverlo en divs es churn en 18 archivos; una regla de contexto hace lo mismo. `main > hr` alcanza solo separadores (specimens y nav fuera). Total 33 sin superar los 32 de barra a main |
 | 28 | Indice por dependencia (dogfooding) | **Divider tras foundations; inputs por dependencia; menu antes que Lists** | Divider es componente M3 (no primitiva ni foundation): sube solo en el indice, `css/comp/divider.css` no se mueve. Checkbox/radio/switch no piden nada; select pide text field + menu. Menu define su propio MenuItem (vendor: paquetes separados). Limpia contaminacion externa: Paper es MUI, Badge fuera de scope, ciclo Select/Menu |
 | 29 | Menu item standalone | **`.rdm-menu-item` sin componente Lists; procedencia compartida registrada** | El wrapper de Google lo dice textual: toma los valores de md-comp-list-item y renombra el prefijo. Los 30 tokens son autosuficientes; la dependencia con list/ es de comportamiento (controllers), no visual (D23). Correccion propia: el alto es 56/72, no 48. Vendor de 3 archivos (el styles scss vive en menu/internal/menuitem/) |
+| 30 | Medidas sin auditoria | **Tablas Medida/Valor sin columna Estado; notas de derivacion al apendice** | La columna Estado con 12 coincide es ruido: el valor ya esta en el CSS. Solo card la conserva (permitido/prohibido por fila es dato de consumo) y state-layer (ahi Estado es el nombre del estado). Lo pendiente (divider 4dp/right-8 en Lists, menu sin radio, Grouped Expressive) se preserva en §11 |
 
 ## 6. Capa de tokens
 
@@ -275,8 +276,9 @@ powershell -ExecutionPolicy Bypass -File tools/verify-tokens.ps1
 | Medidas del divider | Inset 16/0, middle 16/16, thickness 1px, outline-variant, block 8 (4dp y right-8 pendientes de Lists) |
 | Aire entre secciones | `main > hr` con margin de layout (separadores); specimens y nav fuera |
 | Menu item | 56/72, padding 12/16, gap 16, transparent, selected (12 en measurement-150, extension) |
+| Medidas sin auditoria | Ninguna tabla Medida/Valor declara Estado (card conserva el suyo: permitido/prohibido por fila) |
 
-Corre en cada commit de la capa de tokens. Estado actual: 67/67 en verde.
+Corre en cada commit de la capa de tokens. Estado actual: 68/68 en verde.
 
 **Leccion v0.5:** el import de `primitives/typography.css` se escribio como
 `../primitives/` (sube un nivel de mas) y la hoja nunca llego al navegador:
@@ -502,6 +504,7 @@ cualquier `@import` relativo roto, probado con archivo temporal.
 - **v0.65** - Aire entre secciones (decision 27): `main > hr.rdm-divider` con margin-block 200 en showroom.css (total 33). El 8/8 del componente intacto; specimens y nav fuera por selector. Check 66: aire de layout, probado sin regla.
 - **v0.66** - Indice por dependencia (decision 28): Divider sale de Containment a seccion propia `Base components` tras foundations (solo indice, el CSS no se mueve). Inputs por dependencia (checkbox/radio/switch primero, select ultimo). Containment con menu antes que Lists. Sin check nuevo: reordenacion de indice y docs; 66/66.
 - **v0.67** - Menu paso 2, item (decision 29): vendor de 3 archivos byte-exactos (3233/4595/4417b). `.rdm-menu-item` con 56/72, padding 12/16, gap 16, transparent, selected y disabled 0.3. Tabla Measures con Estado (12 coinciden, 1 fuera de scope). Correccion: el alto es 56, no 48. Check 67: 8 pares medida/flag. 67/67 en verde.
+- **v0.68** - Medidas sin auditoria (decision 30): tablas de menu (13 a 7 filas) y divider (6 a 4) a Medida/Valor; notas de derivacion a §11. Card y state-layer conservan su Estado (ahi es dato). Check 68: sin patron Medida/Valor/Estado, probado re-agregando la columna. 68/68 en verde.
 - **v0.57a** - Fix: el Audit del boton estaba en spacing.html y viola la regla de showroom (cada pagina solo muestra su componente). Movido a button.html como seccion Audit; spacing.html queda con 6 secciones de spacing puro.
 - **v0.48** - Anatomia en las 3 variantes: misma composicion (media + texto + linked text + icon + outlined + filled), solo cambia el modificador. El action area es identico porque los 3 botones pasan 4.5:1 en las 3 superficies; tonal y elevated fuera por regla. Sin CSS ni checks nuevos: el check 30 ya valida los 9 botones. 43/43.
 - **v0.26** - Divider: `css/comp/divider.css` (full/inset/middle-inset/vertical, 1px outline-variant) y `divider.html`. Inset 16 solo izquierda (la tabla dice 16/0, middle 16/16). Chrome migrado: 45 `<hr>` entre secciones (+1 escrito a mano), border-top fuera de showroom.css. Check 23: sin border-top en demo, probado contra borde agregado.
@@ -587,3 +590,21 @@ Reemplazadas en v0.60 por referencia visual compuesta (decision 22). Se preserva
 - fab: geometria 56, radio large, primary-container, sombra 3 (hover 4); large 96, radio extra-large, icono 36; extended ancho auto, padding 16/20, gap 12 (nota: rdm-fab--extended no existe como clase, el extendido es su componente); state layer; icono solo con aria-label en el boton.
 - extended-fab: base 56 con sombra; ancho auto, padding 16/20, gap 12; state layer; etiqueta label-large.
 - icon-button: 40px round sin container; variante con color y borde; state layer; aria-label siempre, aria-pressed en toggle; selected por atributo, JS lo alterna.
+
+### Notas de auditoria de medidas (ex showrooms, v0.68)
+
+Preservadas de las tablas Medida/Valor: el showroom publica medida y
+valor; de donde sale cada numero vive aca.
+
+- menu item: 56/72 de `v0_192/_md-comp-list.scss`; 12/16/16/24 del
+  wrapper y de `_menu-item.scss`; label on-surface, resto
+  on-surface-variant; fondo transparent (hereda el menu);
+  seleccionado secondary-container + on-secondary-container;
+  deshabilitado opacidad 0.3. `container-shape` unsupported: sin radio
+  por item. Divider en menu = layout Grouped, `--` en M3 y disponible
+  en Expressive: fuera por decision 9. El 12 va en
+  `measurement-150` (extension del proyecto).
+- divider: la spec publica margen inferior 8; el top iguala por
+  decision simetrica (D26). Margen derecho 8 y 4dp a supporting-text
+  son del diagrama en contexto de lista: pendientes de Lists, no de
+  la base.

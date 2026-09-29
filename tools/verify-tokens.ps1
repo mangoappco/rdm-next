@@ -1359,6 +1359,21 @@ else {
 }
 if ($mi -eq 0) { Write-Output "  item con medidas" } else { $fail++ }
 
+# 68. Medidas sin auditoria (v0.68, decision 30): ninguna tabla con
+# encabezado Medida/Valor declara columna Estado (el ruido de los
+# coincide vive en SKILL 11). Card exenta: ahi Estado es permitido o
+# prohibido por fila (dato de consumo); state-layer exenta: ahi Estado
+# es el nombre del estado.
+Write-Output ""
+Write-Output "=== Medidas sin auditoria ==="
+$au = 0
+foreach ($h in (Get-ChildItem "$root\*.html" -ErrorAction SilentlyContinue)) {
+  $t = Read-Css $h.FullName
+  $m = [regex]::Match($t, '(?s)<th>Medida</th>\s*<th>Valor</th>\s*<th>Estado</th>')
+  if ($m.Success) { Write-Output ("  CON-ESTADO " + $h.Name); $au++ }
+}
+if ($au -eq 0) { Write-Output "  medidas sin auditoria" } else { $fail++ }
+
 Write-Output ""
 if ($fail -eq 0) { Write-Output "OK: capa de tokens integra" } else { Write-Output ("FALLA: " + $fail + " chequeo(s)") }
 exit $fail
