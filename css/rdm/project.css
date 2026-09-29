@@ -15,12 +15,14 @@
   (var(--rdm-shadow-level3)) o tonal
   (var(--md-sys-color-surface-container-low)); nunca se mezclan.
 
-  Layout (v0.14): M3 no exporta tokens de layout ni spacing en el vendor
-  (verificado con grep: cero matches). El container es extension del
-  proyecto: max-width 1200px (decision propia, no token M3) y margen
-  lateral 16px que pasa a 24px en 600px (window classes M3: Compact
-  0-599, Medium 600-839, Expanded 840+). Grid de 12 columnas y app frame
-  difieren hasta que un componente los necesite (YAGNI).
+  Layout (v0.14, spec actualizada en v0.58): M3 no exporta tokens de
+  layout ni spacing en el vendor (verificado con grep: cero matches).
+  El container es extension del proyecto: max-width 1024px (decision
+  propia: dentro de expanded 840-1199, no token M3) y margen lateral
+  16px que pasa a 24px en 600px (breakpoints M3 mayo 2026: Compact,
+  Medium, Expanded, Large, Extra-large; grid de 8 columnas). Scaffold
+  (bar/rail/pane) publicado sin CSS y app frame difieren hasta que un
+  componente los necesite (YAGNI).
 */
 :root {
   --rdm-z-base: 0;
@@ -35,8 +37,17 @@
   --rdm-shadow-level4: 0px 2px 4px 0px rgba(0, 0, 0, 0.3), 0px 6px 10px 4px rgba(0, 0, 0, 0.15);
   --rdm-shadow-level5: 0px 4px 8px 3px rgba(0, 0, 0, 0.15), 0px 8px 12px 6px rgba(0, 0, 0, 0.15);
 
-  --rdm-layout-max-width: 1200px;
+  --rdm-layout-max-width: 1024px;
   --rdm-layout-margin: 16px;
+  /* Breakpoints M3 (v0.58, spec mayo 2026): limites inferiores para
+  mapear con min-width. Compact arranca en 0 y no pide token. El
+  max-width 1024 cae dentro de expanded (840-1199), no en large.
+  Ojo: var() no vale en la condicion del @media, asi que el 600 de
+  abajo es literal con este comentario como referencia. */
+  --rdm-layout-breakpoint-medium: 600px;
+  --rdm-layout-breakpoint-expanded: 840px;
+  --rdm-layout-breakpoint-large: 1200px;
+  --rdm-layout-breakpoint-extra-large: 1600px;
   --rdm-icon-size: 24px;
 
   /* Espaciado (v0.19, rango completado en v0.54): el sistema es spec M3

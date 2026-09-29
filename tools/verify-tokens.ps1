@@ -1115,6 +1115,55 @@ $en = "$root\css\rdm-next.css"
 if ((Read-Css $en) -notmatch 'rdm/spacer\.css') { Write-Output "  SIN-IMPORT rdm-next.css"; $sp++ }
 if ($sp -eq 0) { Write-Output "  spacer con token e import" } else { $fail++ }
 
+# 56. Breakpoints de la spec (v0.58, mayo 2026): layout.html publica
+# los 5 con sus anchos exactos. window size classes es el nombre viejo.
+Write-Output ""
+Write-Output "=== Breakpoints ==="
+$bp = 0
+$lh = "$root\layout.html"
+if (-not (Test-Path $lh)) { Write-Output "  SIN-PAGINA layout.html"; $bp++ }
+else {
+  $t = Read-Css $lh
+  foreach ($n in @("Compact","Medium","Expanded","Large","Extra-large")) {
+    if ($t -notmatch ('<td>' + $n + '</td>')) { Write-Output ("  SIN-BREAKPOINT " + $n); $bp++ }
+  }
+  foreach ($w in @("600","840","1200","1600")) {
+    if ($t -notmatch $w) { Write-Output ("  SIN-ANCHO " + $w); $bp++ }
+  }
+  if ($t -match '<(td|th|h2)>[^<]*window size class') { Write-Output "  NOMBRE-VIEJO layout.html"; $bp++ }
+}
+if ($bp -eq 0) { Write-Output "  5 breakpoints con anchos" } else { $fail++ }
+
+# 57. Grid de 8 columnas (v0.58): el alt oficial publica 8 con pane
+# de 4. El 12 era el grid antiguo: si vuelve, es regresion.
+Write-Output ""
+Write-Output "=== Grid de 8 ==="
+$gr = 0
+if (-not (Test-Path $lh)) { Write-Output "  SIN-PAGINA layout.html"; $gr++ }
+else {
+  $t = Read-Css $lh
+  if ($t -notmatch '8 columnas') { Write-Output "  SIN-GRID layout.html"; $gr++ }
+  if ($t -match '12 columnas') { Write-Output "  GRID-VIEJO layout.html"; $gr++ }
+}
+if ($gr -eq 0) { Write-Output "  8 columnas, sin 12" } else { $fail++ }
+
+# 58. Max-width dentro de expanded (v0.58): 840-1199 de la spec. El
+# 1200 caia justo en Large; el valor es decision del proyecto pero no
+# puede salirse del rango donde vive el container.
+Write-Output ""
+Write-Output "=== Max-width en expanded ==="
+$mw = 0
+$pc2 = "$root\css\rdm\project.css"
+if (-not (Test-Path $pc2)) { Write-Output "  SIN-ARCHIVO project.css"; $mw++ }
+else {
+  $t = (Read-Css $pc2).TrimStart([char]0xFEFF)
+  $t = [regex]::Replace($t, '/\*.*?\*/', '', 'Singleline')
+  $m = [regex]::Match($t, '--rdm-layout-max-width\s*:\s*([\d.]+)px')
+  if (-not $m.Success) { Write-Output "  SIN-TOKEN max-width"; $mw++ }
+  elseif ([double]$m.Groups[1].Value -lt 840 -or [double]$m.Groups[1].Value -gt 1199) { Write-Output ("  FUERA-DE-EXPANDED " + $m.Groups[1].Value + "px"); $mw++ }
+}
+if ($mw -eq 0) { Write-Output "  max-width en expanded" } else { $fail++ }
+
 Write-Output ""
 if ($fail -eq 0) { Write-Output "OK: capa de tokens integra" } else { Write-Output ("FALLA: " + $fail + " chequeo(s)") }
 exit $fail
