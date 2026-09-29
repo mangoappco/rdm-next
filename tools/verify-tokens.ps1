@@ -1314,6 +1314,17 @@ else {
 }
 if ($dv2 -eq 0) { Write-Output "  divider con medidas" } else { $fail++ }
 
+# 66. Aire entre secciones (v0.65, decision 27): los hr hijos directos
+# de main llevan aire de layout; los specimens dentro de secciones y
+# del nav quedan fuera. El 8/8 del componente no se toca.
+Write-Output ""
+Write-Output "=== Aire entre secciones ==="
+$ai = 0
+$t = (Read-Css "$root\css\demo\showroom.css").TrimStart([char]0xFEFF)
+$t = [regex]::Replace($t, '/\*.*?\*/', '', 'Singleline')
+if ($t -notmatch '(?m)^main\s*>\s*hr\.rdm-divider\s*\{[^}]*margin-block\s*:\s*var\(--rdm-measurement-200\)') { Write-Output "  SIN-AIRE showroom.css"; $ai++ }
+if ($ai -eq 0) { Write-Output "  separadores con aire de layout" } else { $fail++ }
+
 Write-Output ""
 if ($fail -eq 0) { Write-Output "OK: capa de tokens integra" } else { Write-Output ("FALLA: " + $fail + " chequeo(s)") }
 exit $fail

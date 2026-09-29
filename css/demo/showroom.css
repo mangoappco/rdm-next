@@ -27,3 +27,12 @@
   gap: var(--rdm-measurement-200);
   margin-bottom: 0;
 }
+
+/* Aire entre secciones (v0.65, decision 27): el 8/8 del hr es
+   respiracion del componente (spec + decision 26, no se toca); el
+   aire de layout lo pone el padre por contexto. Solo los hr hijos
+   directos de main (separadores); los specimens dentro de secciones
+   y del nav quedan fuera. Total: 16+1+16 = 33px. */
+main > hr.rdm-divider {
+  margin-block: var(--rdm-measurement-200);
+}
