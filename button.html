@@ -178,6 +178,37 @@
   </section>
   <!-- FIN: button anatomy -->
 
+  <hr class="rdm-divider">
+
+  <!-- INICIO: button audit -->
+  <section>
+    <h2 class="rdm-typography--title-large">Audit</h2>
+    <p class="rdm-typography--body-large">El boton contra el alt oficial
+       de la spec (bottom padding space200/space400, leading
+       space300/space600). El horizontal coincide; el vertical es
+       geometria derivada (height 2.5rem), no spacing M3; el small no
+       existe. Se documenta, no se corrige: cambiarlo es API visual.</p>
+
+    <!-- INICIO: button audit table -->
+    <table class="demo-table">
+      <thead>
+        <tr><th>Concepto</th><th>Spec</th><th>Nuestro</th><th>Estado</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Leading padding (base)</td><td>space300 = 24px</td><td>measurement-300 = 24px</td><td>coincide</td></tr>
+        <tr><td>Leading padding (con icono)</td><td>space200 = 16px</td><td>measurement-200 = 16px</td><td>coincide</td></tr>
+        <tr><td>Trailing (con icono)</td><td>no dice</td><td>24px</td><td>decision nuestra</td></tr>
+        <tr><td>Bottom padding</td><td>space200/space400 = 16/32px</td><td>0 (height 2.5rem)</td><td>derivado, no spacing</td></tr>
+        <tr><td>Height</td><td>no dice</td><td>40px</td><td>derivado del line-height</td></tr>
+        <tr><td>Small button</td><td>existe</td><td>no existe</td><td>falta</td></tr>
+        <tr><td>Gap icono-texto</td><td>no dice</td><td>measurement-100 = 8px</td><td>decision nuestra</td></tr>
+      </tbody>
+    </table>
+    <!-- FIN: button audit table -->
+
+  </section>
+  <!-- FIN: button audit -->
+
 </main>
 
 <!-- FIN: button container -->
