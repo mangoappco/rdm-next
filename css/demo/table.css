@@ -15,15 +15,16 @@
   CSS), asi que el tinte del th lo tapaba y el borde superior de la
   tabla quedaba invisible. Con border real la linea va por encima.
 
-  Rejilla con right/bottom de las celdas (v0.83) y sin las reglas
-  de excepcion: con border real en la tabla, el borde derecho de la
-  ultima celda y el inferior de la ultima fila se sobrepondrian al
-  contorno. Se dejan y el grid se ve limpio (medido).
+  Rejilla con right/bottom de las celdas (v0.83) + reglas de
+  excepcion en la ultima columna y la ultima fila: con border real
+  en la tabla, esos bordes se sobrepondrian al contorno y sumarian
+  2px. Las reglas evitan la doble linea (medido).
 
-  Borde del encabezado en `outline`, no en `outline-variant`
-  (v0.84): sobre el tinte surface-container-low el outline-variant
-  da 1.55:1 y se apaga; `outline` da 3.13:1 y pasa el minimo de UI
-  de WCAG 3:1. Mismo rol que usa el borde disabled de card.
+  Todo el grid en `outline-variant` (v0.86): el borde del encabezado
+  iba en `outline` (v0.84) por un problema que en realidad era el
+  inset box-shadow de v0.83. Corregido eso, `outline` solo se
+  diferenciaba como una linea mas oscura. El header se distingue por
+  su tinte, no por un borde de otro rol.
 
   Nota sobre el medio pixel: con viewport impar, .rdm-container
   centrado cae en left 192.5 y las verticales se antialisean. Es del
@@ -66,5 +67,4 @@
   letter-spacing: var(--md-sys-typescale-title-small-tracking);
   color: var(--md-sys-color-on-surface-variant);
   background-color: var(--md-sys-color-surface-container-low);
-  border-bottom-color: var(--md-sys-color-outline);
 }
