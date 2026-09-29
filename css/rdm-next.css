@@ -10,6 +10,7 @@
 @import url(primitives/icon.css);
 @import url(rdm/project.css);
 @import url(rdm/base.css);
+@import url(rdm/spacer.css);
 @import url(comp/button.css);
 @import url(comp/fab.css);
 @import url(comp/extended-fab.css);

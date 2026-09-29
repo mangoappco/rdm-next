@@ -42,6 +42,10 @@
        M3 define (0.25x a 1.25x). La regla del multiplicador cubre el
        resto: measurementNNN = 8dp x NNN/100.</p>
 
+    <p class="rdm-typography--body-medium">Extremos verificados contra el
+       alt del diagrama oficial: 2/4/6/8 abajo y 48/56/64/72 arriba.
+       Los 17 tokens calzan de punta a punta (auditado v0.57).</p>
+
     <!-- INICIO: spacing scale table -->
     <table class="demo-table">
       <thead>
@@ -178,8 +182,27 @@
     <p class="rdm-typography--body-medium">Ejemplo oficial (search): 8dp de
        padding vertical, 8dp de gaps horizontales, 24dp de margenes
        (12dp en focus).</p>
+    <p class="rdm-typography--body-medium">Componentes: vertical padding,
+       vertical gap, horizontal padding, horizontal gap. El margin no
+       aparece en la lista: en componentes no existe.</p>
+    <p class="rdm-typography--body-medium">Layouts: margin, top padding,
+       horizontal padding, spacer (gap), vertical gap. El margin vive
+       aca, en la pagina, no en los componentes.</p>
   </section>
   <!-- FIN: spacing model -->
+
+  <hr class="rdm-divider">
+
+  <!-- INICIO: spacing rules -->
+  <section>
+    <h2 class="rdm-typography--title-large">Do / Don't</h2>
+    <p class="rdm-typography--body-large"><strong>Do:</strong> el padre
+       declara padding y gaps para organizar todo lo que contiene.</p>
+    <p class="rdm-typography--body-large"><strong>Don't:</strong> los hijos
+       no llevan margin. La spec lo justifica con economia de tokens:
+       los margins en hijos no son uniformes y piden mas tokens.</p>
+  </section>
+  <!-- FIN: spacing rules -->
 
   <hr class="rdm-divider">
 
@@ -195,6 +218,65 @@
        spec lo permite: se agrega siguiendo el multiplicador.</p>
   </section>
   <!-- FIN: spacing consumption -->
+
+  <hr class="rdm-divider">
+
+  <!-- INICIO: spacing spacer -->
+  <section>
+    <h2 class="rdm-typography--title-large">Spacer</h2>
+    <p class="rdm-typography--body-large">En layouts el aire entre bloques
+       es un elemento (<code>.rdm-spacer</code>), no un efecto lateral
+       de un margin. En componentes el equivalente es el gap. Base 400
+       con modificadores 600 y 900 para los saltos grandes.</p>
+
+    <!-- INICIO: spacing spacer 400 -->
+    <p class="rdm-typography--title-medium">spacer 400 · 32px</p>
+    <div class="rdm-spacer demo-spacer-spec"></div>
+    <!-- FIN: spacing spacer 400 -->
+
+    <!-- INICIO: spacing spacer 600 -->
+    <p class="rdm-typography--title-medium">spacer 600 · 48px</p>
+    <div class="rdm-spacer rdm-spacer--600 demo-spacer-spec"></div>
+    <!-- FIN: spacing spacer 600 -->
+
+    <!-- INICIO: spacing spacer 900 -->
+    <p class="rdm-typography--title-medium">spacer 900 · 72px</p>
+    <div class="rdm-spacer rdm-spacer--900 demo-spacer-spec"></div>
+    <!-- FIN: spacing spacer 900 -->
+
+  </section>
+  <!-- FIN: spacing spacer -->
+
+  <hr class="rdm-divider">
+
+  <!-- INICIO: spacing audit -->
+  <section>
+    <h2 class="rdm-typography--title-large">Audit</h2>
+    <p class="rdm-typography--body-large">El boton contra el alt oficial
+       de la spec (bottom padding space200/space400, leading
+       space300/space600). El horizontal coincide; el vertical es
+       geometria derivada (height 2.5rem), no spacing M3; el small no
+       existe. Se documenta, no se corrige: cambiarlo es API visual.</p>
+
+    <!-- INICIO: spacing audit table -->
+    <table class="demo-table">
+      <thead>
+        <tr><th>Concepto</th><th>Spec</th><th>Nuestro</th><th>Estado</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Leading padding (base)</td><td>space300 = 24px</td><td>measurement-300 = 24px</td><td>coincide</td></tr>
+        <tr><td>Leading padding (con icono)</td><td>space200 = 16px</td><td>measurement-200 = 16px</td><td>coincide</td></tr>
+        <tr><td>Trailing (con icono)</td><td>no dice</td><td>24px</td><td>decision nuestra</td></tr>
+        <tr><td>Bottom padding</td><td>space200/space400 = 16/32px</td><td>0 (height 2.5rem)</td><td>derivado, no spacing</td></tr>
+        <tr><td>Height</td><td>no dice</td><td>40px</td><td>derivado del line-height</td></tr>
+        <tr><td>Small button</td><td>existe</td><td>no existe</td><td>falta</td></tr>
+        <tr><td>Gap icono-texto</td><td>no dice</td><td>measurement-100 = 8px</td><td>decision nuestra</td></tr>
+      </tbody>
+    </table>
+    <!-- FIN: spacing audit table -->
+
+  </section>
+  <!-- FIN: spacing audit -->
 
 </main>
 

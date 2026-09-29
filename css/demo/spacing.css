@@ -60,3 +60,10 @@
 .demo-measurement-bar--900 {
   width: var(--rdm-measurement-900);
 }
+
+/* Specimens del spacer (v0.57): el spacer es invisible por diseno;
+   el fondo es solo para verlo en el showroom. */
+.demo-spacer-spec {
+  background-color: var(--md-sys-color-surface-container-high);
+  border-radius: var(--md-sys-shape-corner-extra-small-default-size);
+}

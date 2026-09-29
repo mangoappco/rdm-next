@@ -1,0 +1,19 @@
+/*
+  RDM Next - Spacer de layout (v0.57)
+  El aire entre bloques como elemento, no como efecto lateral de un
+  margin (spec: en layouts el aire se hace con spacers; en componentes
+  con gap; los hijos nunca llevan margin). Base 400 con modificadores
+  600 y 900 para los saltos grandes de layout.
+*/
+.rdm-spacer {
+  display: block;
+  block-size: var(--rdm-measurement-400);
+}
+
+.rdm-spacer--600 {
+  block-size: var(--rdm-measurement-600);
+}
+
+.rdm-spacer--900 {
+  block-size: var(--rdm-measurement-900);
+}

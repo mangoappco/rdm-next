@@ -1079,6 +1079,42 @@ $t = [regex]::Replace($t, '/\*.*?\*/', '', 'Singleline')
 if ($t -notmatch '(?m)^\.rdm-divider\s*\{[^}]*margin-block\s*:\s*var\(--rdm-measurement-100\)') { Write-Output "  HR-SIN-AIRE divider.css"; $dv++ }
 if ($dv -eq 0) { Write-Output "  section en 0, hr en 8/8" } else { $fail++ }
 
+# 54. Contrato de spacing (v0.57): ninguna regla de css/comp/ declara
+# margin. Spec Do/Don't: el padre declara padding y gaps, los hijos
+# nunca llevan margin. divider.css queda fuera: sus margins SON el
+# componente (separar es su funcion, auditado en v0.26).
+Write-Output ""
+Write-Output "=== Contrato de spacing ==="
+$con = 0
+foreach ($f in (Get-ChildItem "$root\css\comp" -Filter *.css -ErrorAction SilentlyContinue)) {
+  if ($f.Name -eq 'divider.css') { continue }
+  $t = (Read-Css $f.FullName).TrimStart([char]0xFEFF)
+  $t = [regex]::Replace($t, '/\*.*?\*/', '', 'Singleline')
+  foreach ($m in ([regex]::Matches($t, '(?m)^[^{}]+\{[^}]*?margin[a-z-]*\s*:\s*[^;]+'))) {
+    Write-Output ("  CON-MARGEN " + $f.Name + ": " + $m.Value.Trim().Substring(0, [Math]::Min(70, $m.Value.Trim().Length))); $con++
+  }
+}
+if ($con -eq 0) { Write-Output "  comp sin margin (divider exento)" } else { $fail++ }
+
+# 55. Spacer de layout (v0.57): existe en css/rdm/, usa token en la
+# base y modificadores, y rdm-next.css lo importa. En layouts el aire
+# es un elemento; en componentes, gap.
+Write-Output ""
+Write-Output "=== Spacer de layout ==="
+$sp = 0
+$sf2 = "$root\css\rdm\spacer.css"
+if (-not (Test-Path $sf2)) { Write-Output "  SIN-ARCHIVO rdm/spacer.css"; $sp++ }
+else {
+  $t = (Read-Css $sf2).TrimStart([char]0xFEFF)
+  $t = [regex]::Replace($t, '/\*.*?\*/', '', 'Singleline')
+  if ($t -notmatch '(?m)^\.rdm-spacer\s*\{[^}]*block-size\s*:\s*var\(--rdm-measurement-400\)') { Write-Output "  SIN-BASE rdm/spacer.css"; $sp++ }
+  if ($t -notmatch '(?m)^\.rdm-spacer--600\s*\{[^}]*block-size\s*:\s*var\(--rdm-measurement-600\)') { Write-Output "  SIN-600 rdm/spacer.css"; $sp++ }
+  if ($t -notmatch '(?m)^\.rdm-spacer--900\s*\{[^}]*block-size\s*:\s*var\(--rdm-measurement-900\)') { Write-Output "  SIN-900 rdm/spacer.css"; $sp++ }
+}
+$en = "$root\css\rdm-next.css"
+if ((Read-Css $en) -notmatch 'rdm/spacer\.css') { Write-Output "  SIN-IMPORT rdm-next.css"; $sp++ }
+if ($sp -eq 0) { Write-Output "  spacer con token e import" } else { $fail++ }
+
 Write-Output ""
 if ($fail -eq 0) { Write-Output "OK: capa de tokens integra" } else { Write-Output ("FALLA: " + $fail + " chequeo(s)") }
 exit $fail
