@@ -6,6 +6,10 @@
   cero (v0.56): el margen sobre la tabla se define despues con reglas
   de spacing explicitas. Con esto ninguna tabla depende del default
   del UA (border-spacing 2px, padding 1px, th centrado).
+  Encabezado con rol title-small en on-surface-variant (v0.71,
+  decision 33: M3 no publica tabla, el rol se elige por ser el
+  encabezado mas chico del sistema; las celdas heredan el
+  body-medium del body sin declarar nada).
 */
 .demo-table {
   margin-top: 0;
@@ -17,4 +21,13 @@
   padding: var(--rdm-measurement-100) var(--rdm-measurement-200);
   text-align: start;
   border-bottom: 1px solid var(--md-sys-color-outline-variant);
+}
+
+.demo-table th {
+  font-family: var(--md-sys-typescale-title-small-font);
+  font-size: var(--md-sys-typescale-title-small-size);
+  font-weight: var(--md-sys-typescale-title-small-weight);
+  line-height: var(--md-sys-typescale-title-small-line-height);
+  letter-spacing: var(--md-sys-typescale-title-small-tracking);
+  color: var(--md-sys-color-on-surface-variant);
 }
