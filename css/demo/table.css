@@ -1,33 +1,48 @@
 /*
-  RDM Next - Patron de tabla del showroom (v0.55)
+  RDM Next - Patron de tabla del showroom (v0.55, formato v0.82)
   No forma parte de la libreria. Ningun componente lo importa.
-  18 tablas en 11 paginas con la misma receta: celdas con padding
-  de token alineadas a start y filas con outline-variant. Ritmo en
-  cero (v0.56): el margen sobre la tabla se define despues con reglas
-  de spacing explicitas. Con esto ninguna tabla depende del default
-  del UA (border-spacing 2px, padding 1px, th centrado).
+  20 tablas en 11 paginas con la misma receta. Dogfooding puro
+  (decision 33): todo sale de tokens que ya existen.
+
+  Formato (v0.82): superficie con radio medium y borde
+  outline-variant (el mismo rol que usa el divider), encabezado
+  sobre surface-container-low (el mismo fondo que el boton
+  elevated) y rejilla completa en vez de solo borde inferior.
+  Padding 16/24 con tokens. Ningun valor literal.
+
   Encabezado con rol title-small en on-surface-variant (v0.71,
   decision 33: M3 no publica tabla, el rol se elige por ser el
   encabezado mas chico del sistema; las celdas heredan el
   body-medium del body sin declarar nada).
+
+  Sin columna de grupo: el rowspan es contenido, no estilo, y se
+  agrega tabla por tabla cuando el dato lo pida.
 */
 .demo-table {
+  width: 100%;
+  background-color: var(--md-sys-color-surface-container-lowest);
+  border: 1px solid var(--md-sys-color-outline-variant);
+  border-radius: var(--md-sys-shape-corner-medium-default-size);
+  border-collapse: separate;
+  border-spacing: 0;
   margin-top: 0;
-  border-collapse: collapse;
+  overflow: hidden;
 }
 
 .demo-table th,
 .demo-table td {
-  padding: var(--rdm-measurement-100) var(--rdm-measurement-200);
+  padding: var(--rdm-measurement-200) var(--rdm-measurement-300);
   text-align: start;
-  border-bottom: 1px solid var(--md-sys-color-outline-variant);
+  vertical-align: middle;
+  border: 1px solid var(--md-sys-color-outline-variant);
 }
 
-.demo-table th {
+.demo-table thead th {
   font-family: var(--md-sys-typescale-title-small-font);
   font-size: var(--md-sys-typescale-title-small-size);
   font-weight: var(--md-sys-typescale-title-small-weight);
   line-height: var(--md-sys-typescale-title-small-line-height);
   letter-spacing: var(--md-sys-typescale-title-small-tracking);
   color: var(--md-sys-color-on-surface-variant);
+  background-color: var(--md-sys-color-surface-container-low);
 }

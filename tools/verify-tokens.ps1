@@ -1458,6 +1458,36 @@ else {
 }
 if ($ad -eq 0) { Write-Output "  anatomia con tabla de partes" } else { $fail++ }
 
+# 73. Formato de tabla demo (v0.82): superficie con radio y borde
+# outline-variant, encabezado sobre surface-container-low y rejilla
+# completa (bordes en las 4 lados). Todo con tokens: cero literales.
+Write-Output ""
+Write-Output "=== Formato de tabla ==="
+$tf = 0
+$tcf = "$root\css\demo\table.css"
+if (-not (Test-Path $tcf)) { Write-Output "  SIN-ARCHIVO demo/table.css"; $tf++ }
+else {
+  $t = (Read-Css $tcf).TrimStart([char]0xFEFF)
+  $t = [regex]::Replace($t, '/\*.*?\*/', '', 'Singleline')
+  if ($t -notmatch '(?m)^\.demo-table\s*\{[^}]*border-radius\s*:\s*var\(--md-sys-shape-corner-medium-default-size\)') { Write-Output "  SIN-RADIO"; $tf++ }
+  if ($t -notmatch '(?m)^\.demo-table\s*\{[^}]*border\s*:\s*1px solid var\(--md-sys-color-outline-variant\)') { Write-Output "  SIN-BORDE"; $tf++ }
+  if ($t -notmatch '(?m)^\.demo-table thead th\s*\{[^}]*background-color\s*:\s*var\(--md-sys-color-surface-container-low\)') { Write-Output "  SIN-FONDO-TH"; $tf++ }
+  if ($t -notmatch '(?m)^\.demo-table th,\s*\n\.demo-table td\s*\{[^}]*border\s*:\s*1px solid var\(--md-sys-color-outline-variant\)') { Write-Output "  SIN-REJILLA"; $tf++ }
+  if ($t -notmatch '(?m)^\.demo-table th,\s*\n\.demo-table td\s*\{[^}]*padding\s*:\s*var\(--rdm-measurement-200\)\s+var\(--rdm-measurement-300\)') { Write-Output "  SIN-PADDING-TOKEN"; $tf++ }
+}
+if ($tf -eq 0) { Write-Output "  formato con tokens" } else { $fail++ }
+
+# 74. Toda pagina con tabla linkea el patron (v0.82): button y menu
+# quedaron sin el link y sus tablas salian sin formato.
+Write-Output ""
+Write-Output "=== Paginas con tabla enlazan el patron ==="
+$tp = 0
+foreach ($h in (Get-ChildItem "$root\*.html" -ErrorAction SilentlyContinue)) {
+  $t = Read-Css $h.FullName
+  if ($t -match '<table class="demo-table">' -and $t -notmatch 'demo/table\.css') { Write-Output ("  SIN-LINK " + $h.Name); $tp++ }
+}
+if ($tp -eq 0) { Write-Output "  todas enlazan" } else { $fail++ }
+
 Write-Output ""
 if ($fail -eq 0) { Write-Output "OK: capa de tokens integra" } else { Write-Output ("FALLA: " + $fail + " chequeo(s)") }
 exit $fail
