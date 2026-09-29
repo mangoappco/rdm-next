@@ -4,7 +4,8 @@
   La base es un bloque tonal con --layer en primary; la primitiva
   .rdm-state-layer (del HTML) aporta el ::after y los 4 estados.
   El boton hereda todo: font y border los cubre el reset de base.css
-  (v0.55), solo quedan cursor y ancho.
+  (v0.55), solo quedan cursor, ancho y alineacion (el UA centra el
+  texto del button; el showroom alinea a start).
 */
 .demo-state-layer {
   background-color: var(--md-sys-color-surface-container-high);
@@ -18,4 +19,5 @@
 button.demo-state-layer {
   cursor: pointer;
   width: 100%;
+  text-align: start;
 }

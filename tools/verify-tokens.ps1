@@ -1404,6 +1404,21 @@ else {
 }
 if ($bu -eq 0) { Write-Output "  bundle vigente" } else { $fail++ }
 
+# 70. Prosa con tokens reales (v0.72, decision 34): ningun HTML afirma
+# 12% junto a pressed, focus o capa (el token es 0.10 desde v0.37).
+# Legitimos fuera del patron: wash 12% (disabled) y borde outline 12%.
+Write-Output ""
+Write-Output "=== Prosa con tokens reales ==="
+$pr = 0
+foreach ($h in (Get-ChildItem "$root\*.html" -ErrorAction SilentlyContinue)) {
+  $n = 0
+  foreach ($l in ([System.IO.File]::ReadAllLines($h.FullName))) {
+    $n++
+    if ($l -match '12%' -and $l -match '(pressed|focus|capa)') { Write-Output ("  VIEJO " + $h.Name + " L" + $n + ": " + $l.Trim()); $pr++ }
+  }
+}
+if ($pr -eq 0) { Write-Output "  prosa con valores vigentes" } else { $fail++ }
+
 Write-Output ""
 if ($fail -eq 0) { Write-Output "OK: capa de tokens integra" } else { Write-Output ("FALLA: " + $fail + " chequeo(s)") }
 exit $fail
