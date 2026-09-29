@@ -1420,6 +1420,18 @@ foreach ($h in (Get-ChildItem "$root\*.html" -ErrorAction SilentlyContinue)) {
 }
 if ($pr -eq 0) { Write-Output "  prosa con valores vigentes" } else { $fail++ }
 
+# 71. Titulo principal (v0.79): el h1 de cada pagina lleva display-large
+# (rol display = texto mas importante y corto de la vista). El specimen
+# display-small de typography.html no es h1 y queda fuera por diseno.
+Write-Output ""
+Write-Output "=== Titulo principal ==="
+$ti = 0
+foreach ($h in (Get-ChildItem "$root\*.html" -ErrorAction SilentlyContinue)) {
+  $t = Read-Css $h.FullName
+  if ($t -notmatch '<h1 class="[^"]*display-large') { Write-Output ("  SIN-LARGE " + $h.Name); $ti++ }
+}
+if ($ti -eq 0) { Write-Output "  h1 en display-large" } else { $fail++ }
+
 Write-Output ""
 if ($fail -eq 0) { Write-Output "OK: capa de tokens integra" } else { Write-Output ("FALLA: " + $fail + " chequeo(s)") }
 exit $fail
