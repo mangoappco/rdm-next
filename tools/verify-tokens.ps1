@@ -1325,6 +1325,40 @@ $t = [regex]::Replace($t, '/\*.*?\*/', '', 'Singleline')
 if ($t -notmatch '(?m)^main\s*>\s*hr\.rdm-divider\s*\{[^}]*margin-block\s*:\s*var\(--rdm-measurement-200\)') { Write-Output "  SIN-AIRE showroom.css"; $ai++ }
 if ($ai -eq 0) { Write-Output "  separadores con aire de layout" } else { $fail++ }
 
+# 67. Menu item (v0.67): 56 una linea, 72 dos lineas, padding 12/16,
+# gap 16, fondo transparent, selected con secondary-container.
+# Geometria del vendor (list-item renombrado); el 12 va en
+# measurement-150 (extension del proyecto, marcada en la tabla).
+Write-Output ""
+Write-Output "=== Menu item ==="
+$mi = 0
+$mf = "$root\css\comp\menu.css"
+if (-not (Test-Path $mf)) { Write-Output "  SIN-ARCHIVO comp/menu.css"; $mi++ }
+else {
+  $t = (Read-Css $mf).TrimStart([char]0xFEFF)
+  $t = [regex]::Replace($t, '/\*.*?\*/', '', 'Singleline')
+  $regla = {
+    param($sel, $prop)
+    $m = [regex]::Match($t, ('(?m)^' + $sel + '\s*\{([^}]*)\}'))
+    if (-not $m.Success) { return $false }
+    return ($m.Groups[1].Value -match ('(?i)' + $prop))
+  }
+  $pares67 = @(
+    @("\.rdm-menu-item","min-block-size\s*:\s*var\(--rdm-measurement-700\)","SIN-ALTURA"),
+    @("\.rdm-menu-item","padding-block\s*:\s*var\(--rdm-measurement-150\)","SIN-PAD-V"),
+    @("\.rdm-menu-item","padding-inline\s*:\s*var\(--rdm-measurement-200\)","SIN-PAD-L"),
+    @("\.rdm-menu-item","gap\s*:\s*var\(--rdm-measurement-200\)","SIN-GAP"),
+    @("\.rdm-menu-item","background-color\s*:\s*transparent","SIN-FONDO"),
+    @("\.rdm-menu-item","color\s*:\s*var\(--md-sys-color-on-surface\)","SIN-COLOR"),
+    @("\.rdm-menu-item--two-line","min-block-size\s*:\s*var\(--rdm-measurement-900\)","SIN-DOS"),
+    @("\.rdm-menu-item--selected","background-color\s*:\s*var\(--md-sys-color-secondary-container\)","SIN-SEL")
+  )
+  foreach ($p in $pares67) {
+    if (-not (& $regla $p[0] $p[1])) { Write-Output ("  " + $p[2] + " comp/menu.css"); $mi++ }
+  }
+}
+if ($mi -eq 0) { Write-Output "  item con medidas" } else { $fail++ }
+
 Write-Output ""
 if ($fail -eq 0) { Write-Output "OK: capa de tokens integra" } else { Write-Output ("FALLA: " + $fail + " chequeo(s)") }
 exit $fail

@@ -41,22 +41,99 @@
     <h2 class="rdm-typography--title-large">Container</h2>
     <p class="rdm-typography--body-large">Paso 1: surface-container con
        sombra level2 y radio extra-small (4dp). Ancho 112dp minimo y
-       280dp maximo, padding vertical 8dp. El contenido provisional se
-       reemplaza por el item en el paso 2.</p>
+       280dp maximo, padding vertical 8dp. El item vive en la seccion
+       siguiente; aca se lee el surface.</p>
 
     <!-- INICIO: menu container demo -->
     <div class="demo-menu-spacing">
       <p class="rdm-typography--title-medium">Minimo 112</p>
-      <div class="rdm-menu"></div>
+      <div class="rdm-menu" role="menu">
+        <div class="rdm-menu-item rdm-state-layer" role="menuitem">
+          <span class="rdm-typography--body-large">Opcion</span>
+        </div>
+      </div>
       <p class="rdm-typography--title-medium">Maximo 280</p>
-      <div class="rdm-menu">
-        <p class="rdm-typography--body-medium">Opcion con texto largo para forzar el tope de 280dp y ver el wrap</p>
+      <div class="rdm-menu" role="menu">
+        <div class="rdm-menu-item rdm-state-layer" role="menuitem">
+          <span class="rdm-typography--body-large">Opcion con texto largo para forzar el tope de 280dp y ver el wrap</span>
+        </div>
+        <div class="rdm-menu-item rdm-state-layer" role="menuitem">
+          <span class="rdm-typography--body-large">Otra</span>
+        </div>
       </div>
     </div>
     <!-- FIN: menu container demo -->
 
   </section>
   <!-- FIN: menu container -->
+
+  <hr class="rdm-divider">
+
+  <!-- INICIO: menu item -->
+  <section>
+    <h2 class="rdm-typography--title-large">Menu item</h2>
+    <p class="rdm-typography--body-large">Paso 2: el item es un list-item
+       renombrado (el wrapper de Google le quita el prefijo
+       `list-item-`). Fondo transparent en reposo: hereda el menu.
+       Una linea 56, dos lineas 72; el min-block-size manda siempre
+       (12+24+12 = 48, nunca compensa).</p>
+
+    <!-- INICIO: menu item demo -->
+    <div class="demo-menu-spacing">
+      <div class="rdm-menu" role="menu">
+        <div class="rdm-menu-item rdm-state-layer" role="menuitem">
+          <span class="rdm-typography--body-large">Solo etiqueta</span>
+        </div>
+        <div class="rdm-menu-item rdm-state-layer" role="menuitem">
+          <span class="rdm-icon rdm-menu-item-leading">check</span>
+          <span class="rdm-typography--body-large">Con icono inicial</span>
+        </div>
+        <div class="rdm-menu-item rdm-state-layer" role="menuitem">
+          <span class="rdm-typography--body-large">Con icono final</span>
+          <span class="rdm-icon rdm-menu-item-trailing">chevron_right</span>
+        </div>
+        <div class="rdm-menu-item rdm-menu-item--two-line rdm-state-layer" role="menuitem">
+          <span class="rdm-menu-item-text">
+            <span class="rdm-typography--body-large">Dos lineas</span>
+            <span class="rdm-typography--body-medium rdm-menu-item-supporting">Texto de apoyo</span>
+          </span>
+        </div>
+        <div class="rdm-menu-item rdm-menu-item--selected rdm-state-layer" role="menuitem">
+          <span class="rdm-icon rdm-menu-item-leading">check</span>
+          <span class="rdm-typography--body-large">Seleccionado</span>
+        </div>
+        <div class="rdm-menu-item rdm-menu-item--disabled" role="menuitem" aria-disabled="true">
+          <span class="rdm-typography--body-large">Deshabilitado</span>
+        </div>
+      </div>
+    </div>
+    <!-- FIN: menu item demo -->
+
+    <!-- INICIO: menu measures table -->
+    <table class="demo-table">
+      <thead>
+        <tr><th>Medida</th><th>Valor</th><th>Estado</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Altura una linea</td><td>56</td><td>coincide (v0_192)</td></tr>
+        <tr><td>Altura dos lineas</td><td>72</td><td>coincide (v0_192)</td></tr>
+        <tr><td>Padding vertical</td><td>12 (measurement-150, extension)</td><td>coincide valor, token proyecto</td></tr>
+        <tr><td>Padding lateral</td><td>16</td><td>coincide</td></tr>
+        <tr><td>Gap entre slots</td><td>16</td><td>coincide (implementacion)</td></tr>
+        <tr><td>Icono</td><td>24</td><td>coincide</td></tr>
+        <tr><td>Etiqueta</td><td>body-large, on-surface</td><td>coincide</td></tr>
+        <tr><td>Apoyo</td><td>body-medium, on-surface-variant</td><td>coincide</td></tr>
+        <tr><td>Fondo reposo</td><td>transparent</td><td>coincide (hereda menu)</td></tr>
+        <tr><td>Seleccionado</td><td>secondary-container + on-secondary-container</td><td>coincide</td></tr>
+        <tr><td>Deshabilitado</td><td>opacidad 0.3</td><td>coincide</td></tr>
+        <tr><td>Radio por item</td><td>sin radio</td><td>coincide (unsupported)</td></tr>
+        <tr><td>Divider en menu</td><td>layout Grouped</td><td>fuera de scope (Expressive)</td></tr>
+      </tbody>
+    </table>
+    <!-- FIN: menu measures table -->
+
+  </section>
+  <!-- FIN: menu item -->
 
 </main>
 

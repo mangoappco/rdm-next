@@ -118,6 +118,7 @@ que `--icon-only`.
 | 26 | Divider con medidas de spec | **Vendor (color + thickness) + tabla de medidas; top-8 simetrico y vertical inline-8 como decisiones; 4dp y right-8 pendientes de Lists** | El vendor no trae geometria: todo margen sale de la tabla. La spec publica bottom 8; el top iguala por lectura simetrica. El 4dp a supporting-text y el right 8dp son del diagrama en contexto de lista, no de la base: forzarlos romperia inset (right 0) y full-width |
 | 27 | Aire de layout vs respiracion del componente | **`main > hr` con margin de layout; el 8/8 del componente intacto** | El hr entre secciones juega dos roles: linea (componente) y separacion (layout). Envolverlo en divs es churn en 18 archivos; una regla de contexto hace lo mismo. `main > hr` alcanza solo separadores (specimens y nav fuera). Total 33 sin superar los 32 de barra a main |
 | 28 | Indice por dependencia (dogfooding) | **Divider tras foundations; inputs por dependencia; menu antes que Lists** | Divider es componente M3 (no primitiva ni foundation): sube solo en el indice, `css/comp/divider.css` no se mueve. Checkbox/radio/switch no piden nada; select pide text field + menu. Menu define su propio MenuItem (vendor: paquetes separados). Limpia contaminacion externa: Paper es MUI, Badge fuera de scope, ciclo Select/Menu |
+| 29 | Menu item standalone | **`.rdm-menu-item` sin componente Lists; procedencia compartida registrada** | El wrapper de Google lo dice textual: toma los valores de md-comp-list-item y renombra el prefijo. Los 30 tokens son autosuficientes; la dependencia con list/ es de comportamiento (controllers), no visual (D23). Correccion propia: el alto es 56/72, no 48. Vendor de 3 archivos (el styles scss vive en menu/internal/menuitem/) |
 
 ## 6. Capa de tokens
 
@@ -273,8 +274,9 @@ powershell -ExecutionPolicy Bypass -File tools/verify-tokens.ps1
 | El padre declara | `section` e `intro` con flex + gap con token; ningun hijo declara `margin` en `showroom.css` ni en `demo/` |
 | Medidas del divider | Inset 16/0, middle 16/16, thickness 1px, outline-variant, block 8 (4dp y right-8 pendientes de Lists) |
 | Aire entre secciones | `main > hr` con margin de layout (separadores); specimens y nav fuera |
+| Menu item | 56/72, padding 12/16, gap 16, transparent, selected (12 en measurement-150, extension) |
 
-Corre en cada commit de la capa de tokens. Estado actual: 66/66 en verde.
+Corre en cada commit de la capa de tokens. Estado actual: 67/67 en verde.
 
 **Leccion v0.5:** el import de `primitives/typography.css` se escribio como
 `../primitives/` (sube un nivel de mas) y la hoja nunca llego al navegador:
@@ -499,6 +501,7 @@ cualquier `@import` relativo roto, probado con archivo temporal.
 - **v0.64** - Divider con medidas de spec (decision 26): vendor con wrapper (878b) + values (720b) byte-exactos; cero cambios de valores (ya coincidian). Comentario documentando top-8 simetrico y vertical inline-8 como decisiones. Tabla Measures con Estado (4 coinciden, 2 pendientes Lists). Check 65: 7 pares medida/flag, probado sin inset.
 - **v0.65** - Aire entre secciones (decision 27): `main > hr.rdm-divider` con margin-block 200 en showroom.css (total 33). El 8/8 del componente intacto; specimens y nav fuera por selector. Check 66: aire de layout, probado sin regla.
 - **v0.66** - Indice por dependencia (decision 28): Divider sale de Containment a seccion propia `Base components` tras foundations (solo indice, el CSS no se mueve). Inputs por dependencia (checkbox/radio/switch primero, select ultimo). Containment con menu antes que Lists. Sin check nuevo: reordenacion de indice y docs; 66/66.
+- **v0.67** - Menu paso 2, item (decision 29): vendor de 3 archivos byte-exactos (3233/4595/4417b). `.rdm-menu-item` con 56/72, padding 12/16, gap 16, transparent, selected y disabled 0.3. Tabla Measures con Estado (12 coinciden, 1 fuera de scope). Correccion: el alto es 56, no 48. Check 67: 8 pares medida/flag. 67/67 en verde.
 - **v0.57a** - Fix: el Audit del boton estaba en spacing.html y viola la regla de showroom (cada pagina solo muestra su componente). Movido a button.html como seccion Audit; spacing.html queda con 6 secciones de spacing puro.
 - **v0.48** - Anatomia en las 3 variantes: misma composicion (media + texto + linked text + icon + outlined + filled), solo cambia el modificador. El action area es identico porque los 3 botones pasan 4.5:1 en las 3 superficies; tonal y elevated fuera por regla. Sin CSS ni checks nuevos: el check 30 ya valida los 9 botones. 43/43.
 - **v0.26** - Divider: `css/comp/divider.css` (full/inset/middle-inset/vertical, 1px outline-variant) y `divider.html`. Inset 16 solo izquierda (la tabla dice 16/0, middle 16/16). Chrome migrado: 45 `<hr>` entre secciones (+1 escrito a mano), border-top fuera de showroom.css. Check 23: sin border-top en demo, probado contra borde agregado.

@@ -24,5 +24,10 @@ Origen: https://github.com/material-components/material-web
   thickness) + `versions/v0_192/_md-comp-divider.scss` (color
   outline-variant, thickness 1px). Sin geometria: los margenes vienen
   solo de la tabla de la spec.
+  Menu item (v0.67): `_md-comp-menu-item.scss` (wrapper: 30 tokens,
+  container propio a transparent, valores de list-item renombrados) +
+  `_md-comp-list-item.scss` (wrapper: top/bottom-space 12px hardcoded,
+  alturas en v0_192) + `_md-menu-item-styles.scss` (geometria de la
+  implementacion: flex, gap 16px, min-height con token).
 - Licencia: Apache 2.0 (`LICENSE` en esta carpeta; cada archivo trae su
   cabecera SPDX).

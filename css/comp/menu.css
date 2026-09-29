@@ -16,3 +16,55 @@
   background-color: var(--md-sys-color-surface-container);
   box-shadow: var(--rdm-shadow-level2);
 }
+
+/*
+  RDM Next - Menu item (v0.67, paso 2)
+  El item es un list-item renombrado: el wrapper de Google toma los
+  valores de md-comp-list-item (`_get-renamed-tokens` quita el prefijo
+  `list-item-`) y el container propio va a transparent para heredar el
+  menu. Geometria: una linea 56 con padding-block 12 (12+24+12 = 48, el
+  min-block-size manda siempre); dos lineas 72. Laterales 16, gap 16,
+  icono 24. Label on-surface con body-large, resto on-surface-variant.
+  Sin radio por item (container-shape unsupported). Tipografia y state
+  layer por composicion en el HTML (decision 8); disabled con la
+  opacidad 0.3 del vendor.
+*/
+.rdm-menu-item {
+  display: flex;
+  align-items: center;
+  gap: var(--rdm-measurement-200);
+  min-block-size: var(--rdm-measurement-700);
+  padding-block: var(--rdm-measurement-150);
+  padding-inline: var(--rdm-measurement-200);
+  background-color: transparent;
+  color: var(--md-sys-color-on-surface);
+}
+
+.rdm-menu-item-text {
+  display: flex;
+  flex-direction: column;
+}
+
+.rdm-menu-item-leading,
+.rdm-menu-item-trailing {
+  color: var(--md-sys-color-on-surface-variant);
+}
+
+.rdm-menu-item-supporting,
+.rdm-menu-item-trailing-supporting {
+  color: var(--md-sys-color-on-surface-variant);
+}
+
+.rdm-menu-item--two-line {
+  min-block-size: var(--rdm-measurement-900);
+}
+
+.rdm-menu-item--selected {
+  background-color: var(--md-sys-color-secondary-container);
+  color: var(--md-sys-color-on-secondary-container);
+}
+
+.rdm-menu-item--disabled {
+  opacity: 0.3;
+  pointer-events: none;
+}
