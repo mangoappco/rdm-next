@@ -287,7 +287,7 @@ powershell -ExecutionPolicy Bypass -File tools/verify-tokens.ps1
 | Bundle servido | HTML con `bundle.css?v=` de SKILL; bundle con cada comp vigente |
 | Prosa con tokens reales | Ningun HTML afirma 12% junto a pressed/focus/capa (wash y outline 12% legitimos) |
 | Titulo principal | El h1 de cada pagina lleva display-large (specimen de typography exento) |
-| Anatomia desglosada | `button.html` nombra >=3 partes y cada parte lleva specimen (compuesto sigue arriba) |
+| Anatomia con tabla de partes | `button.html` nombra >=3 partes en tabla + specimen compuesto (deriva del 60) |
 
 Corre en cada commit de la capa de tokens. Estado actual: 72/72 en verde.
 
@@ -528,7 +528,7 @@ cualquier `@import` relativo roto, probado con archivo temporal.
 - **v0.78** - Metadata en button (paso 1): metadata `Actions · baseline (M3 core)` y definicion orientada a consumo en el intro. Los anchors se descartaron por decision (sin navs en showrooms). Bundle a ?v=0.78. 70/70 en verde.
 - **v0.79** - h1 en display-large: el titulo de las 18 paginas sube de small (36) a large (57); el specimen display-small de typography se queda. Check 71: h1 con large. Bundle a ?v=0.79. 71/71 en verde.
 - **v0.80** - Definicion de button (fix): la del usuario (los botones inician la mayoria de las acciones); se conserva la segunda oracion (enfasis, de Semantics). Bundle a ?v=0.80. 71/71 en verde.
-- **v0.81** - Anatomia de button (v0.80 era el ultimo): Anatomy pasa a posicion 1 (intro -> partes -> variantes -> estados -> semantica) con el filled compuesto arriba y 3 partes debajo (contenedor, icono, etiqueta), cada una con specimen y sus medidas reales. Valores propios, no los del ejemplo: 40px (no 48, D-density documentada), icono 20px (18 era M2), label-large 14/20/500. Check 72: >=3 partes y specimen en cada una. Bundle a ?v=0.81. 72/72 en verde.
+- **v0.81** - Anatomia de button: Anatomy a posicion 1 (intro -> anatomia -> variantes -> estados -> semantica) con el specimen compuesto (filled --with-icon) y una tabla Parte/Specimen/Medida con 3 filas. Sin prosa de anatomia: el showroom nombra y muestra, no explica. Tabla alineada al patron (decision 30). Check 72: >=3 filas + specimen compuesto. Bundle a ?v=0.81. 72/72 en verde.
 - **v0.57a** - Fix: el Audit del boton estaba en spacing.html y viola la regla de showroom (cada pagina solo muestra su componente). Movido a button.html como seccion Audit; spacing.html queda con 6 secciones de spacing puro.
 - **v0.48** - Anatomia en las 3 variantes: misma composicion (media + texto + linked text + icon + outlined + filled), solo cambia el modificador. El action area es identico porque los 3 botones pasan 4.5:1 en las 3 superficies; tonal y elevated fuera por regla. Sin CSS ni checks nuevos: el check 30 ya valida los 9 botones. 43/43.
 - **v0.26** - Divider: `css/comp/divider.css` (full/inset/middle-inset/vertical, 1px outline-variant) y `divider.html`. Inset 16 solo izquierda (la tabla dice 16/0, middle 16/16). Chrome migrado: 45 `<hr>` entre secciones (+1 escrito a mano), border-top fuera de showroom.css. Check 23: sin border-top en demo, probado contra borde agregado.

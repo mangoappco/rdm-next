@@ -40,15 +40,9 @@
 
   <hr class="rdm-divider">
 
-  <hr class="rdm-divider">
-
   <!-- INICIO: button anatomy -->
   <section>
     <h2 class="rdm-typography--title-large">Anatomy</h2>
-    <p class="rdm-typography--body-large">Referencia compuesta: el filled
-       completo, y debajo cada parte por separado. El contenedor lleva
-       la geometria, la variante el color, el icono su padding propio y
-       la etiqueta su rol tipografico.</p>
 
     <!-- INICIO: button anatomy demo -->
     <div class="demo-button-row demo-button-row--icons">
@@ -56,43 +50,18 @@
     </div>
     <!-- FIN: button anatomy demo -->
 
-    <!-- INICIO: button anatomy parts -->
-    <ul class="demo-button-parts">
-      <li>
-        <p class="rdm-typography--title-medium">Contenedor</p>
-        <div class="demo-button-row demo-button-row--container">
-          <button type="button" class="rdm-button rdm-button--filled rdm-state-layer rdm-typography--label-large">Filled</button>
-        </div>
-        <p class="rdm-typography--body-small"><code>height 2.5rem</code> (40px),
-           <code>padding-inline measurement-300</code> (24px),
-           <code>corner-full</code>, centrado con <code>align-items</code> +
-           <code>justify-content</code>. Filled = primary sobre on-primary.</p>
-      </li>
-      <li>
-        <p class="rdm-typography--title-medium">Icono (opcional)</p>
-        <div class="demo-button-row demo-button-row--icons">
-          <button type="button" class="rdm-button rdm-button--filled rdm-button--with-icon rdm-state-layer rdm-typography--label-large"><span class="rdm-icon" aria-hidden="true">add</span>Create</button>
-        </div>
-        <p class="rdm-typography--body-small"><code>1.25rem</code> (20px) por
-           spec; el padding leading baja a
-           <code>measurement-200</code> (16px) con
-           <code>--with-icon</code>. Gap <code>measurement-100</code> (8px).</p>
-      </li>
-      <li>
-        <p class="rdm-typography--title-medium">Etiqueta</p>
-        <div class="demo-button-row demo-button-row--label">
-          <button type="button" class="rdm-button rdm-button--filled rdm-state-layer rdm-typography--label-large">Filled</button>
-        </div>
-        <p class="rdm-typography--body-small">Rol <code>label-large</code>:
-           14/20, peso 500, tracking +0.1. Viene por composicion en el HTML,
-           no se redeclara en el componente.</p>
-      </li>
-    </ul>
-    <!-- FIN: button anatomy parts -->
-
-    <p class="rdm-typography--body-small">Alcance conocido: los 40px quedan
-       bajo el minimo 48x48 de la pagina Density. Se documenta, no se
-       corrige (ver SKILL 11, Audit del boton).</p>
+    <!-- INICIO: button anatomy table -->
+    <table class="demo-table">
+      <thead>
+        <tr><th>Parte</th><th>Specimen</th><th>Medida</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Contenedor</td><td>filled</td><td>40px, padding 24, radio full</td></tr>
+        <tr><td>Icono (opcional)</td><td>filled + add</td><td>20px, leading 16, gap 8</td></tr>
+        <tr><td>Etiqueta</td><td>filled</td><td>label-large 14/20/500</td></tr>
+      </tbody>
+    </table>
+    <!-- FIN: button anatomy table -->
 
   </section>
   <!-- FIN: button anatomy -->

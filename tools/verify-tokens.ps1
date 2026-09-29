@@ -1432,12 +1432,12 @@ foreach ($h in (Get-ChildItem "$root\*.html" -ErrorAction SilentlyContinue)) {
 }
 if ($ti -eq 0) { Write-Output "  h1 en display-large" } else { $fail++ }
 
-# 72. Anatomia desglosada (v0.81): la seccion Anatomy de button nombra
-# sus partes (>=3 li) y cada parte lleva su specimen. Extiende el 60
+# 72. Anatomia con tabla de partes (v0.81): la seccion Anatomy de
+# button nombra >=3 partes y cada fila tiene specimen. Extiende el 60
 # (anatomy con specimen) sin contradecirlo: el specimen compuesto sigue
-# arriba, el desglose va debajo.
+# arriba, las partes van en tabla.
 Write-Output ""
-Write-Output "=== Anatomia desglosada ==="
+Write-Output "=== Anatomia con tabla de partes ==="
 $ad = 0
 $bp = "$root\button.html"
 if (-not (Test-Path $bp)) { Write-Output "  SIN-PAGINA button.html"; $ad++ }
@@ -1447,14 +1447,16 @@ else {
   if (-not $m.Success) { Write-Output "  SIN-ANATOMIA button.html"; $ad++ }
   else {
     $cuerpo = $m.Groups[1].Value
-    $lis = [regex]::Matches($cuerpo, '(?s)<li>(.*?)</li>')
-    if ($lis.Count -lt 3) { Write-Output ("  PARTES " + $lis.Count + " (minimo 3)"); $ad++ }
-    foreach ($li in $lis) {
-      if ($li.Groups[1].Value -notmatch '<button') { Write-Output "  PARTE-SIN-SPECIMEN"; $ad++ }
+    if ($cuerpo -notmatch '<button') { Write-Output "  SIN-SPECIMEN-COMPUESTO"; $ad++ }
+    $mt = [regex]::Match($cuerpo, '(?s)<table class="demo-table">(.*?)</table>')
+    if (-not $mt.Success) { Write-Output "  SIN-TABLA-PARTES"; $ad++ }
+    else {
+      $filas = [regex]::Matches($mt.Groups[1].Value, '(?s)<tr><td>(.*?)</tr>')
+      if ($filas.Count -lt 3) { Write-Output ("  PARTES " + $filas.Count + " (minimo 3)"); $ad++ }
     }
   }
 }
-if ($ad -eq 0) { Write-Output "  anatomia con partes y specimens" } else { $fail++ }
+if ($ad -eq 0) { Write-Output "  anatomia con tabla de partes" } else { $fail++ }
 
 Write-Output ""
 if ($fail -eq 0) { Write-Output "OK: capa de tokens integra" } else { Write-Output ("FALLA: " + $fail + " chequeo(s)") }
