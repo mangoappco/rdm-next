@@ -1,0 +1,12 @@
+/*
+  RDM Next - Estilos SOLO del showroom de menu.html
+  No forman parte de la libreria. Ningun componente los importa.
+  Solo apilado de specimens alineados al inicio (el ancho se lee
+  mejor asi); ritmo con gap, sin margin (v0.56).
+*/
+.demo-menu-spacing {
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  gap: var(--rdm-measurement-200);
+}

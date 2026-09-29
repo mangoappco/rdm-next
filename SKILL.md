@@ -112,6 +112,7 @@ que `--icon-only`.
 | 20 | Layout contra la spec actual | **Breakpoints (no window size classes), grid de 8, max-width dentro de expanded** | La spec renombro en mayo 2026 y nuestro layout.html publicaba el vocabulario viejo (3 clases, 12 columnas) con fecha para saber que es spec actual. El 1200 caia en Large; el 1024 vive en expanded. Tokens de breakpoint como limites inferiores (var() no vale en @media) |
 | 21 | Showroom = ejemplos + medidas | **Cada showroom muestra ejemplos de SU componente y sus medidas publicadas. La guia del sistema vive en SKILL.md** | Las secciones de documentacion se cuelan version tras version (Emphasis y Placement tenian 0 specimens). La tabla de medidas se queda porque hace falta para consumir el componente; Audit, Tokens narrados, Rules y notas de derivacion salen al apendice (seccion 11). Check 59 lo custodia |
 | 22 | Anatomy visual | **La anatomia es una referencia compuesta con el componente real, no un parrafo** | Card la tenia visual (35 specimens) y button/fab/extended-fab/icon-button en texto con el mismo nombre. El texto nombraba partes sin mostrarlas (y fab citaba rdm-fab--extended, que no existe como clase). Check 60 lo custodia |
+| 23 | Menu baseline por pasos | **Baseline (core) por decision 9; menu-item dentro de menu; showroom estatico sin JS** | El vertical es Expressive y no se construye. Lists viene despues: el item del menu no es el item de lista. Apertura y reposicion son comportamiento del producto; el showroom muestra el surface abierto con roles ARIA |
 
 ## 6. Capa de tokens
 
@@ -251,8 +252,9 @@ powershell -ExecutionPolicy Bypass -File tools/verify-tokens.ps1
 | Max-width en expanded | `--rdm-layout-max-width` entre 840 y 1199px |
 | Tablas con ejemplo | Toda seccion de showroom de componente con `<table>` tiene >=1 specimen del propio componente (las medidas se muestran, no solo se listan) |
 | Anatomy con specimen | Toda seccion Anatomy tiene >=1 specimen del componente (referencia visual, no parrafo) |
+| Container del menu | `.rdm-menu` con min 112, max 280, radio extra-small, surface-container, level2 y padding-block con token |
 
-Corre en cada commit de la capa de tokens. Estado actual: 60/60 en verde.
+Corre en cada commit de la capa de tokens. Estado actual: 61/61 en verde.
 
 **Leccion v0.5:** el import de `primitives/typography.css` se escribio como
 `../primitives/` (sube un nivel de mas) y la hoja nunca llego al navegador:
@@ -471,6 +473,7 @@ cualquier `@import` relativo roto, probado con archivo temporal.
 - **v0.58** - Layout contra la spec actual (decision 20): la spec renombro window size classes a breakpoints en mayo 2026. layout.html con 5 breakpoints (tabla oficial con panes), Scaffold (bar/rail/pane sin CSS), Grid de 8 (dato, sin CSS), Margin (definicion + mapeo) y Measure (regla 40-60 + tabla medida: 147 chars a 1200 en body-large). max-width 1200 a 1024 (dentro de expanded) + 4 tokens de breakpoint como limites inferiores. Check 56: 5 breakpoints con anchos, probado sin Large. Check 57: 8 columnas sin 12, probado con 12. Check 58: max-width en expanded, probado con 1300.
 - **v0.59** - Showrooms sin documentacion (decision 21): salen 6 secciones de guia (button Emphasis/Placement/Audit con 0/0/1 specimens, card Rules, button-group Expressive, extended-fab Rules). El contenido se preserva en el apendice (seccion 11). Specimens agregados a las 4 secciones de medidas que no tenian (card Contrast/Tokens/Specs, button-group Measures). Check 59: tabla con ejemplo, probado con seccion sin specimen.
 - **v0.60** - Anatomias visuales (decision 22): las 4 secciones Anatomy en texto pasan a referencia compuesta (button filled con icono, fab en 2 tamanos, extended-fab, icon-button standard + toggle selected). El texto original queda en el apendice. Check 60: Anatomy con specimen, probado sin specimen.
+- **v0.61** - Menu paso 1, container (decision 23): vendor con los 2 archivos byte-exactos (wrapper + values v0_192). `.rdm-menu` con surface-container, level2, extra-small, min 7rem, max 17.5rem y padding-block con token. menu.html con seccion Container (vacio=min 112, texto largo=max 280) e index enlazado. Check 61: container con medidas, probado sin max-width.
 - **v0.57a** - Fix: el Audit del boton estaba en spacing.html y viola la regla de showroom (cada pagina solo muestra su componente). Movido a button.html como seccion Audit; spacing.html queda con 6 secciones de spacing puro.
 - **v0.48** - Anatomia en las 3 variantes: misma composicion (media + texto + linked text + icon + outlined + filled), solo cambia el modificador. El action area es identico porque los 3 botones pasan 4.5:1 en las 3 superficies; tonal y elevated fuera por regla. Sin CSS ni checks nuevos: el check 30 ya valida los 9 botones. 43/43.
 - **v0.26** - Divider: `css/comp/divider.css` (full/inset/middle-inset/vertical, 1px outline-variant) y `divider.html`. Inset 16 solo izquierda (la tabla dice 16/0, middle 16/16). Chrome migrado: 45 `<hr>` entre secciones (+1 escrito a mano), border-top fuera de showroom.css. Check 23: sin border-top en demo, probado contra borde agregado.

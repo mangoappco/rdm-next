@@ -1199,6 +1199,35 @@ foreach ($c in $comps2) {
 }
 if ($an -eq 0) { Write-Output "  5 anatomias visuales" } else { $fail++ }
 
+# 61. Container del menu (v0.61, paso 1): min 112, max 280, radio
+# extra-small, fondo surface-container, sombra level2, padding-block
+# con token. Medidas de la tabla baseline de la spec.
+Write-Output ""
+Write-Output "=== Container del menu ==="
+$mc = 0
+$mf = "$root\css\comp\menu.css"
+if (-not (Test-Path $mf)) { Write-Output "  SIN-ARCHIVO comp/menu.css"; $mc++ }
+else {
+  $t = (Read-Css $mf).TrimStart([char]0xFEFF)
+  $t = [regex]::Replace($t, '/\*.*?\*/', '', 'Singleline')
+  $m = [regex]::Match($t, '(?m)^\.rdm-menu\s*\{([^}]*)\}')
+  if (-not $m.Success) { Write-Output "  SIN-BASE comp/menu.css"; $mc++ }
+  else {
+    $b = $m.Groups[1].Value
+    $pares61 = @(
+      @("min-width\s*:\s*7rem","SIN-MIN"), @("max-width\s*:\s*17\.5rem","SIN-MAX"),
+      @("border-radius\s*:\s*var\(--md-sys-shape-corner-extra-small-default-size\)","SIN-RADIO"),
+      @("background-color\s*:\s*var\(--md-sys-color-surface-container\)","SIN-FONDO"),
+      @("box-shadow\s*:\s*var\(--rdm-shadow-level2\)","SIN-SOMBRA"),
+      @("padding-block\s*:\s*var\(--rdm-measurement-100\)","SIN-PADDING")
+    )
+    foreach ($p in $pares61) {
+      if ($b -notmatch ('(?i)' + $p[0])) { Write-Output ("  " + $p[1] + " comp/menu.css"); $mc++ }
+    }
+  }
+}
+if ($mc -eq 0) { Write-Output "  container con medidas" } else { $fail++ }
+
 Write-Output ""
 if ($fail -eq 0) { Write-Output "OK: capa de tokens integra" } else { Write-Output ("FALLA: " + $fail + " chequeo(s)") }
 exit $fail

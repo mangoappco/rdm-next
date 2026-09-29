@@ -1,0 +1,18 @@
+/*
+  RDM Next - Menu baseline (v0.61, paso 1: container)
+  Tokens del vendor (material-web v0_192, misma generacion que card):
+  container surface-container, elevation level2, shape
+  corner-extra-small (4dp). Ancho 112dp min / 280dp max, padding-block
+  8dp (top-space y bottom-space). El padding lateral vive en el item
+  (paso 2), no en el container. Geometria en rem (decision 7);
+  espaciado con tokens (check 17).
+*/
+.rdm-menu {
+  display: block;
+  min-width: 7rem;
+  max-width: 17.5rem;
+  padding-block: var(--rdm-measurement-100);
+  border-radius: var(--md-sys-shape-corner-extra-small-default-size);
+  background-color: var(--md-sys-color-surface-container);
+  box-shadow: var(--rdm-shadow-level2);
+}

@@ -16,5 +16,9 @@ Origen: https://github.com/material-components/material-web
   + `versions/v0_192/` (sets de valores) + `labs/card/demo/stories.ts`
   (maquetacion de referencia: content con padding 16 y gap 16, img con
   height 128 sin aspect-ratio y border-radius inherit).
+  Menu baseline (v0.61): `_md-comp-menu.scss` (wrapper: top-space y
+  bottom-space 8px hardcoded, 4 list-item-* unsupported) +
+  `versions/v0_192/_md-comp-menu.scss` (container surface-container,
+  level2, corner-extra-small).
 - Licencia: Apache 2.0 (`LICENSE` en esta carpeta; cada archivo trae su
   cabecera SPDX).
