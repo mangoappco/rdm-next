@@ -229,9 +229,21 @@ pidiendo Menu de capa 4).
 powershell -ExecutionPolicy Bypass -File tools/verify-tokens.ps1
 ```
 
-**Correr SIEMPRE antes de commitear, sin excepciones.** La suite es la
-unica red contra errores propios: el check 69 atrapo un `?v=`
-desincronizado (v0.89) que yo introduce por commitear sin correrla.
+**Hay un hook `pre-commit` que hace esto solo** (v0.93). Antes de cada
+commit regenera el bundle y corre los 76 checks; si algo falla, cancela
+el commit. Se activa una vez por maquina con:
+
+```powershell
+git config core.hooksPath tools/git-hooks
+```
+
+Con eso la secuencia "escribir version -> regenerar -> verificar ->
+commitear" ya no depende de acordarme: el hook la ejecuta. Verificado
+en las dos direcciones: bloquea un token roto (`SIN-GROSOR`) y corrige
+solo el desfase del `?v=`.
+
+**Corre la suite igual aunque el hook este activo** (por ejemplo antes
+de un amend o para ver el detalle completo).
 
 | Check | Detecta |
 |---|---|
@@ -562,6 +574,7 @@ cualquier `@import` relativo roto, probado con archivo temporal.
 - **v0.90** - Prefijo del chrome (auditoria + rename): `rdm-showroom-bar` e `rdm-showroom-intro` son chrome de showroom, no componentes; el prefijo `rdm-` mentia. Renombradas a `demo-showroom-*` en las 18 paginas y en showroom.css. Verificado que el bundle NO contiene ninguna clase `demo-*` (0 marcadores) y que rdm-next.css no importa demo/: mango-next nunca ve el chrome. Convencion de prefijos documentada en 4: `demo-<componente>-<rol>`, `demo-<concepto>`, `demo-showroom-<estructura>`; `rdm-` queda reservado a la libreria. Check 76: sin rdm-showroom- y bundle limpio. 76/76 en verde.
 - **v0.91** - Showrooms en views/ (refactor con `tools/move-views.ps1`, con -DryRun): los 17 HTML de componente pasan a `views/`; `index.html` queda en la raiz como landing. Reescritas las 106 rutas (los movidos suben a `../css/`, su link a index a `../index.html`, los enlaces entre componentes siguen siendo hermanos; el index apunta a `views/x.html`). 21 globs + 7 rutas hardcodeadas del script actualizados, y el check 20 busca el showroom en `views/`. 2 bugs del propio script corregidos: el link de la barra no subia, y el verificador no filtraba el `?v=`. Sin `js/` ni `img/` (vacias = YAGNI, decisiones 14 y 24). 76/76 en verde.
 - **v0.92** - Politica de fin de linea (`.gitattributes`): `* text=auto eol=lf` + `*.ps1 text eol=crlf`. `git add --renormalize .` normalizo 6 archivos (402 lineas, cero cambios de contenido: verificado con `--ignore-all-space`). El sintoma eran 3 HTML que `git status` marcaba "modified" con el diff vacio: los scripts de PowerShell (WriteAllText) dejan CRLF y se mezclaba con el LF de las ediciones a mano; con `core.autocrlf=true` la normalizacion ocultaba la diferencia. Con eol=lf la config local deja de importar. El bundle queda marcado como generado. 76/76 en verde.
+- **v0.93** - Hook pre-commit (cierra la causa raiz del desfase): el `?v=` fallo 3 veces (v0.88, v0.89, v0.92) porque la secuencia correcta exige un paso manual que salte. `tools/git-hooks/pre-commit` regenera el bundle y corre los 76 checks antes de cada commit; si falla, cancela. Activar con `git config core.hooksPath tools/git-hooks` (versionado, no en .git/hooks). Git for Windows no ejecuta .ps1 como hook: shim sin extension que delega. Probado en ambas direcciones: token roto -> commit cancelado con SIN-GROSOR; desfase de version -> el hook regenera solo (0.92 a 0.93) y pasa. Lección: "tener cuidado" no funciono 3 veces; la red va en el tooling. 76/76 en verde.
 - **v0.57a** - Fix: el Audit del boton estaba en spacing.html y viola la regla de showroom (cada pagina solo muestra su componente). Movido a button.html como seccion Audit; spacing.html queda con 6 secciones de spacing puro.
 - **v0.48** - Anatomia en las 3 variantes: misma composicion (media + texto + linked text + icon + outlined + filled), solo cambia el modificador. El action area es identico porque los 3 botones pasan 4.5:1 en las 3 superficies; tonal y elevated fuera por regla. Sin CSS ni checks nuevos: el check 30 ya valida los 9 botones. 43/43.
 - **v0.26** - Divider: `css/comp/divider.css` (full/inset/middle-inset/vertical, 1px outline-variant) y `divider.html`. Inset 16 solo izquierda (la tabla dice 16/0, middle 16/16). Chrome migrado: 45 `<hr>` entre secciones (+1 escrito a mano), border-top fuera de showroom.css. Check 23: sin border-top en demo, probado contra borde agregado.
