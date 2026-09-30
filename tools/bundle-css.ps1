@@ -58,7 +58,7 @@ foreach ($m in [regex]::Matches($sk, '- \*\*v(\d+)\.(\d+)\*\*')) {
 if (-not $vers) { Write-Output 'BUNDLE-ERROR: sin version en SKILL.md'; exit 1 }
 
 $n = 0
-foreach ($h in (Get-ChildItem "$root\*.html")) {
+foreach ($h in (Get-ChildItem "$root\views\*.html", "$root\index.html")) {
   $t = [System.IO.File]::ReadAllText($h.FullName)
   $nuevo = 'href="css/rdm-next.bundle.css?v=' + $vers + '"'
   $t2 = [regex]::Replace($t, 'href="css/rdm-next(\.bundle)?\.css(\?v=[\d.]+)?"', $nuevo)

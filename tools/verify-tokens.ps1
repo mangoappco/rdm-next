@@ -127,7 +127,7 @@ if ($badImp -eq 0) { Write-Output "  ninguno" } else { $fail++ }
 Write-Output ""
 Write-Output "=== Texto pelado en HTML (<p> o <h1-h6> sin clase) ==="
 $bare = 0
-foreach ($f in (Get-ChildItem "$root\*.html" -ErrorAction SilentlyContinue)) {
+foreach ($f in (Get-ChildItem "$root\views\*.html" -ErrorAction SilentlyContinue)) {
   $t = Read-Css $f.FullName
   $np = ([regex]::Matches($t, '<p>')).Count
   $nh = ([regex]::Matches($t, '<h[1-6]>')).Count
@@ -146,7 +146,7 @@ $ownCss = ""
 foreach ($f in $ownFiles) { $ownCss += (Read-Css $f.FullName) + "`n" }
 $vendorTypo = Read-Css "$root\vendor\material-tokens\css\typography.css"
 $loaded = @()
-foreach ($h in (Get-ChildItem "$root\*.html" -ErrorAction SilentlyContinue)) {
+foreach ($h in (Get-ChildItem "$root\views\*.html" -ErrorAction SilentlyContinue)) {
   $ht = Read-Css $h.FullName
   foreach ($m in ([regex]::Matches($ht, 'family=([^:&]+)'))) {
     $loaded += ($m.Groups[1].Value -replace '\+', ' ')
@@ -199,7 +199,7 @@ if ($lvl -eq 0) { Write-Output "  ninguno" } else { $fail++ }
 Write-Output ""
 Write-Output "=== Swatches identicos (3+ div hermanos identicos) ==="
 $dup = 0
-foreach ($f in (Get-ChildItem "$root\*.html" -ErrorAction SilentlyContinue)) {
+foreach ($f in (Get-ChildItem "$root\views\*.html" -ErrorAction SilentlyContinue)) {
   $t = Read-Css $f.FullName
   $toks = @([regex]::Matches($t, '(?i)</?div\b[^>]*>') | ForEach-Object { @{ tag=$_.Groups[0].Value; idx=$_.Index; len=$_.Groups[0].Value.Length; open=($_.Groups[0].Value -notmatch '^</'); self=($_.Groups[0].Value -match '/>$') } })
   $stack = New-Object System.Collections.Generic.List[object]
@@ -249,7 +249,7 @@ if ($dup -eq 0) { Write-Output "  ninguno" } else { $fail++ }
 Write-Output ""
 Write-Output "=== Container en paginas ==="
 $noc = 0
-foreach ($h in (Get-ChildItem "$root\*.html" -ErrorAction SilentlyContinue)) {
+foreach ($h in (Get-ChildItem "$root\views\*.html" -ErrorAction SilentlyContinue)) {
   $t = Read-Css $h.FullName
   if ($t -notmatch 'rdm-container') { Write-Output ("  SIN CONTAINER " + $h.Name); $noc++ }
 }
@@ -290,7 +290,7 @@ if ($lit -eq 0) { Write-Output "  ninguna" } else { $fail++ }
 Write-Output ""
 Write-Output "=== Clases genericas de iconos ==="
 $gen = 0
-foreach ($h in (Get-ChildItem "$root\*.html" -ErrorAction SilentlyContinue)) {
+foreach ($h in (Get-ChildItem "$root\views\*.html" -ErrorAction SilentlyContinue)) {
   $t = Read-Css $h.FullName
   foreach ($m in ([regex]::Matches($t, 'material-symbols-[a-z]+'))) {
     Write-Output ("  GENERICA " + $h.Name + ": " + $m.Groups[0].Value); $gen++
@@ -353,12 +353,12 @@ foreach ($f in (Get-ChildItem "$root\css\demo" -Filter *.css)) {
 if ($chr -eq 0) { Write-Output "  ninguno" } else { $fail++ }
 
 # 20. Showroom por componente: cada css/comp/*.css tiene su <nombre>.html
-# en la raiz. Sin pagina, el componente no existe para el proyecto.
+# en views/ (v0.91). Sin pagina, el componente no existe para el proyecto.
 Write-Output ""
 Write-Output "=== Showroom por componente ==="
 $mis = 0
 foreach ($f in (Get-ChildItem "$root\css\comp" -Filter *.css -ErrorAction SilentlyContinue)) {
-  $html = Join-Path $root ([System.IO.Path]::GetFileNameWithoutExtension($f.Name) + ".html")
+  $html = Join-Path $root ("views\" + [System.IO.Path]::GetFileNameWithoutExtension($f.Name) + ".html")
   if (-not (Test-Path $html)) { Write-Output ("  SIN SHOWROOM " + $f.Name); $mis++ }
 }
 if ($mis -eq 0) { Write-Output "  todos" } else { $fail++ }
@@ -386,7 +386,7 @@ if ($vis -eq 0) { Write-Output "  invisible" } else { $fail++ }
 Write-Output ""
 Write-Output "=== Chrome compartido ==="
 $sho = 0
-foreach ($h in (Get-ChildItem "$root\*.html" -ErrorAction SilentlyContinue)) {
+foreach ($h in (Get-ChildItem "$root\views\*.html" -ErrorAction SilentlyContinue)) {
   $t = Read-Css $h.FullName
   if ($t -notmatch 'css/demo/showroom\.css') { Write-Output ("  SIN CHROME " + $h.Name); $sho++ }
   elseif (([regex]::Matches($t, '<section[ >]')).Count -eq 0) { Write-Output ("  SIN SECCION " + $h.Name); $sho++ }
@@ -410,7 +410,7 @@ if ($adh -eq 0) { Write-Output "  ninguno" } else { $fail++ }
 Write-Output ""
 Write-Output "=== Toggle con contrato ==="
 $tog = 0
-foreach ($h in (Get-ChildItem "$root\*.html" -ErrorAction SilentlyContinue)) {
+foreach ($h in (Get-ChildItem "$root\views\*.html" -ErrorAction SilentlyContinue)) {
   $t = Read-Css $h.FullName
   foreach ($m in ([regex]::Matches($t, '(?i)<button[^>]*>'))) {
     $tag = $m.Groups[0].Value
@@ -426,7 +426,7 @@ if ($tog -eq 0) { Write-Output "  todos" } else { $fail++ }
 Write-Output ""
 Write-Output "=== Divisores por seccion ==="
 $div = 0
-foreach ($h in (Get-ChildItem "$root\*.html" -ErrorAction SilentlyContinue)) {
+foreach ($h in (Get-ChildItem "$root\views\*.html" -ErrorAction SilentlyContinue)) {
   $t = Read-Css $h.FullName
   $sec = ([regex]::Matches($t, '<section[ >]')).Count
   $hr = ([regex]::Matches($t, '<hr class="rdm-divider">')).Count
@@ -483,7 +483,7 @@ if ($des -eq 0) { Write-Output "  solo error" } else { $fail++ }
 Write-Output ""
 Write-Output "=== Sin acciones anidadas ==="
 $nes = 0
-foreach ($h in (Get-ChildItem "$root\*.html" -ErrorAction SilentlyContinue)) {
+foreach ($h in (Get-ChildItem "$root\views\*.html" -ErrorAction SilentlyContinue)) {
   $t = Read-Css $h.FullName
   foreach ($m in ([regex]::Matches($t, '(?s)<section>.*?</section>'))) {
     $sec = $m.Groups[0].Value
@@ -559,7 +559,7 @@ foreach ($k in $addLight.Keys) { $lightMap[$k] = $addLight[$k] }
 $darkMap = Get-Decls (Read-Css "$root\vendor\material-tokens\css\theme\dark.css")
 foreach ($k in $addDark.Keys) { $darkMap[$k] = $addDark[$k] }
 $cardBg = @{ "elevated" = "--md-sys-color-surface-container-low"; "filled" = "--md-sys-color-surface-container-highest"; "outlined" = "--md-sys-color-surface" }
-foreach ($h in (Get-ChildItem "$root\*.html" -ErrorAction SilentlyContinue)) {
+foreach ($h in (Get-ChildItem "$root\views\*.html" -ErrorAction SilentlyContinue)) {
   $t = Read-Css $h.FullName
   foreach ($m in ([regex]::Matches($t, '(?s)<(div|a)[^>]*class="[^"]*rdm-card--(elevated|filled|outlined)[^"]*"[^>]*>(.*?)</\1>'))) {
     $cv = $m.Groups[2].Value
@@ -622,7 +622,7 @@ if ($ali -eq 0) { Write-Output "  todos middle" } else { $fail++ }
 Write-Output ""
 Write-Output "=== Disabled interactivo con contrato ==="
 $dic = 0
-foreach ($h in (Get-ChildItem "$root\*.html" -ErrorAction SilentlyContinue)) {
+foreach ($h in (Get-ChildItem "$root\views\*.html" -ErrorAction SilentlyContinue)) {
   $t = Read-Css $h.FullName
   foreach ($m in ([regex]::Matches($t, '(?i)<(div|a)[^>]*>'))) {
     $tag = $m.Groups[0].Value
@@ -640,7 +640,7 @@ if ($dic -eq 0) { Write-Output "  todos con contrato" } else { $fail++ }
 Write-Output ""
 Write-Output "=== Base sin estados ==="
 $bes = 0
-foreach ($h in (Get-ChildItem "$root\*.html" -ErrorAction SilentlyContinue)) {
+foreach ($h in (Get-ChildItem "$root\views\*.html" -ErrorAction SilentlyContinue)) {
   $t = Read-Css $h.FullName
   foreach ($m in ([regex]::Matches($t, '(?i)<(div|a)[^>]*>'))) {
     $tag = $m.Groups[0].Value
@@ -667,7 +667,7 @@ if ($bes -eq 0) { Write-Output "  base quieta" } else { $fail++ }
 Write-Output ""
 Write-Output "=== Un solo tab stop ==="
 $tbs = 0
-foreach ($h in (Get-ChildItem "$root\*.html" -ErrorAction SilentlyContinue)) {
+foreach ($h in (Get-ChildItem "$root\views\*.html" -ErrorAction SilentlyContinue)) {
   $t = Read-Css $h.FullName
   foreach ($m in ([regex]::Matches($t, '(?i)<(div|a)[^>]*>'))) {
     $tag = $m.Groups[0].Value
@@ -723,7 +723,7 @@ if ($shp -eq 0) { Write-Output "  10 niveles" } else { $fail++ }
 Write-Output ""
 Write-Output "=== Medidas de card ==="
 $med = 0
-$ch = "$root\card.html"
+$ch = "$root\views\card.html"
 if (Test-Path $ch) {
   $t = Read-Css $ch
   foreach ($v in @("12dp", "16dp", "8dp maximo", "start-aligned")) {
@@ -794,7 +794,7 @@ foreach ($v in @("elevated", "filled", "outlined")) {
   }
   $mw[$v] = $map
 }
-$ch = Read-Css "$root\card.html"
+$ch = Read-Css "$root\views\card.html"
 $et = [regex]::Match($ch, '(?s)<!-- INICIO: card elevation table -->(.*?)<!-- FIN: card elevation table -->')
 if (-not $et.Success) { Write-Output "  SIN-TABLA card.html"; $elv++ }
 else {
@@ -906,7 +906,7 @@ if ($rem -eq 0) { Write-Output "  todo con token" } else { $fail++ }
 Write-Output ""
 Write-Output "=== Specimens tipograficos ==="
 $typ = 0
-$th = "$root\typography.html"
+$th = "$root\views\typography.html"
 $td = "$root\css\demo\typography.css"
 if (-not (Test-Path $th)) { Write-Output "  SIN-PAGINA typography.html"; $typ++ }
 elseif ((Read-Css $th) -notmatch 'css/demo/typography\.css') { Write-Output "  SIN-LINK typography.html"; $typ++ }
@@ -928,7 +928,7 @@ Write-Output ""
 Write-Output "=== Demo CSS por foundation ==="
 $fdn = 0
 foreach ($pg in @("color","divider","elevation","icons","layout","motion","shape","spacing","state-layer","typography")) {
-  $h = "$root\$pg.html"
+  $h = "$root\views\$pg.html"
   $d = "$root\css\demo\$pg.css"
   if (-not (Test-Path $h)) { Write-Output "  SIN-PAGINA $pg.html"; $fdn++; continue }
   if ((Read-Css $h) -notmatch ('css/demo/' + $pg + '\.css')) { Write-Output "  SIN-LINK $pg.html"; $fdn++ }
@@ -969,7 +969,7 @@ if ($ari -eq 0) { Write-Output "  17 tokens exactos" } else { $fail++ }
 Write-Output ""
 Write-Output "=== Origen distinguido ==="
 $ori = 0
-$sh = "$root\spacing.html"
+$sh = "$root\views\spacing.html"
 if (-not (Test-Path $sh)) { Write-Output "  SIN-PAGINA spacing.html"; $ori++ }
 else {
   $t = Read-Css $sh
@@ -1025,7 +1025,7 @@ if ($rst -eq 0) { Write-Output "  17 elementos reseteados" } else { $fail++ }
 Write-Output ""
 Write-Output "=== Tablas con patron ==="
 $tab = 0
-foreach ($h in (Get-ChildItem "$root\*.html" -ErrorAction SilentlyContinue)) {
+foreach ($h in (Get-ChildItem "$root\views\*.html" -ErrorAction SilentlyContinue)) {
   $t = Read-Css $h.FullName
   $tot = ([regex]::Matches($t, '<table[ >]')).Count
   $cls = ([regex]::Matches($t, '<table class="demo-table"')).Count
@@ -1115,7 +1115,7 @@ if ($sp -eq 0) { Write-Output "  spacer con token e import" } else { $fail++ }
 Write-Output ""
 Write-Output "=== Breakpoints ==="
 $bp = 0
-$lh = "$root\layout.html"
+$lh = "$root\views\layout.html"
 if (-not (Test-Path $lh)) { Write-Output "  SIN-PAGINA layout.html"; $bp++ }
 else {
   $t = Read-Css $lh
@@ -1246,7 +1246,7 @@ if ($rit -eq 0) { Write-Output "  ritmo con token" } else { $fail++ }
 Write-Output ""
 Write-Output "=== Estructura ==="
 $est = 0
-foreach ($h in (Get-ChildItem "$root\*.html" -ErrorAction SilentlyContinue)) {
+foreach ($h in (Get-ChildItem "$root\views\*.html" -ErrorAction SilentlyContinue)) {
   $t = Read-Css $h.FullName
   $bar = ([regex]::Matches($t, '<header class="demo-showroom-bar">')).Count
   $intro = ([regex]::Matches($t, '<header class="demo-showroom-intro">')).Count
@@ -1370,7 +1370,7 @@ if ($mi -eq 0) { Write-Output "  item con medidas" } else { $fail++ }
 Write-Output ""
 Write-Output "=== Medidas sin auditoria ==="
 $au = 0
-foreach ($h in (Get-ChildItem "$root\*.html" -ErrorAction SilentlyContinue)) {
+foreach ($h in (Get-ChildItem "$root\views\*.html" -ErrorAction SilentlyContinue)) {
   $t = Read-Css $h.FullName
   $m = [regex]::Match($t, '(?s)<th>Medida</th>\s*<th>Valor</th>\s*<th>Estado</th>')
   if ($m.Success) { Write-Output ("  CON-ESTADO " + $h.Name); $au++ }
@@ -1396,7 +1396,7 @@ else {
     $v = [int]$m.Groups[1].Value * 1000 + [int]$m.Groups[2].Value
     if ($v -gt $mx) { $mx = $v; $vv = $m.Groups[1].Value + '.' + $m.Groups[2].Value }
   }
-  foreach ($h in (Get-ChildItem "$root\*.html" -ErrorAction SilentlyContinue)) {
+  foreach ($h in (Get-ChildItem "$root\views\*.html" -ErrorAction SilentlyContinue)) {
     $t = Read-Css $h.FullName
     $mh = [regex]::Match($t, 'rdm-next\.bundle\.css\?v=([\d.]+)')
     if (-not $mh.Success) { Write-Output ("  SIN-BUNDLE-LINK " + $h.Name); $bu++ }
@@ -1411,7 +1411,7 @@ if ($bu -eq 0) { Write-Output "  bundle vigente" } else { $fail++ }
 Write-Output ""
 Write-Output "=== Prosa con tokens reales ==="
 $pr = 0
-foreach ($h in (Get-ChildItem "$root\*.html" -ErrorAction SilentlyContinue)) {
+foreach ($h in (Get-ChildItem "$root\views\*.html" -ErrorAction SilentlyContinue)) {
   $n = 0
   foreach ($l in ([System.IO.File]::ReadAllLines($h.FullName))) {
     $n++
@@ -1426,7 +1426,7 @@ if ($pr -eq 0) { Write-Output "  prosa con valores vigentes" } else { $fail++ }
 Write-Output ""
 Write-Output "=== Titulo principal ==="
 $ti = 0
-foreach ($h in (Get-ChildItem "$root\*.html" -ErrorAction SilentlyContinue)) {
+foreach ($h in (Get-ChildItem "$root\views\*.html" -ErrorAction SilentlyContinue)) {
   $t = Read-Css $h.FullName
   if ($t -notmatch '<h1 class="[^"]*display-large') { Write-Output ("  SIN-LARGE " + $h.Name); $ti++ }
 }
@@ -1439,7 +1439,7 @@ if ($ti -eq 0) { Write-Output "  h1 en display-large" } else { $fail++ }
 Write-Output ""
 Write-Output "=== Anatomia con tabla de partes ==="
 $ad = 0
-$bp = "$root\button.html"
+$bp = "$root\views\button.html"
 if (-not (Test-Path $bp)) { Write-Output "  SIN-PAGINA button.html"; $ad++ }
 else {
   $t = Read-Css $bp
@@ -1486,7 +1486,7 @@ if ($tf -eq 0) { Write-Output "  formato con tokens" } else { $fail++ }
 Write-Output ""
 Write-Output "=== Paginas con tabla enlazan el patron ==="
 $tp = 0
-foreach ($h in (Get-ChildItem "$root\*.html" -ErrorAction SilentlyContinue)) {
+foreach ($h in (Get-ChildItem "$root\views\*.html" -ErrorAction SilentlyContinue)) {
   $t = Read-Css $h.FullName
   if ($t -match '<table class="demo-table">' -and $t -notmatch 'demo/table\.css') { Write-Output ("  SIN-LINK " + $h.Name); $tp++ }
 }
@@ -1533,7 +1533,7 @@ foreach ($f in $vend) {
   $tt = Read-Css $f.FullName
   if ($tt -match 'rdm-showroom-') { Write-Output ("  RDM-SHOWROOM " + $f.Name); $pc++ }
 }
-foreach ($h in (Get-ChildItem "$root\*.html" -ErrorAction SilentlyContinue)) {
+foreach ($h in (Get-ChildItem "$root\views\*.html" -ErrorAction SilentlyContinue)) {
   $th = Read-Css $h.FullName
   if ($th -match 'rdm-showroom-') { Write-Output ("  RDM-SHOWROOM " + $h.Name); $pc++ }
 }

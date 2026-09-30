@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Layout - RDM Next</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Google+Sans:wght@400..700&display=swap" rel="stylesheet">
+  <!-- Material Symbols recortado: peso 400, sin ejes variables sin uso -->
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@24,400,0,0" rel="stylesheet">
+
+  <link rel="stylesheet" href="../css/rdm-next.bundle.css?v=0.90">
+  <link rel="stylesheet" href="../css/demo/showroom.css">
+  <link rel="stylesheet" href="../css/demo/layout.css">
+  <link rel="stylesheet" href="../css/demo/table.css">
+</head>
+<body>
+
+<!-- INICIO: layout container -->
+<div class="rdm-container">
+
+<!-- INICIO: showroom bar -->
+<header class="demo-showroom-bar">
+  <p class="rdm-typography--label-large"><a href="../index.html">RDM Next</a></p>
+</header>
+<!-- FIN: showroom bar -->
+
+<main>
+  <!-- INICIO: layout intro -->
+  <header class="demo-showroom-intro">
+    <h1 class="rdm-typography--display-large">Layout</h1>
+    <p class="rdm-typography--body-large">M3 no exporta tokens de layout ni
+     spacing en el vendor, asi que el container es extension del proyecto
+     (<code>--rdm-layout-*</code>). Esta pagina vive dentro de uno:
+     redimensiona la ventana y los margenes laterales cambian de 16px
+     a 24px al cruzar los 600px.</p>
+  </header>
+  <!-- FIN: layout intro -->
+
+  <hr class="rdm-divider">
+
+  <!-- INICIO: layout breakpoints -->
+  <section>
+    <h2 class="rdm-typography--title-large">Breakpoints</h2>
+    <p class="rdm-typography--body-large">5 breakpoints oficiales (la spec
+       los llamaba window size classes hasta mayo 2026). El container
+       solo aplica el margen; las columnas se definiran cuando un
+       componente las necesite.</p>
+
+    <!-- INICIO: layout breakpoints table -->
+    <table class="demo-table">
+      <thead>
+        <tr><th>Breakpoint</th><th>Ancho</th><th>Dispositivos</th><th>Panes</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Compact</td><td>menos de 600dp</td><td>telefono vertical</td><td>1</td></tr>
+        <tr><td>Medium</td><td>600-839dp</td><td>tablet vertical, plegable vertical</td><td>1 (rec.) o 2</td></tr>
+        <tr><td>Expanded</td><td>840-1199dp</td><td>telefono horizontal, tablet horizontal, escritorio</td><td>1 o 2 (rec.)</td></tr>
+        <tr><td>Large</td><td>1200-1599dp</td><td>escritorio</td><td>1 o 2 (rec.)</td></tr>
+        <tr><td>Extra-large</td><td>1600dp en adelante</td><td>escritorio, ultra-wide</td><td>1 a 3 (rec.)</td></tr>
+      </tbody>
+    </table>
+    <!-- FIN: layout breakpoints table -->
+
+  </section>
+  <!-- FIN: layout breakpoints -->
+
+  <hr class="rdm-divider">
+
+  <!-- INICIO: layout scaffold -->
+  <section>
+    <h2 class="rdm-typography--title-large">Scaffold</h2>
+    <p class="rdm-typography--body-large">El scaffold estructura cada
+       pieza del layout en bars, rails y panes. Sin CSS todavia: se
+       publica el vocabulario para que los componentes lo consuman.</p>
+
+    <!-- INICIO: layout scaffold table -->
+    <table class="demo-table">
+      <thead>
+        <tr><th>Pieza</th><th>Definicion</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Bar</td><td>Enmarca la pagina: app bar y navegacion inferior</td></tr>
+        <tr><td>Rail</td><td>Perimetro alrededor de los panes: navegacion y toolbars</td></tr>
+        <tr><td>Pane</td><td>Contenido principal; se adapta al breakpoint</td></tr>
+      </tbody>
+    </table>
+    <!-- FIN: layout scaffold table -->
+
+  </section>
+  <!-- FIN: layout scaffold -->
+
+  <hr class="rdm-divider">
+
+  <!-- INICIO: layout grid -->
+  <section>
+    <h2 class="rdm-typography--title-large">Grid</h2>
+    <p class="rdm-typography--body-large">8 columnas; cada pane ocupa 4
+       (alt del diagrama oficial). Dato de spec, sin CSS: ningun
+       componente necesita columnas todavia (YAGNI).</p>
+  </section>
+  <!-- FIN: layout grid -->
+
+  <hr class="rdm-divider">
+
+  <!-- INICIO: layout margin -->
+  <section>
+    <h2 class="rdm-typography--title-large">Margin</h2>
+    <p class="rdm-typography--body-large">El espacio entre el borde de la
+       pantalla y los elementos (definicion oficial). Aca vive en
+       <code>--rdm-layout-margin</code>: 16px en compact, 24px desde
+       medium (600px).</p>
+  </section>
+  <!-- FIN: layout margin -->
+
+  <hr class="rdm-divider">
+
+  <!-- INICIO: layout measure -->
+  <section>
+    <h2 class="rdm-typography--title-large">Measure</h2>
+    <p class="rdm-typography--body-large">La spec pide 40-60 caracteres
+       por linea en texto de lectura. Medido con Google Sans contando
+       el wrap real: el showroom es texto de UI, no lectura, pero el
+       copy largo de mango-next si cae en esta regla.</p>
+
+    <!-- INICIO: layout measure table -->
+    <table class="demo-table">
+      <thead>
+        <tr><th>Ancho</th><th>body-large</th><th>body-medium</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>600px</td><td>70</td><td>91</td></tr>
+        <tr><td>720px</td><td>91</td><td>108</td></tr>
+        <tr><td>840px</td><td>108</td><td>126</td></tr>
+        <tr><td>1024px</td><td>129</td><td>147</td></tr>
+        <tr><td>1200px</td><td>147</td><td>167</td></tr>
+      </tbody>
+    </table>
+    <!-- FIN: layout measure table -->
+
+  </section>
+  <!-- FIN: layout measure -->
+
+  <hr class="rdm-divider">
+
+  <!-- INICIO: layout container -->
+  <section>
+    <h2 class="rdm-typography--title-large">Container</h2>
+    <p class="rdm-typography--body-large">Ancho maximo de
+       <code>--rdm-layout-max-width: 840px</code> (decision del proyecto:
+       piso de expanded 840-1199, numero publicado; la spec no publica
+       max-width de
+       contenido), centrado con <code>margin-inline: auto</code> y aire
+       lateral de <code>--rdm-layout-margin</code>. Requiere el reset
+       <code>box-sizing: border-box</code> de <code>base.css</code>: sin el,
+       <code>width: 100%</code> mas padding desborda.</p>
+
+    <!-- INICIO: layout container specimen -->
+    <div class="rdm-container demo-layout-container">
+      <p class="rdm-typography--body-medium">Este bloque es un
+         <code>.rdm-container</code> real anidado: el padding-inline se
+         suma al de la pagina, y el doble aire lateral es el margen en
+         accion (16px, 24px desde 600px).</p>
+    </div>
+    <!-- FIN: layout container specimen -->
+  </section>
+  <!-- FIN: layout container -->
+
+</main>
+
+<!-- FIN: layout container -->
+</div>
+
+</body>
+</html>
+
