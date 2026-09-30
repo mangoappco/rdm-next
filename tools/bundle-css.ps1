@@ -58,10 +58,15 @@ foreach ($m in [regex]::Matches($sk, '- \*\*v(\d+)\.(\d+)\*\*')) {
 if (-not $vers) { Write-Output 'BUNDLE-ERROR: sin version en SKILL.md'; exit 1 }
 
 $n = 0
-foreach ($h in (Get-ChildItem "$root\views\*.html", "$root\index.html")) {
+# index.html queda en la raiz (href="css/..."), los de componente en
+# views/ (href="../css/..."). El regex acepta ambos prefijos.
+$htmls = @(Get-ChildItem "$root\views\*.html") + @(Get-ChildItem "$root\index.html")
+foreach ($h in $htmls) {
   $t = [System.IO.File]::ReadAllText($h.FullName)
-  $nuevo = 'href="css/rdm-next.bundle.css?v=' + $vers + '"'
-  $t2 = [regex]::Replace($t, 'href="css/rdm-next(\.bundle)?\.css(\?v=[\d.]+)?"', $nuevo)
+  $nuevo = 'href="../css/rdm-next.bundle.css?v=' + $vers + '"'
+  $t2 = [regex]::Replace($t, 'href="(\.\./)?css/rdm-next(\.bundle)?\.css(\?v=[\d.]+)?"', $nuevo)
+  # index.html no sube un nivel
+  if ($h.Name -eq 'index.html') { $t2 = $t2.Replace('href="../css/', 'href="css/') }
   if ($t2 -ne $t) {
     [System.IO.File]::WriteAllText($h.FullName, $t2, $enc)
     $n++
