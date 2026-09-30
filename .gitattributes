@@ -1,0 +1,16 @@
+# RDM Next - Politica de fin de linea (v0.92)
+#
+# Motivo: core.autocrlf=true normaliza a LF al commitear, pero los
+# archivos escritos por los scripts de PowerShell ([System.IO.File]
+# ::WriteAllText) salian con CRLF, y al mezclarse con los LF de las
+# ediciones a mano git los marcaba "modified" con el diff vacio.
+#
+# Con eol=lf el checkout escribe LF siempre, en cualquier maquina, y
+# la config local deja de importar. Los .ps1 quedan en CRLF porque
+# Windows los ejecuta con saltos CRLF de forma nativa.
+* text=auto eol=lf
+
+*.ps1 text eol=crlf
+
+# El bundle es generado: se commitea (decision 32) pero no se edita a mano.
+css/rdm-next.bundle.css text eol=lf linguist-generated=true
