@@ -9,12 +9,12 @@
   componente .rdm-divider (elementos <hr> entre secciones), no un
   borde ad-hoc.
 */
-.rdm-showroom-bar {
+.demo-showroom-bar {
   margin-bottom: var(--rdm-measurement-400);
   padding-block: var(--rdm-measurement-200);
 }
 
-.rdm-showroom-intro {
+.demo-showroom-intro {
   display: flex;
   flex-direction: column;
   gap: var(--rdm-measurement-100);

@@ -1236,7 +1236,7 @@ foreach ($m in ([regex]::Matches($t, '(?i)(margin|padding)[a-z-]*\s*:\s*([^;{}]+
   $v = $m.Groups[2].Value.Trim()
   if ($v -ne '0' -and $v -notmatch 'var\(--rdm-measurement-') { Write-Output ("  LITERAL " + $m.Groups[0].Value.Trim()); $rit++ }
 }
-foreach ($sel in @('rdm-showroom-bar', 'rdm-showroom-intro')) {
+foreach ($sel in @('demo-showroom-bar', 'demo-showroom-intro')) {
   if ($t -notmatch ('(?m)\.' + $sel + '\s*\{')) { Write-Output ("  SIN-REGLA " + $sel); $rit++ }
 }
 if ($rit -eq 0) { Write-Output "  ritmo con token" } else { $fail++ }
@@ -1248,14 +1248,14 @@ Write-Output "=== Estructura ==="
 $est = 0
 foreach ($h in (Get-ChildItem "$root\*.html" -ErrorAction SilentlyContinue)) {
   $t = Read-Css $h.FullName
-  $bar = ([regex]::Matches($t, '<header class="rdm-showroom-bar">')).Count
-  $intro = ([regex]::Matches($t, '<header class="rdm-showroom-intro">')).Count
+  $bar = ([regex]::Matches($t, '<header class="demo-showroom-bar">')).Count
+  $intro = ([regex]::Matches($t, '<header class="demo-showroom-intro">')).Count
   if ($bar -ne 1) { Write-Output ("  SIN-BARRA " + $h.Name); $est++ }
   if ($intro -ne 1) { Write-Output ("  SIN-INTRO " + $h.Name); $est++ }
   $iMain = $t.IndexOf('<main>')
   $iH1 = $t.IndexOf('<h1')
   if ($iH1 -lt 0 -or $iH1 -lt $iMain) { Write-Output ("  H1-FUERA-MAIN " + $h.Name); $est++ }
-  $m = [regex]::Match($t, '<header class="rdm-showroom-bar">(.*?)</header>', 'Singleline')
+  $m = [regex]::Match($t, '<header class="demo-showroom-bar">(.*?)</header>', 'Singleline')
   if ($m.Success -and $m.Groups[1].Value -match '<h1') { Write-Output ("  H1-EN-BARRA " + $h.Name); $est++ }
 }
 if ($est -eq 0) { Write-Output "  18 paginas con barra e intro" } else { $fail++ }
@@ -1270,9 +1270,9 @@ $t = (Read-Css "$root\css\demo\showroom.css").TrimStart([char]0xFEFF)
 $t = [regex]::Replace($t, '/\*.*?\*/', '', 'Singleline')
 $m = [regex]::Match($t, '(?m)^\.rdm-container section\s*\{([^}]*)\}')
 if (-not $m.Success -or $m.Groups[1].Value -notmatch '(?i)display\s*:\s*flex' -or $m.Groups[1].Value -notmatch 'gap\s*:\s*var\(--rdm-measurement-200\)') { Write-Output "  SIN-GAP section"; $pad++ }
-$m = [regex]::Match($t, '(?m)^\.rdm-showroom-intro\s*\{([^}]*)\}')
+$m = [regex]::Match($t, '(?m)^\.demo-showroom-intro\s*\{([^}]*)\}')
 if (-not $m.Success -or $m.Groups[1].Value -notmatch '(?i)display\s*:\s*flex' -or $m.Groups[1].Value -notmatch 'gap\s*:\s*var\(--rdm-measurement-100\)') { Write-Output "  SIN-GAP intro"; $pad++ }
-foreach ($son in @('section\s*>\s*h2\s*\{', 'section\s*>\s*p\b', 'showroom-intro\s*>\s*\*')) {
+foreach ($son in @('section\s*>\s*h2\s*\{', 'section\s*>\s*p\b', 'demo-showroom-intro\s*>\s*\*')) {
   if ($t -match ('(?m)' + $son)) { Write-Output ("  HIJO-CON-REGLA showroom " + $son); $pad++ }
 }
 foreach ($f in (Get-ChildItem "$root\css\demo" -Filter *.css)) {
@@ -1521,6 +1521,33 @@ $ausente = @($esperados | Where-Object { $huerf -notcontains $_ })
 foreach ($n in $nuevo) { Write-Output ("  NUEVO-HUERFANO " + $n); $ho++ }
 foreach ($a in $ausente) { Write-Output ("  YA-CONSUMIDO " + $a + " (sacar de la lista)"); $ho++ }
 if ($ho -eq 0) { Write-Output ("  " + $huerf.Count + " huerfanos, todos conocidos") } else { $fail++ }
+
+# 76. Prefijo del chrome (v0.90): todo lo que NO es libreria lleva
+# demo-. Ningun rdm-showroom-* sobrevive: esas clases son chrome de
+# showroom, no componentes, y el prefijo las saca del bundle.
+Write-Output ""
+Write-Output "=== Prefijo del chrome ==="
+$pc = 0
+$vend = Get-ChildItem "$root\css" -Recurse -Filter *.css | Where-Object { $_.Name -ne 'rdm-next.bundle.css' }
+foreach ($f in $vend) {
+  $tt = Read-Css $f.FullName
+  if ($tt -match 'rdm-showroom-') { Write-Output ("  RDM-SHOWROOM " + $f.Name); $pc++ }
+}
+foreach ($h in (Get-ChildItem "$root\*.html" -ErrorAction SilentlyContinue)) {
+  $th = Read-Css $h.FullName
+  if ($th -match 'rdm-showroom-') { Write-Output ("  RDM-SHOWROOM " + $h.Name); $pc++ }
+}
+# el bundle no debe contener ninguna clase demo- ni rdm-showroom-
+# (se ignoran los comentarios: el bundle conserva los headers de archivo
+# y algunos mencionan .demo-table al explicar que NO se incluye).
+$bf = "$root\css\rdm-next.bundle.css"
+if (Test-Path $bf) {
+  $tb = Read-Css $bf
+  $tb = [regex]::Replace($tb, '/\*.*?\*/', '', 'Singleline')
+  if ($tb -match '\.demo-[a-z]') { Write-Output "  DEMO-EN-BUNDLE (chrome en la libreria)"; $pc++ }
+  if ($tb -match 'rdm-showroom-') { Write-Output "  SHOWROOM-EN-BUNDLE (chrome en la libreria)"; $pc++ }
+}
+if ($pc -eq 0) { Write-Output "  chrome con prefijo demo-, bundle limpio" } else { $fail++ }
 
 Write-Output ""
 if ($fail -eq 0) { Write-Output "OK: capa de tokens integra" } else { Write-Output ("FALLA: " + $fail + " chequeo(s)") }

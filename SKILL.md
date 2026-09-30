@@ -47,6 +47,20 @@ como **referencia** y no se toca.
 que solo existen para mostrar tokens. Cada pagina enlaza su demo CSS
 directo en el `<head>`, no via `rdm-next.css`.
 
+**Prefijos del chrome (auditado en v0.90):** `demo-` es la unica senal de
+"esto no va en mango-next". Hay dos familias:
+
+- `demo-<componente>-<rol>` (compuesta) cuando la clase pertenece a una
+  pagina: `.demo-button-row`, `.demo-card-media`.
+- `demo-<concepto>` (simple) cuando es transversal: `.demo-table`,
+  `.demo-type`, `.demo-shape`.
+- `demo-showroom-<estructura>` para el chrome compartido por las 18
+  paginas: `.demo-showroom-bar`, `.demo-showroom-intro`.
+
+Antes esas dos ultimas eran `rdm-showroom-*`, que sonaba a componente de
+libreria. No lo son: el prefijo `demo-` las saca del bundle y las declara
+chrome. `rdm-` queda reservado a la libreria. El check 76 lo custodia.
+
 **Elementos vs modificadores:** `familia-elemento` con guion simple
 (`.rdm-card-content`) es parte del componente y vive en `css/comp/`;
 `familia--modificador` con doble guion es variante de estado o rol. El
@@ -295,8 +309,9 @@ desincronizado (v0.89) que yo introduce por commitear sin correrla.
 | Formato de tabla | Contorno con `border` real, `thead` sobre surface-container-low con title-medium, `td` con body-medium, `code` en monospace, grid uniforme outline-variant, padding con token |
 | Pagina con tabla | Toda pagina con `demo-table` linkea `demo/table.css` (button y menu faltaban) |
 | Huerfanos conocidos | Los no consumidos son exactamente la lista esperada (motion, breakpoint, z-index, typeface) |
+| Prefijo del chrome | Ningun `rdm-showroom-*`; el bundle no contiene clases `demo-*` (chrome fuera de la libreria) |
 
-Corre en cada commit de la capa de tokens. Estado actual: 75/75 en verde.
+Corre en cada commit de la capa de tokens. Estado actual: 76/76 en verde.
 
 **Leccion v0.5:** el import de `primitives/typography.css` se escribio como
 `../primitives/` (sube un nivel de mas) y la hoja nunca llego al navegador:
@@ -544,6 +559,7 @@ cualquier `@import` relativo roto, probado con archivo temporal.
 - **v0.87** - Tipografia de tabla: `thead th` a title-medium (16/24, 500, on-surface) y `td` a body-medium (14/20, 400). Antes title-small (14/20) hacia que el encabezado se confundiera con el contenido. `code` en monospace explicito: el reset de v0.55 ya lo declara y se re-declara porque el selector de la celda lo sobreescribe. M3 no publica token de fuente monospace (0 matches en vendor): queda el generico, sin inventar. Check 73 extendido. Bundle a ?v=0.87. 74/74 en verde.
 - **v0.88** - Container a 840 (v0.74 revertido): vuelve al piso de expanded. Se pidio 800 pero no es un numero publicable y el check 58 lo rechaza; 840 es el siguiente paso real y mantiene el container en un breakpoint con nombre (dogfooding). Nota: v0.74 duro una version. Bundle a ?v=0.88. 74/74 en verde.
 - **v0.89** - Auditoria profunda de tokens (sin cambios de codigo salvo el `?v=`): buce en 4 capas. (1) 26 tokens huerfanos, todos conocidos: 16 motion-duration (d65), 4 breakpoint (var() no vale en @media), 4 z-index (M3 no define apilamiento), 2 typeface. (2) Literales solo en geometria: el `6rem` del FAB large (96px) es legitimo porque la escala M3 termina en 72 (9x) y spacing no cubre dimensiones. (3) Los 21 roles sys usados existen (18 vendor + 3 additions). (4) Contraste medido: light 6.44/13.24/5.84/6.54, dark 7.71/7.19/7.66/10.02: todos pasan 4.5:1. Card elevated=surface-container-low y filled=surface-container-highest confirmados contra la spec viva. Fix: `?v=` estaba en 0.87 con SKILL en 0.88 (el check 69 lo detecto; yo commitee sin correr la suite). Decision de proceso: correr verify-tokens.ps1 SIEMPRE antes de commitear. Bundle a ?v=0.88. 74/74 en verde.
+- **v0.90** - Prefijo del chrome (auditoria + rename): `rdm-showroom-bar` e `rdm-showroom-intro` son chrome de showroom, no componentes; el prefijo `rdm-` mentia. Renombradas a `demo-showroom-*` en las 18 paginas y en showroom.css. Verificado que el bundle NO contiene ninguna clase `demo-*` (0 marcadores) y que rdm-next.css no importa demo/: mango-next nunca ve el chrome. Convencion de prefijos documentada en 4: `demo-<componente>-<rol>`, `demo-<concepto>`, `demo-showroom-<estructura>`; `rdm-` queda reservado a la libreria. Check 76: sin rdm-showroom- y bundle limpio. 76/76 en verde.
 - **v0.57a** - Fix: el Audit del boton estaba en spacing.html y viola la regla de showroom (cada pagina solo muestra su componente). Movido a button.html como seccion Audit; spacing.html queda con 6 secciones de spacing puro.
 - **v0.48** - Anatomia en las 3 variantes: misma composicion (media + texto + linked text + icon + outlined + filled), solo cambia el modificador. El action area es identico porque los 3 botones pasan 4.5:1 en las 3 superficies; tonal y elevated fuera por regla. Sin CSS ni checks nuevos: el check 30 ya valida los 9 botones. 43/43.
 - **v0.26** - Divider: `css/comp/divider.css` (full/inset/middle-inset/vertical, 1px outline-variant) y `divider.html`. Inset 16 solo izquierda (la tabla dice 16/0, middle 16/16). Chrome migrado: 45 `<hr>` entre secciones (+1 escrito a mano), border-top fuera de showroom.css. Check 23: sin border-top en demo, probado contra borde agregado.
