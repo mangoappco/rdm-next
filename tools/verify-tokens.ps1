@@ -1549,6 +1549,43 @@ if (Test-Path $bf) {
 }
 if ($pc -eq 0) { Write-Output "  chrome con prefijo demo-, bundle limpio" } else { $fail++ }
 
+# 77. Acoplamiento inverso (v0.94, decision 37): ninguna regla de la
+# libreria (comp/, rdm/, primitives/, md/) puede usar .demo-*. Se
+# ignoran los comentarios: la frontera se verifica en las reglas, no
+# en la prosa. Si la libreria conoce una clase del showroom, el
+# bundle la arrastra a mango-next.
+Write-Output ""
+Write-Output "=== Acoplamiento inverso ==="
+$ai = 0
+foreach ($d in @("comp","rdm","primitives","md")) {
+  foreach ($f in (Get-ChildItem "$root\css\$d" -Filter *.css -ErrorAction SilentlyContinue)) {
+    $t = Read-Css $f.FullName
+    $t = [regex]::Replace($t, '/\*.*?\*/', '', 'Singleline')
+    if ($t -match '\.demo-[a-z]') { Write-Output ("  DEMO-EN-LIBRERIA " + $d + "/" + $f.Name); $ai++ }
+  }
+}
+if ($ai -eq 0) { Write-Output "  libreria sin clases demo-" } else { $fail++ }
+
+# 78. Bundle completo y limpio (v0.94, decision 37): el bundle debe
+# contener las 4 capas de la libreria (rdm, md, primitives, comp) y
+# cero archivos de demo/. Si alguien agrega un @import de demo al
+# entry, este check lo marca.
+Write-Output ""
+Write-Output "=== Bundle completo y limpio ==="
+$bc = 0
+$bf = "$root\css\rdm-next.bundle.css"
+if (-not (Test-Path $bf)) { Write-Output "  SIN-BUNDLE"; $bc++ }
+else {
+  $tb = Read-Css $bf
+  # los marcadores de capa son comentarios CSS: buscar en el texto original
+  foreach ($capa in @("rdm","md","primitives","comp")) {
+    if (-not $tb.Contains('===== ' + $capa + '\')) { Write-Output ("  SIN-CAPA " + $capa); $bc++ }
+  }
+  $tbSinComentarios = [regex]::Replace($tb, '/\*.*?\*/', '', 'Singleline')
+  if ($tbSinComentarios -match 'demo/') { Write-Output "  DEMO-EN-BUNDLE"; $bc++ }
+}
+if ($bc -eq 0) { Write-Output "  bundle con las 4 capas, sin demo" } else { $fail++ }
+
 Write-Output ""
 if ($fail -eq 0) { Write-Output "OK: capa de tokens integra" } else { Write-Output ("FALLA: " + $fail + " chequeo(s)") }
 exit $fail
